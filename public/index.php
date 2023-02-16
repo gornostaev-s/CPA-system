@@ -93,70 +93,82 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a class="ourservices-card" href="#">
-                    <div class="ourservices-card__img">
-                        <img class="ourservices-card__pic" src="img/service.png" alt="">
-                        <div class="ourservices-card__overflow"></div>
-                    </div>
-                    <div class="ourservices-card__title">
-                        Услуга1
-                    </div>
-                </a>
+                <div class="card-wrapper">
+                    <a class="ourservices-card" href="#">
+                        <div class="ourservices-card__img">
+                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <div class="ourservices-card__overflow"></div>
+                        </div>
+                        <div class="ourservices-card__title">
+                            Услуга1
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-md-4">
-                <a class="ourservices-card" href="#">
-                    <div class="ourservices-card__img">
-                        <img class="ourservices-card__pic" src="img/service.png" alt="">
-                        <div class="ourservices-card__overflow"></div>
-                    </div>
-                    <div class="ourservices-card__title">
-                        Услуга1
-                    </div>
-                </a>
+                <div class="card-wrapper">
+                    <a class="ourservices-card" href="#">
+                        <div class="ourservices-card__img">
+                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <div class="ourservices-card__overflow"></div>
+                        </div>
+                        <div class="ourservices-card__title">
+                            Услуга1
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-md-4">
-                <a class="ourservices-card" href="#">
-                    <div class="ourservices-card__img">
-                        <img class="ourservices-card__pic" src="img/service.png" alt="">
-                        <div class="ourservices-card__overflow"></div>
-                    </div>
-                    <div class="ourservices-card__title">
-                        Услуга1
-                    </div>
-                </a>
+                <div class="card-wrapper">
+                    <a class="ourservices-card" href="#">
+                        <div class="ourservices-card__img">
+                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <div class="ourservices-card__overflow"></div>
+                        </div>
+                        <div class="ourservices-card__title">
+                            Услуга1
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-md-4">
-                <a class="ourservices-card" href="#">
-                    <div class="ourservices-card__img">
-                        <img class="ourservices-card__pic" src="img/service.png" alt="">
-                        <div class="ourservices-card__overflow"></div>
-                    </div>
-                    <div class="ourservices-card__title">
-                        Услуга1
-                    </div>
-                </a>
+                <div class="card-wrapper">
+                    <a class="ourservices-card" href="#">
+                        <div class="ourservices-card__img">
+                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <div class="ourservices-card__overflow"></div>
+                        </div>
+                        <div class="ourservices-card__title">
+                            Услуга1
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-md-4">
-                <a class="ourservices-card" href="#">
-                    <div class="ourservices-card__img">
-                        <img class="ourservices-card__pic" src="img/service.png" alt="">
-                        <div class="ourservices-card__overflow"></div>
-                    </div>
-                    <div class="ourservices-card__title">
-                        Услуга1
-                    </div>
-                </a>
+                <div class="card-wrapper">
+                    <a class="ourservices-card" href="#">
+                        <div class="ourservices-card__img">
+                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <div class="ourservices-card__overflow"></div>
+                        </div>
+                        <div class="ourservices-card__title">
+                            Услуга1
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-md-4">
-                <a class="ourservices-card" href="#">
-                    <div class="ourservices-card__img">
-                        <img class="ourservices-card__pic" src="img/service.png" alt="">
-                        <div class="ourservices-card__overflow"></div>
-                    </div>
-                    <div class="ourservices-card__title">
-                        Услуга1
-                    </div>
-                </a>
+                <div class="card-wrapper">
+                    <a class="ourservices-card" href="#">
+                        <div class="ourservices-card__img">
+                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <div class="ourservices-card__overflow"></div>
+                        </div>
+                        <div class="ourservices-card__title">
+                            Услуга1
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -237,10 +249,10 @@
         <div class="col-md-8 text-center">
             <form action="#">
                 <h2 class="title-primary text-white">
-                    Text
+                    Оставьте заявку
                 </h2>
                 <p class="text-white form-section__text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut commodi culpa cumque, dignissimos doloremque ducimus et excepturi incidunt iusto laboriosam, magni minima pariatur quam reiciendis sit soluta tempore vel.
+                    И мы обязательно с вами свяжемся!
                 </p>
                 <div class="row">
                     <div class="col-md-4">

@@ -122,6 +122,8 @@ p {
 
 .ourservices-card{
   display: block;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
 .ourservices-card__img{
@@ -202,7 +204,7 @@ p {
 
 .form-section {
   background: linear-gradient(269.73deg, #5E60E7 -1.56%, rgba(156, 122, 242, 0.65) 100%);
-  padding: 50px 0;
+  padding: 90px 0;
 }
 
 .ads-section {
@@ -214,8 +216,8 @@ p {
 }
 
 .form-section__text {
-  padding-bottom: 50px;
-  padding-top: 30px;
+  padding-bottom: 30px;
+  /*padding-top: 30px;*/
   font-size: 18px;
 }
 
@@ -226,6 +228,10 @@ p {
   border: 0;
   display: inline-block;
   width: 100%;
+}
+
+.card-wrapper {
+  padding: 15px 0;
 }
 
 .form-section__input::placeholder {
