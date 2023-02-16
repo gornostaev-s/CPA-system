@@ -1,0 +1,241 @@
+header{
+    padding-top: 30px;
+}
+
+a{
+    text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+.header-contacts__link{
+    color: black;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.header-contacts__link__bold{
+  font-weight: 700;
+}
+
+.button-primary {
+  border-color: transparent;
+  color: #fff;
+  background-image: linear-gradient(218deg,#5E61E7 0,#9C7AF2 50%,#5E61E7 100%);
+  background-size: 200% auto;
+  background-position: left center;
+  border-radius: 5px;
+  transition: 0.25s;
+  padding: 15px 30px;
+  display: inline-block;
+}
+    
+.button-primary:hover {
+  background-position: right center;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.header-menu__item{
+  text-decoration: none;
+  display: inline;
+  color: black;
+  padding: 0;
+}
+
+.header-menu {
+ display: flex;
+ justify-content: space-between;
+  padding: 0;
+}
+
+.header-menu__link{
+  color: black;
+}
+
+.main-slide{
+  background-image: url('../img/businessconsultant.png');
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  min-height: 660px;
+  display: flex;
+  align-items: center;
+}
+
+.main-slide__title{
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 61px;
+  color: #000000;
+  margin: 0;
+}
+
+.main-slide__paragraph{
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  color: #8A909A;
+  padding-top: 30px;
+}
+
+.button-wrapper{
+  padding-top: 30px;
+}
+.ourservices{
+  padding-top: 50px;
+}
+
+.ourservices-title__item{
+  text-align: center;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  color: #000000;
+  }
+
+.ourservices-card__title{
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 27px;
+  text-align: center;
+  padding-top: 15px;
+  color: #000000;
+}
+
+.ourservices-card{
+  display: block;
+}
+
+.ourservices-card__img{
+  overflow: hidden;
+  transition: 0.25s;
+  position: relative;
+}
+
+.card-primary {
+  box-shadow: 0px 4px 50px rgba(149, 149, 149, 0.25);
+  padding: 15px;
+}
+
+.ourservices-card__img{
+  overflow: hidden;
+  transition: 0.25s;
+  position: relative;
+}
+
+.ourservices-card__overflow{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(94, 97, 231, 0.3) 100%);
+  border-radius: 4px;
+  top: 0;
+}
+
+.ourservices-card:hover .ourservices-card__img img{
+  transform: scale(1.1)
+}
+
+.leads{
+  padding-top: 80px;
+}
+
+.title-primary {
+  font-family: 'Rubik';
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 61px;
+  color: #000000;
+  margin: 0;
+}
+
+.leads__paragraph{
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 27px;
+  color: #8A909A;
+  padding-top: 30px;
+}
+
+.ourservices-card__img {
+  border-radius: 4px;
+}
+
+.ourservices-card__pic {
+  width: 100%;
+  transition: 0.25s;
+}
+
+.card-wrapper {
+  padding-bottom: 30px;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-content-center {
+  display: flex;
+  justify-content: center;
+}
+
+.form-section {
+  background: linear-gradient(269.73deg, #5E60E7 -1.56%, rgba(156, 122, 242, 0.65) 100%);
+  padding: 50px 0;
+}
+
+.ads-section {
+  padding-bottom: 50px;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.form-section__text {
+  padding-bottom: 50px;
+  padding-top: 30px;
+  font-size: 18px;
+}
+
+.form-section__input {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 15px;
+  border: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.form-section__input::placeholder {
+  color: #fff;
+}
+
+.form-section__submit {
+  border: 0;
+  padding: 15px;
+  border-radius: 4px;
+  width: 100%;
+  background: #fff;
+}

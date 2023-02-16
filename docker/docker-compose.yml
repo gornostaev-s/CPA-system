@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./containers/nginx:/etc/nginx/conf.d
+      - ./../:/var/www
+      - ./logs:/var/log/nginx
+    links:
+      - php
+    env_file:
+      - ../.env
+  php:
+    build: ./containers/php
+    links:
+      - mysql
+    volumes:
+      - ./../:/var/www
+    env_file:
+      - ../.env
+  mysql:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    env_file:
+      - ../.env

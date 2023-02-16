@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+.env
+docker/mysql
+docker/logs
+docker/.env
