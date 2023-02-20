@@ -60,7 +60,7 @@
     </header>
 </section>
 
-<section class="main-slide">
+<section class="main-slide animate-hidden">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -80,7 +80,7 @@
     </div>
 </section>
 
-<section class="ourservices">
+<section class="ourservices animate-hidden">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -173,7 +173,7 @@
         </div>
     </div>
 </section>
-<section class="leads">
+<section class="leads animate-hidden">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -195,7 +195,7 @@
         </div>
     </div>
 </section>
-<section class="ads-section">
+<section class="ads-section animate-hidden">
     <div class="container">
         <div class="row">
             <div class="col-md-6 align-center">
@@ -244,7 +244,7 @@
     </div>
 </section>
 
-<section class="form-section">
+<section class="form-section animate-hidden">
     <div class="container justify-content-center">
         <div class="col-md-8 text-center">
             <form action="#">
@@ -269,7 +269,7 @@
         </div>
     </div>
 </section>
-<section class="advantages-section">
+<section class="advantages-section animate-hidden">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -291,7 +291,7 @@
                             <p class="advantage__text">Текст 1Текст 1Текст 1Текст 1Текст 1 Текст 1Текст 1Текст 1Текст 1Текст 1</p>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="advantage-wrapper">
@@ -305,8 +305,8 @@
                             <p class="advantage__text">Текст 1Текст 1Текст 1Текст 1Текст 1 Текст 1Текст 1Текст 1Текст 1Текст 1</p>
                         </div>
                     </div>
-                </div>    
-            </div>   
+                </div>
+            </div>
             <div class="col-md-4">
                 <div class="advantage-wrapper">
                     <div class="advantage">
@@ -319,10 +319,36 @@
                             <p class="advantage__text">Текст 1Текст 1Текст 1Текст 1Текст 1 Текст 1Текст 1Текст 1Текст 1Текст 1</p>
                         </div>
                     </div>
-                </div>    
-            </div>      
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var $win = $(window);
+        var $marker = $('.animate-hidden');
+
+        $marker.each(function (i, e) {
+            if($win.scrollTop() + $win.height() >= jQuery(e).offset().top) {
+                jQuery(e).addClass('fade-in')
+            }
+        })
+
+//отслеживаем событие прокрутки страницы
+        $win.scroll(function() {
+            //Складываем значение прокрутки страницы и высоту окна, этим мы получаем положение страницы относительно нижней границы окна, потом проверяем, если это значение больше, чем отступ нужного элемента от верха страницы, то значит элемент уже появился внизу окна, соответственно виден
+
+            $marker.each(function (i, e) {
+                if($win.scrollTop() + $win.height() >= jQuery(e).offset().top) {
+                    jQuery(e).addClass('fade-in')
+                }
+            })
+
+        });
+    })
+</script>
 </body>
 </html>

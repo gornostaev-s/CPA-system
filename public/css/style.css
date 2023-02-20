@@ -299,7 +299,7 @@ p {
 
 .advantage:hover .advantage__title {
   color: #FFFFFF;
-} 
+}
 
 .advantage__overflow{
   opacity: 0;
@@ -321,4 +321,14 @@ p {
   background: linear-gradient(255.55deg, #5E60E7 0%, #9C7AF2 100%);
   opacity: 1;
   transition: 0.4s;
+}
+.animate-hidden {
+  opacity: 0;
+  transform: translateY(+100px);
+  transition: 1s;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
 }
