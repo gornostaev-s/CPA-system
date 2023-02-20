@@ -245,3 +245,70 @@ p {
   width: 100%;
   background: #fff;
 }
+.advantages-section{
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
+
+.advantages-title{
+  text-align: center;
+  padding-bottom: 50px;
+}
+.primary-card{
+  background: #FFFFFF;
+  box-shadow: 0px 4px 50px rgba(149, 149, 149, 0.25);
+  border-radius: 4px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+.pic-wrapper{
+  background: #F6F5F9;
+  height: 45px;
+  width: 45px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.advantage-img{
+ 
+}
+
+.advantage__title{
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  color: #000000;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.advantage__text{
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  /* padding-bottom: 15px; */
+}
+
+
+
+.primary-card:hover{
+  background: linear-gradient(255.55deg, #5E60E7 0%, #9C7AF2 100%);
+  transition: 0.25s;
+}
+
+.primary-card:hover .advantage__text {
+  color: #FFFFFF;
+}
+
+.primary-card:hover .advantage__title {
+  color: #FFFFFF;
+}
