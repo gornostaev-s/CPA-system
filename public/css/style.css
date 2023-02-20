@@ -85,7 +85,7 @@ p {
 .main-slide__paragraph{
   font-family: 'Rubik';
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 18px;
   line-height: 27px;
   color: #8A909A;
@@ -287,7 +287,7 @@ p {
 .advantage__text{
   font-family: 'Rubik';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 18px;
   line-height: 22px;
   color: #000000;
