@@ -334,13 +334,13 @@
                 <h4 class="title-primary comments-title">Почему мы?</h4>
             </div>
         </div>
-    </div>
+    
         <div class="slider-section">
             <div class="slider-card-wrapper">
                 <div class="slider-card">
                     <div class="slider-card__content">
                         <div class="slider-card__avatar">
-                            <img src="img/avatar.png" alt="" class="slider-card__img">
+                            <img src="img/avatar.png" alt="">
                         </div>
                         <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
                         <span class="slider-card__name" >Имя Фамилия</span>
@@ -351,7 +351,7 @@
                 <div class="slider-card">
                     <div class="slider-card__content">
                         <div class="slider-card__avatar">
-                            <img src="img/avatar.png" alt="" class="slider-card__img">
+                            <img src="img/avatar.png" alt="">
                         </div>
                         <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
                         <span class="slider-card__name" >Имя Фамилия</span>
@@ -362,7 +362,7 @@
                 <div class="slider-card">
                     <div class="slider-card__content">
                         <div class="slider-card__avatar">
-                            <img src="img/avatar.png" alt="" class="slider-card__img">
+                            <img src="img/avatar.png" alt="">
                         </div>
                         <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
                         <span class="slider-card__name" >Имя Фамилия</span>
@@ -373,7 +373,7 @@
                 <div class="slider-card">
                     <div class="slider-card__content">
                         <div class="slider-card__avatar">
-                            <img src="img/avatar.png" alt="" class="slider-card__img">
+                            <img src="img/avatar.png" alt="">
                         </div>
                         <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
                         <span class="slider-card__name" >Имя Фамилия</span>
@@ -384,25 +384,69 @@
                 <div class="slider-card">
                     <div class="slider-card__content">
                         <div class="slider-card__avatar">
-                            <img src="img/avatar.png" alt="" class="slider-card__img">
+                            <img src="img/avatar.png" alt="">
                         </div>
                         <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
                         <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
             </div> 
-            <!-- <div class="slider-card-wrapper">
+            <div class="slider-card-wrapper">
                 <div class="slider-card">
                     <div class="slider-card__content">
                         <div class="slider-card__avatar">
-                            <img src="img/avatar.png" alt="" class="slider-card__img">
+                            <img src="img/avatar.png" alt="">
                         </div>
                         <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
                         <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
-            </div>        -->
+            </div>       
         </div>
+    </div>    
+</section>
+<section class="faq-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="title-primary faq-title">
+                    Часто задаваемые вопросы
+                </h4>
+                <div class="faq-main">
+
+                    <div class="faq-card__wrapper">
+                        <div class="faq-card js-faqCard">
+                            <div class="faq-card__head js-faqCard">
+                                <h5 class="faq-card__title">Вопрос 1 Вопрос 1 Вопрос 1 Вопрос 1</h5>
+                            </div>
+                            <div class="faq-card__body">
+                                <p class="faq-card__content">
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni deserunt vel repellat dolore molestias. Quod nihil molestiae vero consequatur consectetur delectus, eum, tenetur cupiditate modi expedita voluptate eius dolorem illo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-card-wrapper">
+                        <div class="faq-card js-faqCard">
+                            <div class="faq-card__head">
+                                <h5 class="faq-card__title">Вопрос 1 Вопрос 1 Вопрос 1 Вопрос 1</h5>
+                            </div>
+                            <div class="faq-card__body">
+                                <p class="faq-card__content">
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni deserunt vel repellat dolore molestias. Quod nihil molestiae vero consequatur consectetur delectus, eum, tenetur cupiditate modi expedita voluptate eius dolorem illo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="img/faq.png" alt="">
+            </div>
+        </div>
+    </div>
 </section>
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -415,6 +459,11 @@
   autoplay: true,
   autoplaySpeed: 2000,
 });
+  </script>
+    <script type="text/javascript">
+        jQuery('.js-faqCard').on('click', function(){jQuery(this).toggleClass('active')})
+            
+
   </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

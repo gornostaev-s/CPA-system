@@ -366,10 +366,6 @@ p {
   text-align: center;
 }
 
-.slider-card__img{
-
-}
-
 .slider-card__text{
   color: #6d70a6;
   font-size: 18px;
@@ -399,6 +395,62 @@ p {
 
 
 
+.faq-section{
+  background-color: #f5f7fd;
+}
+
+.faq-title{
+  padding-top: 120px;
+  padding-bottom: 40px;
+}
+
+.faq-card-wrapper{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.faq-card{
+  box-shadow: 0px 4px 50px rgba(149, 149, 149, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.active .faq-card__title{
+  color: #fff;
+  background-color: #9C7AF2;
+}
+.active .faq-card__body{
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+
+.faq-card__title{
+  background: #fff;
+  padding: 19px 30px;
+  cursor: pointer;
+  color:#6d70a6;
+  font-family: Rubik;
+  margin-bottom: 0;
+}
+
+.faq-card__content{
+  color: #7e7e7e;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.74;
+}
+
+.faq-card__body{
+  background-color: #fff;
+  padding: 19px 30px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
 
 
 
