@@ -422,7 +422,7 @@ p {
 .active .faq-card__body{
   opacity: 1;
   height: auto;
-  overflow: visible;
+  overflow: visible;  
 }
 
 
@@ -447,9 +447,6 @@ p {
 .faq-card__body{
   background-color: #fff;
   padding: 19px 30px;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
 }
 
 

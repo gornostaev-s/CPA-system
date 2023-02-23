@@ -414,12 +414,12 @@
                 </h4>
                 <div class="faq-main">
 
-                    <div class="faq-card__wrapper">
+                    <div class="faq-card-wrapper">
                         <div class="faq-card js-faqCard">
                             <div class="faq-card__head js-faqCard">
                                 <h5 class="faq-card__title">Вопрос 1 Вопрос 1 Вопрос 1 Вопрос 1</h5>
                             </div>
-                            <div class="faq-card__body">
+                            <div class="faq-card__body"  style="display:none;">
                                 <p class="faq-card__content">
                                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni deserunt vel repellat dolore molestias. Quod nihil molestiae vero consequatur consectetur delectus, eum, tenetur cupiditate modi expedita voluptate eius dolorem illo.
                                 </p>
@@ -432,7 +432,7 @@
                             <div class="faq-card__head">
                                 <h5 class="faq-card__title">Вопрос 1 Вопрос 1 Вопрос 1 Вопрос 1</h5>
                             </div>
-                            <div class="faq-card__body">
+                            <div class="faq-card__body" style="display:none;">
                                 <p class="faq-card__content">
                                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni deserunt vel repellat dolore molestias. Quod nihil molestiae vero consequatur consectetur delectus, eum, tenetur cupiditate modi expedita voluptate eius dolorem illo.
                                 </p>
@@ -461,7 +461,11 @@
 });
   </script>
     <script type="text/javascript">
-        jQuery('.js-faqCard').on('click', function(){jQuery(this).toggleClass('active')})
+        jQuery('.js-faqCard').on('click', function(){
+        jQuery(this).toggleClass('active')
+        jQuery(this).find('.faq-card__body').slideToggle()
+    })
+        
             
 
   </script>
