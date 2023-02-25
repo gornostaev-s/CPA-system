@@ -26,7 +26,7 @@ p {
 .button-primary {
   border-color: transparent;
   color: #fff;
-  background-image: linear-gradient(218deg,#5E61E7 0,#9C7AF2 50%,#5E61E7 100%);
+  background-image: linear-gradient(218deg,#a0356c 0,#b84480 50%,#a0356c 100%);
   background-size: 200% auto;
   background-position: left center;
   border-radius: 5px;
@@ -142,12 +142,11 @@ p {
   transition: 0.25s;
   position: relative;
 }
-
 .ourservices-card__overflow{
   position: absolute;
   height: 100%;
   width: 100%;
-  background: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(94, 97, 231, 0.3) 100%);
+  background: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, #b844804d 100%);
   border-radius: 4px;
   top: 0;
 }
@@ -290,7 +289,7 @@ p {
   font-weight: 300;
   font-size: 18px;
   line-height: 22px;
-  color: #000000;
+  color: #8A909A;
 }
 
 .advantage:hover .advantage__text{
@@ -367,12 +366,10 @@ p {
 }
 
 .slider-card__text{
-  color: #6d70a6;
+  color: #8A909A;
   font-size: 18px;
-  line-height: 1.78;
   font-family: Rubik;
-  font-weight: 400;
-  letter-spacing: 0em;
+  font-weight: 300;
   padding-top: 20px;
   padding-bottom: 40px;
 }
@@ -387,13 +384,13 @@ p {
 }
 
 .slider-card:hover{
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: 0px 4px 50px rgba(149, 149, 149, 0.25);
+  transition: 0.25s;
 }
 
-
+.slick-slide img {
+  display: inline-block;
+}
 
 .faq-section{
   background-color: #f5f7fd;
@@ -419,20 +416,21 @@ p {
   color: #fff;
   background-color: #9C7AF2;
 }
+
 .active .faq-card__body{
   opacity: 1;
   height: auto;
   overflow: visible;  
 }
 
-
 .faq-card__title{
   background: #fff;
   padding: 19px 30px;
   cursor: pointer;
-  color:#6d70a6;
+  color: #000;
   font-family: Rubik;
   margin-bottom: 0;
+  transition: 0.25s;
 }
 
 .faq-card__content{
@@ -449,6 +447,18 @@ p {
   padding: 19px 30px;
 }
 
+.header-logo__link {
+  text-align: center;
+}
+
+.header-logo__img {
+  max-width: 100%;
+  width: 130px;
+}
+
+.header-logo {
+  /*text-align: center;*/
+}
 
 
 
@@ -469,14 +479,10 @@ p {
   }
 }  */
 
-
-
 @media (max-width: 768px) {
   .form-section__wrapper{padding-top: 10px; padding-bottom: 10px;}
   .advantage-wrapper{padding-top: 10px; padding-bottom: 10px;}
 }
-
-
 
 @media (max-width: 992px) {
   .main-slide {background: none}
