@@ -20,7 +20,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="header-logo__link">
-                            <img class="header-logo__img" src="img/birzha-leads.png" alt="">
+                            <img class="logo-img" src="img/birzha-leads.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -446,6 +446,57 @@
                 <img src="img/faq.png" alt="">
             </div>
         </div>
+    </div>
+</section>
+<section class="footer-section">
+    <div class="container">
+        <footer>
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="#">
+                        <img src="img/birzha-leads.png" alt="" class="logo-img">
+                    </a><br>    
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="footer-font">
+                        Часто задаваемы вопросы
+                    </a><br>
+                    <a href="#" class="footer-font">
+                        Что такое лиды?
+                    </a><br>
+                    <a href="#" class="footer-font">
+                        Что такое лиды?
+                    </a><br>
+                    <a href="#" class="footer-font">
+                        Что такое лиды?
+                    </a><br>
+                </div>
+                <div class="col-md-4">
+                    <a href="tel:+78002553535" class="header-contacts__link header-link">+7 (900) 888-88-88</a><br>
+                    <span class="footer-comments">Время когда звонить</span><br>
+                    <a href="mailto:mail@example.com" class="header-contacts__link header-link">
+                        mail@example.com
+                    </a><br>
+                    <span class="footer-comments">
+                        Для решения любых проблем
+                    </span>
+                </div>
+                <div class="footer-undersection">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="footer-copyright">
+                                Copyright© 2023 Birzha-leads
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="footer-line">
+                                Копирование материалов сайта только с разрешения
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </section>
 

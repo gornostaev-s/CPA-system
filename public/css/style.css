@@ -447,17 +447,16 @@ p {
   padding: 19px 30px;
 }
 
+.faq-img{
+  max-width: 100%;
+}
+
 .header-logo__link {
   text-align: center;
 }
 
-.header-logo__img {
-  max-width: 100%;
-  width: 240px;
-}
-
-.header-logo {
-  /*text-align: center;*/
+.footer-section{
+  padding-top: 40px;
 }
 
 .footer-font{
@@ -492,6 +491,11 @@ p {
   line-height: 27px;
   color: #8A909A;
   padding-top: 30px;
+}
+
+.logo-img{
+  max-width: 100%;
+  width: 240px;
 }
 
 
