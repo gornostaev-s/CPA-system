@@ -48,12 +48,10 @@
                     <div class="header-block-menu">
                         <ul class="header-menu">
                             <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
-                            <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
-                            <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
-                            <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
-                            <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
-                            <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
-                            <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
+                            <li class="header-menu__item"><a href="#" class="header-menu__link">Купить лиды</a></li>
+                            <li class="header-menu__item"><a href="#" class="header-menu__link">Продать лиды</a></li>
+                            <li class="header-menu__item"><a href="#" class="header-menu__link">О нас</a></li>
+                            <li class="header-menu__item"><a href="#" class="header-menu__link">Контакты</a></li>
                         </ul>
                     </div>
                 </div>
@@ -448,7 +446,7 @@
         </div>
     </div>
 </section>
-<section class="footer-section">
+<footer class="footer-section">
     <div class="container">
         <footer>
             <div class="row">
@@ -482,6 +480,7 @@
                     </span>
                 </div>
                 <div class="footer-undersection">
+                    <hr>
                     <div class="row">
                         <div class="col-md-6">
                             <span class="footer-copyright">
@@ -498,11 +497,11 @@
             </div>
         </footer>
     </div>
-</section>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="js/slick.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="slick.min.js"></script>
+<script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript">
     $('.slider-section').slick({
         slidesToShow: 3,

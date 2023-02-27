@@ -201,8 +201,9 @@ p {
   justify-content: center;
 }
 
+/*background-image: linear-gradient(218deg,#a0356c 0,#b84480 50%,#a0356c 100%);*/
 .form-section {
-  background: linear-gradient(269.73deg, #5E60E7 -1.56%, rgba(156, 122, 242, 0.65) 100%);
+  background: linear-gradient(269.73deg, #a0356c -1.56%, #b84480 100%);
   padding: 90px 0;
 }
 
@@ -480,6 +481,7 @@ p {
 
 .footer-undersection{
   padding-top: 30px;
+  padding-bottom: 10px;
 }
 
 .footer-copyright{
