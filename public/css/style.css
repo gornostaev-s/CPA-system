@@ -216,7 +216,6 @@ p {
 
 .form-section__text {
   padding-bottom: 30px;
-  /*padding-top: 30px;*/
   font-size: 18px;
 }
 
@@ -506,6 +505,12 @@ p {
   .leads-card__overflow {
     background-color: #FFFFFF;
     opacity: 30%;
+  }
+  .button-primary{
+    text-align: center;
+  }
+  .form-section__input{
+    max-height: 54px;
   }
 }
 
