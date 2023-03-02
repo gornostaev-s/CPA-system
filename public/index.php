@@ -509,7 +509,7 @@
         autoplaySpeed: 2000,
         dots: false,
         prevArrow: false,
-        nextArrow: false
+        nextArrow: false,
         responsive: [
             {
                 breakpoint: 992,
