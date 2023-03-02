@@ -509,7 +509,7 @@
         autoplaySpeed: 2000,
         dots: false,
         prevArrow: false,
-        nextArrow: false
+        nextArrow: false,
         responsive: [
             {
                 breakpoint: 992,
@@ -517,7 +517,6 @@
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 },
-
             },
             {
                 breakpoint: 768,
