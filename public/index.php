@@ -441,7 +441,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <img src="img/faq.png" alt="">
+                <img src="img/faq.png" alt="" style="max-width:100%">
             </div>
         </div>
     </div>
@@ -511,7 +511,24 @@
         dots: false,
         prevArrow: false,
         nextArrow: false
-    });
+            responsive: [
+    {
+    breakpoint: 992,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+        },
+
+    },
+    {
+    breakpoint: 768,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        },
+    }
+    ]
+});
 </script>
 <script type="text/javascript">
     jQuery('.js-faqCard').on('click', function(){
