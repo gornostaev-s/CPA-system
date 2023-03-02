@@ -177,7 +177,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <!-- <div class="leads-card__overflow"></div> -->
                 <img src="img/leads.png" alt="">
             </div>
             <div class="col-md-6">
@@ -428,7 +427,7 @@
                     <div class="faq-card-wrapper">
                         <div class="faq-card js-faqCard">
                             <div class="faq-card__head">
-                                <h5 class="faq-card__title">Как вы приведете к нам клиентов?</h5>
+                                <h5 class="faq-card__title">Как вы приведёте нам клиентов?</h5>
                             </div>
                             <div class="faq-card__body" style="display:none;">
                                 <p class="faq-card__content">
@@ -441,7 +440,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <img src="img/faq.png" alt="" style="max-width:100%">
+                <img src="img/faq.png" alt="" class="faq-img">
             </div>
         </div>
     </div>
@@ -453,20 +452,20 @@
                 <div class="col-md-4">
                     <a href="#">
                         <img src="img/birzha-leads.png" alt="" class="logo-img">
-                    </a><br>    
+                    </a><br>
                 </div>
                 <div class="col-md-4">
                     <a href="#" class="footer-font">
-                        Часто задаваемы вопросы
+                        Купить лиды
                     </a><br>
                     <a href="#" class="footer-font">
-                        Что такое лиды?
+                        Продать лиды
                     </a><br>
                     <a href="#" class="footer-font">
-                        Что такое лиды?
+                        О нас
                     </a><br>
                     <a href="#" class="footer-font">
-                        Что такое лиды?
+                        Контакты
                     </a><br>
                 </div>
                 <div class="col-md-4">
@@ -511,23 +510,23 @@
         dots: false,
         prevArrow: false,
         nextArrow: false
-            responsive: [
-    {
-    breakpoint: 992,
-        settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-        },
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                },
 
-    },
-    {
-    breakpoint: 768,
-        settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-        },
-    }
-    ]
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            }
+        ]
 });
 </script>
 <script type="text/javascript">
