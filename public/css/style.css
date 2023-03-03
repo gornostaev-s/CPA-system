@@ -636,6 +636,14 @@ p {
   .form-section__input{
     max-height: 54px;
   }
+  .ads-section{
+    padding-top: 40px;
+  }
+}
+@media(width:1200){
+  .main-slide {
+    background-position: right bottom;
+  }
 }
 
 @media (max-width: 768px) {
@@ -643,9 +651,8 @@ p {
   .advantage-wrapper{padding-top: 10px; padding-bottom: 10px;}
   .mob-none{display: none;}
   .main-slide{text-align: center;}
-  .main-slide{min-height: auto; padding-top: 40px;}
-  .leads{text-align: center;}
   .button-wrapper{padding-bottom: 40px;}
+  .logo-footer{padding-bottom: 30px;}
 }
 
 @media (min-width:768px) {
@@ -654,10 +661,12 @@ p {
 
 @media (max-width: 992px) {
   .main-slide {background: none}
-  .form-section__input{padding: 20px;}
+  .mob-none992{display: none;}
+  .main-slide{min-height: auto; padding-top: 40px; text-align: center;}
+  .leads{text-align: center;}
 }
 
-@media (min-width: 992px) and (max-width:1200px) {
+@media (min-width: 992px) and (max-width:1199px) {
   .main-slide{background-position: left 150% bottom;}
 }
 
