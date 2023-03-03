@@ -22,9 +22,24 @@
                         <a href="#" class="header-logo__link">
                             <img class="logo-img" src="img/birzha-leads.png" alt="">
                         </a>
+                        <!-- кнопка бургер -->
+                        <div class="burger-menu pc-none">
+                            <a href="" class="burger-menu_button">
+                                <spun class="burger-menu_lines"></spun>
+                            </a>
+                            <nav class="burger-menu_nav">
+                                <a href="#section-1" class="burger-menu_link">Наши услуги</a>
+                                <a href="#section-2" class="burger-menu_link">О лидах</a>
+                                <a href="#section-3" class="burger-menu_link">Оставьте заявку</a>
+                                <a href="#section-4" class="burger-menu_link">Отзывы</a>
+                                <a href="#section-5" class="burger-menu_link">FAQ</a>
+                            </nav>
+                            <div class="burger-menu_overlay"></div>
+                        </div>
+                        <!-- кнопка бургер -->
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mob-none">
                     <div class="header-address">
                             <span class="header-contacts__link">
                                 г.Москва, ул.им. Калинина, 228
@@ -34,17 +49,17 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mob-none">
                     <div class="header-phone">
                         <a href="tel:+78002553535" class="header-contacts__link header-contacts__link__bold">+7 (900) 999-99-99</a><br>
                         <a href="tel:+78002553535" class="header-contacts__link header-link">+7 (900) 888-88-88</a>
                     </div>
                 </div>
-                <div class="col-md-3 text-right">
+                <div class="col-md-3 text-right mob-none">
                     <a href="" class="button-primary">Личный кабинет</a>
                 </div>
-                <div class="col-md-12 header-underline"> <hr> </div>
-                <div class="col-md-12">
+                <div class="col-md-12 header-underline mob-none"> <hr> </div>
+                <div class="col-md-12 mob-none">
                     <div class="header-block-menu">
                         <ul class="header-menu">
                             <li class="header-menu__item"><a href="#" class="header-menu__link">Главная</a></li>
@@ -60,7 +75,7 @@
     </header>
 </section>
 
-<section class="main-slide animate-hidden">
+<section class="main-slide animate-hidden" id="section-1">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 ">
@@ -96,11 +111,11 @@
                 <div class="card-wrapper">
                     <a class="ourservices-card" href="#">
                         <div class="ourservices-card__img">
-                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <img class="ourservices-card__pic" src="img/dbt.jpeg" alt="">
                             <div class="ourservices-card__overflow"></div>
                         </div>
                         <div class="ourservices-card__title">
-                            Услуга1
+                            Кредиты и займы
                         </div>
                     </a>
                 </div>
@@ -109,11 +124,11 @@
                 <div class="card-wrapper">
                     <a class="ourservices-card" href="#">
                         <div class="ourservices-card__img">
-                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <img class="ourservices-card__pic" src="img/law.jpeg" alt="">
                             <div class="ourservices-card__overflow"></div>
                         </div>
                         <div class="ourservices-card__title">
-                            Услуга1
+                            Юриспрунденция общий поток и банкроство физ. лиц
                         </div>
                     </a>
                 </div>
@@ -122,11 +137,11 @@
                 <div class="card-wrapper">
                     <a class="ourservices-card" href="#">
                         <div class="ourservices-card__img">
-                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <img class="ourservices-card__pic" src="img/rpr.jpeg" alt="">
                             <div class="ourservices-card__overflow"></div>
                         </div>
                         <div class="ourservices-card__title">
-                            Услуга1
+                            Ремонт квартир
                         </div>
                     </a>
                 </div>
@@ -135,11 +150,11 @@
                 <div class="card-wrapper">
                     <a class="ourservices-card" href="#">
                         <div class="ourservices-card__img">
-                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <img class="ourservices-card__pic" src="img/elrpr.jpeg" alt="">
                             <div class="ourservices-card__overflow"></div>
                         </div>
                         <div class="ourservices-card__title">
-                            Услуга1
+                            Ремонт электроники
                         </div>
                     </a>
                 </div>
@@ -148,11 +163,11 @@
                 <div class="card-wrapper">
                     <a class="ourservices-card" href="#">
                         <div class="ourservices-card__img">
-                            <img class="ourservices-card__pic" src="img/service.png" alt="">
+                            <img class="ourservices-card__pic" src="img/mdc.jpeg" alt="">
                             <div class="ourservices-card__overflow"></div>
                         </div>
                         <div class="ourservices-card__title">
-                            Услуга1
+                            Медицина
                         </div>
                     </a>
                 </div>
@@ -173,10 +188,10 @@
         </div>
     </div>
 </section>
-<section class="leads animate-hidden">
+<section class="leads animate-hidden" id="section-2">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mob-none">
                 <img src="img/leads.png" alt="">
             </div>
             <div class="col-md-6">
@@ -244,7 +259,7 @@
     </div>
 </section>
 
-<section class="form-section animate-hidden">
+<section class="form-section animate-hidden" id="section-3">
     <div class="container justify-content-center">
         <div class="col-md-8 text-center">
             <form action="#">
@@ -324,7 +339,7 @@
         </div>
     </div>
 </section>
-<section class="comments-section animate-hidden">
+<section class="comments-section animate-hidden" id="section-4">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -402,7 +417,7 @@
         </div>
     </div>
 </section>
-<section class="faq-section animate-hidden">
+<section class="faq-section animate-hidden" id="section-5">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -439,7 +454,7 @@
 
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6  mob-none">
                 <img src="img/faq.png" alt="" class="faq-img">
             </div>
         </div>
@@ -557,5 +572,35 @@
         });
     })
 </script>
+<!-- бургер кнопка -->
+<script>
+        function burgerMenu(selector) {
+    let menu = $(selector);
+    let button = menu.find('.burger-menu_button', '.burger-menu_lines');
+    let links = menu.find('.burger-menu_link');
+    let overlay = menu.find('.burger-menu_overlay');
+    
+    button.on('click', (e) => {
+        e.preventDefault();
+        toggleMenu();
+    });
+    
+    links.on('click', () => toggleMenu());
+    overlay.on('click', () => toggleMenu());
+    
+    function toggleMenu(){
+        menu.toggleClass('burger-menu_active');
+        
+        if (menu.hasClass('burger-menu_active')) {
+        $('body').css('overlow', 'hidden');
+        } else {
+        $('body').css('overlow', 'visible');
+        }
+    }
+    }
+
+    burgerMenu('.burger-menu');
+</script>
+<!-- бургер кнопка -->
 </body>
 </html>
