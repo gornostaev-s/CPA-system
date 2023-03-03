@@ -191,10 +191,10 @@
 <section class="leads animate-hidden" id="section-2">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 mob-none">
+            <div class="col-md-12 col-lg-6 mob-none992">
                 <img src="img/leads.png" alt="">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="main-slide__content">
                     <h2 class="title-primary">
                         Лиды
@@ -420,12 +420,11 @@
 <section class="faq-section animate-hidden" id="section-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <h4 class="title-primary faq-title">
                     Часто задаваемые вопросы
                 </h4>
                 <div class="faq-main">
-
                     <div class="faq-card-wrapper">
                         <div class="faq-card js-faqCard">
                             <div class="faq-card__head js-faqCard">
@@ -454,7 +453,7 @@
 
                 </div>
             </div>
-            <div class="col-md-6  mob-none">
+            <div class="col-md-6  mob-none992">
                 <img src="img/faq.png" alt="" class="faq-img">
             </div>
         </div>
@@ -466,10 +465,10 @@
             <div class="row">
                 <div class="col-md-4">
                     <a href="#">
-                        <img src="img/birzha-leads.png" alt="" class="logo-img">
+                        <img src="img/birzha-leads.png" alt="" class="logo-img logo-footer">
                     </a><br>
                 </div>
-                <div class="col-md-4">
+                <div class="col-6 col-sm-6 col-md-4">
                     <a href="#" class="footer-font">
                         Купить лиды
                     </a><br>
@@ -483,7 +482,7 @@
                         Контакты
                     </a><br>
                 </div>
-                <div class="col-md-4">
+                <div class="col-6 col-sm-6 col-md-4">
                     <a href="tel:+78002553535" class="header-contacts__link header-link">+7 (900) 888-88-88</a><br>
                     <span class="footer-comments">Время когда звонить</span><br>
                     <a href="mailto:mail@example.com" class="header-contacts__link header-link">
