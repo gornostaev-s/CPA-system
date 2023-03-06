@@ -1,7 +1,7 @@
 .idea
 .DS_Store
 .env
-compose.lock
+composer.lock
 docker/mysql
 docker/logs
 docker/.env
