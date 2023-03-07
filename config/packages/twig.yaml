@@ -4,7 +4,10 @@ twig:
         # directories are relative to the project root dir (but you
         # can also use absolute directories)
         'templates/site': 'site'
+        'templates/auth': 'auth'
 
 when@test:
     twig:
         strict_variables: true
+
+
