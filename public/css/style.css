@@ -692,7 +692,170 @@ p {
 .login-input3{
   min-width: 160px;
 }
+.admin-section{
+  height: 100vh;
+}
+.admin-menu{
+  background-color: #10172a;
+  margin-left: 0;
+  height: 100vh;
+  padding-right: 0;
+}
 
+.admin-profile{
+  padding-top: 80px;
+}
+
+.admin-profile__avatar{
+ text-align: center;
+}
+
+.admin-profile__avatar img{
+  max-width: 96px;
+  border-radius: 50%;
+
+}
+
+.admin-profile__username{
+  font-family: 'Rubik';
+  font-size: 14px;
+  line-height: 27px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.admin-profile__email{
+  font-family: 'Rubik';
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 27px;
+  color: #94A3B8;
+  text-align: center;
+}
+
+.admin-paragraphs{
+  padding-top: 60px;
+  list-style-type: none;
+  padding-left: 9px;
+  padding-right: 16px;
+}
+
+.admin-paragraphs__item:hover{
+  background: #2f2c45;
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.admin-paragraphs__item-active{
+  background: #2f2c45;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.admin-paragraphs a{
+  display: block;
+  font-family: 'Rubik';
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 27px;
+  color: #ffffff;
+  max-width: 100%;
+  opacity: 0.9;
+  padding: 5px 0 5px 15px;
+}
+
+
+.admin-main{
+  padding: 0;
+}
+
+.welcome-section{
+  padding-top: 100px;
+  padding-bottom: 70px;
+  padding-left: 25px;
+}
+
+.welcome-section img{
+  border-radius: 50%;
+  max-width: 75px;
+}
+
+.welcome-message{
+  font-family: 'Rubik';
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 61px;
+  color: #000000;
+}
+
+.fa{
+  padding-right: 8px;
+}
+
+.paragraphs-icon-wrapper{
+  display: inline-block;
+  min-width: 27px;
+}
+
+.admin-panel{
+  padding-top: 30px;
+  background-color: #f1f4f9;
+  height: 100vh;
+  padding-left: 25px;
+}
+
+.admin-card{
+  max-height: 100%;
+  padding: 24px;
+  background-color: #FFFFFF;
+  border-radius: 14px;
+}
+
+.admin-card p{
+  text-align: center;
+}
+
+.admin-card__title{
+  font-size: 16px;
+  color: #1e293b;
+  font-family: 'Rubik';
+  padding-bottom: 15px;
+}
+
+.admin-card__value{
+  font-family: 'Rubik';
+  color: #3b82f6;
+  font-size: 64px;
+}
+
+.admin-card__value-footer{
+  font-family: 'Rubik';
+  color: #2563eb;
+  font-size: 16px;
+}
+
+.admin-card__footer{
+  font-family: 'Rubik';
+  font-size: 13px;
+  padding-top: 24px;
+}
+
+.text-red{
+  color: #ef4444;
+}
+
+.text-orange{
+  color: #f59e0b
+}
+
+.text-green{
+  color: #22c55e
+}
+
+.margin-0{
+  margin-right: 0;
+}
 
 @media (min-width: 768px) and (max-width:992px) {
   .leads-card__overflow {
