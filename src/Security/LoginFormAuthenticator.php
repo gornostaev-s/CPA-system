@@ -44,7 +44,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($token->getUser()->isAdmin()) {
-            return new RedirectResponse($this->urlGenerator->generate('admin_index'));
+            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
         }
 
         return new RedirectResponse($this->urlGenerator->generate('index'));
