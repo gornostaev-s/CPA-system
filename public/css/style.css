@@ -504,7 +504,6 @@ p {
   width: 240px;
 }
 
-/* кнопка бургер */
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,700');
 * {
   margin: 0;
@@ -544,6 +543,7 @@ p {
   -o-transition: 0.4s;
   transition: 0.4s;
 }
+
 .burger-menu_lines {
   top: 50%;
   left: 50%;
@@ -625,7 +625,6 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* кнопка бургер */
 .login-section{
   padding-top: 80px;
   background-image: url(../img/bg-01.webp);
@@ -718,7 +717,7 @@ p {
 
 .admin-profile__username{
   font-family: 'Rubik';
-  font-size: 14px;
+  font-size: 18px;
   line-height: 27px;
   color: #ffffff;
   text-align: center;
@@ -727,7 +726,7 @@ p {
 .admin-profile__email{
   font-family: 'Rubik';
   font-weight: 300;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 27px;
   color: #94A3B8;
   text-align: center;
@@ -757,7 +756,7 @@ p {
   display: block;
   font-family: 'Rubik';
   font-weight: 400;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 27px;
   color: #ffffff;
   max-width: 100%;
@@ -768,6 +767,8 @@ p {
 
 .admin-main{
   padding: 0;
+  height: 100vh;
+  overflow: scroll;
 }
 
 .welcome-section{
@@ -857,6 +858,137 @@ p {
   margin-right: 0;
 }
 
+.settings-section{
+  background-color: #f1f4f9;
+  height: 100vh;
+  display: none;
+  border: 1px grey;
+}
+
+.active{
+  display: block;
+}
+.settings-menu-wrapper{
+
+}
+
+.settings-menu{
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100vh;
+}
+
+.settings-title{
+  font-family: 'Rubik';
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 61px;
+  color: #000000;
+  padding-top: 20px;
+  padding-left: 15px;
+}
+
+.tab{
+  padding-top: 22px;
+  padding-bottom: 22px;
+  padding-left: 22px;
+}
+.tab-active{
+  background-color: #f1f4f9;
+}
+
+.tab:hover{
+  background-color: #f1f4f9;
+  cursor: pointer;
+}
+
+.tab:hover .tab-title{
+  color: #4f46e5
+}
+
+.settings-menu-wrapper{
+  padding-right: 0;
+}
+
+.setting-description{
+  color: grey;
+  font-size: 16px;
+  font-family: 'Rubik' ;
+  font-weight: 300;
+  padding-left: 5px;
+}
+
+.settings-form-wrapper{
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.tabs-icon-wrapper{
+  display: inline-block;
+  min-width: 27px;
+}
+
+.tab-title{
+  color: #1e293b;
+  font-size: 16px;
+  font-family: 'Rubik' ;
+  font-weight: 500;
+  padding-left: 5px;
+}
+
+.tab-text{
+  padding-left: 38px;
+  color: #64748b;
+  font-size: 14px;
+  font-family: 'Rubik' ;
+  font-weight: 300;
+}
+
+.settings-input{
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 15px 15px 15px 25px;
+  border: 1px grey solid;
+  display: inline-block;
+  width: 100%;
+  outline: 0;
+}
+
+.settings-input:focus{
+  border: blue 1px solid;
+}
+
+.settings-label{
+  color: black;
+  padding-bottom: 8px;
+}
+
+.settings-submit-wrapper{
+  text-align: center;
+  padding-top: 20px;
+}
+
+.settings-submit{
+  border: 1px blue solid;;
+  padding: 15px;
+  border-radius: 4px;
+  width: 100%;
+  background: #ffffff;
+  max-width: 30%;
+}
+.padding-0{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.margin-0{
+  margin-right:0;
+}
+
+.default-visible{
+  display:block;
+}
+
 @media (min-width: 768px) and (max-width:992px) {
   .leads-card__overflow {
     background-color: #FFFFFF;
@@ -898,6 +1030,9 @@ p {
   }
   .logo-footer{
     padding-bottom: 30px;
+  }
+  .admin-card-wrapper{
+    padding-top:30px;
   }
 }
 

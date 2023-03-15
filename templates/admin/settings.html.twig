@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <title>Настройки</title>
+</head>
+<body>
+    <section class="admin-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 admin-menu">
+                    <div class="admin-profile">
+                        <div class="admin-profile__avatar">
+                            <img src="/img/brian-hughes.jpg" alt="">
+                        </div>
+                        <p class="admin-profile__username">Имя пользователя</p>
+                        <p class="admin-profile__email">email@example.com</p>
+                    </div>
+                    <ul class="admin-paragraphs">
+                        <li class="admin-paragraphs__item">
+                            <a href="/admin/settings">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                </div>
+                                Настройки сайта
+                            </a>
+                        </li>
+                        <li class="admin-paragraphs__item">
+                            <a href="#">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                </div>
+                                Настройки меню
+                            </a>
+                        </li>
+                        <li class="admin-paragraphs__item">
+                            <a href="#">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                </div>
+                                Услуги
+                            </a>
+                        </li>
+                        <li class="admin-paragraphs__item">
+                            <a href="#">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                </div>
+                                Страницы
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 admin-main">
+                    <header>
+                        Хэдер<!--   <div class="col-sm-12 header-underline mob-none"> <hr> </div> -->
+                    </header>
+                    
+                        <div class="row margin-0">
+                            <div class="col-sm-4 settings-menu-wrapper">
+                                <div class="settings-menu">
+                                    <h5 class="settings-title">
+                                        Настройки
+                                    </h6>
+                                    <div class="tabs">
+                                        <div class="tab js-tab tab-active" data-tab="1">
+                                            <h6 class="tab-title">
+                                                <div class="tabs-icon-wrapper">
+                                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                                </div> 
+                                                Настройки сайта
+                                            </h6>
+                                            <p class="tab-text"> 
+                                                Видимая информация на сайте (телефон, почта, контакты)
+                                            </p>
+                                        </div>
+                                        <div class="tab js-tab" data-tab="2">
+                                            <h6 class="tab-title">
+                                                <div class="tabs-icon-wrapper">
+                                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                                </div> 
+                                                Пункт настроек
+                                            </h6>
+                                            <p class="tab-text"> 
+                                                Lorem ipsum dolor sit amet consectetur
+                                            </p>
+                                        </div>
+                                        <div class="tab js-tab" data-tab="3">
+                                            <h6 class="tab-title">
+                                                <div class="tabs-icon-wrapper">
+                                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                                </div> 
+                                                Пункт настроек
+                                            </h6>
+                                            <p class="tab-text"> 
+                                                Lorem ipsum dolor sit amet consectetur
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 padding-0">
+                                <section class="settings-section js-content default-visible" data-tab="1">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="settings-title">
+                                                    Настройки сайта
+                                                </h6>
+                                            </div>    
+                                            <div class="settings">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Телефон</label>
+                                                                <input id="setting123" class="settings-input" type="number" name="setting" placeholder="8-(999)-99-999-99">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Электронная почта</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="example@email.com">
+                                                            </form>
+                                                        </div>    
+                                                    </div>
+                                                    <div class="col-12"> 
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="setting-description">
+                                                            Описание какой то настройки Lorem ipsum dolor sit amet consectetur 
+                                                        </p>
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                                <div class="settings-submit-wrapper">
+                                                                    <input type="submit" id="setting1234" class="settings-submit" value="Применить">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="settings-section js-content" data-tab="2">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="settings-title">
+                                                    Пример настройки 2
+                                                </h6>
+                                            </div>    
+                                            <div class="settings">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>    
+                                                    </div>
+                                                    <div class="col-12"> 
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="setting-description">
+                                                            Описание какой то настройки Lorem ipsum dolor sit amet consectetur 
+                                                        </p>
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="settings-section js-content" data-tab="3">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="settings-title">
+                                                    Пример настройки 3
+                                                </h6>
+                                            </div>    
+                                            <div class="settings">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>    
+                                                    </div>
+                                                    <div class="col-12"> 
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="setting-description">
+                                                            Описание какой то настройки Lorem ipsum dolor sit amet consectetur 
+                                                        </p>
+                                                        <div class="settings-form-wrapper">
+                                                            <form action="">
+                                                                <label for="setting123" class="settings-label">Пример настройки</label>
+                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>    
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Отслеживаем клик по табу
+jQuery('.js-tab').click(function () {
+  // Запишем таб по которому был сделан клик в переменную для удобства
+  $this = jQuery(this)
+  // Получим идентификатор таба который нужно показать из data-tab
+  const id = $this.data('tab')
+  
+  // Удалим класс active у всех табов
+  jQuery('.js-tab').removeClass('active')
+  // Добавим класс active табу по которому мы кликнули
+  $this.addClass('active')
+  
+  // скроем сначала все вкладки
+  jQuery('.js-content').hide()
+  // покажем вкладку с нужным нам идентификатором
+  jQuery('.js-content[data-tab='+id+']').show();
+   jQuery('.tab').removeClass('tab-active');
+        jQuery(this).toggleClass('tab-active')
+})
+    </script>
+</body>
+</html>

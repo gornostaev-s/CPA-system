@@ -12,4 +12,10 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/index.html.twig');
     }
+
+    #[Route('/admin/settings' , name: 'admin_settings')]
+    public function settingsAction()
+    {
+        return $this->render(view:'admin/settings.html.twig');
+    }
 }
