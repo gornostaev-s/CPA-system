@@ -18,7 +18,7 @@ class AdminFixtures extends Fixture
         $usersData = [
             [
                 'email' => 'admin@birzha-leads.com',
-                'role' => ['admin'],
+                'role' => ['ROLE_ADMIN'],
                 'password' => 'password'
             ]
         ];
