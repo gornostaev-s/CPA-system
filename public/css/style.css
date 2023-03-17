@@ -860,9 +860,14 @@ p {
 
 .settings-section{
   background-color: #f1f4f9;
-  height: 100vh;
+  min-height: 100vh;
   display: none;
   border: 1px grey;
+}
+
+.settings {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .active{
@@ -886,6 +891,7 @@ p {
   color: #000000;
   padding-top: 20px;
   padding-left: 15px;
+  text-align: center;
 }
 
 .tab{
@@ -944,14 +950,15 @@ p {
   font-weight: 300;
 }
 
-.settings-input{
+.settings-input {
   background: #ffffff;
   border-radius: 4px;
-  padding: 15px 15px 15px 25px;
+  padding: 10px;
   border: 1px grey solid;
   display: inline-block;
   width: 100%;
   outline: 0;
+  font-size: 14px;
 }
 
 .settings-input:focus{
