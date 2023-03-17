@@ -4,20 +4,22 @@ namespace App\Entity;
 
 use App\Repository\SiteSettingItemRepository;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SiteSettingItemRepository::class)]
+#[ORM\Table(name: 'site_settings')]
 class SiteSettingItem
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    public int $id;
+    private int $id;
 
     #[ORM\Column(length: 255, nullable: false)]
-    public string $name;
+    private string $name;
 
     #[ORM\Column(type: Types::TEXT, nullable: false)]
-    public string $value;
+    private string $value;
 
     /**
      * Фабричный метод для создания настройки
