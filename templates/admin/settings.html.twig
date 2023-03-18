@@ -85,24 +85,24 @@
                                             <h6 class="tab-title">
                                                 <div class="tabs-icon-wrapper">
                                                     <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                                                </div> 
-                                                Пункт настроек
+                                                </div>
+                                                Настройки профиля
                                             </h6>
-                                            <p class="tab-text"> 
-                                                Lorem ipsum dolor sit amet consectetur
+                                            <p class="tab-text">
+                                                Информация о вашем профиле
                                             </p>
                                         </div>
-                                        <div class="tab js-tab" data-tab="3">
-                                            <h6 class="tab-title">
-                                                <div class="tabs-icon-wrapper">
-                                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                                                </div> 
-                                                Пункт настроек
-                                            </h6>
-                                            <p class="tab-text"> 
-                                                Lorem ipsum dolor sit amet consectetur
-                                            </p>
-                                        </div>
+{#                                        <div class="tab js-tab" data-tab="3">#}
+{#                                            <h6 class="tab-title">#}
+{#                                                <div class="tabs-icon-wrapper">#}
+{#                                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>#}
+{#                                                </div> #}
+{#                                                Пункт настроек#}
+{#                                            </h6>#}
+{#                                            <p class="tab-text"> #}
+{#                                                Lorem ipsum dolor sit amet consectetur#}
+{#                                            </p>#}
+{#                                        </div>#}
                                     </div>
                                 </div>
                             </div>
@@ -160,56 +160,55 @@
                                         </div>
                                     </div>
                                 </section>
-{#                                <section class="settings-section js-content" data-tab="2">#}
-{#                                    <div class="container">#}
-{#                                        <div class="row">#}
-{#                                            <div class="col-12">#}
-{#                                                <h6 class="settings-title">#}
-{#                                                    Пример настройки 2#}
-{#                                                </h6>#}
-{#                                            </div>    #}
-{#                                            <div class="settings">#}
-{#                                                <div class="row">#}
-{#                                                    <div class="col-6">#}
-{#                                                        <div class="settings-form-wrapper">#}
-{#                                                            <form action="">#}
-{#                                                                <label for="setting123" class="settings-label">Пример настройки</label>#}
-{#                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">#}
-{#                                                            </form>#}
-{#                                                        </div>#}
-{#                                                    </div>#}
-{#                                                    <div class="col-6">#}
-{#                                                        <div class="settings-form-wrapper">#}
-{#                                                            <form action="">#}
-{#                                                                <label for="setting123" class="settings-label">Пример настройки</label>#}
-{#                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">#}
-{#                                                            </form>#}
-{#                                                        </div>    #}
-{#                                                    </div>#}
-{#                                                    <div class="col-12"> #}
-{#                                                        <div class="settings-form-wrapper">#}
-{#                                                            <form action="">#}
-{#                                                                <label for="setting123" class="settings-label">Пример настройки</label>#}
-{#                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">#}
-{#                                                            </form>#}
-{#                                                        </div>#}
-{#                                                    </div>#}
-{#                                                    <div class="col-12">#}
-{#                                                        <p class="setting-description">#}
-{#                                                            Описание какой то настройки Lorem ipsum dolor sit amet consectetur #}
-{#                                                        </p>#}
-{#                                                        <div class="settings-form-wrapper">#}
-{#                                                            <form action="">#}
-{#                                                                <label for="setting123" class="settings-label">Пример настройки</label>#}
-{#                                                                <input id="setting123" class="settings-input" type="text" name="setting" placeholder="Примертекста">#}
-{#                                                            </form>#}
-{#                                                        </div>#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </section>#}
+                                <section class="settings-section js-content" data-tab="2">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="settings-title">
+                                                    Настройки профиля
+                                                </h6>
+                                            </div>
+                                            <div class="settings">
+                                                <form action="/admin/settings/profile" method="post">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="avatar-uploader">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="settings-form-wrapper">
+                                                                <label class="settings-label">Ваше имя</label>
+                                                                <input class="settings-input" type="text" name="name" placeholder="Ваше имя" value="{{ app.user.name }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="settings-form-wrapper">
+                                                                <label class="settings-label">Ваша почта</label>
+                                                                <input class="settings-input" type="text" name="mail" placeholder="mail@example.com" value="{{ app.user.email }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="settings-form-wrapper">
+                                                                <label class="settings-label">Номер телефона</label>
+                                                                <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ app.user.phone }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="settings-form-wrapper">
+                                                                <label class="settings-label">Ваш логин на сайте</label>
+                                                                <input class="settings-input" type="text" name="username" placeholder="Придумайте логин" value="{{ app.user.username }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="settings-submit-wrapper">
+                                                            <input type="submit" class="button-primary" value="Применить">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
 {#                                <section class="settings-section js-content" data-tab="3">#}
 {#                                    <div class="container">#}
 {#                                        <div class="row">#}
