@@ -28,7 +28,7 @@ class SiteSetting
     /**
      * @return mixed
      */
-    public function getPublicEmail(): string
+    public function getPublicEmail(): ?string
     {
         return $this->publicEmail;
     }
@@ -36,7 +36,7 @@ class SiteSetting
     /**
      * @return mixed
      */
-    public function getPublicPhone(): string
+    public function getPublicPhone(): ?string
     {
         return $this->publicPhone;
     }
