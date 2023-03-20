@@ -2,10 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\SiteSettingItemRepository;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
-use ReflectionClass;
-
 /**
  * Класс настроек сайта
  *

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Factories\HtmlComponentFactory;
 use App\Service\SiteSettingService;
 use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-    public function __construct(private readonly SiteSettingService $service)
+    public function __construct(
+        private readonly SiteSettingService $service,
+        protected HtmlComponentFactory $htmlFactory
+    )
     {
     }
 

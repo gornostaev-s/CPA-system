@@ -44,14 +44,14 @@
                                 г.Москва, ул.им. Калинина, 228
                             </span>
                     <a href="mailto:mail@example.com" class="header-contacts__link header-link">
-                        mail@example.com
+                        {{ settings.publicEmail }}
                     </a>
                 </div>
             </div>
             <div class="col-md-3 mob-none">
                 <div class="header-phone">
-                    <a href="tel:+78002553535" class="header-contacts__link header-contacts__link__bold">+7 (900) 999-99-99</a><br>
-                    <a href="tel:+78002553535" class="header-contacts__link header-link">+7 (900) 888-88-88</a>
+                    <a href="tel:+78002553535" class="header-contacts__link header-contacts__link__bold">{{ settings.publicPhone }}</a><br>
+                    <a href="tel:+78002553535" class="header-contacts__link header-link">{{ settings.publicPhone }}</a>
                 </div>
             </div>
             <div class="col-md-3 text-right mob-none">
