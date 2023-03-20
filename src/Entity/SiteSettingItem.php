@@ -6,6 +6,9 @@ use App\Repository\SiteSettingItemRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Сущность одного поля настроек приложения
+ */
 #[ORM\Entity(repositoryClass: SiteSettingItemRepository::class)]
 #[ORM\Table(name: 'site_settings')]
 class SiteSettingItem

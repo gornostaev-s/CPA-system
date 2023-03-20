@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230319115353 extends AbstractMigration
+final class Version20230320124826 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -19,17 +19,19 @@ final class Version20230319115353 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE page_templates (
+        $this->addSql('CREATE TABLE pages (
                         id INT NOT NULL auto_increment, 
-                        name VARCHAR(180) NOT NULL, 
-                        fields json, 
-                        template_name VARCHAR(180) NOT NULL, 
+                        title VARCHAR(180) NOT NULL, 
+                        description VARCHAR(180) NOT NULL, 
+                        slug VARCHAR(180) NOT NULL, 
+                        template_id VARCHAR(180) NOT NULL, 
+                        vars json,
                         PRIMARY KEY(id))'
         );
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE page_templates');
+        $this->addSql('DROP TABLE pages');
     }
 }

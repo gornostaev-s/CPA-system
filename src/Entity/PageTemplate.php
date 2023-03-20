@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Entity;
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PageTemplateRepository;
 
 /**
  * Сущность шаблона страницы
  *
- * @property string|null $publicEmail
- * @property string|null $publicPhone
+ * @property int $id
+ * @property string $name
+ * @property array $fields
  */
 #[ORM\Entity(repositoryClass: PageTemplateRepository::class)]
 class PageTemplate
