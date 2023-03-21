@@ -210,6 +210,7 @@ p {
 .form-section {
   background: linear-gradient(269.73deg, #a0356c -1.56%, #b84480 100%);
   padding: 90px 0;
+  margin-bottom: 90px;
 }
 
 .ads-section {
@@ -1031,6 +1032,22 @@ p {
   padding-top: 30px;
 }
 
+.steps-background-top{
+  background-color: #f1f2f9;
+  border-top-right-radius: 100%;
+  border-top-left-radius: 100%;
+  width: 100%;
+  height: 130px;
+}
+
+.steps-background-bottom{
+  background-color: #f1f2f9;
+  border-bottom-right-radius: 100%;
+  border-bottom-left-radius: 100%;
+  width: 100%;
+  height: 130px;
+}
+
 .steps-section{
   background-color: #f1f2f9;
   height: 100%;
@@ -1076,6 +1093,14 @@ p {
   display: inline-block;
 }
 
+.step-card:hover .step {
+    background-color: #38cb89;
+}
+
+.step-card:hover .fa {
+  color: #FFFFFF;
+}
+
 .step-card__title{
   font-family: 'Rubik';
   font-size: 24px;
@@ -1095,6 +1120,76 @@ p {
   font-family: 'Rubik';
   font-weight: 300;
   max-width: 100%;
+}
+
+.steps-poster{
+  padding-top: 80px;
+}
+
+.steps-posters-section {
+  padding-top: 170px;
+  padding-left: 45px;
+}
+
+.steps-poster__content{
+  padding-top: 50px;
+  text-align: left;
+  padding-left: 50px;
+}
+
+.steps-poster__icon{
+  background-color: #f1f2f9;
+  max-width: 100%;
+  padding-top: 50px;
+}
+
+.steps-poster__img{
+  color: #f1f2f9;
+  background-color: #f1f2f9;
+  width: 100%;
+  display: inline-block;
+}
+
+.steps-poster__title{
+  font-family: 'Rubik';
+  color: #ee7455;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  line-height: 1.34;
+  margin-bottom: 0;
+  max-width: 100%;
+  padding-top: 32px;
+}
+
+.steps-poster__subtitle{
+  font-family: 'Rubik';
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.42;
+  margin-bottom: 0;
+  word-wrap: break-word;
+  max-width: 100%;
+  color: #2e3280;
+  padding-top: 24px;
+}
+
+.steps-poster__text{
+  font-family: 'Rubik';
+  font-size: 18px;
+  line-height: 2;
+  margin-bottom: 0;
+  max-width: 100%;
+  color: #7e7e7e;
+  font-weight: 400;
+  letter-spacing: 0em;
+  padding-top: 14px;
+  padding-bottom: 42px;
+}
+
+.fa-check{
+  padding-right: 25px;
 }
 
 .line-1{
