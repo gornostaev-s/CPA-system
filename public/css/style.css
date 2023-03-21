@@ -48,7 +48,7 @@ p {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .header-menu__item{
@@ -243,13 +243,25 @@ p {
   color: #fff;
 }
 
+.form-section__wrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: right;
+}
+
+.form-section__wrapper-last{
+  padding-top: 17px
+}
+
 .form-section__submit {
   border: 0;
   padding: 15px;
   border-radius: 4px;
-  width: 100%;
+  width: 33.33%;
   background: #fff;
+  display: inline-block;
 }
+
 .advantages-section{
   padding-top: 70px;
   padding-bottom: 70px;
@@ -1019,6 +1031,124 @@ p {
   padding-top: 30px;
 }
 
+.steps-section{
+  background-color: #f1f2f9;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+.steps-title{
+  color: #2e3280;
+  font-size: 48px;
+  font-weight: 500;
+  text-align: center;
+  font-family: 'Rubik';
+  margin: 0;
+  padding-bottom: 60px;
+}
+
+.three-steps{
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+
+.step-card-wrapper{
+  max-width: 320px;
+}
+
+.step-card{
+  padding: 0 100px 52px;
+  max-width: 120px;
+  text-align: center;
+}
+
+.step{
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  border-radius: 40px;
+  font-size: 34px;
+  background: #fff;
+  box-shadow: 0 15px 50px rgba(89, 69, 230, 0.12);
+  color: #38cb89;
+  display: inline-block;
+}
+
+.step-card__title{
+  font-family: 'Rubik';
+  font-size: 24px;
+  color: #6d70a6;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 1.23;
+  padding-bottom: 18px;
+}
+
+.step-card__content {
+  text-align: center;
+}
+
+.step-card__text {
+  font-size: 16px;
+  font-family: 'Rubik';
+  font-weight: 300;
+  max-width: 100%;
+}
+
+.line-1{
+  position: absolute;
+  top: 60px;
+  left: 34%;
+  transform: translate(-50%, -5px);
+  height: 10px;
+  width: 100%;
+  line-height: 0;
+}
+
+.line-2{
+  position: absolute;
+  top: 60px;
+  left: 67%;
+  transform: translate(-50%, -5px);
+  height: 10px;
+  width: 100%;
+  line-height: 0;
+}
+
+.dot{
+  display: inline-block;
+  vertical-align: middle;
+  background: #e4e8f6;
+  border-radius: 50%;
+}
+
+.dot-1{
+  width: 2px;
+  height: 2px;
+}
+
+.dot-2{
+  width: 4px;
+  height: 4px;
+}
+
+.dot-3{
+  width: 6px;
+  height: 6px;
+}
+
+.dot-4{
+  width: 8px;
+  height: 8px;
+}
+
+.dot-5{
+  width: 10px;
+  height: 10px;
+}
+
 @media (min-width: 768px) and (max-width:992px) {
   .leads-card__overflow {
     background-color: #FFFFFF;
@@ -1026,9 +1156,6 @@ p {
   }
   .button-primary{
     text-align: center;
-  }
-  .form-section__input{
-    max-height: 54px;
   }
   .ads-section{
     padding-top: 40px;
@@ -1039,12 +1166,19 @@ p {
     background-position: right bottom;
   }
 }
-
-@media (max-width: 768px) {
-  .form-section__wrapper{
-    padding-top: 10px;
-    padding-bottom: 10px;
+@media (max-width: 576px) {
+  .form-section__submit {
+    width: 100%
   }
+}
+
+@media(min-width:1920px){
+  .main-slide {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
   .advantage-wrapper{
     padding-top: 10px;
     padding-bottom: 10px;
