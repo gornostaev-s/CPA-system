@@ -258,10 +258,12 @@ p {
   border: 0;
   padding: 15px;
   border-radius: 4px;
-  width: 33.33%;
+  width: 33.3%;
   background: #fff;
   display: inline-block;
 }
+
+
 
 .advantages-section{
   padding-top: 70px;
@@ -1093,11 +1095,11 @@ p {
   display: inline-block;
 }
 
-.step-card:hover .step {
+.step:hover {
     background-color: #38cb89;
 }
 
-.step-card:hover .fa {
+.step:hover .step-icon {
   color: #FFFFFF;
 }
 
@@ -1144,10 +1146,13 @@ p {
 }
 
 .steps-poster__img{
-  color: #f1f2f9;
-  background-color: #f1f2f9;
   width: 100%;
-  display: inline-block;
+  box-shadow: 0 15px 50px rgba(89,69,230,0.12);
+}
+
+.steps-poster__img:nth-child(1){
+  border-radius: 53px;
+  width: 100%;
 }
 
 .steps-poster__title{
@@ -1198,7 +1203,7 @@ p {
   left: 34%;
   transform: translate(-50%, -5px);
   height: 10px;
-  width: 100%;
+  width: 200px;
   line-height: 0;
 }
 
@@ -1208,7 +1213,7 @@ p {
   left: 67%;
   transform: translate(-50%, -5px);
   height: 10px;
-  width: 100%;
+  width: 200px;
   line-height: 0;
 }
 
@@ -1273,7 +1278,7 @@ p {
     margin: 0 auto;
   }
 }
-
+ @media(max-width: 768px){
   .advantage-wrapper{
     padding-top: 10px;
     padding-bottom: 10px;
