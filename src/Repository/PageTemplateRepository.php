@@ -13,4 +13,10 @@ class PageTemplateRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PageTemplate::class);
     }
+
+    public function flush(PageTemplate $pageTemplate)
+    {
+        $this->entityManager->persist($pageTemplate);
+        $this->entityManager->flush();
+    }
 }

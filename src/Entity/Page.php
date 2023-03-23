@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @property array $vars
  */
 #[ORM\Entity(repositoryClass: PageRepository::class)]
+#[ORM\Table(name: 'pages')]
 class Page
 {
     #[ORM\Id]
@@ -23,19 +24,19 @@ class Page
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'text', length: 65535)]
     private string $title;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'text')]
     private string $description;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'text')]
     private string $slug;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private int $template_id;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $vars;
 
     /**
@@ -66,8 +67,8 @@ class Page
         return $entity;
     }
 
-
     #[ORM\OneToOne(targetEntity: PageTemplate::class)]
+    #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id')]
     protected PageTemplate $template;
 
     /**

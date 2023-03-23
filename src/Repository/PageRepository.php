@@ -13,4 +13,9 @@ class PageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Page::class);
     }
+
+    public function store(Page $page)
+    {
+
+    }
 }

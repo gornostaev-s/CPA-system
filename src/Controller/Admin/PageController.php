@@ -3,41 +3,67 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Page;
+use App\Entity\PageTemplate;
+use App\Factories\JsonResponseFactory;
+use App\Service\PageTemplateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PageController extends AbstractController
 {
-    public function __construct()
+    public function __construct(
+        private readonly PageTemplateService $pageTemplateService,
+        private JsonResponseFactory $jsonResponseFactory
+    )
     {
     }
 
-    #[Route('/admin/pages', name: 'page_list')]
+    #[Route('/admin/page', name: 'page_list')]
     public function listAction(): Response
     {
 
     }
 
-    #[Route(
-        '/admin/pages/{slug}',
-        name: 'page_store',
-        methods: ['PUT', 'POST']
-    )]
-    public function storeAction(Page $page): Response
+    #[Route('/admin/page/{slug}', name: 'page_store', methods: ['PUT'])]
+    public function updateAction(Page $page): Response
     {
 
     }
 
-    #[Route('/admin/pages/{slug}', name: 'page_delete', methods: ['DELETE', 'POST'])]
+    #[Route('/admin/page/', name: 'page_store', methods: ['POST'])]
+    public function addAction()
+    {
+
+    }
+
+    #[Route('/admin/page/{slug}', name: 'page_delete', methods: ['DELETE', 'POST'])]
     public function deleteAction(Page $page): Response
     {
 
     }
 
-    #[Route('/admin/pages/{slug}', name: 'page_view_admin', methods: ['GET'])]
-    public function pageAction(Page $page): Response
+    #[Route('/admin/page/edit/{slug}}', name: 'page_view_admin', methods: ['GET'])]
+    public function pageEditAction(Page $page): Response
     {
+        return $this->render('admin/common/outer.html.twig', [
+            'inner' => 'admin/pages/store.html.twig'
+        ]);
+    }
 
+    #[Route('/admin/page/add', name: 'page_add_admin', methods: ['GET'])]
+    public function pageAddAction(): Response
+    {
+        return $this->render('admin/common/outer.html.twig', [
+            'inner' => 'admin/pages/store.html.twig',
+            'templates' => $this->pageTemplateService->getAllTemplates(),
+            'new' => true
+        ]);
+    }
+
+    #[Route('/admin/page/template/{id}', name: 'page_template_detail_admin', methods: ['GET'])]
+    public function templateDetail(PageTemplate $pageTemplate): Response
+    {
+        return $this->jsonResponseFactory->create($pageTemplate);
     }
 }

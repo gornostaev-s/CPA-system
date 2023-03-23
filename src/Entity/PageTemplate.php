@@ -13,11 +13,31 @@ use App\Repository\PageTemplateRepository;
  * @property array $fields
  */
 #[ORM\Entity(repositoryClass: PageTemplateRepository::class)]
+#[ORM\Table(name: 'page_templates')]
 class PageTemplate
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private int $id;
+
+    #[ORM\Column]
     private string $name;
+
+    #[ORM\Column]
     private array $fields;
+
+    #[ORM\Column]
+    private string $template_name;
+
+    public static function make(string $name, string $templateName): self
+    {
+        $e = new self;
+        $e->name = $name;
+        $e->template_name = $templateName;
+
+        return $e;
+    }
 
     /**
      * @return string
@@ -65,5 +85,21 @@ class PageTemplate
     public function setFields(array $fields): void
     {
         $this->fields = $fields;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplateName(): string
+    {
+        return $this->template_name;
+    }
+
+    /**
+     * @param string $template_name
+     */
+    public function setTemplateName(string $template_name): void
+    {
+        $this->template_name = $template_name;
     }
 }
