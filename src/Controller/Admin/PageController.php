@@ -5,16 +5,21 @@ namespace App\Controller\Admin;
 use App\Entity\Page;
 use App\Entity\PageTemplate;
 use App\Factories\JsonResponseFactory;
+use App\Service\PageService;
 use App\Service\PageTemplateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PageController extends AbstractController
 {
     public function __construct(
         private readonly PageTemplateService $pageTemplateService,
-        private JsonResponseFactory $jsonResponseFactory
+        private readonly PageService $pageService,
+        private readonly JsonResponseFactory $jsonResponseFactory,
+        private readonly UrlGeneratorInterface $urlGenerator
     )
     {
     }
@@ -32,8 +37,19 @@ class PageController extends AbstractController
     }
 
     #[Route('/admin/page/', name: 'page_store', methods: ['POST'])]
-    public function addAction()
+    public function addAction(Request $request): Response
     {
+        $page = Page::make(
+            $request->get('title'),
+            $request->get('description'),
+            $request->get('slug'),
+            $request->get('template_id'),
+        );
+
+        $page->setVars($request->get('vars'));
+        $this->pageService->store($page);
+
+        return $this->redirect($this->urlGenerator->generate('page_list'));
 
     }
 

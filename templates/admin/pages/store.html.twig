@@ -1,5 +1,5 @@
 <div class="admin-wrapper">
-    <form action="#" class="">
+    <form action="/admin/page/" method="post" class="">
         <div class="row">
             <div class="col-md-8 admin-form">
                 <div>
@@ -92,13 +92,13 @@
         const label = '<label class="admin-form__label" for="'+e.name+'">'+ e.label +'</label>'
         switch (e.type) {
             case 'textarea' :
-                var inner = label + '<textarea name="'+e.name+'" class="admin-form__textarea"></textarea>'
+                var inner = label + '<textarea name="vars['+e.name+']" class="admin-form__textarea"></textarea>'
                 break;
             case 'select' :
                 var inner = label
                 break;
             default :
-                var inner = label + '<input name="'+e.name+'" type="'+e.type+'" id="'+e.name+'" class="admin-form__text"/>'
+                var inner = label + '<input name="vars['+e.name+']" type="'+e.type+'" id="'+e.name+'" class="admin-form__text"/>'
                 break;
         }
 

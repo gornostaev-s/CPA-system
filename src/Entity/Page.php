@@ -33,8 +33,8 @@ class Page
     #[ORM\Column(type: 'text')]
     private string $slug;
 
-    #[ORM\Column(type: 'integer')]
-    private int $template_id;
+    #[ORM\Column]
+    public int $template_id;
 
     #[ORM\Column(type: 'json')]
     private array $vars;
@@ -69,7 +69,7 @@ class Page
 
     #[ORM\OneToOne(targetEntity: PageTemplate::class)]
     #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id')]
-    protected PageTemplate $template;
+    public PageTemplate $template;
 
     /**
      * @param int $id

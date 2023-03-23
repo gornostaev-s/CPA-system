@@ -1048,6 +1048,8 @@ p {
 
 .publish-card-wrapper {
   padding-top: 15px;
+  position: sticky;
+  top: 0;
 }
 
 .publish-card__label {
@@ -1126,7 +1128,6 @@ p {
 
 .step-card{
   padding: 0 100px 52px;
-  max-width: 120px;
   text-align: center;
 }
 
