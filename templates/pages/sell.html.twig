@@ -28,15 +28,32 @@
                     {{ page.vars.formDescription }}
                 </p>
                 <div class="row">
-                    <div class="col-md-4 form-section__wrapper">
-                        <input class="form-section__input" type="text" name="phone" placeholder="+7 (999) 999-99-99">
-                    </div>
-                    <div class="col-md-4 form-section__wrapper">
-                        <input class="form-section__input" type="text" name="email" placeholder="mail@example.com">
-                    </div>
-                    <div class="col-md-4 form-section__wrapper">
-                        <input type="submit" class="form-section__submit">
-                    </div>
+                    <form action="#">
+                        <div class="col-md-6 form-section__wrapper">
+                            <input class="form-section__input" type="text" name="usersname" placeholder="Представьтесь, пожалуйста">
+                        </div>
+                        <div class="col-md-6 form-section__wrapper">
+                            <input class="form-section__input" type="text" name="usersbusinesstype" placeholder="Свера вашей деятельности">
+                        </div>
+                        <div class="col-md-6 form-section__wrapper">
+                            <input class="form-section__input" type="number" name="usersphone" placeholder="Ваш номер телефона">
+                        </div>
+                        <div class="col-md-6 form-section__wrapper">
+                            <input class="form-section__input" type="text" name="usersregion" placeholder="Ваш регион">
+                        </div>
+                        <div class="col-md-6 form-section__wrapper">
+                            <input class="form-section__input" type="text" name="usersemail" placeholder="mail@example.com">
+                            <div class="form-section__wrapper-last">
+                                <input class="form-section__input" type="text" name="userscompanyname" placeholder="Название вашей компании">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-section__wrapper">
+                            <textarea class="form-section__input" rows="4" name="userscomments" placeholder="Ваши пожелания"></textarea>
+                        </div>
+                        <div class="col-md-12 form-section__wrapper text-center form-submit-width">
+                            <input type="submit" class="form-section__submit">
+                        </div>
+                    </form>
                 </div>
             </form>
         </div>
@@ -126,7 +143,7 @@
         <div class="col-md-12">
             <div class="steps-posters-section">
                 <div class="step-poster row">
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="steps-poster__icon">
                             <img src="./img/poster1.jpg" alt="" class="steps-poster__img">
                         </div>
@@ -213,84 +230,86 @@
 </section>
 <div class="steps-background-bottom"></div>
 
-<section class="comments-section animate-hidden" id="section-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h4 class="title-primary comments-title">Почему мы?</h4>
+<div class="comments-section__white">
+    <section class="comments-section animate-hidden" id="section-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="title-primary comments-title">Почему мы?</h4>
+                </div>
             </div>
-        </div>
 
-        <div class="slider-section">
-            <div class="slider-card-wrapper">
-                <div class="slider-card">
-                    <div class="slider-card__content">
-                        <div class="slider-card__avatar">
-                            <img src="/img/avatar.png" alt="">
+            <div class="slider-section">
+                <div class="slider-card-wrapper">
+                    <div class="slider-card">
+                        <div class="slider-card__content">
+                            <div class="slider-card__avatar">
+                                <img src="/img/avatar.png" alt="">
+                            </div>
+                            <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
+                            <span class="slider-card__name" >Имя Фамилия</span>
                         </div>
-                        <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
-                        <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
-            </div>
-            <div class="slider-card-wrapper">
-                <div class="slider-card">
-                    <div class="slider-card__content">
-                        <div class="slider-card__avatar">
-                            <img src="/img/avatar.png" alt="">
+                <div class="slider-card-wrapper">
+                    <div class="slider-card">
+                        <div class="slider-card__content">
+                            <div class="slider-card__avatar">
+                                <img src="/img/avatar.png" alt="">
+                            </div>
+                            <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
+                            <span class="slider-card__name" >Имя Фамилия</span>
                         </div>
-                        <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
-                        <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
-            </div>
-            <div class="slider-card-wrapper">
-                <div class="slider-card">
-                    <div class="slider-card__content">
-                        <div class="slider-card__avatar">
-                            <img src="/img/avatar.png" alt="">
+                <div class="slider-card-wrapper">
+                    <div class="slider-card">
+                        <div class="slider-card__content">
+                            <div class="slider-card__avatar">
+                                <img src="/img/avatar.png" alt="">
+                            </div>
+                            <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
+                            <span class="slider-card__name" >Имя Фамилия</span>
                         </div>
-                        <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
-                        <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
-            </div>
-            <div class="slider-card-wrapper">
-                <div class="slider-card">
-                    <div class="slider-card__content">
-                        <div class="slider-card__avatar">
-                            <img src="/img/avatar.png" alt="">
+                <div class="slider-card-wrapper">
+                    <div class="slider-card">
+                        <div class="slider-card__content">
+                            <div class="slider-card__avatar">
+                                <img src="/img/avatar.png" alt="">
+                            </div>
+                            <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
+                            <span class="slider-card__name" >Имя Фамилия</span>
                         </div>
-                        <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
-                        <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
-            </div>
-            <div class="slider-card-wrapper">
-                <div class="slider-card">
-                    <div class="slider-card__content">
-                        <div class="slider-card__avatar">
-                            <img src="/img/avatar.png" alt="">
+                <div class="slider-card-wrapper">
+                    <div class="slider-card">
+                        <div class="slider-card__content">
+                            <div class="slider-card__avatar">
+                                <img src="/img/avatar.png" alt="">
+                            </div>
+                            <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
+                            <span class="slider-card__name" >Имя Фамилия</span>
                         </div>
-                        <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
-                        <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
-            </div>
-            <div class="slider-card-wrapper">
-                <div class="slider-card">
-                    <div class="slider-card__content">
-                        <div class="slider-card__avatar">
-                            <img src="/img/avatar.png" alt="">
+                <div class="slider-card-wrapper">
+                    <div class="slider-card">
+                        <div class="slider-card__content">
+                            <div class="slider-card__avatar">
+                                <img src="/img/avatar.png" alt="">
+                            </div>
+                            <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
+                            <span class="slider-card__name" >Имя Фамилия</span>
                         </div>
-                        <p class="slider-card__text">Since I started using WordPress, I always felt tired of reading through the documentation. No more now, thanks to AeroLand.</p>
-                        <span class="slider-card__name" >Имя Фамилия</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
 <footer class="footer-section">
     <div class="container">

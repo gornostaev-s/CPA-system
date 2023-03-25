@@ -15,7 +15,7 @@
 <section class="admin-section">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 admin-menu">
+            <div class="col-sm-3 admin-aside-column">
                 <div class="admin-profile">
                     <div class="admin-profile__avatar">
                         <img src="/img/brian-hughes.jpg" alt="">
@@ -23,33 +23,45 @@
                     <p class="admin-profile__username">Имя пользователя</p>
                     <p class="admin-profile__email">email@example.com</p>
                 </div>
-                <ul class="admin-paragraphs">
-                    <li class="admin-paragraphs__item">
-                        <a href="/admin/settings">
+                <ul class="admin-menu">
+                    <li class="admin-menu__item">
+                        <a href="/admin/settings" class="admin-menu__link">
                             <div class="paragraphs-icon-wrapper">
                                 <i class="fa fa-tasks" aria-hidden="true"></i>
                             </div>
                             Настройки сайта
                         </a>
                     </li>
-                    <li class="admin-paragraphs__item">
-                        <a href="/admin/menu">
+                    <li class="admin-menu__item">
+                        <a href="/admin/menu" class="admin-menu__link">
                             <div class="paragraphs-icon-wrapper">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                             </div>
                             Настройки меню
                         </a>
+                        <ul class="admin-sub-menu">
+                            <li class="admin-sub-menu__item">
+                                <a class="admin-sub-menu__link" href="/admin/menu">Список меню</a>
+                                <a class="admin-sub-menu__link" href="/admin/menu/add">Создать меню</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="admin-paragraphs__item">
-                        <a href="/admin/services">
+                    <li class="admin-menu__item">
+                        <a href="/admin/service" class="admin-menu__link">
                             <div class="paragraphs-icon-wrapper">
                                 <i class="fa fa-handshake-o" aria-hidden="true"></i>
                             </div>
                             Услуги
                         </a>
+                        <ul class="admin-sub-menu">
+                            <li class="admin-sub-menu__item">
+                                <a class="admin-sub-menu__link" href="/admin/service">Все услуги</a>
+                                <a class="admin-sub-menu__link" href="/admin/service/add">Создать услугу</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="admin-paragraphs__item">
-                        <a href="/admin/pages">
+                    <li class="admin-menu__item">
+                        <a class="admin-menu__link" href="/admin/page">
                             <div class="paragraphs-icon-wrapper">
                                 <i class="fa fa-file-text-o" aria-hidden="true"></i>
                             </div>

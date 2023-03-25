@@ -707,7 +707,7 @@ p {
 .admin-section{
   height: 100vh;
 }
-.admin-menu{
+.admin-aside-column{
   background-color: #10172a;
   margin-left: 0;
   min-height: 100vh;
@@ -749,27 +749,30 @@ p {
   text-align: center;
 }
 
-.admin-paragraphs{
+.admin-menu{
   padding-top: 60px;
   list-style-type: none;
   padding-left: 9px;
   padding-right: 16px;
 }
 
-.admin-paragraphs__item:hover{
-  background: #2f2c45;
-  transition: 0.3s;
-  width: 100%;
-  border-radius: 5px;
+.admin-menu__link {
+  transition: 0.25s;
 }
 
-.admin-paragraphs__item-active{
+.admin-menu__link:hover{
   background: #2f2c45;
   width: 100%;
   border-radius: 5px;
 }
 
-.admin-paragraphs a{
+.admin-menu__item_active {
+  background: #2f2c45;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.admin-menu__link, .admin-sub-menu__link {
   display: block;
   font-family: 'Rubik';
   font-weight: 400;
@@ -777,10 +780,23 @@ p {
   line-height: 27px;
   color: #ffffff;
   max-width: 100%;
-  opacity: 0.9;
   padding: 5px 0 5px 15px;
 }
 
+.admin-sub-menu__link:hover {
+  text-decoration: underline;
+}
+
+.admin-sub-menu__link {
+  font-size: 16px;
+  padding: 0 0 0 15px;
+}
+
+.admin-sub-menu {
+  padding: 10px;
+  padding-left: 32px;
+  border-top: 1px solid rgba(97, 95, 95, 0.52);
+}
 
 .admin-main{
   padding: 0;
@@ -1205,7 +1221,7 @@ p {
 
 .steps-poster__img:nth-child(1){
   border-radius: 53px;
-  width: 100%;
+  max-width: 100%;
 }
 
 .steps-poster__title{
@@ -1326,6 +1342,10 @@ p {
   outline: 0;
   font-size: 14px;
   -webkit-appearance: none;
+}
+
+.comments-section__white .comments-section {
+  background-color: transparent;
 }
 
 .dashboard-table-wrapper{
