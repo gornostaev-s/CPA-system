@@ -99,6 +99,7 @@ p {
 .button-wrapper{
   padding-top: 30px;
 }
+
 .ourservices{
   padding-top: 50px;
 }
@@ -1262,6 +1263,10 @@ p {
   padding-bottom: 42px;
 }
 
+.step-button-wrapper{
+  padding-top: 30px;
+}
+
 .fa-check{
   padding-right: 25px;
 }
@@ -1466,6 +1471,21 @@ p {
   }
   .steps-background-bottom-wrapper{
     padding-bottom: 50px;
+  }
+  .steps-poster__content{
+    padding: 0;
+  }
+  .steps-posters-section{
+    padding-top: 0;
+  }
+  .step-button-wrapper{
+    text-align: center;
+  }
+  .step-poster{
+    padding-top: 30px;
+  }
+  .steps-poster__icon{
+    padding-top: 20px;
   }
 }
 
