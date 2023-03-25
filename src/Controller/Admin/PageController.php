@@ -27,7 +27,9 @@ class PageController extends AbstractController
     #[Route('/admin/page', name: 'page_list')]
     public function listAction(): Response
     {
-
+        return $this->render('admin/common/outer.html.twig', [
+            'inner' => 'admin/pages/list.html.twig',
+        ]);
     }
 
     #[Route('/admin/page/{slug}', name: 'page_store', methods: ['PUT'])]
