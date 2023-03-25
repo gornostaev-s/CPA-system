@@ -258,10 +258,11 @@ p {
   border: 0;
   padding: 15px;
   border-radius: 4px;
-  width: 33.3%;
+  width: 100%;
   background: #fff;
   display: inline-block;
 }
+
 .advantages-section{
   padding-top: 70px;
   padding-bottom: 70px;
@@ -1432,6 +1433,19 @@ p {
   .main-slide{min-height: auto; padding-top: 40px; text-align: center;
   }
   .leads{text-align: center;
+  }
+  .steps-posters-section{
+    padding-left: 0;
+  }
+  .three-steps{
+    padding-left: 25px;
+    padding-right: 25px;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  .steps-background-bottom-wrapper{
+    padding-bottom: 50px;
   }
 }
 
