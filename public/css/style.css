@@ -1106,6 +1106,10 @@ p {
   padding-bottom: 30px;
   text-align: center;
 }
+.step-poster{
+  padding-top: 70px;
+}
+
 .steps-title{
   color: #2e3280;
   font-size: 48px;
@@ -1194,7 +1198,7 @@ p {
 }
 
 .steps-poster__img{
-  width: 100%;
+  max-width: 100%;
   box-shadow: 0 15px 50px rgba(89,69,230,0.12);
 }
 
@@ -1321,6 +1325,44 @@ p {
   outline: 0;
   font-size: 14px;
   -webkit-appearance: none;
+}
+
+.dashboard-table-wrapper{
+  padding-top: 130px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.dashboard-table{
+  font-family: 'Rubik';
+  width: 100%;
+  font-weight: 300;
+}
+
+.dashboard-table__head{
+  color: #64748b;
+  font-size: 16px;
+  border-bottom: #e2e8f0 1px solid;
+}
+.dashboard-table__col{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.dashboard-table__buttons{
+  text-decoration: none;
+  color: inherit;
+}
+
+.dashboard-table__col_last{
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.dashboard-table__row{
+  border-bottom: #e2e8f0 1px solid;
+  font-size: 18px;
 }
 
 @media (min-width: 768px) and (max-width:992px) {
