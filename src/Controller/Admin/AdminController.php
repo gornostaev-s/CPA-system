@@ -2,28 +2,32 @@
 
 namespace App\Controller\Admin;
 
-use App\Factories\HtmlComponentFactory;
 use App\Service\SiteSettingService;
 use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AdminController extends AbstractController
 {
     public function __construct(
         private readonly SiteSettingService $service,
-        protected HtmlComponentFactory $htmlFactory
+        private readonly UrlGeneratorInterface $urlGenerator
     )
     {
     }
 
+    /**
+     * @return Response
+     */
     #[Route('/admin', name: 'admin_dashboard')]
     public function dashboardAction(): Response
     {
         return $this->render('admin/common/outer.html.twig', [
-            'inner' => 'admin/index.html.twig'
+            'inner' => 'admin/pages/index.html.twig'
         ]);
     }
 
@@ -31,20 +35,26 @@ class AdminController extends AbstractController
      * @return Response
      * @throws ReflectionException
      */
-    #[Route('/admin/settings' , name: 'admin_settings')]
-    public function settingsAction(Request $request): Response
+    #[Route('/admin/settings' , name: 'admin_settings', methods: ['GET'])]
+    public function settingsAction(): Response
     {
-        $settings = $this->service->get();
-
-        if ($request->isMethod('POST')) {
-            $settings->publicEmail = $request->get('publicEmail');
-            $settings->publicPhone = $request->get('publicPhone');
-
-            $this->service->save($settings);
-        }
-
-        return $this->render('admin/settings.html.twig', [
-            'settings' => $settings
+        return $this->render('admin/outer.html.twig', [
+            'inner' => 'admin/pages/settings.html.twig',
+            'settings' => $this->service->get()
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ReflectionException
+     */
+    #[Route('/admin/settings', name: 'settings_store', methods: ['POST'])]
+    public function saveSettings(Request $request): RedirectResponse
+    {
+        $setting = $this->service->get();
+        $this->service->save($setting, $request);
+
+        return $this->redirect($this->urlGenerator->generate('admin_settings'));
     }
 }

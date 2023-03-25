@@ -1,0 +1,118 @@
+<div class="admin-wrapper">
+    <form action="/admin/page/" method="post" class="">
+        <div class="row">
+            <div class="col-md-8 admin-form">
+                <div>
+                    <h1 class="admin-title">
+                        Обновить страницу
+                    </h1>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Введите заголовок</label>
+                    <input type="text" name="title" class="admin-form__text" placeholder="Название страницы" value="{{ page.title }}">
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Введите описание</label>
+                    <input type="text" name="description" class="admin-form__text" placeholder="Описание страницы" value="{{ page.description }}">
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Символьный код страницы, желательно латиницей (который будет виден в урл)</label>
+                    <input type="text" name="slug" class="admin-form__text" placeholder="Слаг страницы" value="{{ page.slug }}">
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Выберите шаблон</label>
+                    <select name="template_id" class="admin-form__select" id="templateId">
+                        <option value="">Выберите шаблон</option>
+                        {% for template in templates %}
+                            <option {% if page.template_id == template.id %} selected {% endif %} value="{{ template.id }}">{{ template.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="admin-form__section">
+                    <h3>
+                        Переменные страницы
+                    </h3>
+                    <div id="formVars">
+                        {% for key, field in page.vars %}
+                            {% set item = page.getField(key)  %}
+
+                            {% if item.type == 'textarea' %}
+                                <div class="admin-form__group">
+                                    <label class="admin-form__label" for="{{ key }}">{{ item.label }}</label>
+                                    <textarea id="{{ key }}" class="admin-form__textarea">{{ field }}</textarea>
+                                </div>
+                            {% elseif item.type == 'select' %}
+                            {% else %}
+                                <div class="admin-form__group">
+                                    <label class="admin-form__label" for="{{ key }}">{{ item.label }}</label>
+                                    <input type="{{ item.type }}" name="vars[{{ key }}]" id="{{ key }}" value="{{ field }}" class="admin-form__text">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="publish-card-wrapper">
+                    <div class="publish-card">
+                        <div class="publish-card__text">
+                            <p class="publish-card__label">
+                                Страница не сохранена, сохраните страницу
+                            </p>
+                            <p class="publish-card__label">
+                                Статус страницы: Новая
+                            </p>
+                            <p class="publish-card__label">
+                                <a href="#" class="text-red">Удалить страницу</a>
+                            </p>
+                        </div>
+                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Сохранить" {% if page.template_id is empty %} disabled {% endif %}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        jQuery('#templateId').on('input', function () {
+            const templateId = jQuery(this).val();
+            if (!templateId) {
+                jQuery('#submit').attr('disabled', true)
+            } else {
+                jQuery.ajax({
+                    url: '/admin/page/template/' + templateId,
+                    success: function (response) {
+                        jQuery('#submit').removeAttr('disabled')
+                        let res = '';
+                        response.fields.forEach(function (e) {
+                            res += htmlFactory(e)
+                        })
+
+                        jQuery('#formVars').html(res)
+                    }
+                })
+            }
+        })
+    })
+
+    function htmlFactory(e) {
+        const label = '<label class="admin-form__label" for="'+e.name+'">'+ e.label +'</label>'
+        switch (e.type) {
+            case 'textarea' :
+                var inner = label + '<textarea name="vars['+e.name+']" class="admin-form__textarea"></textarea>'
+                break;
+            case 'select' :
+                var inner = label
+                break;
+            default :
+                var inner = label + '<input name="vars['+e.name+']" type="'+e.type+'" id="'+e.name+'" class="admin-form__text"/>'
+                break;
+        }
+
+        return '<div class="admin-form__group">'+ inner +'</div>'
+    }
+</script>

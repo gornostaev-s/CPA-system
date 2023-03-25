@@ -1,0 +1,120 @@
+<div class="row margin-0">
+    <div class="col-sm-4 settings-menu-wrapper">
+        <div class="settings-menu">
+            <h5 class="settings-title">
+                Настройки
+            </h5>
+            <div class="tabs">
+                <div class="tab js-tab tab-active" data-tab="1">
+                    <h6 class="tab-title">
+                        <div class="tabs-icon-wrapper">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </div>
+                        Настройки сайта
+                    </h6>
+                    <p class="tab-text">
+                        Видимая информация на сайте (телефон, почта, контакты)
+                    </p>
+                </div>
+                <div class="tab js-tab" data-tab="2">
+                    <h6 class="tab-title">
+                        <div class="tabs-icon-wrapper">
+                            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                        </div>
+                        Настройки профиля
+                    </h6>
+                    <p class="tab-text">
+                        Информация о вашем профиле
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 padding-0">
+        <section class="settings-section js-content default-visible" data-tab="1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Настройки сайта
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/admin/settings" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label for="setting123" class="settings-label">Телефон</label>
+                                        <input id="setting123" class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ settings.publicPhone }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label for="setting123" class="settings-label">Электронная почта</label>
+                                        <input id="setting123" class="settings-input" type="text" name="email" placeholder="example@email.com" value="{{ settings.publicEmail }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <div class="settings-submit-wrapper">
+                                            <input type="submit" id="setting1234" class="button-primary" value="Применить">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="settings-section js-content" data-tab="2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Настройки профиля
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/admin/settings/profile" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="avatar-uploader">
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ваше имя</label>
+                                        <input class="settings-input" type="text" name="name" placeholder="Ваше имя" value="{{ app.user.name }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ваша почта</label>
+                                        <input class="settings-input" type="text" name="mail" placeholder="mail@example.com" value="{{ app.user.email }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Номер телефона</label>
+                                        <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ app.user.phone }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ваш логин на сайте</label>
+                                        <input class="settings-input" type="text" name="username" placeholder="Придумайте логин" value="{{ app.user.username }}">
+                                    </div>
+                                </div>
+                                <div class="settings-submit-wrapper">
+                                    <input type="submit" class="button-primary" value="Применить">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -33,9 +33,6 @@ class Page
     #[ORM\Column(type: 'text')]
     private string $slug;
 
-    #[ORM\Column]
-    public int $template_id;
-
     #[ORM\Column(type: 'json')]
     private array $vars;
 
@@ -70,6 +67,22 @@ class Page
     #[ORM\OneToOne(targetEntity: PageTemplate::class)]
     #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id')]
     public PageTemplate $template;
+
+    /**
+     * @return PageTemplate
+     */
+    public function getTemplate(): PageTemplate
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param PageTemplate $template
+     */
+    public function setTemplate(PageTemplate $template): void
+    {
+        $this->template = $template;
+    }
 
     /**
      * @param int $id
@@ -165,5 +178,10 @@ class Page
     public function getVars(): array
     {
         return $this->vars;
+    }
+
+    public function getField(string $fieldName): array
+    {
+        return $this->template->getFieldByName($fieldName);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PageTemplateRepository;
 
@@ -58,9 +59,9 @@ class PageTemplate
     /**
      * @return array
      */
-    public function getFields(): array
+    public function getFields(): ArrayCollection
     {
-        return $this->fields;
+        return new ArrayCollection($this->fields);
     }
 
     /**
@@ -101,5 +102,12 @@ class PageTemplate
     public function setTemplateName(string $template_name): void
     {
         $this->template_name = $template_name;
+    }
+
+    public function getFieldByName(string $name): array
+    {
+        return $this->getFields()->findFirst(function ($i, $e) use ($name) {
+            return $e['name'] == $name;
+        });
     }
 }

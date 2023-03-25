@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\SiteSetting;
 use App\Repository\SiteSettingRepository;
 use ReflectionException;
+use Symfony\Component\HttpFoundation\Request;
 
 class SiteSettingService
 {
@@ -24,11 +25,15 @@ class SiteSettingService
 
     /**
      * @param SiteSetting $setting
+     * @param Request $request
      * @return void
      * @throws ReflectionException
      */
-    public function save(SiteSetting $setting): void
+    public function save(SiteSetting $setting, Request $request): void
     {
+        $setting->set('publicPhone', $request->get('phone'));
+        $setting->set('publicEmail', $request->get('email'));
+
         $this->repository->flush($setting);
     }
 }

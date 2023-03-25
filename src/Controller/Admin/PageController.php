@@ -31,9 +31,16 @@ class PageController extends AbstractController
     }
 
     #[Route('/admin/page/{slug}', name: 'page_store', methods: ['PUT'])]
-    public function updateAction(Page $page): Response
+    public function updateAction(Page $page, Request $request): Response
     {
+        $page->setTitle($request->get('title'));
+        $page->setDescription($request->get('description'));
+        $page->setSlug($request->get('slug'));
+        $page->setVars($request->get('vars'));
 
+        $this->pageService->store($page);
+
+        return $this->redirect($this->urlGenerator->generate('page_list'));
     }
 
     #[Route('/admin/page/', name: 'page_store', methods: ['POST'])]
@@ -59,11 +66,13 @@ class PageController extends AbstractController
 
     }
 
-    #[Route('/admin/page/edit/{slug}}', name: 'page_view_admin', methods: ['GET'])]
+    #[Route('/admin/page/edit/{slug}', name: 'page_view_admin', methods: ['GET'])]
     public function pageEditAction(Page $page): Response
     {
         return $this->render('admin/common/outer.html.twig', [
-            'inner' => 'admin/pages/store.html.twig'
+            'inner' => 'admin/pages/update.html.twig',
+            'templates' => $this->pageTemplateService->getAllTemplates(),
+            'page' => $page
         ]);
     }
 

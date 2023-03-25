@@ -50,9 +50,9 @@ class SiteSettingRepository
             $settingItem = $this->repository->findOneBy(['name' => $name]);
 
             if (empty($settingItem)) {
-                $settingItem = SiteSettingItem::make($name, $setting->$name);
+                $settingItem = SiteSettingItem::make($name, $setting->get($name));
             } else {
-                $settingItem->setValue($setting->$name);
+                $settingItem->setValue($setting->get($name));
             }
 
             $this->entityManager->persist($settingItem);

@@ -62,4 +62,9 @@ class SiteSetting
     {
         $this->$name = $value;
     }
+
+    public function get(string $name): mixed
+    {
+        return $this->$name;
+    }
 }
