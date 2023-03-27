@@ -1,103 +1,33 @@
 <div class="dashboard-table-wrapper">
-    <table class="dashboard-table">
-        <thead class="dashboard-table__head">
-           <tr>
-               <td class="dashboard-table__col">Название страницы</td>
-               <td class="dashboard-table__col">Дата публикации</td>
-               <td class="dashboard-table__col">Статус</td>
-               <td class="dashboard-table__col_last">Действия</td>
-           </tr>
-        </thead>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr class="dashboard-table__row">
-            <td class="dashboard-table__col">Страница такая-то</td>
-            <td class="dashboard-table__col">Дата такая-то</td>
-            <td class="dashboard-table__col">Статус такой-то</td>
-            <td class="dashboard-table__col_last">
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="#" class="dashboard-table__buttons">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-    </table>
+    <h1>
+        Страницы
+    </h1>
+
+    <div class="dashboard-table-outer">
+        <table class="dashboard-table">
+            <thead class="dashboard-table__head">
+            <tr>
+                <td class="dashboard-table__col">Название страницы</td>
+                <td class="dashboard-table__col">Дата публикации</td>
+                <td class="dashboard-table__col">Статус</td>
+                <td class="dashboard-table__col_last">Действия</td>
+            </tr>
+            </thead>
+            {% for page in pages %}
+            <tr class="dashboard-table__row">
+                <td class="dashboard-table__col">{{ page.title }}</td>
+                <td class="dashboard-table__col">01.01.2023 00:00:00</td>
+                <td class="dashboard-table__col">Опубликовано</td>
+                <td class="dashboard-table__col_last">
+                    <a href="/admin/page/edit/{{ page.slug }}" class="dashboard-table__buttons">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="/admin/page/delete/{{ page.slug }}" class="dashboard-table__buttons">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Page;
 use App\Repository\PageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class PageService
 {
@@ -42,5 +43,10 @@ class PageService
     public function store(Page $page): void
     {
         $this->pageRepository->store($page);
+    }
+
+    public function filter(): array
+    {
+        return $this->pageRepository->findAll();
     }
 }

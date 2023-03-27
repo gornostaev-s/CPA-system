@@ -16,10 +16,7 @@ class PageRepository extends ServiceEntityRepository
 
     public function store(Page $page)
     {
-//        dd($page->template_id);
-//        dd($page);
         $this->entityManager->persist($page);
-//        dd($this->entityManager->);
         $this->entityManager->flush();
     }
 }

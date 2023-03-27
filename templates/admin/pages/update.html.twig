@@ -1,5 +1,5 @@
 <div class="admin-wrapper">
-    <form action="/admin/page/" method="post" class="">
+    <form action="/admin/page/{{ page.slug }}" method="POST" class="">
         <div class="row">
             <div class="col-md-8 admin-form">
                 <div>
@@ -24,7 +24,7 @@
                     <select name="template_id" class="admin-form__select" id="templateId">
                         <option value="">Выберите шаблон</option>
                         {% for template in templates %}
-                            <option {% if page.template_id == template.id %} selected {% endif %} value="{{ template.id }}">{{ template.name }}</option>
+                            <option {% if page.template.id == template.id %} selected {% endif %} value="{{ template.id }}">{{ template.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -34,19 +34,17 @@
                         Переменные страницы
                     </h3>
                     <div id="formVars">
-                        {% for key, field in page.vars %}
-                            {% set item = page.getField(key)  %}
-
+                        {% for item in page.template.fields %}
                             {% if item.type == 'textarea' %}
                                 <div class="admin-form__group">
-                                    <label class="admin-form__label" for="{{ key }}">{{ item.label }}</label>
-                                    <textarea id="{{ key }}" class="admin-form__textarea">{{ field }}</textarea>
+                                    <label class="admin-form__label" for="{{ item.name }}">{{ item.label }}</label>
+                                    <textarea id="{{ item.name }}" name="vars[{{ item.name }}]" class="admin-form__textarea">{{ page.vars[item.name] }}</textarea>
                                 </div>
                             {% elseif item.type == 'select' %}
                             {% else %}
                                 <div class="admin-form__group">
-                                    <label class="admin-form__label" for="{{ key }}">{{ item.label }}</label>
-                                    <input type="{{ item.type }}" name="vars[{{ key }}]" id="{{ key }}" value="{{ field }}" class="admin-form__text">
+                                    <label class="admin-form__label" for="{{ item.name }}">{{ item.label }}</label>
+                                    <input type="{{ item.type }}" name="vars[{{ item.name }}]" id="{{ item.name }}" value="{{ page.vars[item.name] }}" class="admin-form__text">
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -68,7 +66,7 @@
                                 <a href="#" class="text-red">Удалить страницу</a>
                             </p>
                         </div>
-                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Сохранить" {% if page.template_id is empty %} disabled {% endif %}>
+                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Сохранить" {% if page.template.id is empty %} disabled {% endif %}>
                     </div>
                 </div>
             </div>

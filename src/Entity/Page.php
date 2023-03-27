@@ -159,7 +159,7 @@ class Page
     /**
      * @return int
      */
-    public function getTemplateId(): int
+    public function getTemplate_id(): int
     {
         return $this->template_id;
     }

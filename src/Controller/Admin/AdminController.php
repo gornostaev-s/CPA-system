@@ -38,7 +38,7 @@ class AdminController extends AbstractController
     #[Route('/admin/settings' , name: 'admin_settings', methods: ['GET'])]
     public function settingsAction(): Response
     {
-        return $this->render('admin/outer.html.twig', [
+        return $this->render('admin/common/outer.html.twig', [
             'inner' => 'admin/pages/settings.html.twig',
             'settings' => $this->service->get()
         ]);

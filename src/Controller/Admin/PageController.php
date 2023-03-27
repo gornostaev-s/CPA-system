@@ -27,12 +27,15 @@ class PageController extends AbstractController
     #[Route('/admin/page', name: 'page_list')]
     public function listAction(): Response
     {
+        $pages = $this->pageService->filter();
+
         return $this->render('admin/common/outer.html.twig', [
             'inner' => 'admin/pages/list.html.twig',
+            'pages' => $pages
         ]);
     }
 
-    #[Route('/admin/page/{slug}', name: 'page_store', methods: ['PUT'])]
+    #[Route('/admin/page/{slug}', name: 'page_update', methods: ['POST'])]
     public function updateAction(Page $page, Request $request): Response
     {
         $page->setTitle($request->get('title'));
@@ -62,10 +65,14 @@ class PageController extends AbstractController
 
     }
 
-    #[Route('/admin/page/{slug}', name: 'page_delete', methods: ['DELETE', 'POST'])]
+    #[Route('/admin/page/delete/{slug}', name: 'page_delete', methods: ['POST'])]
     public function deleteAction(Page $page): Response
     {
-
+        return $this->render('admin/common/outer.html.twig', [
+            'inner' => 'admin/pages/update.html.twig',
+            'templates' => $this->pageTemplateService->getAllTemplates(),
+            'page' => $page
+        ]);
     }
 
     #[Route('/admin/page/edit/{slug}', name: 'page_view_admin', methods: ['GET'])]
