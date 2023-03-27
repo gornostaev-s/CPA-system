@@ -41,7 +41,7 @@ class PageController extends AbstractController
         $page->setTitle($request->get('title'));
         $page->setDescription($request->get('description'));
         $page->setSlug($request->get('slug'));
-        $page->setVars($request->get('vars'));
+        $page->setFields($request->get('fields'));
 
         $this->pageService->store($page);
 
@@ -54,11 +54,12 @@ class PageController extends AbstractController
         $page = Page::make(
             $request->get('title'),
             $request->get('description'),
-            $request->get('slug'),
-            $request->get('template_id'),
+            $request->get('slug')
         );
 
-        $page->setVars($request->get('vars'));
+        $page->setFields($request->get('fields'));
+        $page->setTemplate($this->pageTemplateService->getById($request->get('template_id')));
+
         $this->pageService->store($page);
 
         return $this->redirect($this->urlGenerator->generate('page_list'));

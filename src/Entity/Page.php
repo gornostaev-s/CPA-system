@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @property string $description
  * @property string $slug
  * @property int $template_id
- * @property array $vars
+ * @property array $fields
  */
 #[ORM\Entity(repositoryClass: PageRepository::class)]
 #[ORM\Table(name: 'pages')]
@@ -34,7 +34,22 @@ class Page
     private string $slug;
 
     #[ORM\Column(type: 'json')]
-    private array $vars;
+    private array $fields;
+
+    #[ORM\Column(type: 'integer')]
+    private int $template_id;
+
+    #[ORM\Column(type: 'integer')]
+    private int $status;
+
+    #[ORM\Column(type: 'datetime')]
+    private string $published_at;
+
+    #[ORM\Column(type: 'datetime')]
+    private string $created_at;
+
+    #[ORM\Column(type: 'boolean')]
+    private string $deleted;
 
     /**
      * Фабричный метод для создания сущности страницы
@@ -50,7 +65,7 @@ class Page
         string $title,
         string $description,
         string $slug,
-        int $template_id,
+//        int $template_id,
         array $vars = []
     ): Page
     {
@@ -58,13 +73,13 @@ class Page
         $entity->title = $title;
         $entity->description = $description;
         $entity->slug = $slug;
-        $entity->template_id = $template_id;
-        $entity->vars = $vars;
+//        $entity->template_id = $template_id;
+        $entity->fields = $vars;
 
         return $entity;
     }
 
-    #[ORM\OneToOne(targetEntity: PageTemplate::class)]
+    #[ORM\ManyToOne(targetEntity: PageTemplate::class)]
     #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id')]
     public PageTemplate $template;
 
@@ -125,11 +140,11 @@ class Page
     }
 
     /**
-     * @param array $vars
+     * @param array $fields
      */
-    public function setVars(array $vars): void
+    public function setFields(array $fields): void
     {
-        $this->vars = $vars;
+        $this->fields = $fields;
     }
 
     /**
@@ -175,9 +190,9 @@ class Page
     /**
      * @return array
      */
-    public function getVars(): array
+    public function getFields(): array
     {
-        return $this->vars;
+        return $this->fields;
     }
 
     public function getField(string $fieldName): array

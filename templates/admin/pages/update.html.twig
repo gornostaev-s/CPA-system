@@ -38,13 +38,13 @@
                             {% if item.type == 'textarea' %}
                                 <div class="admin-form__group">
                                     <label class="admin-form__label" for="{{ item.name }}">{{ item.label }}</label>
-                                    <textarea id="{{ item.name }}" name="vars[{{ item.name }}]" class="admin-form__textarea">{{ page.vars[item.name] }}</textarea>
+                                    <textarea id="{{ item.name }}" name="fields[{{ item.name }}]" class="admin-form__textarea">{{ page.fields[item.name] }}</textarea>
                                 </div>
                             {% elseif item.type == 'select' %}
                             {% else %}
                                 <div class="admin-form__group">
                                     <label class="admin-form__label" for="{{ item.name }}">{{ item.label }}</label>
-                                    <input type="{{ item.type }}" name="vars[{{ item.name }}]" id="{{ item.name }}" value="{{ page.vars[item.name] }}" class="admin-form__text">
+                                    <input type="{{ item.type }}" name="fields[{{ item.name }}]" id="{{ item.name }}" value="{{ page.fields[item.name] }}" class="admin-form__text">
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -101,13 +101,13 @@
         const label = '<label class="admin-form__label" for="'+e.name+'">'+ e.label +'</label>'
         switch (e.type) {
             case 'textarea' :
-                var inner = label + '<textarea name="vars['+e.name+']" class="admin-form__textarea"></textarea>'
+                var inner = label + '<textarea name="fields['+e.name+']" class="admin-form__textarea"></textarea>'
                 break;
             case 'select' :
                 var inner = label
                 break;
             default :
-                var inner = label + '<input name="vars['+e.name+']" type="'+e.type+'" id="'+e.name+'" class="admin-form__text"/>'
+                var inner = label + '<input name="fields['+e.name+']" type="'+e.type+'" id="'+e.name+'" class="admin-form__text"/>'
                 break;
         }
 

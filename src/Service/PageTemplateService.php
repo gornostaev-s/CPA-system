@@ -19,8 +19,21 @@ class PageTemplateService
         return $this->pageTemplateRepository->findAll();
     }
 
+    /**
+     * @param PageTemplate $pageTemplate
+     * @return void
+     */
     public function flush(PageTemplate $pageTemplate): void
     {
         $this->pageTemplateRepository->flush($pageTemplate);
+    }
+
+    /**
+     * @param int $id
+     * @return PageTemplate
+     */
+    public function getById(int $id): PageTemplate
+    {
+        return $this->pageTemplateRepository->findOneBy(['id' => $id]);
     }
 }
