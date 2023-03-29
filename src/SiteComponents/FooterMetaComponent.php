@@ -13,7 +13,7 @@ class FooterMetaComponent implements HtmlComponentInterface
     {
     }
 
-    public function render(): string
+    public function render(array $data = []): string
     {
         return $this->twig->render('@site/common/footer-meta.html.twig');
     }

@@ -29,7 +29,7 @@ class Footer implements HtmlComponentInterface
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function render(): string
+    public function render(array $data = []): string
     {
         return $this->twig->render('@site/common/footer.html.twig', [
             'settings' => $this->settingService->get(),

@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Page;
+use App\Entity\Service;
 use App\Factories\HtmlComponentFactory;
-use App\SiteComponents\Footer;
 use App\SiteComponents\FooterMetaComponent;
 use App\SiteComponents\Header;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,26 +11,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PageController extends AbstractController
+class ServiceController extends AbstractController
 {
     public function __construct(
         private readonly HtmlComponentFactory $factory
     )
     {
-
     }
 
-    #[Route('/{slug}', name: 'render_page')]
-    public function renderPage(Page $page = null): Response
+    #[Route('/service/{slug}', name: 'service_index')]
+    public function index(Service $service): Response
     {
-        if (empty($page)) {
-            throw new NotFoundHttpException('Страница не найдена');
+        if (empty($service)) {
+            throw new NotFoundHttpException('Услуга не найдена');
         }
-        return $this->render("pages/{$page->template->getTemplateName()}", [
+
+        return $this->render('@site/service.html.twig', [
             'header' => $this->factory->get(Header::class)->render(),
-            'meta' => $this->factory->get(FooterMetaComponent::class)->render(),
-            'footer' => $this->factory->get(Footer::class),
-            'page' => $page
+            'meta' => $this->factory->get(FooterMetaComponent::class)->render()
         ]);
     }
 }

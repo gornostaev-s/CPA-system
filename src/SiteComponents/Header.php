@@ -20,13 +20,14 @@ class Header implements HtmlComponentInterface
     }
 
     /**
+     * @param array $data
      * @return string
-     * @throws ReflectionException
      * @throws LoaderError
+     * @throws ReflectionException
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function render(): string
+    public function render(array $data = []): string
     {
         return $this->twig->render('@site/common/header.html.twig', [
             'settings' => $this->settingService->get()

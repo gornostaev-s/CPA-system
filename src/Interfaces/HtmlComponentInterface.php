@@ -6,5 +6,5 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface HtmlComponentInterface
 {
-    public function render(): string;
+    public function render(array $data = []): string;
 }
