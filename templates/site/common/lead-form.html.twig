@@ -3,10 +3,10 @@
         <div class="col-md-8 text-center">
             <form action="#">
                 <h2 class="title-primary text-white">
-                    Оставьте заявку
+                    {{ formTitle }}
                 </h2>
                 <p class="text-white form-section__text">
-                    И мы обязательно с вами свяжемся!
+                    {{ formDescription }}
                 </p>
                 <div class="row">
                     <form action="#">
@@ -31,8 +31,8 @@
                         <div class="col-md-6 form-section__wrapper">
                             <textarea class="form-section__input" rows="4" name="userscomments" placeholder="Ваши пожелания"></textarea>
                         </div>
-                        <div class="col-md-12 form-section__wrapper text-center">
-                            <input type="submit" class="form-section__submit" style="max-width:33.3% ">
+                        <div class="col-md-12 form-section__wrapper text-center form-submit-width">
+                            <input type="submit" class="form-section__submit">
                         </div>
                     </form>
                 </div>

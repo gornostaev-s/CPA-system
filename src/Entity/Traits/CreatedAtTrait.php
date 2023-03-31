@@ -2,26 +2,27 @@
 
 namespace App\Entity\Traits;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 trait CreatedAtTrait
 {
-    #[ORM\Column(type: 'datetime')]
-    private string $created_at;
+    #[ORM\Column(name: 'created_at', type: 'datetime', nullable: false, options: ['default' => "CURRENT_TIMESTAMP"],)]
+    private DateTime $createdAt;
 
     /**
      * @return string
      */
     public function getCreatedAt(): string
     {
-        return $this->created_at;
+        return $this->createdAt->format('d.m.Y H:i:s');
     }
 
     /**
-     * @param string $created_at
+     * @param DateTime $createdAt
      */
-    public function setCreatedAt(string $created_at): void
+    public function setCreatedAt(DateTime $createdAt): void
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 }

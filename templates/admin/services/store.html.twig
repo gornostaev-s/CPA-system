@@ -1,0 +1,42 @@
+<div class="admin-wrapper">
+    <form action="/admin/service/" method="post" class="">
+        <div class="row">
+            <div class="col-md-8 admin-form">
+                <div>
+                    <h1 class="admin-title">
+                        {% if new == false %}
+                            Обновить услугу
+                        {% else %}
+                            Создать услугу
+                        {% endif %}
+                    </h1>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Введите заголовок</label>
+                    <input type="text" name="title" class="admin-form__text" placeholder="Название услуги">
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Введите описание</label>
+                    <textarea name="description" id="description" class="admin-form__textarea"></textarea>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Символьный код услуги, желательно латиницей (который будет виден в урл)</label>
+                    <input type="text" name="slug" class="admin-form__text" placeholder="Слаг услуги">
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="publish-card-wrapper">
+                    <div class="publish-card">
+                        <div class="publish-card__text">
+                            <p class="publish-card__label">
+                                Услуга не сохранена, сохраните.
+                            </p>
+                        </div>
+                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Сохранить">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

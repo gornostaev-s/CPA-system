@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\CreatedAtTrait;
+use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\SlugTrait;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,10 +23,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'pages')]
 class Page
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private int $id;
+    use IdTrait;
+    use DeletedTrait;
+    use CreatedAtTrait;
+    use SlugTrait;
 
     #[ORM\Column(type: 'text', length: 65535)]
     private string $title;
@@ -30,26 +34,21 @@ class Page
     #[ORM\Column(type: 'text')]
     private string $description;
 
-    #[ORM\Column(type: 'text')]
-    private string $slug;
-
     #[ORM\Column(type: 'json')]
     private array $fields;
 
     #[ORM\Column(type: 'integer')]
     private int $template_id;
 
-    #[ORM\Column(type: 'integer')]
-    private int $status;
+    #[ORM\ManyToOne(targetEntity: PageTemplate::class)]
+    #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id')]
+    public PageTemplate $template;
 
-    #[ORM\Column(type: 'datetime')]
-    private string $published_at;
-
-    #[ORM\Column(type: 'datetime')]
-    private string $created_at;
-
-    #[ORM\Column(type: 'boolean')]
-    private string $deleted;
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime());
+        $this->setDeleted(false);
+    }
 
     /**
      * Фабричный метод для создания сущности страницы
@@ -57,7 +56,7 @@ class Page
      * @param string $title
      * @param string $description
      * @param string $slug
-     * @param int $template_id
+     * @param PageTemplate $pageTemplate
      * @param array $vars
      * @return Page
      */
@@ -65,7 +64,7 @@ class Page
         string $title,
         string $description,
         string $slug,
-//        int $template_id,
+        PageTemplate $pageTemplate,
         array $vars = []
     ): Page
     {
@@ -73,15 +72,11 @@ class Page
         $entity->title = $title;
         $entity->description = $description;
         $entity->slug = $slug;
-//        $entity->template_id = $template_id;
+        $entity->template = $pageTemplate;
         $entity->fields = $vars;
 
         return $entity;
     }
-
-    #[ORM\ManyToOne(targetEntity: PageTemplate::class)]
-    #[ORM\JoinColumn(name: 'template_id', referencedColumnName: 'id')]
-    public PageTemplate $template;
 
     /**
      * @return PageTemplate
@@ -97,14 +92,6 @@ class Page
     public function setTemplate(PageTemplate $template): void
     {
         $this->template = $template;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -124,22 +111,6 @@ class Page
     }
 
     /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @param int $template_id
-     */
-    public function setTemplateId(int $template_id): void
-    {
-        $this->template_id = $template_id;
-    }
-
-    /**
      * @param array $fields
      */
     public function setFields(array $fields): void
@@ -148,35 +119,11 @@ class Page
     }
 
     /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTemplate_id(): int
-    {
-        return $this->template_id;
     }
 
     /**

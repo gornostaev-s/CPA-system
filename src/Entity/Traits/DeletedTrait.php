@@ -6,22 +6,22 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait DeletedTrait
 {
-    #[ORM\Column(type: 'boolean')]
-    private string $deleted;
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default'=> 0])]
+    private bool $deleted = false;
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getDeleted(): string
+    public function getDeleted(): bool
     {
         return $this->deleted;
     }
 
     /**
-     * @param string $deleted
+     * @param bool $deleted
      */
-    public function setDeleted(string $deleted): void
+    public function setDeleted(?bool $deleted): void
     {
-        $this->deleted = $deleted;
+        $this->deleted = $deleted ?? false;
     }
 }

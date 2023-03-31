@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ServiceService
 {
@@ -14,5 +15,10 @@ class ServiceService
     public function store(Service $service): void
     {
         $this->serviceRepository->store($service);
+    }
+
+    public function filter(array $filter): ArrayCollection
+    {
+        return new ArrayCollection($this->serviceRepository->findBy($filter));
     }
 }

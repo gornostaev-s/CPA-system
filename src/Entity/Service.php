@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Entity\Traits\CreatedAtTrait;
 use App\Entity\Traits\DeletedTrait;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\SlugTrait;
 use App\Repository\ServiceRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
@@ -15,12 +17,29 @@ class Service
     use IdTrait;
     use CreatedAtTrait;
     use DeletedTrait;
+    use SlugTrait;
 
     #[ORM\Column(type: 'text', length: 65535)]
     private string $title;
 
     #[ORM\Column(type: 'text')]
     private string $description;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+        $this->setDeleted(false);
+    }
+
+    public static function make(string $title, string $slug, string $description = ''): Service
+    {
+        $entity = new self;
+        $entity->title = $title;
+        $entity->description = $description;
+        $entity->slug = $slug;
+
+        return $entity;
+    }
 
     /**
      * @return string

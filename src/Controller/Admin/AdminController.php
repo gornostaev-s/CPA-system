@@ -27,7 +27,7 @@ class AdminController extends AbstractController
     public function dashboardAction(): Response
     {
         return $this->render('admin/common/outer.html.twig', [
-            'inner' => 'admin/pages/index.html.twig'
+            'inner' => 'admin/common/index.html.twig'
         ]);
     }
 
@@ -39,7 +39,7 @@ class AdminController extends AbstractController
     public function settingsAction(): Response
     {
         return $this->render('admin/common/outer.html.twig', [
-            'inner' => 'admin/pages/settings.html.twig',
+            'inner' => 'admin/common/settings.html.twig',
             'settings' => $this->service->get()
         ]);
     }

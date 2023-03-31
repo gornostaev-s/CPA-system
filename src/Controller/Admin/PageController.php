@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Page;
 use App\Entity\PageTemplate;
 use App\Factories\JsonResponseFactory;
+use App\Factories\PhoneFactory;
 use App\Service\PageService;
 use App\Service\PageTemplateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,11 +55,11 @@ class PageController extends AbstractController
         $page = Page::make(
             $request->get('title'),
             $request->get('description'),
-            $request->get('slug')
+            $request->get('slug'),
+            $this->pageTemplateService->getById($request->get('template_id'))
         );
 
         $page->setFields($request->get('fields'));
-        $page->setTemplate($this->pageTemplateService->getById($request->get('template_id')));
 
         $this->pageService->store($page);
 

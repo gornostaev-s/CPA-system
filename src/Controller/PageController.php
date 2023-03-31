@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Page;
 use App\Factories\HtmlComponentFactory;
 use App\SiteComponents\Footer;
-use App\SiteComponents\FooterMetaComponent;
 use App\SiteComponents\Header;
+use App\SiteComponents\LeadForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,8 +29,11 @@ class PageController extends AbstractController
         }
         return $this->render("pages/{$page->template->getTemplateName()}", [
             'header' => $this->factory->get(Header::class)->render(),
-            'meta' => $this->factory->get(FooterMetaComponent::class)->render(),
             'footer' => $this->factory->get(Footer::class),
+            'leadForm' => $this->factory->get(LeadForm::class)->render([
+                'formTitle' => !empty($page->fields['formTitle']) ? $page->fields['formTitle'] : 'Оставьте заявку',
+                'formDescription' => !empty($page->fields['formDescription']) ? $page->fields['formDescription'] : 'И мы с вами свяжемся',
+            ]),
             'page' => $page
         ]);
     }

@@ -23,9 +23,10 @@ class Footer implements HtmlComponentInterface
     }
 
     /**
+     * @param array $data
      * @return string
-     * @throws ReflectionException
      * @throws LoaderError
+     * @throws ReflectionException
      * @throws RuntimeError
      * @throws SyntaxError
      */

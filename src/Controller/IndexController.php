@@ -4,8 +4,10 @@
 namespace App\Controller;
 
 use App\Factories\HtmlComponentFactory;
+use App\SiteComponents\Footer;
 use App\SiteComponents\FooterMetaComponent;
 use App\SiteComponents\Header;
+use App\SiteComponents\LeadForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,25 +23,11 @@ class IndexController extends AbstractController
     {
         return self::render('@site/home.html.twig', [
             'header' => $this->htmlFactory->get(Header::class)->render(),
-            'meta' => $this->htmlFactory->get(FooterMetaComponent::class)->render(),
-        ]);
-    }
-
-    #[Route('/buy_leads', name: 'buy_leads')]
-    public function buyLeads(): Response
-    {
-        return self::render('@site/buyleads.html.twig', [
-            'header' => $this->htmlFactory->get(Header::class)->render(),
-            'meta' => $this->htmlFactory->get(FooterMetaComponent::class)->render(),
-        ]);
-    }
-
-    #[Route('/sell_leads', name: 'sellLeads')]
-    public function sellLeads(): Response
-    {
-        return self::render('@site/sellLeads.html.twig', [
-            'header' => $this->htmlFactory->get(Header::class)->render(),
-            'meta' => $this->htmlFactory->get(FooterMetaComponent::class)->render(),
+            'footer' => $this->htmlFactory->get(Footer::class)->render(),
+            'leadForm' => $this->htmlFactory->get(LeadForm::class)->render([
+                'formTitle' => 'Оставьте заявку',
+                'formDescription' => 'И мы с вами свяжемся',
+            ]),
         ]);
     }
 }

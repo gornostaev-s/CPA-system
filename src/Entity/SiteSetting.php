@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Factories\PhoneFactory;
+
 /**
  * Класс настроек сайта
  *
@@ -34,7 +36,7 @@ class SiteSetting
      */
     public function getPublicPhone(): ?string
     {
-        return $this->publicPhone;
+        return PhoneFactory::intToPhone((int)$this->publicPhone);
     }
 
     /**
@@ -50,7 +52,7 @@ class SiteSetting
      */
     public function setPublicPhone(string $publicPhone): void
     {
-        $this->publicPhone = $publicPhone;
+        $this->publicPhone = PhoneFactory::phoneToInt($publicPhone);
     }
 
     /**

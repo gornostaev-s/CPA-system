@@ -31,8 +31,8 @@ class SiteSettingService
      */
     public function save(SiteSetting $setting, Request $request): void
     {
-        $setting->set('publicPhone', $request->get('phone'));
-        $setting->set('publicEmail', $request->get('email'));
+        $setting->setPublicPhone($request->get('phone'));
+        $setting->setPublicEmail($request->get('email'));
 
         $this->repository->flush($setting);
     }
