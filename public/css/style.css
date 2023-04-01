@@ -10,10 +10,6 @@ p {
   margin: 0;
 }
 
-.font{
-  font-size: 60;
-}
-
 .header-contacts__link{
     color: black;
     font-family: 'Rubik';
@@ -1419,6 +1415,11 @@ p {
   font-weight: 600;
   padding: 0 5px;
   cursor: pointer;
+}
+
+.form-section__text {
+  font-size: 22px;
+  color: #fff;
 }
 
 @media (min-width: 768px) and (max-width:992px) {
