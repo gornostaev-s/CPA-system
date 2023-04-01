@@ -27,7 +27,7 @@ class Service
     #[ORM\Column(type: 'text')]
     private ?string $description;
 
-    #[ORM\ManyToOne(targetEntity: Attachment::class)]
+    #[ORM\ManyToOne(targetEntity: Attachment::class,fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'preview_id', referencedColumnName: 'id')]
     private Attachment $preview;
 
