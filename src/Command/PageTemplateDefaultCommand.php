@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Command;
+
 use App\Entity\AdminInputs\TextareaInput;
 use App\Entity\AdminInputs\TextInput;
 use App\Entity\PageTemplate;
