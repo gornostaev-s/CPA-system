@@ -14,6 +14,7 @@ docker/.env
 /public/bundles/
 /var/
 /vendor/
+/public/uploads
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

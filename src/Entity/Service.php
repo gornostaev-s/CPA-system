@@ -9,9 +9,11 @@ use App\Entity\Traits\SlugTrait;
 use App\Repository\ServiceRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 #[ORM\Table(name: 'services')]
+#[Vich\Uploadable]
 class Service
 {
     use IdTrait;
@@ -23,7 +25,7 @@ class Service
     private string $title;
 
     #[ORM\Column(type: 'text')]
-    private string $description;
+    private ?string $description;
 
     public function __construct()
     {
@@ -66,9 +68,9 @@ class Service
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }

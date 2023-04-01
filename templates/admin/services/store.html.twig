@@ -1,14 +1,20 @@
 <div class="admin-wrapper">
+    <form action="/admin/attachment" method="post" enctype="multipart/form-data">
+        <div class="admin-form__group">
+            <label class="admin-form__label">Загрузить изображение услуги</label>
+            <input type="file" name="image" class="admin-form__text">
+        </div>
+        <div class="admin-form__group">
+            <label class="admin-form__label">Загрузить изображение услуги</label>
+            <input type="submit" value="Отправить">
+        </div>
+    </form>
     <form action="/admin/service/" method="post" class="">
         <div class="row">
             <div class="col-md-8 admin-form">
                 <div>
                     <h1 class="admin-title">
-                        {% if new == false %}
-                            Обновить услугу
-                        {% else %}
-                            Создать услугу
-                        {% endif %}
+                        Создать услугу
                     </h1>
                 </div>
                 <div class="admin-form__group">

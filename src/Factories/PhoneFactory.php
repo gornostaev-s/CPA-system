@@ -17,6 +17,6 @@ class PhoneFactory
         $partThree = mb_substr($phone, 7, 2);
         $partFour = mb_substr($phone, 9, 2);
 
-        return "+$country ($partOne) $partTwo-$partThree-$partFour";
+        return !empty($phone) ? "+$country ($partOne) $partTwo-$partThree-$partFour" : '';
     }
 }
