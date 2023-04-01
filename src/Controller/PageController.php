@@ -27,12 +27,14 @@ class PageController extends AbstractController
         if (empty($page)) {
             throw new NotFoundHttpException('Страница не найдена');
         }
+        $fields = $page->getFields();
+
         return $this->render("pages/{$page->template->getTemplateName()}", [
             'header' => $this->factory->get(Header::class)->render(),
-            'footer' => $this->factory->get(Footer::class),
+            'footer' => $this->factory->get(Footer::class)->render(),
             'leadForm' => $this->factory->get(LeadForm::class)->render([
-                'formTitle' => !empty($page->fields['formTitle']) ? $page->fields['formTitle'] : 'Оставьте заявку',
-                'formDescription' => !empty($page->fields['formDescription']) ? $page->fields['formDescription'] : 'И мы с вами свяжемся',
+                'formTitle' => !empty($fields['formTitle']) ? $fields['formTitle'] : 'Оставьте заявку',
+                'formDescription' => !empty($fields['formDescription']) ? $fields['formDescription'] : 'И мы с вами свяжемся',
             ]),
             'page' => $page
         ]);
