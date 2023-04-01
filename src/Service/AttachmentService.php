@@ -24,4 +24,9 @@ class AttachmentService
         $this->uploadHandler->upload($attachment, 'imageFile');
         $this->attachmentRepository->store($attachment);
     }
+
+    public function getById(int $id): Attachment
+    {
+        return $this->attachmentRepository->find($id);
+    }
 }

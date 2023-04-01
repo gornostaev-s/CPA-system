@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class ServiceService
 {
+    const SERVICES_CARD_LIMIT = 6;
+
     public function __construct(private readonly ServiceRepository $serviceRepository)
     {
     }
@@ -20,5 +22,10 @@ class ServiceService
     public function filter(array $filter): ArrayCollection
     {
         return new ArrayCollection($this->serviceRepository->findBy($filter));
+    }
+
+    public function findAll(int $limit = self::SERVICES_CARD_LIMIT): ArrayCollection
+    {
+        return new ArrayCollection($this->serviceRepository->findBy([], limit: $limit));
     }
 }

@@ -27,18 +27,23 @@ class Service
     #[ORM\Column(type: 'text')]
     private ?string $description;
 
+    #[ORM\ManyToOne(targetEntity: Attachment::class)]
+    #[ORM\JoinColumn(name: 'preview_id', referencedColumnName: 'id')]
+    private Attachment $preview;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
         $this->setDeleted(false);
     }
 
-    public static function make(string $title, string $slug, string $description = ''): Service
+    public static function make(string $title, string $slug, Attachment $preview, string $description = ''): Service
     {
         $entity = new self;
         $entity->title = $title;
         $entity->description = $description;
         $entity->slug = $slug;
+        $entity->preview = $preview;
 
         return $entity;
     }
@@ -73,5 +78,21 @@ class Service
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return Attachment
+     */
+    public function getPreview(): Attachment
+    {
+        return $this->preview;
+    }
+
+    /**
+     * @param Attachment $preview
+     */
+    public function setPreview(Attachment $preview): void
+    {
+        $this->preview = $preview;
     }
 }
