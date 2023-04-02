@@ -1422,6 +1422,11 @@ p {
   color: #fff;
 }
 
+.card-primary__image {
+  max-width: 100%;
+  max-height: 126px;
+}
+
 @media (min-width: 768px) and (max-width:992px) {
   .leads-card__overflow {
     background-color: #FFFFFF;
