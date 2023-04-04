@@ -42,22 +42,34 @@
                     <div class="settings">
                         <form action="/admin/settings" method="post">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="settings-form-wrapper">
-                                        <label for="setting123" class="settings-label">Телефон</label>
-                                        <input id="setting123" class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ settings.publicPhone }}">
+                                        <label class="settings-label">Телефон</label>
+                                        <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ settings.publicPhone }}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Электронная почта</label>
+                                        <input class="settings-input" type="text" name="email" placeholder="example@email.com" value="{{ settings.publicEmail }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="settings-form-wrapper">
-                                        <label for="setting123" class="settings-label">Электронная почта</label>
-                                        <input id="setting123" class="settings-input" type="text" name="email" placeholder="example@email.com" value="{{ settings.publicEmail }}">
+                                        <label class="settings-label">Адрес</label>
+                                        <input class="settings-input" type="text" name="address" placeholder="адрес" value="{{ settings.address }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ссылка на телеграм</label>
+                                        <input class="settings-input" type="text" name="telegram" placeholder="телеграм" value="{{ settings.telegram }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="settings-form-wrapper">
                                         <div class="settings-submit-wrapper">
-                                            <input type="submit" id="setting1234" class="button-primary" value="Применить">
+                                            <input type="submit" class="button-primary" value="Применить">
                                         </div>
                                     </div>
                                 </div>

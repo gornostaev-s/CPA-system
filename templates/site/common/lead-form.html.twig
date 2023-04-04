@@ -1,6 +1,6 @@
 <section class="form-section animate-hidden" id="section-3">
     <div class="container justify-content-center">
-        <div class="col-md-8 text-center">
+        <div class="col-md-6 text-center">
             <form action="#">
                 <h2 class="title-primary text-white">
                     {{ formTitle }}
@@ -32,14 +32,21 @@
                             <textarea class="form-section__input" rows="4" name="userscomments" placeholder="Ваши пожелания"></textarea>
                         </div>
                         <div class="col-md-12 form-section__wrapper text-center form-submit-width">
-                            <p class="form-section__text">
-                                Или свяжитесь с нами в <a href="#" class="blue-link">Телеграм</a>
-                            </p>
                             <input type="submit" class="form-section__submit">
                         </div>
                     </form>
                 </div>
             </form>
+        </div>
+        <div class="col-md-6 content_center_flex">
+            <div class="callback-telegram">
+                <a href="{{ telegramLink }}">
+                    <img src="/img/telegram.png" alt="" class="callback-telegram__icon">
+                </a>
+                <p class="form-section__text">
+                    Или свяжитесь с нами в <a href="{{ telegramLink }}" class="blue-link">Телеграм</a>
+                </p>
+            </div>
         </div>
     </div>
 </section>

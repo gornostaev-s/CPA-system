@@ -1427,6 +1427,24 @@ p {
   max-height: 126px;
 }
 
+.callback-telegram {
+  text-align: center;
+}
+
+.content_center_flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callback-telegram__icon {
+  width: 60px;
+}
+
+.telegram-icon {
+  max-width: 30px;
+}
+
 @media (min-width: 768px) and (max-width:992px) {
   .leads-card__overflow {
     background-color: #FFFFFF;

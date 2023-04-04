@@ -12,8 +12,10 @@ use App\Factories\PhoneFactory;
  */
 class SiteSetting
 {
-    private string|null $publicEmail;
-    private string|null $publicPhone;
+    private ?string $publicEmail;
+    private ?string $publicPhone;
+    private ?string $telegram;
+    private ?string $address;
 
     /**
      * @return SiteSetting
@@ -53,6 +55,43 @@ class SiteSetting
     public function setPublicPhone(string $publicPhone): void
     {
         $this->publicPhone = PhoneFactory::phoneToInt($publicPhone);
+    }
+
+    /**
+     * @param string|null $telegram
+     */
+    public function setTelegram(?string $telegram): void
+    {
+        $this->telegram = $telegram;
+    }
+
+    public function getPublicPhoneRaw(): ?string
+    {
+        return $this->publicPhone;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTelegram(): ?string
+    {
+        return $this->telegram;
+    }
+
+    /**
+     * @param string|null $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
     }
 
     /**

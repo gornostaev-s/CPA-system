@@ -10,6 +10,7 @@ use ReflectionException;
 
 class SiteSettingRepository
 {
+    private static ?SiteSetting $settings = null;
     public function __construct(
         private readonly SiteSettingItemRepository $repository,
         private readonly EntityManagerInterface $entityManager
@@ -24,10 +25,15 @@ class SiteSettingRepository
      */
     public function get(): SiteSetting
     {
-        $e = SiteSetting::make();
-        $this->setPropertiesFromDB($e);
+        $settings = self::$settings;
 
-        return $e;
+        if (empty($settings)) {
+            $settings = SiteSetting::make();
+            $this->setPropertiesFromDB($settings);
+            self::$settings = $settings;
+        }
+
+        return $settings;
     }
 
     /**
@@ -72,10 +78,6 @@ class SiteSettingRepository
         $reflection = new ReflectionClass($setting::class);
 
         foreach ($reflection->getProperties() as $property) {
-            if ($property->getName() == 'itemRepository') {
-                continue;
-            }
-
             $name = $property->getName();
             $setting->set($name, $this->repository->findOneBy(['name' => $name])?->getValue() ?? null);
         }

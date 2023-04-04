@@ -21,17 +21,17 @@ class SiteSettingItem
     #[ORM\Column(length: 255, nullable: false)]
     private string $name;
 
-    #[ORM\Column(type: Types::TEXT, nullable: false)]
-    private string $value;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $value;
 
     /**
      * Фабричный метод для создания настройки
      *
      * @param string $name
-     * @param string $value
+     * @param string|null $value
      * @return SiteSettingItem
      */
-    public static function make(string $name, string $value): SiteSettingItem
+    public static function make(string $name, ?string $value): SiteSettingItem
     {
         $entity = new self;
         $entity->name = $name;

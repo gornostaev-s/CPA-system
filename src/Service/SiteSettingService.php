@@ -33,6 +33,8 @@ class SiteSettingService
     {
         $setting->setPublicPhone($request->get('phone'));
         $setting->setPublicEmail($request->get('email'));
+        $setting->setTelegram($request->get('telegram'));
+        $setting->setAddress($request->get('address'));
 
         $this->repository->flush($setting);
     }

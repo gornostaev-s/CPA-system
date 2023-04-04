@@ -43,17 +43,20 @@
             <div class="col-md-3 mob-none">
                 <div class="header-address">
                             <span class="header-contacts__link">
-                                г.Москва, ул.им. Калинина, 228
-                            </span>
-                    <a href="mailto:mail@example.com" class="header-contacts__link header-link">
+                                {{ settings.address }}
+                            </span> <br>
+                    <a href="mailto:{{ settings.publicEmail }}" class="header-contacts__link header-link">
                         {{ settings.publicEmail }}
                     </a>
                 </div>
             </div>
             <div class="col-md-3 mob-none">
                 <div class="header-phone">
-                    <a href="tel:+78002553535" class="header-contacts__link header-contacts__link__bold">{{ settings.publicPhone }}</a><br>
-                    <a href="tel:+78002553535" class="header-contacts__link header-link">{{ settings.publicPhone }}</a>
+                    <a href="tel:+{{ settings.publicPhoneRaw }}" class="header-contacts__link header-contacts__link__bold">{{ settings.publicPhone }}</a><br>
+{#                    <a href="tel:+78002553535" class="header-contacts__link header-link">{{ settings.publicPhone }}</a>#}
+                </div>
+                <div class="header-socials">
+                    {% if settings.telegram %} <a href="{{ settings.telegram }}"><img src="/img/telegram.png" alt="" class="telegram-icon"></a> {% endif %}
                 </div>
             </div>
             <div class="col-md-3 text-right mob-none">
