@@ -1,5 +1,5 @@
 <div class="admin-wrapper">
-    <form action="/admin/service/{{ service.slug }}" method="POST" class="">
+    <form action="/admin/service/{{ service.slug }}" method="POST" class="js-serviceForm">
         <div class="row">
             <div class="col-md-8 admin-form">
                 <div>
@@ -18,6 +18,50 @@
                 <div class="admin-form__group">
                     <label class="admin-form__label">Символьный код услуги, желательно латиницей (который будет виден в урл)</label>
                     <input type="text" name="slug" class="admin-form__text" placeholder="Слаг услуги" value="{{ service.slug }}">
+                </div>
+                <div class="admin-form__group">
+                    <input type="hidden" name="preview_id">
+                    <label class="admin-form__text">
+                        <span>Выберите изображение услуги</span>
+
+                        <div class="image-frame-wrapper frame375x437">
+                            <div class="image-frame">
+                                <div class="js-imageResult image-frame__result">
+                                    {% if service.preview %}
+                                        <img src="{{ service.preview.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                Изображение <br>
+                                (353x415)
+                            </div>
+                        </div>
+                        <input type="file" name="image" class="js-servicePreviewFile" style="display: none;">
+                    </label>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            jQuery('.js-servicePreviewFile').on('input', function () {
+                                var formData = new FormData(jQuery('.js-serviceForm').get(0));
+
+                                jQuery.ajax({
+                                    type: 'POST',
+                                    url: '/admin/attachment',
+                                    data: formData,
+                                    enctype: 'multipart/form-data',
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (data) {
+                                        jQuery('[name=preview_id]').val(data.id)
+                                        let imgTag = "<img class='no-lazy' src='"+data.url+"'>";
+                                        // const removeTag = "<span class='js-removeImage image-close'>X</span>";
+                                        jQuery('[name=image]').val('')
+                                        jQuery(".js-imageResult").html(imgTag)
+                                    }
+                                })
+                            })
+                        })
+                    </script>
+
                 </div>
             </div>
             <div class="col-md-4">

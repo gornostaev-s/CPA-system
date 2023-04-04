@@ -38,6 +38,7 @@ class ServiceController extends AbstractController
         $service->setTitle($request->get('title'));
         $service->setDescription($request->get('description'));
         $service->setSlug($request->get('slug'));
+        $service->setPreview($this->attachmentService->getById($request->get('preview_id')),);
 
         $this->service->store($service);
 

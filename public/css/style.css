@@ -217,7 +217,6 @@ p {
 .form-section {
   background: linear-gradient(269.73deg, #a0356c -1.56%, #b84480 100%);
   padding: 90px 0;
-  margin-bottom: 90px;
 }
 
 .ads-section {
@@ -1443,6 +1442,38 @@ p {
 
 .telegram-icon {
   max-width: 30px;
+}
+
+.image-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.image-frame-wrapper {
+  padding: 10px;
+  border: 1px solid #343434;
+}
+
+.image-frame {
+  background-color: #f2f2f2;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.image-frame__result {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.frame375x437 {
+  width: 375px;
+  height: 437px;
 }
 
 @media (min-width: 768px) and (max-width:992px) {

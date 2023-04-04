@@ -20,16 +20,27 @@
                     <input type="text" name="slug" class="admin-form__text" placeholder="Слаг услуги">
                 </div>
                 <div class="admin-form__group">
-                    <div class="js-imageResult">
-                    </div>
-                    <label class="admin-form__label">Выберите изображение услуги</label>
                     <input type="hidden" name="preview_id">
-                    <input type="file" name="image" class="admin-form__text js-servicePreviewFile">
+                    <label class="admin-form__text">
+                        <span>Выберите изображение услуги</span>
+
+                        <div class="image-frame-wrapper frame375x437">
+                            <div class="image-frame">
+                                <div class="js-imageResult image-frame__result">
+                                    {% if service.preview %}
+                                        <img src="{{ service.preview.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                Изображение <br>
+                                (353x415)
+                            </div>
+                        </div>
+                        <input type="file" name="image" class="js-servicePreviewFile" style="display: none;">
+                    </label>
 
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             jQuery('.js-servicePreviewFile').on('input', function () {
-
                                 var formData = new FormData(jQuery('.js-serviceForm').get(0));
 
                                 jQuery.ajax({
@@ -41,86 +52,12 @@
                                     processData: false,
                                     success: function (data) {
                                         jQuery('[name=preview_id]').val(data.id)
-                                        imgTag = "img class='no-lazy' src='"+data.url+"'";
+                                        let imgTag = "<img class='no-lazy' src='"+data.url+"'>";
+                                        // const removeTag = "<span class='js-removeImage image-close'>X</span>";
                                         jQuery('[name=image]').val('')
-                                        jQuery(".js-imageResult").html("<div style='position: relative; padding: 10px; width: max-content'> " +
-                                            "<span class='js-removeImage image-close' data-id='"+data.id+"'>" +
-                                            "X" +
-                                            "</span> " +
-                                            "<"+imgTag+"> " +
-                                            "</div>")
+                                        jQuery(".js-imageResult").html(imgTag)
                                     }
                                 })
-
-
-                                // document.addEventListener('DOMContentLoaded', function () {
-                                //     jQuery('.form-primary').on('click', function (e) {
-                                //         $target = jQuery(e.target);
-                                //         if ($target.hasClass('js-removeImage')) {
-                                //             jQuery.ajax({
-                                //                 type: 'POST',
-                                //                 url: '/payments/delete-file',
-                                //                 data: {
-                                //                     referer: jQuery('[name=referer]').val(),
-                                //                     file_id: $target.data('id')
-                                //                 },
-                                //                 success: function () {
-                                //                     $target.remove()
-                                //                 }
-                                //             })
-                                //         }
-                                //     })
-                                //
-                                //     jQuery('[name=picture]').on('input', function () {
-                                //         data = jQuery('.form-primary').serializeArray()
-                                //
-                                //         var formData = new FormData(jQuery('.form-primary').get(0));
-                                //
-                                //         jQuery.ajax({
-                                //             type: 'POST',
-                                //             url: '/payments/upload-file',
-                                //             data: formData,
-                                //             enctype: 'multipart/form-data',
-                                //             contentType: false,
-                                //             processData: false,
-                                //             success: function (data) {
-                                //                 imgTag = "img class='no-lazy' src='"+data.src+"'";
-                                //                 jQuery('[name=picture]').val('')
-                                //                 jQuery(".js-images").append("<div style='position: relative; padding: 10px;'> " +
-                                //                     "<span class='js-removeImage image-close' data-id='"+data.id+"'>" +
-                                //                     "X" +
-                                //                     "</span> " +
-                                //                     "<"+imgTag+"> " +
-                                //                     "</div>")
-                                //             }
-                                //         })
-                                //     })
-                                //
-                                //     jQuery('#cosult-referer').val(window.location.href)
-                                //
-                                //     jQuery('.js-petType').on('change', function () {
-                                //
-                                //         var url = 'http://rodentovet.ru/wp-json/api/v1/doctors?short=1';
-                                //
-                                //         if (jQuery(this).val() == 'Собака (укажите породу)' || jQuery(this).val() == 'Кошка (укажите породу)') {
-                                //             var url = 'http://rodentovet.ru/wp-json/api/v1/doctors?short=1&doctorsType=1';
-                                //         }
-                                //
-                                //
-                                //         jQuery.ajax({
-                                //             url: url,
-                                //             success: function (data) {
-                                //                 jQuery('.js-doctorsList').html('')
-                                //                 jQuery('.js-doctorsList').html("<option value='Любой врач'>Любой врач</option>")
-                                //                 data.forEach(function (e) {
-                                //                     console.log(e)
-                                //                     jQuery('.js-doctorsList').append("<option value='"+e+"'>"+e+"</option>")
-                                //                 });
-                                //             }
-                                //         })
-                                //     })
-                                // })
-
                             })
                         })
                     </script>
