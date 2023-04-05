@@ -599,7 +599,7 @@ p {
   display: flex;
   flex-flow: column;
   height: 100%;
-  background-color: #F9AFE9;
+  background-color: #ECEFF1;
   overflow-y: auto;
   right: -100%;
   -webkit-transition: 0.8s;
@@ -622,7 +622,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 5px;
   font-weight: 400;
-  color: #BB1E99;
+  color: #333333;
   border-bottom: 1px solid #fff;
 }
 .burger-menu_link:first-child {
