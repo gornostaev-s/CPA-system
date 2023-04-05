@@ -1604,3 +1604,9 @@ p {
     width: 100%;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .callback-telegram {
+    padding-top: 60px;
+  }
+}

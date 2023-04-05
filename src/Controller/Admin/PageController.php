@@ -43,6 +43,7 @@ class PageController extends AbstractController
         $page->setDescription($request->get('description'));
         $page->setSlug($request->get('slug'));
         $page->setFields($request->get('fields'));
+        $page->setTemplate($this->pageTemplateService->getById($request->get('template_id')));
 
         $this->pageService->store($page);
 
@@ -64,7 +65,6 @@ class PageController extends AbstractController
         $this->pageService->store($page);
 
         return $this->redirect($this->urlGenerator->generate('page_list'));
-
     }
 
     #[Route('/admin/page/delete/{slug}', name: 'page_delete', methods: ['POST'])]
