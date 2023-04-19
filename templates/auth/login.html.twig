@@ -35,6 +35,9 @@
                                 <div class="login-input-wrapper">
                                     <input type="submit" class="button-primary login-input3" value="Войти">
                                 </div>
+                                <p class="login-input__text">
+                                    Нет аккаунта? <a href="/registration">Зарегистрироваться</a>
+                                </p>
 
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"

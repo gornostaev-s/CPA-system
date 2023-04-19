@@ -28,7 +28,6 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
-      - ./containers/mysql:/etc/mysql/conf.d
-      - ./logs/mysql:/var/log
+      - ./logs/mysql/mysql.log:/var/log/mysql.log
     env_file:
       - ../.env
