@@ -9,7 +9,7 @@ services:
     volumes:
       - ./containers/nginx:/etc/nginx/conf.d
       - ./../:/var/www
-      - ./logs:/var/log/nginx
+      - ./logs/nginx:/var/log/nginx
     links:
       - php
     env_file:
@@ -28,5 +28,7 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./containers/mysql:/etc/mysql/conf.d
+      - ./logs/mysql:/var/log
     env_file:
       - ../.env
