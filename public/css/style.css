@@ -381,6 +381,7 @@ p {
   background: #fff;
   padding: 51px 37px 40px;
   border-radius: 5px;
+  min-height: 550px;
 }
 
 .slider-card__content{
@@ -393,7 +394,7 @@ p {
 
 .slider-card__text{
   color: #8A909A;
-  font-size: 18px;
+  font-size: 14px;
   font-family: Rubik;
   font-weight: 300;
   padding-top: 20px;
@@ -1493,6 +1494,26 @@ p {
 .contacts-info__group {
   padding-bottom: 10px;
   font-size: 18px;
+}
+
+.seo-text__title {
+  padding: 20px 0;
+}
+
+.no_padding {
+  padding: 0;
+}
+
+.seo-text {
+  padding: 50px 0;
+}
+
+.formatted-text h2,
+.formatted-text h3,
+.formatted-text h4,
+.formatted-text h5,
+.formatted-text h6 {
+  padding: 20px 0;
 }
 
 @media (min-width: 768px) and (max-width:992px) {

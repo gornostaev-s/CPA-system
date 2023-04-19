@@ -1,0 +1,33 @@
+<div class="dashboard-table-wrapper">
+    <h1>
+        Услуги
+    </h1>
+
+    <div class="dashboard-table-outer">
+        <table class="dashboard-table">
+            <thead class="dashboard-table__head">
+            <tr>
+                <td class="dashboard-table__col">Название услуги</td>
+                <td class="dashboard-table__col">Дата создания</td>
+                <td class="dashboard-table__col">Удалено (да/нет)</td>
+                <td class="dashboard-table__col_last">Действия</td>
+            </tr>
+            </thead>
+            {% for service in services %}
+                <tr class="dashboard-table__row">
+                    <td class="dashboard-table__col">{{ service.title }}</td>
+                    <td class="dashboard-table__col">{{ service.createdAt }}</td>
+                    <td class="dashboard-table__col">{% if service.deleted %} Да {% else %} Нет {% endif %}</td>
+                    <td class="dashboard-table__col_last">
+                        <a href="/admin/service/edit/{{ service.slug }}" class="dashboard-table__buttons">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a href="/admin/service/delete/{{ service.slug }}" class="dashboard-table__buttons">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

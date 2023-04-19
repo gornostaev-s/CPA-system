@@ -20,11 +20,7 @@
                     <input type="text" name="slug" class="admin-form__text" placeholder="Слаг услуги" value="{{ service.slug }}">
                 </div>
                 <div class="admin-form__group">
-                    {% if service.preview %}
-                        <input type="hidden" name="preview_id" value="{{ service.preview.id }}">
-                    {% else %}
-                        <input type="hidden" name="preview_id">
-                    {% endif %}
+                    <input type="hidden" name="preview_id">
                     <label>
                         <span>Выберите изображение услуги</span>
 

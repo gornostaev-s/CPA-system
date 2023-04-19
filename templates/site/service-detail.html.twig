@@ -8,9 +8,9 @@
             </div>
             <div class="col-lg-12">
                 <div class="text-wrapper">
-                    <span class="sellbuyleads-text">
-                        {{ service.description }}
-                    </span>
+                    <div class="formatted-text">
+                        {{ service.description | raw }}
+                    </div>
                 </div>
             </div>
         </div>
