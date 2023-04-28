@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Авторизация</title>
+    <title>Регистрация</title>
 </head>
 <body>
 <section class="login-section">
@@ -25,15 +25,21 @@
                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
 
-                        <form action="/login" method="POST" class="login-form">
+                        <form action="/registration" method="POST" class="login-form">
                             <div class="login-input-wrapper">
-                                <input class="form-section__input login-input" type="text" name="email" placeholder="Логин">
+                                <input class="form-section__input login-input" type="text" name="name" placeholder="Введите ваше имя">
+                            </div>
+                            <div class="login-input-wrapper">
+                                <input class="form-section__input login-input" type="text" name="phone" placeholder="Ваш номер телефона">
+                            </div>
+                            <div class="login-input-wrapper">
+                                <input class="form-section__input login-input" type="text" name="email" placeholder="Ваша почта">
                             </div>
                             <div class="login-input-wrapper">
                                 <input class="form-section__input login-input" type="password" name="password" placeholder="Пароль">
                             </div>
                             <div class="login-input-wrapper">
-                                <input type="submit" class="button-primary login-input3" value="Войти">
+                                <input type="submit" class="button-primary login-input3" value="Зарегистрироваться">
                             </div>
                             <input type="hidden" name="_csrf_token"
                                    value="{{ csrf_token('authenticate') }}"

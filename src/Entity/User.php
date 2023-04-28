@@ -2,24 +2,48 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\CreatedAtTrait;
+use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\SlugTrait;
+use App\Factories\PhoneFactory;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @class User
+ *
+ * @property int $id
+ * @property DateTime $createdAt
+ * @property string $slug
+ * @property bool $deleted
+ * @property string $email
+ * @property array $roles
+ * @property string $password
+ * @property string $name
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     const ROLE_USER = 'ROLE_USER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdTrait;
+    use CreatedAtTrait;
+    use SlugTrait;
+    use DeletedTrait;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+    private string $email;
+
+    #[ORM\Column(length: 180)]
+    private ?string $name;
+
+    #[ORM\Column(type: 'bigint', unique: true)]
+    private int $phone;
 
     #[ORM\Column]
     private array $roles = [];
@@ -30,21 +54,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
+
+    /**
+     * @param string $phone
+     * @param string $email
+     * @param string $name
+     * @param string $role
+     * @return User
+     */
+    public static function make(
+        string $phone,
+        string $email,
+        string $name = '',
+        string $role = self::ROLE_USER,
+    ): User
+    {
+        $user = new self;
+        $user->setPhone($phone);
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setRoles([$role]);
+        $user->setSlug(md5($phone));
+
+        return $user;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function getUsername()
+    /**
+     * @return string
+     */
+    public function getUsername(): string
     {
-        return $this->email;
+        return $this->name ?? $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -59,7 +125,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return $this->email;
     }
 
     /**
@@ -75,6 +141,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -90,6 +160,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -115,11 +189,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isUser(): bool
+    {
+        return in_array(self::ROLE_USER, $this->getRoles()) || $this->isAdmin();
+    }
+
+    /**
      * @return string|null
      */
     public function getName(): ?string
     {
-        return $this->email;
+        return $this->name;
     }
 
     /**
@@ -127,6 +209,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPhone(): string
     {
-        return '+7 (999) 999-99-99';
+        return PhoneFactory::intToPhone($this->phone);
+    }
+
+    /**
+     * @param int $phone
+     */
+    public function setPhone(int $phone): void
+    {
+        $this->phone = PhoneFactory::phoneToInt($phone);
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 }

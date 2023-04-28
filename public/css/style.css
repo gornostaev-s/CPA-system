@@ -649,7 +649,7 @@ p {
 .login-section{
   padding-top: 80px;
   background-image: url(../img/bg-01.webp);
-  height: 100vh;
+  min-height: 100vh;
   background-size: cover;
 }
 
@@ -703,11 +703,6 @@ p {
   padding-top: 15px;
   padding-bottom: 15px;
 }
-
-.login-input-wrapper:nth-child(2){
-  padding-bottom: 40px;
-}
-
 
 .login-input3{
   min-width: 160px;

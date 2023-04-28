@@ -1,0 +1,191 @@
+<div class="row margin-0">
+    <div class="col-sm-4 settings-menu-wrapper">
+        <div class="settings-menu">
+            <h5 class="settings-title">
+                Настройки
+            </h5>
+            <div class="tabs">
+                <div class="tab js-tab tab-active" data-tab="1">
+                    <h6 class="tab-title">
+                        <div class="tabs-icon-wrapper">
+                            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                        </div>
+                        Настройки профиля
+                    </h6>
+                    <p class="tab-text">
+                        Информация о вашем профиле
+                    </p>
+                </div>
+                <div class="tab js-tab" data-tab="2">
+                    <h6 class="tab-title">
+                        <div class="tabs-icon-wrapper">
+                            <i class="fa fa-shield" aria-hidden="true"></i>
+                        </div>
+                        Поменять пароль
+                    </h6>
+                    <p class="tab-text">
+                        Изменить пароль
+                    </p>
+                </div>
+                <div class="tab js-tab" data-tab="3">
+                    <h6 class="tab-title">
+                        <div class="tabs-icon-wrapper">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+                        Пополнить баланс
+                    </h6>
+                    <p class="tab-text">
+                        баланс аккаунта
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 padding-0">
+        <section class="settings-section js-content default-visible" data-tab="1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Настройки профиля
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/dashboard/settings" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="avatar-uploader">
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ваше имя</label>
+                                        <input class="settings-input" type="text" name="name" placeholder="Ваше имя" value="{{ app.user.name }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ваша почта</label>
+                                        <input class="settings-input" type="text" name="mail" placeholder="mail@example.com" value="{{ app.user.email }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Номер телефона</label>
+                                        <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ app.user.phone }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Ваш логин на сайте</label>
+                                        <input class="settings-input" type="text" name="username" placeholder="Придумайте логин" value="{{ app.user.username }}">
+                                    </div>
+                                </div>
+                                <div class="settings-submit-wrapper">
+                                    <input type="submit" class="button-primary" value="Применить">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="settings-section js-content default-visible" data-tab="2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Изменить пароль
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/dashboard/settings/password-change" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="avatar-uploader">
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Старый пароль</label>
+                                        <input class="settings-input" type="text" name="name" placeholder="Ваше имя" value="{{ app.user.name }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Новый пароль</label>
+                                        <input class="settings-input" type="text" name="mail" placeholder="mail@example.com" value="{{ app.user.email }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label class="settings-label">Повторите пароль</label>
+                                        <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ app.user.phone }}">
+                                    </div>
+                                </div>
+                                <div class="settings-submit-wrapper">
+                                    <input type="submit" class="button-primary" value="Применить">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="settings-section js-content default-visible" data-tab="3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Пополнить баланс
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/dashboard/settings" method="post">
+                            <p>
+                                Страница пополнения баланса пока еще в разработке,
+                                напишите <a href="mailto:info@birzha-leads.com">info@birzha-leads.com</a>
+                            </p>
+{#                            <div class="row">#}
+{#                                <div class="col-12">#}
+{#                                    <div class="avatar-uploader">#}
+
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <div class="settings-form-wrapper">#}
+{#                                        <label class="settings-label">Ваше имя</label>#}
+{#                                        <input class="settings-input" type="text" name="name" placeholder="Ваше имя" value="{{ app.user.name }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <div class="settings-form-wrapper">#}
+{#                                        <label class="settings-label">Ваша почта</label>#}
+{#                                        <input class="settings-input" type="text" name="mail" placeholder="mail@example.com" value="{{ app.user.email }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <div class="settings-form-wrapper">#}
+{#                                        <label class="settings-label">Номер телефона</label>#}
+{#                                        <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ app.user.phone }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <div class="settings-form-wrapper">#}
+{#                                        <label class="settings-label">Ваш логин на сайте</label>#}
+{#                                        <input class="settings-input" type="text" name="username" placeholder="Придумайте логин" value="{{ app.user.username }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="settings-submit-wrapper">#}
+{#                                    <input type="submit" class="button-primary" value="Применить">#}
+{#                                </div>#}
+{#                            </div>#}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

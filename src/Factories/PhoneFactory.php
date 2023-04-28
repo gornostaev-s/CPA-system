@@ -4,11 +4,19 @@ namespace App\Factories;
 
 class PhoneFactory
 {
+    /**
+     * @param string $phone
+     * @return int
+     */
     public static function phoneToInt(string $phone): int
     {
         return preg_replace('/([\s()+-])/', '', $phone);
     }
 
+    /**
+     * @param int $phone
+     * @return string
+     */
     public static function intToPhone(int $phone): string
     {
         $country = mb_substr($phone, 0, 1);

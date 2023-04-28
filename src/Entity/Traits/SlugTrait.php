@@ -6,7 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait SlugTrait
 {
-    #[ORM\Column(type: 'text', length: 255, nullable: false)]
+    #[ORM\Column(
+        type: 'string',
+        length: 512,
+        unique: true,
+        nullable: false
+    )]
     private string $slug;
 
     /**
