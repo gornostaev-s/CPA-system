@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LeadsController extends AbstractController
 {
+    // INSERT INTO leads.user (id, email, roles, password, name, phone, created_at, slug, deleted) VALUES (4, 'admin@birzha-leads.com', '["ROLE_ADMIN"]', '$2y$13$MVYKfMpcqe4HBm4VS83n7OlwaOdSS2dCvm39FVk3nvmGvccwHkSAW', 'Админ', 70000000000, '2023-04-28 14:46:00', '4e4ba20f78121c0c351f6829b24ebbfc', 0);
     #[Route('/dashboard/leads' , name: 'leads_list', methods: ['GET'])]
     public function index(): Response
     {

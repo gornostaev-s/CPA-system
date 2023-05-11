@@ -6,6 +6,7 @@ use App\Entity\Traits\CreatedAtTrait;
 use App\Entity\Traits\DeletedTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\SlugTrait;
+use App\Enum\UserModeEnum;
 use App\Factories\PhoneFactory;
 use App\Repository\UserRepository;
 use DateTime;
@@ -36,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use SlugTrait;
     use DeletedTrait;
 
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, options: ['default' => 0.00])]
+    private ?string $balance;
+
     #[ORM\Column(length: 180, unique: true)]
     private string $email;
 
@@ -47,6 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private array $roles = [];
+
+    #[ORM\Column(type: 'smallint')]
+    private int $mode;
 
     /**
      * @var string|null The hashed password
@@ -79,6 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $user->setName($name);
         $user->setRoles([$role]);
         $user->setSlug(md5($phone));
+        $user->setMode(UserModeEnum::webmaster->value);
 
         return $user;
     }
@@ -226,5 +234,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @param string $balance
+     */
+    public function setBalance(string $balance): void
+    {
+        $this->balance = $balance;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBalance(): string
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param int $mode
+     */
+    public function setMode(int $mode): void
+    {
+        $this->mode = $mode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMode(): int
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWebmaster(): bool
+    {
+        return $this->mode == UserModeEnum::webmaster->value;
     }
 }

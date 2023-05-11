@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Security;
 
 //use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -47,16 +48,16 @@ class AuthController extends AbstractController
         Request $request
     ): Response
     {
+        if ($request->isMethod('POST')) {
+            $this->userService->makeAndAuthorize($request);
+        }
+
         if ($this->getUser()?->isAdmin()) {
             return $this->redirect($urlGenerator->generate('admin_dashboard'));
         }
 
         if ($this->getUser()?->isUser()) {
             return $this->redirect($urlGenerator->generate('user_dashboard'));
-        }
-
-        if ($request->isMethod('POST')) {
-            $this->userService->makeAndAuthorize($request);
         }
 
         // get the login error if there is one
@@ -71,9 +72,9 @@ class AuthController extends AbstractController
     }
 
     #[Route('/logout', name: 'logout_action')]
-    public function logout()
+    public function logout(Security $security)
     {
-
+        $response = $security->logout(false);
     }
 }
 

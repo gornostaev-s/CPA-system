@@ -17,17 +17,17 @@ class AdminFixtures extends Fixture
     {
         $usersData = [
             [
+                'name' => 'Админ',
+                'phone' => '70000000000',
                 'email' => 'admin@birzha-leads.com',
-                'role' => ['ROLE_ADMIN'],
+                'role' => 'ROLE_ADMIN',
                 'password' => 'password'
             ]
         ];
 
         foreach ($usersData as $user) {
-            $newUser = new User();
-            $newUser->setEmail($user['email']);
+            $newUser = User::make($user['phone'], $user['email'], $user['name'], $user['role']);
             $newUser->setPassword($this->encoder->hashPassword($newUser, $user['password']));
-            $newUser->setRoles($user['role']);
             $manager->persist($newUser);
         }
 

@@ -16,14 +16,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 admin-aside-column">
-                <div class="admin-profile">
-                    <div class="admin-profile__avatar">
-                        <img src="/img/i.png" alt="">
-                    </div>
-                    <p class="admin-profile__username">{{ app.user.name }}</p>
-                    <p class="admin-profile__email">{{ app.user.email }}</p>
-                    <p class="admin-profile__email">Баланс: <b>0р</b></p>
-                </div>
+{#                <div>#}
+{#                    <a href="/">#}
+{#                        <img class="logo-img" src="/img/birzha-leads.png" alt="Логотип">#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="admin-profile">#}
+{#                    <div class="admin-profile__avatar">#}
+{#                        <img src="/img/i.png" alt="">#}
+{#                    </div>#}
+{#                    <p class="admin-profile__username">{{ app.user.name }}</p>#}
+{#                    <p class="admin-profile__email">{{ app.user.email }}</p>#}
+{#                    <p class="admin-profile__email">Баланс: <b>0.00 р.</b></p>#}
+{#                </div>#}
                 <ul class="admin-menu">
                     <li class="admin-menu__item">
                         <a href="/dashboard/settings" class="admin-menu__link">
@@ -33,20 +38,6 @@
                             Настройки профиля
                         </a>
                     </li>
-{#                    <li class="admin-menu__item">#}
-{#                        <a href="/admin/menu" class="admin-menu__link">#}
-{#                            <div class="paragraphs-icon-wrapper">#}
-{#                                <i class="fa fa-table" aria-hidden="true"></i>#}
-{#                            </div>#}
-{#                            Настройки меню#}
-{#                        </a>#}
-{#                        <ul class="admin-sub-menu">#}
-{#                            <li class="admin-sub-menu__item">#}
-{#                                <a class="admin-sub-menu__link" href="/admin/menu">Список меню</a>#}
-{#                                <a class="admin-sub-menu__link" href="/admin/menu/add">Создать меню</a>#}
-{#                            </li>#}
-{#                        </ul>#}
-{#                    </li>#}
                     <li class="admin-menu__item">
                         <a href="/dashboard" class="admin-menu__link">
                             <div class="paragraphs-icon-wrapper">
@@ -55,49 +46,122 @@
                             Статистика
                         </a>
                     </li>
-                    <li class="admin-menu__item">
-                        <a href="/dashboard/leads" class="admin-menu__link">
-                            <div class="paragraphs-icon-wrapper">
-                                <i class="fa fa-tasks" aria-hidden="true"></i>
-                            </div>
-                            Список лидов
-                        </a>
-                        <ul class="admin-sub-menu">
-                            <li class="admin-sub-menu__item">
-                                <a class="admin-sub-menu__link" href="/dashboard/leads/check">Проверка лидов</a>
-                                <a class="admin-sub-menu__link" href="/dashboard/leads/add">Добавить лид</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="admin-menu__item">
-                        <a href="/dashboard/flows" class="admin-menu__link">
-                            <div class="paragraphs-icon-wrapper">
-                                <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                            </div>
-                            Мои потоки
-                        </a>
-                        <ul class="admin-sub-menu">
-                            <li class="admin-sub-menu__item">
-                                <a class="admin-sub-menu__link" href="/dashboard/flows/add">Добавить поток</a>
-                            </li>
-                        </ul>
-                    </li>
+
+                    {% if app.user.mode == constant('App\\Enum\\UserModeEnum::webmaster').value %}
+                        <li class="admin-menu__item">
+                            <a href="/dashboard/leads" class="admin-menu__link">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                </div>
+                                Список лидов
+                            </a>
+                            <ul class="admin-sub-menu">
+                                <li class="admin-sub-menu__item">
+                                    <a class="admin-sub-menu__link" href="#">Проверка лидов</a>
+                                    <a class="admin-sub-menu__link" href="#">Добавить лид</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="admin-menu__item">
+                            <a href="/dashboard/flows" class="admin-menu__link">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                </div>
+                                Мои потоки
+                            </a>
+                            <ul class="admin-sub-menu">
+                                <li class="admin-sub-menu__item">
+                                    <a class="admin-sub-menu__link" href="/dashboard/flows/add">Добавить поток</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if app.user.mode == constant('App\\Enum\\UserModeEnum::advertiser').value %}
+                        <li class="admin-menu__item">
+                            <a href="#" class="admin-menu__link">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                </div>
+                                Список лидов
+                            </a>
+                            <ul class="admin-sub-menu">
+                                <li class="admin-sub-menu__item">
+                                    <a class="admin-sub-menu__link" href="#">Лента невыкупленных лидов</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="admin-menu__item">
+                            <a href="/dashboard/flows" class="admin-menu__link">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                </div>
+                                Каталог потоков
+                            </a>
+                            <ul class="admin-sub-menu">
+                                <li class="admin-sub-menu__item">
+                                    <a class="admin-sub-menu__link" href="/dashboard/flows/add">Потоки в работе</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="admin-menu__item">
+                            <a href="#" class="admin-menu__link">
+                                <div class="paragraphs-icon-wrapper">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                </div>
+                                Мои запросы лидов
+                            </a>
+                            <ul class="admin-sub-menu">
+                                <li class="admin-sub-menu__item">
+                                    <a class="admin-sub-menu__link" href="#">Добавить запрос лидов</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-sm-9 admin-main">
                 <header class="admin-header">
-                    <!--   <div class="col-sm-12 header-underline mob-none"> <hr> </div> -->
-                    <div>
-                        <a href="/">
-                            <img class="logo-img" src="/img/birzha-leads.png" alt="Логотип">
-                        </a>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="/">
+                                <img class="logo-img" src="/img/birzha-leads.png" alt="Логотип">
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mode-chooser">
+                                <a class="mode-chooser__item js-mode {% if app.user.isWebmaster() %} mode-chooser__active {% endif %} border_right" href="/dashboard/mode?type={{ constant('App\\Enum\\UserModeEnum::webmaster').value }}">
+                                    {{ constant('App\\Enum\\UserModeEnum::webmaster').getLabel() }}
+                                </a>
+                                <a class="mode-chooser__item js-mode {% if not app.user.isWebmaster() %} mode-chooser__active {% endif %}" href="/dashboard/mode?type={{ constant('App\\Enum\\UserModeEnum::advertiser').value }}">
+                                    {{ constant('App\\Enum\\UserModeEnum::advertiser').getLabel() }}
+                                </a>
+                            </div>
+{#                            <a href="#" class="user-settings-link">#}
+{#                                <i class="fa fa-cogs" aria-hidden="true"></i>#}
+{#                                Настройки#}
+{#                            </a>#}
+                        </div>
+                        <div class="col-md-3">
+                            <div class="header-profile">
+                                <span class="header-profile__email">
+                                    {{ app.user.email }}
+                                </span>
+                                <div class="balance-info">
+                                    <span class="balance-info__text">
+                                        Баланс:
+                                    </span>
+                                    <b class="balance-info__value">
+                                        {{ app.user.balance }}р.
+                                    </b>
+                                    <a class="user-logout" href="#">Выйти</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </header>
 
                 <div class="admin-inner">
-
                     {% include inner %}
-
                 </div>
             </div>
         </div>

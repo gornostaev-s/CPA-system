@@ -753,7 +753,7 @@ p {
 }
 
 .admin-menu{
-  padding-top: 60px;
+  padding-top: 20px;
   list-style-type: none;
   padding-left: 9px;
   padding-right: 16px;
@@ -808,8 +808,8 @@ p {
 }
 
 .welcome-section{
-  padding-top: 100px;
-  padding-bottom: 70px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   padding-left: 25px;
 }
 
@@ -1509,6 +1509,32 @@ p {
 .formatted-text h5,
 .formatted-text h6 {
   padding: 20px 0;
+}
+
+.header-profile {
+  padding-top: 10px;
+}
+
+.user-logout {
+  padding-left: 10px;
+  text-decoration: underline;
+}
+
+.mode-chooser__item {
+  color: #000;
+  display: inline-block;
+  opacity: 0.4;
+  transition: 0.25s;
+  padding: 0 5px 5px;
+}
+
+.mode-chooser {
+  padding-top: 10px;
+}
+
+.mode-chooser__active {
+  opacity: 1;
+  border-bottom: 1px solid #000;
 }
 
 @media (min-width: 768px) and (max-width:992px) {

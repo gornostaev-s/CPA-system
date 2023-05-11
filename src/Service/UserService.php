@@ -7,7 +7,9 @@ use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
@@ -18,7 +20,7 @@ class UserService
         private readonly UserRepository $userRepository,
         private readonly LoginFormAuthenticator $loginFormAuthenticator,
         private readonly UserAuthenticatorInterface $authenticator,
-        private readonly UserPasswordHasherInterface $encoder
+        private readonly UserPasswordHasherInterface $encoder,
     )
     {
 
@@ -47,5 +49,16 @@ class UserService
             $request);
 
         return $this->loginFormAuthenticator->authenticate($request);
+    }
+
+    public function store(User $user): void
+    {
+        $this->userRepository->save($user, true);
+    }
+
+    public function changeUserMode(User $user, int $mode): void
+    {
+        $user->setMode($mode);
+        $this->userRepository->save($user, true);
     }
 }
