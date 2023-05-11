@@ -30,7 +30,7 @@
                                 <input class="form-section__input login-input" type="text" name="name" placeholder="Введите ваше имя">
                             </div>
                             <div class="login-input-wrapper">
-                                <input class="form-section__input login-input" type="text" name="phone" placeholder="Ваш номер телефона">
+                                <input class="form-section__input login-input js-phoneInput" type="text" name="phone" placeholder="Ваш номер телефона">
                             </div>
                             <div class="login-input-wrapper">
                                 <input class="form-section__input login-input" type="text" name="email" placeholder="Ваша почта">
@@ -51,4 +51,11 @@
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js" integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        jQuery(".js-phoneInput").mask("+7(999) 999-9999");
+    })
+</script>
 </body>

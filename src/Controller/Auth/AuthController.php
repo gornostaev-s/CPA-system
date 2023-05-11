@@ -72,9 +72,9 @@ class AuthController extends AbstractController
     }
 
     #[Route('/logout', name: 'logout_action')]
-    public function logout(Security $security)
+    public function logout()
     {
-        $response = $security->logout(false);
+
     }
 }
 
