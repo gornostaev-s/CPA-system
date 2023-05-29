@@ -1,0 +1,38 @@
+<div class="dashboard-table-wrapper">
+    <h1>
+        Каталог потоков
+    </h1>
+
+    <div class="dashboard-table-outer">
+        <table class="dashboard-table">
+            <thead class="dashboard-table__head">
+            <tr>
+                <td class="dashboard-table__col">ID</td>
+                <td class="dashboard-table__col">Описание</td>
+                <td class="dashboard-table__col">Дата создания</td>
+                <td class="dashboard-table__col">Ставка</td>
+                <td class="dashboard-table__col_last">Действия</td>
+            </tr>
+            </thead>
+            {% for flow in flows %}
+                <tr class="dashboard-table__row">
+                    <td class="dashboard-table__col">{{ flow.id }}</td>
+                    <td class="dashboard-table__col">{{ flow.description }}</td>
+                    <td class="dashboard-table__col">{{ flow.createdAt }}</td>
+                    <td class="dashboard-table__col">{{ flow.rateFormatted }}</td>
+                    <td class="dashboard-table__col_last">
+                        {% if manager.isSubscribed(flow.id) %}
+                            <a href="/dashboard/flows/unsubscribe/{{ flow.id }}" class="dashboard-table__buttons red-action">
+                                Отписаться
+                            </a>
+                        {% else %}
+                            <a href="/dashboard/flows/subscribe/{{ flow.id }}" class="dashboard-table__buttons green-action">
+                                Подписаться
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

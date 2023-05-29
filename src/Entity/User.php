@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use DeletedTrait;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2, options: ['default' => 0.00])]
-    private ?string $balance;
+    private ?float $balance;
 
     #[ORM\Column(length: 180, unique: true)]
     private string $email;
@@ -237,17 +237,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param string $balance
+     * @param float $balance
      */
-    public function setBalance(string $balance): void
+    public function setBalance(float $balance): void
     {
         $this->balance = $balance;
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getBalance(): string
+    public function getBalance(): float
     {
         return $this->balance;
     }

@@ -7,6 +7,7 @@ use App\Entity\Traits\DeletedTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\SlugTrait;
 use App\Repository\PageRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +29,7 @@ class Page
     use CreatedAtTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'text', length: 65535)]
+    #[ORM\Column(type: 'string', length: 512)]
     private string $title;
 
     #[ORM\Column(type: 'text')]
@@ -46,7 +47,7 @@ class Page
 
     public function __construct()
     {
-        $this->setCreatedAt(new \DateTime());
+        $this->setCreatedAt(new DateTime());
         $this->setDeleted(false);
     }
 

@@ -1537,6 +1537,18 @@ p {
   border-bottom: 1px solid #000;
 }
 
+.red-action {
+  color: #fa3131;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.green-action {
+  color: #26a626;
+  font-size: 14px;
+  font-weight: 500;
+}
+
 @media (min-width: 768px) and (max-width:992px) {
   .leads-card__overflow {
     background-color: #FFFFFF;
