@@ -22,10 +22,10 @@
                     </a><br>
                 </div>
                 <div class="col-6 col-sm-6 col-md-4">
-                    <a href="tel:+78002553535" class="header-contacts__link header-link">+7 (900) 888-88-88</a><br>
+                    <a href="tel:+{{ settings.publicPhoneRaw }}" class="header-contacts__link header-link">{{ settings.publicPhone }}</a><br>
                     <span class="footer-comments">Время когда звонить</span><br>
                     <a href="mailto:mail@example.com" class="header-contacts__link header-link">
-                        mail@example.com
+                        {{ settings.publicEmail }}
                     </a><br>
                     <span class="footer-comments">
                         Для решения любых проблем
