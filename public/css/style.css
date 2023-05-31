@@ -1554,6 +1554,7 @@ p {
   padding-left: 0;
   margin-bottom: 0;
   padding-top: 20px;
+  justify-content: center;
 }
 
 .footer-documents__item {
