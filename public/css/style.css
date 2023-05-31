@@ -718,7 +718,7 @@ p {
 }
 
 .admin-form__label {
-  padding-bottom: 15px;
+  padding-bottom: 10px;
 }
 
 .admin-profile{
@@ -1004,7 +1004,7 @@ p {
 .admin-form__text, .admin-form__select {
   background: #ffffff;
   border-radius: 4px;
-  padding: 10px;
+  padding: 7px;
   border: 1px grey solid;
   display: inline-block;
   width: 100%;
@@ -1335,12 +1335,12 @@ p {
 }
 
 .admin-form__group {
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 .admin-form__textarea {
   width: 100%;
-  min-height: 300px;
+  min-height: 250px;
   background: #ffffff;
   border-radius: 4px;
   padding: 10px;

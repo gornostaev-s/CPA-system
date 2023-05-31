@@ -41,8 +41,8 @@ class PageController extends AbstractController
     {
         $page->setTitle($request->get('title'));
         $page->setDescription($request->get('description'));
-        $page->setSlug($request->get('slug'));
-        $page->setFields($request->get('fields'));
+        $page->setSlug($request->get('page_slug'));
+        $page->setFields($request->get('fields', []));
         $page->setTemplate($this->pageTemplateService->getById($request->get('template_id')));
 
         $this->pageService->store($page);
@@ -60,7 +60,7 @@ class PageController extends AbstractController
             $this->pageTemplateService->getById($request->get('template_id'))
         );
 
-        $page->setFields($request->get('fields'));
+        $page->setFields($request->get('fields', []));
 
         $this->pageService->store($page);
 
