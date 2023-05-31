@@ -1564,6 +1564,7 @@ p {
 .footer-documents__link {
   text-decoration: underline;
   color: #000;
+  font-size: 12px;
 }
 
 @media (min-width: 768px) and (max-width:992px) {
