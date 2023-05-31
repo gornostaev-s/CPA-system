@@ -506,7 +506,6 @@ p {
 }
 
 .footer-undersection{
-  padding-top: 30px;
   padding-bottom: 10px;
 }
 
@@ -1547,6 +1546,23 @@ p {
   color: #26a626;
   font-size: 14px;
   font-weight: 500;
+}
+
+.footer-documents {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  padding-top: 20px;
+}
+
+.footer-documents__item {
+  padding-left: 20px;
+}
+
+.footer-documents__link {
+  text-decoration: underline;
+  color: #000;
 }
 
 @media (min-width: 768px) and (max-width:992px) {
