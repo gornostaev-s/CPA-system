@@ -4,6 +4,8 @@ namespace App\Factories;
 
 class PhoneFactory
 {
+    const PHONE_MASK = '+7(999) 999-9999';
+
     /**
      * @param string $phone
      * @return int

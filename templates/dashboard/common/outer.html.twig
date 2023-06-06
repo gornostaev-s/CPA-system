@@ -192,5 +192,10 @@
         jQuery(this).toggleClass('tab-active')
     })
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        jQuery(".js-phoneInput").mask("{{ constant('App\\Factories\\PhoneFactory::PHONE_MASK') }}");
+    })
+</script>
 </body>
 </html>

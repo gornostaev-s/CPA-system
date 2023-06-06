@@ -71,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @param string $email
      * @param string $name
      * @param string $role
+     * @param float $balance
      * @return User
      */
     public static function make(
@@ -78,6 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         string $email,
         string $name = '',
         string $role = self::ROLE_USER,
+        float $balance = 0
     ): User
     {
         $user = new self;
@@ -87,6 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $user->setRoles([$role]);
         $user->setSlug(md5($phone));
         $user->setMode(UserModeEnum::webmaster->value);
+        $user->setBalance($balance);
 
         return $user;
     }
@@ -221,9 +224,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param int $phone
+     * @param string $phone
      */
-    public function setPhone(int $phone): void
+    public function setPhone(string $phone): void
     {
         $this->phone = PhoneFactory::phoneToInt($phone);
     }

@@ -17,9 +17,9 @@ class LeadRepository extends ServiceEntityRepository
         parent::__construct($registry, Lead::class);
     }
 
-    public function flush(Lead $flow)
+    public function store(Lead $lead)
     {
-        $this->entityManager->persist($flow);
+        $this->entityManager->persist($lead);
         $this->entityManager->flush();
     }
 }

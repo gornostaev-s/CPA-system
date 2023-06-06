@@ -2,15 +2,21 @@
 
 namespace App\Controller\Crm;
 
+use App\Entity\Flow;
+use App\Entity\Lead;
 use App\Service\FlowService;
+use App\Service\LeadService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LeadsController extends AbstractController
 {
     public function __construct(
-        private readonly FlowService $flowService
+        private readonly FlowService $flowService,
+        private readonly LeadService $leadService
     )
     {
     }
@@ -42,5 +48,20 @@ class LeadsController extends AbstractController
                 'ownerId' => $this->getUser()->getId()
             ])
         ]);
+    }
+
+    #[Route('/dashboard/flows/add' , name: 'leads_add', methods: ['POST'])]
+    public function add(Request $request): RedirectResponse
+    {
+        $lead = Lead::make(
+            $this->getUser(),
+            $request->get('phone'),
+            $request->get('email'),
+            $request->get('name'),
+        );
+
+//        $this->leadService->($lead);
+
+        return $this->redirect($this->urlGenerator->generate('flows_list'));
     }
 }
