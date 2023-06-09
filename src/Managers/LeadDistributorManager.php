@@ -2,7 +2,6 @@
 
 namespace App\Managers;
 
-use App\Entity\Flow;
 use App\Entity\FlowSubscription;
 use App\Entity\Lead;
 use App\Repository\FlowSubscriptionRepository;
@@ -17,9 +16,9 @@ class LeadDistributorManager
 
     public function apply(Lead $lead): void
     {
-        $subscriptions = $this->flowSubscriptionRepository->find(['flowId' => $lead->flow->getId()], [
-            'leadsCount',
-            'rate'
+        $subscriptions = $this->flowSubscriptionRepository->findBy(['flowId' => $lead->getFlow()->getId()], [
+            'leadsCount' => 'DESC',
+            'rate' => 'DESC'
         ]);
 
         foreach ($subscriptions as $subscription) {
@@ -27,6 +26,7 @@ class LeadDistributorManager
              * @var FlowSubscription $subscription
              */
             $subscriber = $subscription->getSubscriber();
+            $lead->setFlowSubscription($subscription);
 
             if ($subscriber->getBalance() - $subscription->getRate() >= 0) {
                 $subscription->setLeadsCount($subscription->getLeadsCount() + 1);

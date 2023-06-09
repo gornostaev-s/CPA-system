@@ -4,6 +4,8 @@ namespace App\Controller\Crm;
 
 use App\Entity\Flow;
 use App\Entity\Lead;
+use App\Repository\FlowRepository;
+use App\Repository\LeadRepository;
 use App\Service\FlowService;
 use App\Service\LeadService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,12 +13,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class LeadsController extends AbstractController
 {
     public function __construct(
         private readonly FlowService $flowService,
-        private readonly LeadService $leadService
+        private readonly LeadService $leadService,
+        private readonly LeadRepository $leadRepository,
+        private readonly FlowRepository $flowRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
     )
     {
     }
@@ -27,7 +33,14 @@ class LeadsController extends AbstractController
     {
         return $this->render('dashboard/common/outer.html.twig', [
             'inner' => 'dashboard/leads/list.html.twig',
-            'leads' => []
+            'leads' => match ($this->getUser()->isWebmaster()) {
+                true => $this->leadRepository->findBy([
+                    'ownerId' => $this->getUser()->getId()
+                ]),
+                false => $this->leadRepository->findBy([
+                    'buyerId' => $this->getUser()->getId()
+                ])
+            }
         ]);
     }
 
@@ -50,17 +63,19 @@ class LeadsController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/flows/add' , name: 'leads_add', methods: ['POST'])]
+    #[Route('/dashboard/leads/add' , name: 'leads_add', methods: ['POST'])]
     public function add(Request $request): RedirectResponse
     {
         $lead = Lead::make(
             $this->getUser(),
+            $this->flowRepository->findOneBy(['id' => $request->get('flow_id')]),
             $request->get('phone'),
             $request->get('email'),
             $request->get('name'),
+            $request->get('message')
         );
 
-//        $this->leadService->($lead);
+        $this->leadService->store($lead);
 
         return $this->redirect($this->urlGenerator->generate('flows_list'));
     }

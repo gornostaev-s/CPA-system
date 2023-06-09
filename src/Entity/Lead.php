@@ -22,8 +22,8 @@ class Lead
      *
      * @var int
      */
-    #[ORM\Column(name: 'buyer_id', type: 'integer')]
-    private int $buyerId;
+    #[ORM\Column(name: 'buyer_id', type: 'integer', nullable: true)]
+    private int $buyerId = 0;
 
     /**
      * Идентификатор пользователя, от лица которого был создан лид
@@ -42,6 +42,14 @@ class Lead
     private int $subscriptionId;
 
     /**
+     * Идентификатор выбранного потока
+     *
+     * @var int
+     */
+    #[ORM\Column(name: 'flow_id', type: 'integer')]
+    private int $flowId;
+
+    /**
      * Сущность подписки по которой создался лид
      *
      * @var FlowSubscription
@@ -56,8 +64,8 @@ class Lead
      * @var User
      */
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'buyer_id', referencedColumnName: 'id')]
-    private User $buyer;
+    #[ORM\JoinColumn(name: 'buyer_id', referencedColumnName: 'id', nullable: true)]
+    private ?User $buyer = null;
 
     /**
      * Сущность продавца лида
@@ -68,25 +76,29 @@ class Lead
     #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id')]
     private User $owner;
 
+    #[ORM\ManyToOne(targetEntity: Flow::class)]
+    #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id')]
+    private Flow $flow;
+
     /**
      * Дата и время доставки до покупателя лида
      *
-     * @var DateTime
+     * @var DateTime|null
      */
-    #[ORM\Column(name: 'delivered_at', type: 'datetime', options: ['default' => "CURRENT_TIMESTAMP"],)]
-    private DateTime $deliveredAt;
+    #[ORM\Column(name: 'delivered_at', type: 'datetime', nullable: true, options: ['default' => "CURRENT_TIMESTAMP"])]
+    private ?DateTime $deliveredAt;
 
     #[ORM\Column(type: 'string', length: 180)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 180)]
-    private string $email;
+    #[ORM\Column(type: 'string', length: 180, nullable: true)]
+    private ?string $email;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'bigint')]
     private string $phone;
 
-    #[ORM\Column(type: 'text')]
-    private string $message;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $message;
 
     #[ORM\Column(type: 'string', length: 512)]
     private string $referer;
@@ -98,15 +110,22 @@ class Lead
 
     public static function make(
         User $user,
+        Flow $flow,
         string $phone,
         ?string $email = '',
-        ?string $name = ''
+        ?string $name = '',
+        ?string $message = ''
     ): Lead
     {
         $lead = new self;
+        $lead->flow = $flow;
         $lead->phone = PhoneFactory::phoneToInt($phone);
         $lead->email = $email;
         $lead->name = $name;
+        $lead->message = $message;
+
+        $lead->referer = '';
+
         $lead->setOwner($user);
 
         return $lead;
@@ -171,7 +190,7 @@ class Lead
     /**
      * @return DateTime
      */
-    public function getDeliveredAt(): DateTime
+    public function getDeliveredAt(): ?DateTime
     {
         return $this->deliveredAt;
     }
@@ -219,8 +238,24 @@ class Lead
     /**
      * @return User
      */
-    public function getBuyer(): User
+    public function getBuyer(): ?User
     {
         return $this->buyer;
+    }
+
+    /**
+     * @param Flow $flow
+     */
+    public function setFlow(Flow $flow): void
+    {
+        $this->flow = $flow;
+    }
+
+    /**
+     * @return Flow
+     */
+    public function getFlow(): Flow
+    {
+        return $this->flow;
     }
 }
