@@ -10,6 +10,7 @@
                 <td class="dashboard-table__col">Телефон</td>
                 <td class="dashboard-table__col">Поток</td>
                 <td class="dashboard-table__col">Дата создания</td>
+                <td class="dashboard-table__col">Статус</td>
 {#                <td class="dashboard-table__col_last">Действия</td>#}
             </tr>
             </thead>
@@ -18,6 +19,7 @@
                 <td class="dashboard-table__col">{{ lead.phone }}</td>
                 <td class="dashboard-table__col">{{ lead.flow.id }}</td>
                 <td class="dashboard-table__col">{{ lead.createdAt }}</td>
+                <td class="dashboard-table__col">{{ lead.statusLabel }}</td>
 {#                <td class="dashboard-table__col">01.01.2023 00:00:00</td>#}
 {#                <td class="dashboard-table__col">Опубликовано</td>#}
 {#                <td class="dashboard-table__col_last">#}

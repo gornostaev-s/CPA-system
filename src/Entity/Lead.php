@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\CreatedAtTrait;
 use App\Entity\Traits\IdTrait;
+use App\Enum\LeadStatusEnum;
 use App\Factories\PhoneFactory;
 use App\Repository\LeadRepository;
 use DateTime;
@@ -20,10 +21,10 @@ class Lead
     /**
      * Идентификатор пользователя, который приобрел лид
      *
-     * @var int
+     * @var int|null
      */
     #[ORM\Column(name: 'buyer_id', type: 'integer', nullable: true)]
-    private int $buyerId = 0;
+    private ?int $buyerId = 0;
 
     /**
      * Идентификатор пользователя, от лица которого был создан лид
@@ -61,7 +62,7 @@ class Lead
     /**
      * Сущность покупателя лида
      *
-     * @var User
+     * @var User|null
      */
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'buyer_id', referencedColumnName: 'id', nullable: true)]
@@ -103,9 +104,13 @@ class Lead
     #[ORM\Column(type: 'string', length: 512)]
     private string $referer;
 
+    #[ORM\Column(type: 'integer')]
+    private int $status;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
+        $this->setStatus(LeadStatusEnum::default->value);
     }
 
     public static function make(
@@ -257,5 +262,26 @@ class Lead
     public function getFlow(): Flow
     {
         return $this->flow;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    public function getStatusLabel(): string
+    {
+        return LeadStatusEnum::get($this->status)->getLabel();
     }
 }

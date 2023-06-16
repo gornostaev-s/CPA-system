@@ -4,6 +4,7 @@ namespace App\Managers;
 
 use App\Entity\FlowSubscription;
 use App\Entity\Lead;
+use App\Enum\LeadStatusEnum;
 use App\Repository\FlowSubscriptionRepository;
 
 class LeadDistributorManager
@@ -30,6 +31,7 @@ class LeadDistributorManager
 
             if ($subscriber->getBalance() - $subscription->getRate() >= 0) {
                 $subscription->setLeadsCount($subscription->getLeadsCount() + 1);
+                $lead->setStatus(LeadStatusEnum::hold->value);
                 $lead->setBuyer($subscriber);
                 $this->flowSubscriptionRepository->store($subscription);
             }
