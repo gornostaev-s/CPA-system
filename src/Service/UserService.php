@@ -61,4 +61,11 @@ class UserService
         $user->setMode($mode);
         $this->userRepository->save($user, true);
     }
+
+    public function upUserBalance(User $user, float $sum): float
+    {
+        $user->setBalance($user->getBalance() + $sum);
+
+        return $user->getBalance();
+    }
 }

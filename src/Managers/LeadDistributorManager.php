@@ -6,6 +6,7 @@ use App\Entity\FlowSubscription;
 use App\Entity\Lead;
 use App\Enum\LeadStatusEnum;
 use App\Repository\FlowSubscriptionRepository;
+use DateTime;
 
 class LeadDistributorManager
 {
@@ -33,6 +34,7 @@ class LeadDistributorManager
                 $subscription->setLeadsCount($subscription->getLeadsCount() + 1);
                 $lead->setStatus(LeadStatusEnum::hold->value);
                 $lead->setBuyer($subscriber);
+                $lead->setDeliveredAt(new DateTime());
                 $this->flowSubscriptionRepository->store($subscription);
             }
         }

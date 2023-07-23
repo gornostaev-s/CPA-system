@@ -44,14 +44,6 @@ class LeadsController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/leads/check' , name: 'leads_check', methods: ['GET'])]
-    public function check(): Response
-    {
-        return $this->render('dashboard/common/outer.html.twig', [
-            'inner' => 'dashboard/common/maintenance.html.twig',
-        ]);
-    }
-
     #[Route('/dashboard/leads/add' , name: 'leads_store', methods: ['GET'])]
     public function store(): Response
     {
@@ -78,5 +70,20 @@ class LeadsController extends AbstractController
         $this->leadService->store($lead);
 
         return $this->redirect($this->urlGenerator->generate('flows_list'));
+    }
+
+    #[Route('/dashboard/leads/check/{id}' , name: 'leads_check', methods: ['POST'])]
+    public function check(Lead $lead, Request $request)
+    {
+        match ($request->get('handle')) {
+            '0' => $this->leadService->accept($lead),
+            '1' => $this->leadService->reject($lead)
+        };
+
+        return $this->json([
+            'id' => $lead->getId(),
+            'status' => $lead->getStatus(),
+            'statusLabel' => $lead->getStatusLabel()
+        ]);
     }
 }

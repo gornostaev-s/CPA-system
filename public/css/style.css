@@ -64,13 +64,14 @@ p {
   color: black;
 }
 
-.main-slide{
-  background-image: url('../img/businessconsultant.png');
-  background-position: right bottom;
+.main-slide {
+  background-image: url(../img/businessconsultant.png);
+  background-position: right top;
   background-repeat: no-repeat;
   min-height: 660px;
   display: flex;
   align-items: center;
+  background-size: 40%;
 }
 
 .main-slide__title{
@@ -1565,6 +1566,12 @@ p {
   text-decoration: underline;
   color: #000;
   font-size: 12px;
+}
+
+@media (min-width: 992px) {
+  .main-slide .main-slide__content {
+    margin-top: -100px;
+  }
 }
 
 @media (min-width: 768px) and (max-width:992px) {
