@@ -69,10 +69,10 @@ class FlowsController extends AbstractController
     public function add(Request $request): RedirectResponse
     {
         $flow = Flow::make(
-            $request->get('category_id'),
-            $request->get('region_id'),
-            $request->get('source_id'),
-            $request->get('rate'),
+            $this->categoryRepository->findOneBy(['id' => $request->get('category_id')]),
+            $this->regionRepository->findOneBy(['id' => $request->get('region_id')]),
+            $this->sourceRepository->findOneBy(['id' => $request->get('source_id')]),
+            (float)$request->get('rate'),
             $this->getUser()
         );
 
