@@ -5,6 +5,9 @@ namespace App\Controller\Crm;
 use App\Entity\Flow;
 use App\Entity\User;
 use App\Managers\FlowSubscribeManager;
+use App\Repository\CategoryRepository;
+use App\Repository\RegionRepository;
+use App\Repository\SourceRepository;
 use App\Service\FlowService;
 use App\Service\SubscriberService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +24,9 @@ class FlowsController extends AbstractController
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly SubscriberService $subscriberService,
         private readonly FlowSubscribeManager $manager,
+        private readonly RegionRepository $regionRepository,
+        private readonly CategoryRepository $categoryRepository,
+        private readonly SourceRepository $sourceRepository,
     )
     {
     }
@@ -52,6 +58,9 @@ class FlowsController extends AbstractController
     public function store(): Response
     {
         return $this->render('dashboard/common/outer.html.twig', [
+            'regions' => $this->regionRepository->findAll(),
+            'categories' => $this->categoryRepository->findAll(),
+            'sources' => $this->sourceRepository->findAll(),
             'inner' => 'dashboard/flows/store.html.twig',
         ]);
     }
