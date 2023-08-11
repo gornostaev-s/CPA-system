@@ -195,6 +195,6 @@ class Flow
 
     public function getUrl(): string
     {
-        return  "https://birzha-leads.com/dashboard/flows/view/$this->id";
+        return  getenv('BASE_URI') . "/dashboard/flows/view/$this->id";
     }
 }
