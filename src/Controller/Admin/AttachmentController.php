@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AttachmentController extends AbstractController
 {
@@ -15,10 +16,21 @@ class AttachmentController extends AbstractController
     {
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     #[Route('/admin/attachment', name: 'store_attachment', methods: ['POST'])]
     public function uploadAction(Request $request): JsonResponse
     {
-        $attachment = Attachment::make($request->files->get('image'));
+        /**
+         * @var UploadedFile $file
+         */
+        $file = $request->files->get('image');
+        $this->attachmentService->validateMimeType($file->getMimeType());
+
+        $attachment = Attachment::make($file);
         $this->attachmentService->store($attachment);
 
         return $this->json([

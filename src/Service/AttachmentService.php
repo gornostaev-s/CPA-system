@@ -8,6 +8,12 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 
 class AttachmentService
 {
+    private const ACCEPTED_MIME = [
+        'image/png',
+        'image/webp',
+        'image/jpeg',
+    ];
+
     public function __construct(
         private readonly AttachmentRepository $attachmentRepository,
         private readonly UploadHandler $uploadHandler
@@ -28,5 +34,14 @@ class AttachmentService
     public function getById(int $id): Attachment
     {
         return $this->attachmentRepository->find($id);
+    }
+
+    /**
+     * @param string $mime
+     * @return bool
+     */
+    public function validateMimeType(string $mime): bool
+    {
+        return in_array($mime, self::ACCEPTED_MIME);
     }
 }
