@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Attachment;
 use App\Repository\AttachmentRepository;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Handler\UploadHandler;
 
 class AttachmentService
@@ -37,11 +38,11 @@ class AttachmentService
     }
 
     /**
-     * @param string $mime
+     * @param UploadedFile $file
      * @return bool
      */
-    public function validateMimeType(string $mime): bool
+    public function validate(UploadedFile $file): bool
     {
-        return in_array($mime, self::ACCEPTED_MIME);
+        return in_array($file->getMimeType(), self::ACCEPTED_MIME);
     }
 }

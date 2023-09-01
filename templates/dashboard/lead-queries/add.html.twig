@@ -1,0 +1,62 @@
+<div class="admin-wrapper">
+    <form action="/dashboard/lead-queries/add" method="post" class="">
+        <div class="row">
+            <div class="col-md-8 admin-form">
+                <h2>
+                    Создать запрос лидов
+                </h2>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Тематика: </label>
+                    <select class="admin-form__select" name="category_id">
+                        <option value="0">Выберите тематику потока</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Регион: </label>
+                    <select class="admin-form__select" name="region_id">
+                        <option value="0">Выберите регион</option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.region }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Источник: </label>
+                    <select class="admin-form__select" name="source_id">
+                        <option value="0">Выберите источник</option>
+                        {% for source in sources %}
+                            <option value="{{ source.id }}">{{ source.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Какие лиды продаются?: </label>
+                    <textarea type="text" name="what_leads_sold" placeholder="Какие лиды продаются" class="admin-form__textarea"></textarea>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Описание: </label>
+                    <textarea type="text" name="description" placeholder="Описание" class="admin-form__textarea"></textarea>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Минимальная ставка за качественный лид: </label>
+                    <input name="rate" type="text" class="admin-form__text" placeholder="ставка"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="publish-card-wrapper">
+                    <div class="publish-card">
+                        <div class="publish-card__text">
+                            <p class="publish-card__label">
+                                <a href="#" class="text-red">Удалить поток</a>
+                            </p>
+                        </div>
+                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Сохранить">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

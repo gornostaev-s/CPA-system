@@ -1,0 +1,33 @@
+<div class="dashboard-table-wrapper">
+    <h1>
+        Мои запросы лидов
+    </h1>
+
+    <div class="dashboard-table-outer">
+        <table class="dashboard-table">
+            <thead class="dashboard-table__head">
+            <tr>
+                <td class="dashboard-table__col">ID</td>
+                <td class="dashboard-table__col">Описание</td>
+                <td class="dashboard-table__col">Дата создания</td>
+                <td class="dashboard-table__col_last">Действия</td>
+            </tr>
+            </thead>
+            {% for query in queries %}
+                <tr class="dashboard-table__row">
+                    <td class="dashboard-table__col">{{ query.id }}</td>
+                    <td class="dashboard-table__col">{{ query.description }}</td>
+                    <td class="dashboard-table__col">{{ query.createdAt }}</td>
+                    <td class="dashboard-table__col_last">
+                        <a href="/dashboard/flows/edit/{{ query.id }}" class="dashboard-table__buttons">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a href="/dashboard/flows/delete/{{ query.id }}" class="dashboard-table__buttons">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

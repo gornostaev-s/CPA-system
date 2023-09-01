@@ -22,4 +22,16 @@ class FlowRepository extends ServiceEntityRepository
         $this->entityManager->persist($flow);
         $this->entityManager->flush();
     }
+
+    public function getUserFlows(int $userId)
+    {
+        $builder = $this->getEntityManager()->createQueryBuilder();
+
+        return $builder->select('f')
+            ->from(Flow::class, 'f')
+            ->join('f.flowSubscription', 'fs')
+            ->where('fs.subscriberId = ' . $userId)
+            ->getQuery()
+            ->getResult();
+    }
 }

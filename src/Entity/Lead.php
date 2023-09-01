@@ -9,7 +9,6 @@ use App\Factories\PhoneFactory;
 use App\Repository\LeadRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: LeadRepository::class)]
 #[ORM\Table(name: 'leads')]

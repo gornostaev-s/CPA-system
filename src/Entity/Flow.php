@@ -10,6 +10,7 @@ use App\Factories\PriceFactory;
 use App\Repository\FlowRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: FlowRepository::class)]
@@ -57,6 +58,10 @@ class Flow
     #[ORM\ManyToOne(targetEntity: Source::class)]
     #[ORM\JoinColumn(name: 'source_id', referencedColumnName: 'id')]
     private Source $source;
+
+    #[ORM\OneToMany(mappedBy: 'flow', targetEntity: FlowSubscription::class)]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'flow_id')]
+    private PersistentCollection $flowSubscription;
 
     public function __construct()
     {

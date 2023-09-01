@@ -6,6 +6,7 @@ use App\Entity\Flow;
 use App\Entity\User;
 use App\Managers\FlowSubscribeManager;
 use App\Repository\CategoryRepository;
+use App\Repository\FlowRepository;
 use App\Repository\RegionRepository;
 use App\Repository\SourceRepository;
 use App\Service\FlowService;
@@ -21,6 +22,7 @@ class FlowsController extends AbstractController
 {
     public function __construct(
         private readonly FlowService $flowService,
+        private readonly FlowRepository $flowRepository,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly SubscriberService $subscriberService,
         private readonly FlowSubscribeManager $manager,
@@ -82,6 +84,23 @@ class FlowsController extends AbstractController
         $this->flowService->store($flow);
 
         return $this->redirect($this->urlGenerator->generate('flows_list'));
+    }
+
+    #[Route('/dashboard/flows/work' , name: 'flows_work')]
+    public function work(): Response
+    {
+        $user = $this->getUser();
+        /**
+         * @var User $user
+         */
+
+        $this->manager->setUser($user);
+
+        return $this->render('dashboard/common/outer.html.twig', [
+            'inner' => 'dashboard/flows/work-list.html.twig',
+            'flows' => $this->flowRepository->getUserFlows($user->getId()),
+            'manager' => $this->manager
+        ]);
     }
 
     #[Route('/dashboard/flows/subscribe/{id}' , name: 'flows_subscribe', methods: ['GET'])]
