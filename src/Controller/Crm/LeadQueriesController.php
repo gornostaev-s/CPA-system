@@ -2,22 +2,32 @@
 
 namespace App\Controller\Crm;
 
+use App\Entity\LeadQuery;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\LeadQueryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\SourceRepository;
+use App\Service\LeadQueryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class LeadQueriesController extends AbstractController
 {
     public function __construct(
         private readonly LeadQueryRepository $leadQueryRepository,
+        private readonly LeadQueryService $leadQueryService,
         private readonly RegionRepository $regionRepository,
         private readonly CategoryRepository $categoryRepository,
         private readonly SourceRepository $sourceRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
     )
     {
     }
@@ -27,6 +37,9 @@ class LeadQueriesController extends AbstractController
         
     }
 
+    /**
+     * @return Response
+     */
     #[Route('/dashboard/lead-queries/add' , name: 'lead_queries_add', methods: ['GET'])]
     public function add(): Response
     {
@@ -38,18 +51,66 @@ class LeadQueriesController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
     #[Route('/dashboard/lead-queries/create' , name: 'lead_queries_create', methods: ['POST'])]
-    public function create()
+    public function create(Request $request): RedirectResponse
     {
+        $leadQuery = LeadQuery::make(
+            $this->categoryRepository->findOneBy(['id' => $request->get('category_id')]),
+            $this->regionRepository->findOneBy(['id' => $request->get('region_id')]),
+            $this->getUser(),
+            $request->get('description'),
+            $request->get('costRange'),
+            $request->get('leadsRange'),
+        );
 
+        $this->leadQueryService->store($leadQuery);
+
+        return $this->redirect($this->urlGenerator->generate('lead_queries_me'));
     }
 
-    #[Route('/dashboard/lead-queries/update' , name: 'lead_queries_update', methods: ['POST'])]
-    public function update()
+    /**
+     * @param LeadQuery $leadQuery
+     * @return Response
+     */
+    #[Route('/dashboard/lead-queries/update/{id}' , name: 'lead_queries_updateView', methods: ['GET'])]
+    public function update(LeadQuery $leadQuery): Response
     {
-
+        return $this->render('dashboard/common/outer.html.twig', [
+            'regions' => $this->regionRepository->findAll(),
+            'categories' => $this->categoryRepository->findAll(),
+            'sources' => $this->sourceRepository->findAll(),
+            'leadQuery' => $leadQuery,
+            'inner' => 'dashboard/lead-queries/update.html.twig',
+        ]);
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
+    #[Route('/dashboard/lead-queries/update/{id}' , name: 'lead_queries_update', methods: ['POST'])]
+    public function store(LeadQuery $leadQuery, Request $request): RedirectResponse
+    {
+        $leadQuery->setCategory($this->categoryRepository->findOneBy(['id' => $request->get('category_id')]));
+        $leadQuery->setRegion($this->regionRepository->findOneBy(['id' => $request->get('region_id')]));
+        $leadQuery->setOwner($this->getUser());
+        $leadQuery->setDescription($request->get('description'));
+        $leadQuery->setCostRange($request->get('costRange'));
+        $leadQuery->setLeadsRange($request->get('leadsRange'));
+        $this->leadQueryService->store($leadQuery);
+
+        return $this->redirect($this->urlGenerator->generate('lead_queries_me'));
+    }
+
+    /**
+     * @return Response
+     */
     #[Route('/dashboard/lead-queries/me' , name: 'lead_queries_me', methods: ['GET'])]
     public function me(): Response
     {

@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Lead;
 use App\Entity\LeadQuery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,5 +15,11 @@ class LeadQueryRepository extends ServiceEntityRepository
     )
     {
         parent::__construct($registry, LeadQuery::class);
+    }
+
+    public function flush(LeadQuery $leadQuery)
+    {
+        $this->entityManager->persist($leadQuery);
+        $this->entityManager->flush();
     }
 }

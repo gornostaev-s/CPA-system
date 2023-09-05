@@ -1,0 +1,14 @@
+<b>- Какие лиды покупаю:</b> {{ leadQuery.description }}
+<b>- ГЕО:</b> {{ leadQuery.region.region }}
+{% if leadQuery.costRange['min'] or leadQuery.costRange['max'] %}
+<b>- Цена за качественный лид:</b> от {{ leadQuery.costRange['min'] }}р. до {{ leadQuery.costRange['max'] }}р.
+{% else %}
+<b>- Цена за качественный лид:</b> не имеет значения
+{% endif %}
+{% if leadQuery.leadsRange['min'] or leadQuery.leadsRange['max'] %}
+<b>- Количество лидов:</b> от {{ leadQuery.leadsRange['min'] }}р. до {{ leadQuery.leadsRange['max'] }}р.
+{% else %}
+<b>- Количество лидов:</b> не имеет значения
+{% endif %}
+<b>- Как подать заявку:</b> Предложить поток <a href="{{ leadQuery.getUrl() }}">здесь</a>
+<b>- Вопросы:</b> По всем вопросам обращаться - @birzhaleads_support
