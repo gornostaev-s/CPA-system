@@ -1,0 +1,113 @@
+<div class="row margin-0">
+    <div class="col-sm-4 settings-menu-wrapper">
+        <div class="settings-menu">
+            <div class="tabs">
+                <div class="tab js-tab tab-active" data-tab="1">
+                    <h6 class="tab-title">
+                        <div class="tabs-icon-wrapper">
+                            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                        </div>
+                        Предложить поток
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 padding-0">
+        <section class="settings-section js-content default-visible" data-tab="1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Предложить поток
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/dashboard/settings" method="post">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Тематика:
+                                        </h5>
+                                        <p>
+                                            {{ query.category.title }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Регион:
+                                        </h5>
+                                        <p>
+                                            {{ query.region.region }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Описание:
+                                        </h5>
+                                        <p>
+                                            {{ query.description }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Цена за качественный лид :
+                                        </h5>
+                                        <p>
+                                            {% if query.costRange['min'] or query.costRange['max'] %}
+                                                от {{ query.costRange['min'] }}р. до {{ query.costRange['max'] }}р.
+                                            {% else %}
+                                                не имеет значения
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Количество лидов ОТ - ДО :
+                                        </h5>
+                                        <p>
+                                            {% if query.leadsRange['min'] or query.leadsRange['max'] %}
+                                                от {{ query.leadsRange['min'] }} до {{ query.leadsRange['max'] }}
+                                            {% else %}
+                                                не имеет значения
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Выберите поток :
+                                        </h5>
+                                        <select class="admin-form__select" name="flowId">
+                                            <option value="0">Выберите тематику потока</option>
+                                            {% for flow in flows %}
+                                                <option value="{{ flow.id }}">{{ flow.description }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="settings-submit-wrapper">
+                                    <input type="submit" class="button-primary" value="Подтвердить">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

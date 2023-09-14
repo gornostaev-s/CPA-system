@@ -22,7 +22,7 @@ class LeadQuery
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default'=> 0])]
     private bool $resolved;
 
-    #[ORM\OneToOne(targetEntity: Category::class)]
+    #[ORM\OneToOne(targetEntity: Flow::class)]
     #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id')]
     private Flow $flow;
 

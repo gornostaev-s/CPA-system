@@ -1,6 +1,6 @@
 <div class="dashboard-table-wrapper">
     <h1>
-        Мои запросы лидов
+        Запросы лидов
     </h1>
 
     <div class="dashboard-table-outer">
@@ -19,14 +19,8 @@
                     <td class="dashboard-table__col">{{ query.description }}</td>
                     <td class="dashboard-table__col">{{ query.createdAt }}</td>
                     <td class="dashboard-table__col_last">
-                        <a href="/dashboard/lead-queries/view/{{ query.id }}" class="dashboard-table__buttons">
+                        <a href="/dashboard/lead-queries/offer/{{ query.id }}" class="dashboard-table__buttons">
                             <i class="fa fa-eye" aria-hidden="true"></i>
-                        </a>
-                        <a href="/dashboard/lead-queries/update/{{ query.id }}" class="dashboard-table__buttons">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                        <a href="/dashboard/lead-queries/delete/{{ query.id }}" class="dashboard-table__buttons">
-                            <i class="fa fa-times" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>

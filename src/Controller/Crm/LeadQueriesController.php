@@ -5,6 +5,7 @@ namespace App\Controller\Crm;
 use App\Entity\LeadQuery;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
+use App\Repository\FlowRepository;
 use App\Repository\LeadQueryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\SourceRepository;
@@ -28,13 +29,23 @@ class LeadQueriesController extends AbstractController
         private readonly CategoryRepository $categoryRepository,
         private readonly SourceRepository $sourceRepository,
         private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly FlowRepository $flowRepository
     )
     {
     }
 
+    /**
+     * @return Response
+     */
+    #[Route('/dashboard/lead-queries/' , name: 'lead_queries_list', methods: ['GET'])]
     public function index()
     {
-        
+        return $this->render('dashboard/common/outer.html.twig', [
+            'queries' => $this->leadQueryRepository->findBy([
+                'resolved' => false
+            ]),
+            'inner' => 'dashboard/lead-queries/list.html.twig',
+        ]);
     }
 
     /**
@@ -124,6 +135,42 @@ class LeadQueriesController extends AbstractController
                 'owner' => $user->getId()
             ]),
             'inner' => 'dashboard/lead-queries/me.html.twig',
+        ]);
+    }
+
+    /**
+     * @param LeadQuery $leadQuery
+     * @return Response
+     */
+    #[Route('/dashboard/lead-queries/offer/{id}' , name: 'lead_queries_offer', methods: ['GET'])]
+    public function offer(LeadQuery $leadQuery): Response
+    {
+        $u = $this->getUser();
+
+        return $this->render('dashboard/common/outer.html.twig', [
+            'query' => $leadQuery,
+            'flows' => $this->flowRepository->findBy([
+                'ownerId' => $u->getId()
+            ]),
+            'inner' => 'dashboard/lead-queries/offer.html.twig',
+        ]);
+    }
+
+    /**
+     * @param LeadQuery $leadQuery
+     * @return Response
+     */
+    #[Route('/dashboard/lead-queries/view/{id}' , name: 'lead_queries_view', methods: ['GET'])]
+    public function view(LeadQuery $leadQuery): Response
+    {
+        $u = $this->getUser();
+
+        return $this->render('dashboard/common/outer.html.twig', [
+            'query' => $leadQuery,
+            'flows' => $this->flowRepository->findBy([
+                'ownerId' => $u->getId()
+            ]),
+            'inner' => 'dashboard/lead-queries/view.html.twig',
         ]);
     }
 }
