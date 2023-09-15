@@ -34,4 +34,16 @@ class FlowRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getOfferFlows(int $leadQueryId)
+    {
+        $builder = $this->getEntityManager()->createQueryBuilder();
+
+        return $builder->select('f')
+            ->from(Flow::class, 'f')
+            ->join('f.leadQueryOffer', 'lq')
+            ->where('lq.leadQueryId = ' . $leadQueryId)
+            ->getQuery()
+            ->getResult();
+    }
 }

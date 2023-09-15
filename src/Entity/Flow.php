@@ -63,6 +63,10 @@ class Flow
     #[ORM\JoinColumn(name: 'id', referencedColumnName: 'flow_id')]
     private PersistentCollection $flowSubscription;
 
+    #[ORM\OneToMany(mappedBy: 'flow', targetEntity: LeadQueryOffer::class)]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'flow_id')]
+    private PersistentCollection $leadQueryOffer;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());

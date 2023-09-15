@@ -176,4 +176,36 @@ class LeadQuery
     {
         return  getenv('BASE_URI') . "/dashboard/lead-queries/view/$this->id";
     }
+
+    /**
+     * @param bool $resolved
+     */
+    public function setResolved(bool $resolved): void
+    {
+        $this->resolved = $resolved;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getResolved(): bool
+    {
+        return $this->resolved;
+    }
+
+    /**
+     * @param Flow $flow
+     */
+    public function setFlow(Flow $flow): void
+    {
+        $this->flow = $flow;
+    }
+
+    /**
+     * @return Flow
+     */
+    public function getFlow(): Flow
+    {
+        return $this->flow;
+    }
 }

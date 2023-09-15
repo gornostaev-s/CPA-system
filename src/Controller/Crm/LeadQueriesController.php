@@ -3,12 +3,15 @@
 namespace App\Controller\Crm;
 
 use App\Entity\LeadQuery;
+use App\Entity\LeadQueryOffer;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\FlowRepository;
+use App\Repository\LeadQueryOfferRepository;
 use App\Repository\LeadQueryRepository;
 use App\Repository\RegionRepository;
 use App\Repository\SourceRepository;
+use App\Service\LeadQueryOfferService;
 use App\Service\LeadQueryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,6 +27,8 @@ class LeadQueriesController extends AbstractController
 {
     public function __construct(
         private readonly LeadQueryRepository $leadQueryRepository,
+        private readonly LeadQueryOfferRepository $leadQueryOfferRepository,
+        private readonly LeadQueryOfferService $leadQueryOfferService,
         private readonly LeadQueryService $leadQueryService,
         private readonly RegionRepository $regionRepository,
         private readonly CategoryRepository $categoryRepository,
@@ -156,6 +161,19 @@ class LeadQueriesController extends AbstractController
         ]);
     }
 
+    #[Route('/dashboard/lead-queries/offer/{id}' , name: 'lead_queries_make_offer', methods: ['POST'])]
+    public function makeOffer(LeadQuery $leadQuery, Request $request, UrlGeneratorInterface $urlGenerator): RedirectResponse
+    {
+        $e = LeadQueryOffer::make(
+            $this->flowRepository->findOneBy(['id' => $request->get('flowId')]),
+            $leadQuery
+        );
+
+        $this->leadQueryOfferService->store($e);
+
+        return $this->redirect($urlGenerator->generate('lead_queries_list'));
+    }
+
     /**
      * @param LeadQuery $leadQuery
      * @return Response
@@ -163,14 +181,21 @@ class LeadQueriesController extends AbstractController
     #[Route('/dashboard/lead-queries/view/{id}' , name: 'lead_queries_view', methods: ['GET'])]
     public function view(LeadQuery $leadQuery): Response
     {
-        $u = $this->getUser();
-
         return $this->render('dashboard/common/outer.html.twig', [
             'query' => $leadQuery,
-            'flows' => $this->flowRepository->findBy([
-                'ownerId' => $u->getId()
-            ]),
+            'flows' => $this->flowRepository->getOfferFlows($leadQuery->getId()),
             'inner' => 'dashboard/lead-queries/view.html.twig',
         ]);
+    }
+
+    #[Route('/dashboard/lead-queries/check/{id}' , name: 'lead_queries_check', methods: ['POST'])]
+    public function checkFlow(LeadQuery $leadQuery, Request $request, UrlGeneratorInterface $urlGenerator): RedirectResponse
+    {
+        $leadQuery->setFlow($this->flowRepository->findOneBy(['id' => $request->get('flowId')]));
+        $leadQuery->setResolved($request->get('resolved'));
+
+        $this->leadQueryRepository->flush($leadQuery);
+
+        return $this->redirect($urlGenerator->generate('lead_queries_view', ['id' => $leadQuery->getId()]));
     }
 }

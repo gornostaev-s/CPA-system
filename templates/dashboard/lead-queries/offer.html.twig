@@ -23,7 +23,7 @@
                         </h6>
                     </div>
                     <div class="settings">
-                        <form action="/dashboard/settings" method="post">
+                        <form action="/dashboard/lead-queries/offer/{{ query.id }}" method="post">
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="settings-form-wrapper">
@@ -92,7 +92,7 @@
                                             Выберите поток :
                                         </h5>
                                         <select class="admin-form__select" name="flowId">
-                                            <option value="0">Выберите тематику потока</option>
+                                            <option value="0">Выберите поток</option>
                                             {% for flow in flows %}
                                                 <option value="{{ flow.id }}">{{ flow.description }}</option>
                                             {% endfor %}

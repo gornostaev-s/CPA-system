@@ -1282,9 +1282,13 @@ p {
   padding-top: 30px;
 }
 
-.fa-check{
-  padding-right: 25px;
+.settings-form__checkbox {
+  padding-left: 5px;
 }
+
+/*.fa-check{*/
+/*  padding-right: 25px;*/
+/*}*/
 
 .line-1{
   position: absolute;

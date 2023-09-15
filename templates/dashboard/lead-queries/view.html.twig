@@ -99,5 +99,61 @@
                 </div>
             </div>
         </section>
+        <section class="settings-section js-content" data-tab="2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="settings-title">
+                            Выбрать поток
+                        </h6>
+                    </div>
+                    <div class="settings">
+                        <form action="/dashboard/lead-queries/check/{{ query.id }}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="settings-form-wrapper">
+                                        <label>
+                                            <input
+                                                    type="checkbox"
+                                                    name="resolved"
+                                                    {% if query.resolved %}
+                                                        checked
+                                                    {% endif %}
+                                            >
+                                            <span class="settings-form__checkbox">
+                                                Запрос лидов больше не актуален
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="settings-form-wrapper">
+                                        <h5>
+                                            Поток :
+                                        </h5>
+                                        <p>
+                                            <select class="admin-form__select" name="flowId">
+                                                <option value="0">Выберите поток</option>
+                                                {% for flow in flows %}
+                                                    <option
+                                                            value="{{ flow.id }}"
+                                                            {% if query.flow.id == flow.id %}
+                                                                selected
+                                                            {% endif %}
+                                                    >{{ flow.description }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="settings-submit-wrapper">
+                                        <input type="submit" class="button-primary" value="Подтвердить">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
