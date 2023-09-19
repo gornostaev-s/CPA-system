@@ -3,7 +3,9 @@
 namespace App\Controller\Auth;
 
 use App\Service\UserService;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -75,6 +77,26 @@ class AuthController extends AbstractController
     public function logout()
     {
 
+    }
+
+    /**
+     * @param Request $request
+     * @param UrlGeneratorInterface $urlGenerator
+     * @return RedirectResponse|void
+     * @throws Exception
+     */
+    #[Route('/reset-password', name: 'reset_password', methods: ['POST'])]
+    public function changePassword(Request $request, UrlGeneratorInterface $urlGenerator,)
+    {
+        $this->userService->changePassword($this->getUser(), $request->get('oldPassword'), $request->get('newPassword'));
+
+        if ($this->getUser()?->isAdmin()) {
+            return $this->redirect($urlGenerator->generate('admin_dashboard'));
+        }
+
+        if ($this->getUser()?->isUser()) {
+            return $this->redirect($urlGenerator->generate('user_dashboard'));
+        }
     }
 }
 
