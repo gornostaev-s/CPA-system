@@ -2,6 +2,8 @@
 
 namespace App\Provider;
 
+use App\Kernel;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -11,7 +13,8 @@ class TelegramProvider
     private string $botId;
 
     public function __construct(
-        private readonly HttpClientInterface $client
+        private readonly HttpClientInterface $client,
+        private readonly Kernel $kernel
     ) {
         $this->setBotId(getenv('TELEGRAM_ID'));
     }
@@ -71,15 +74,24 @@ class TelegramProvider
      */
     public function setWebhook(string $url): void
     {
-        $res = $this->client->request('POST', $this->getEndpoint('setWebhook'), [
-                'body' => [
-                    'url' => $url,
-                ]
-            ]
-        );
+        $res = $this->client->request('POST', $this->getEndpoint('setWebhook') . "?url=$url");
 
         echo '<pre>';
-        var_dump($res->getContent());
+        var_dump($res->getContent(), $url);
         die;
+    }
+
+    public function setRequestData(Request $request)
+    {
+        $dir = $this->kernel->getProjectDir();
+        $tgPath = "$dir/var/tg";
+
+        if (!is_dir($tgPath)) {
+            mkdir($tgPath, recursive: true);
+        }
+
+        $content = $request->getContent();
+
+        file_put_contents("$tgPath/req.txt", "\n $content \n");
     }
 }

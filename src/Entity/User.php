@@ -56,10 +56,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $mode;
 
     /**
-     * @var string|null The hashed password
+     * The hashed password
+     *
+     * @var string|null
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(name: 'telegram_key', type: 'text')]
+    private string $telegramKey;
+
+    #[ORM\Column(name: 'telegram_id', type: 'text', nullable: true)]
+    private string $telegramId;
 
     public function __construct()
     {
@@ -269,6 +277,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getMode(): int
     {
         return $this->mode;
+    }
+
+    /**
+     * @param string $telegramKey
+     */
+    public function setTelegramKey(string $telegramKey): void
+    {
+        $this->telegramKey = $telegramKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelegramKey(): string
+    {
+        return $this->telegramKey;
+    }
+
+    /**
+     * @param string $telegramId
+     */
+    public function setTelegramId(string $telegramId): void
+    {
+        $this->telegramId = $telegramId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelegramId(): string
+    {
+        return $this->telegramId;
     }
 
     /**
