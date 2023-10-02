@@ -2,6 +2,7 @@
 
 namespace App\Provider;
 
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TelegramProvider
@@ -35,6 +36,11 @@ class TelegramProvider
         $this->botId = $botId;
     }
 
+    /**
+     * @param string $message
+     * @return void
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     public function sendMessage(string $message): void
     {
         $this->client->request('POST', $this->getEndpoint('sendMessage'), [
@@ -47,8 +53,33 @@ class TelegramProvider
         );
     }
 
+    /**
+     * @param string $method
+     * @return string
+     */
     public function getEndpoint(string $method): string
     {
         return "https://api.telegram.org/$this->botId/$method";
+    }
+
+    /**
+     * Используется для установки вебхука
+     *
+     * @param string $url
+     * @return void
+     * @throws TransportExceptionInterface
+     */
+    public function setWebhook(string $url): void
+    {
+        $res = $this->client->request('POST', $this->getEndpoint('setWebhook'), [
+                'body' => [
+                    'url' => $url,
+                ]
+            ]
+        );
+
+        echo '<pre>';
+        var_dump($res->getContent());
+        die;
     }
 }
