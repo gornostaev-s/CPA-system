@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Uid\Factory\UuidFactory;
 
 class UserService
 {
@@ -24,6 +25,7 @@ class UserService
         private readonly LoginFormAuthenticator $loginFormAuthenticator,
         private readonly UserAuthenticatorInterface $authenticator,
         private readonly UserPasswordHasherInterface $encoder,
+        private readonly UuidFactory $uuidFactory,
     )
     {
 
@@ -41,6 +43,7 @@ class UserService
             $request->get('name'),
         );
 
+        $user->setTelegramKey($this->uuidFactory->randomBased()->create()->toBase32());
         $user->setPassword($this->encoder->hashPassword($user, $request->get('password')));
         $this->userRepository->save($user, true);
         $this->authenticate($user, $request);
