@@ -2,6 +2,7 @@
 
 namespace App\Provider;
 
+use App\Entity\TgButton;
 use App\Kernel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -11,6 +12,7 @@ class TelegramProvider
 {
     private string|int $recipientId;
     private string $botId;
+    private array $buttons;
 
     public function __construct(
         private readonly HttpClientInterface $client,
@@ -32,28 +34,53 @@ class TelegramProvider
 
     /**
      * @param string $botId
+     *
      * @return void
      */
     private function setBotId(string $botId): void
     {
         $this->botId = $botId;
+
+    }
+
+    /**
+     * @param TgButton $tgButton
+     * @param int|null $rowId
+     * @return $this
+     */
+    public function setButton(TgButton $tgButton, ?int $rowId = null): self
+    {
+        if ($rowId) {
+            $this->buttons[$rowId] = $tgButton->toArray();
+        } else {
+            $this->buttons[] = $tgButton->toArray();
+        }
+
+        return $this;
     }
 
     /**
      * @param string $message
      * @return void
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws TransportExceptionInterface
      */
     public function sendMessage(string $message): void
     {
-        $this->client->request('POST', $this->getEndpoint('sendMessage'), [
+        $data = [
             'body' => [
                 'chat_id' => $this->recipientId,
                 'text' => $message,
                 'parse_mode' => 'html'
-                ]
             ]
-        );
+        ];
+
+        if (!empty($this->buttons)) {
+            $data['reply_markup'] = [
+                'inline_keyboard' => $this->buttons
+            ];
+        }
+
+        $this->client->request('POST', $this->getEndpoint('sendMessage'), $data);
     }
 
     /**
