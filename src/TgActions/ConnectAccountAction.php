@@ -3,6 +3,9 @@
 namespace App\TgActions;
 
 use App\Entity\TelegramSession;
+use App\Provider\TelegramProvider;
+use App\Repository\UserRepository;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ConnectAccountAction extends BaseAction
 {
@@ -18,6 +21,15 @@ class ConnectAccountAction extends BaseAction
 
     private TelegramSession $telegramSession;
 
+    public function __construct(
+        private readonly UserRepository $userRepository,
+        TelegramProvider $telegramProvider
+    )
+    {
+        parent::__construct($telegramProvider);
+
+    }
+
     /**
      * @param TelegramSession $telegramSession
      */
@@ -26,6 +38,10 @@ class ConnectAccountAction extends BaseAction
         $this->telegramSession = $telegramSession;
     }
 
+    /**
+     * @return void
+     * @throws TransportExceptionInterface
+     */
     public function execute(): void
     {
         $this->telegramSession->setActionName(self::class);
@@ -37,24 +53,46 @@ class ConnectAccountAction extends BaseAction
         };
     }
 
-    public function auth()
+    /**
+     * @return void
+     * @throws TransportExceptionInterface
+     */
+    public function auth(): void
     {
         $this->telegramProvider
             ->setRecipientId($this->telegramSession->getChatId())
-            ->sendMessage('Для привязки аккаунта телеграм к Вашему профилю - 
-            введите код указанный в настройках вашего профиля');
+            ->sendMessage('Для привязки аккаунта телеграм к Вашему профилю - <br>введите код указанный в настройках вашего профиля');
 
         $this->telegramSession->setActionStep(self::VALIDATE_CODE);
     }
 
-    public function validate()
+    /**
+     * @return void
+     * @throws TransportExceptionInterface
+     */
+    public function validate(): void
     {
-        $this->telegramProvider
-            ->setRecipientId($this->telegramSession->getChatId())
-            ->sendMessage('Неверный код, пожалуйста, повторите еще раз.');
+        $user = $this->userRepository->findOneBy(['telegramKey' => $this->telegramSession->getLastMessage()]);
+
+        if (!empty($user)) {
+            $this->telegramSession->setUserId($user->getId());
+
+            $this->telegramProvider
+                ->setRecipientId($this->telegramSession->getChatId())
+                ->sendMessage("Аккаунт пользователя {$user->getName()} привязан успешно");
+
+            $this->telegramSession->setActionStep(self::SUCCESS_STEP);
+        } else {
+            $this->telegramProvider
+                ->setRecipientId($this->telegramSession->getChatId())
+                ->sendMessage('Неверный код, пожалуйста, повторите еще раз.');
+        }
     }
 
-    public function success()
+    /**
+     * @return void
+     */
+    public function success(): void
     {
         
     }

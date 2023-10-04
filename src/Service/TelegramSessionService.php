@@ -18,14 +18,14 @@ class TelegramSessionService
 
     public function execute(Request $request): void
     {
-        $data = $request->getContent();
-        $chatId = $data['chat']['id'];
+        $data = json_decode($request->getContent(), true);
+        $chatId = $data['message']['chat']['id'];
 
         if (empty($chatId)) {
             return;
         }
 
-        $session = $this->telegramSessionRepository->findOneBy(['chatId' => $data['chat']['id']]);
+        $session = $this->telegramSessionRepository->findOneBy(['chatId' => $chatId]);
 
         if (empty($session)) {
             $session = TelegramSession::make(
@@ -33,7 +33,7 @@ class TelegramSessionService
             );
         }
 
-        $session->setLastMessage($data['message']['chat']['text']);
+        $session->setLastMessage($data['message']['text']);
         $this->connectAccountAction->setTelegramSession($session);
         $this->connectAccountAction->execute();
         $this->telegramSessionRepository->store($session);

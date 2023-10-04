@@ -22,7 +22,7 @@ class TelegramSession
     private string $actionName;
 
     #[ORM\Column(name: 'action_step', type: 'integer', nullable: true)]
-    private int $actionStep;
+    private int $actionStep = 0;
 
     #[ORM\Column(name: 'chat_id', type: 'integer', nullable: true)]
     private int $chatId;
