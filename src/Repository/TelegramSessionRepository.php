@@ -13,4 +13,10 @@ class TelegramSessionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TelegramSession::class);
     }
+
+    public function store(TelegramSession $telegramSession)
+    {
+        $this->entityManager->persist($telegramSession);
+        $this->entityManager->flush();
+    }
 }
