@@ -11,8 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TelegramBotController extends AbstractController
 {
+    const DEV_CHAT_ID = 875883459;
+
     public function __construct(
-        private readonly TelegramSessionService $telegramSessionService
+        private readonly TelegramSessionService $telegramSessionService,
+        private readonly TelegramProvider $telegramProvider
     )
     {
     }
@@ -21,7 +24,13 @@ class TelegramBotController extends AbstractController
     #[Route('/tg-bot', name: 'telegram_endpoint', priority: 1)]
     public function actionEndpoint(Request $request): JsonResponse
     {
-        $this->telegramSessionService->execute($request);
+        try {
+            $this->telegramSessionService->execute($request);
+        } catch (\Throwable $e) {
+            $this->telegramProvider
+                ->setRecipientId(self::DEV_CHAT_ID)
+                ->sendMessage($e->getMessage());
+        }
 
         return $this->json(['success' => true]);
     }

@@ -19,11 +19,11 @@ class LeadQueryOffer
     private int $leadQueryId;
 
     #[ORM\OneToOne(targetEntity: Flow::class)]
-    #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id')]
-    private Flow $flow;
+    #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id', unique: false)]
+    private ?Flow $flow;
 
     #[ORM\OneToOne(targetEntity: LeadQuery::class)]
-    #[ORM\JoinColumn(name: 'lead_query_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'lead_query_id', referencedColumnName: 'id', unique: false)]
     private LeadQuery $leadQuery;
 
     public function __construct()

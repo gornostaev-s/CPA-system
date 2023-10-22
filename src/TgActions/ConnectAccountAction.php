@@ -61,7 +61,7 @@ class ConnectAccountAction extends BaseAction
     {
         $this->telegramProvider
             ->setRecipientId($this->telegramSession->getChatId())
-            ->sendMessage('Для привязки аккаунта телеграм к Вашему профилю - <br>введите код указанный в настройках вашего профиля');
+            ->sendMessage('Для привязки аккаунта телеграм к Вашему профилю - введите код указанный в настройках вашего профиля');
 
         $this->telegramSession->setActionStep(self::VALIDATE_CODE);
     }

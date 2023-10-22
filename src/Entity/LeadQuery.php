@@ -24,7 +24,7 @@ class LeadQuery
 
     #[ORM\OneToOne(targetEntity: Flow::class)]
     #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id')]
-    private Flow $flow;
+    private ?Flow $flow;
 
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
@@ -202,10 +202,10 @@ class LeadQuery
     }
 
     /**
-     * @return Flow
+     * @return Flow|null
      */
-    public function getFlow(): Flow
+    public function getFlow(): ?Flow
     {
-        return $this->flow;
+        return $this->flow ?? null;
     }
 }

@@ -15,9 +15,6 @@ class TelegramSession
     use IdTrait;
     use CreatedAtTrait;
 
-    #[ORM\Column(name: 'user_id', type: 'integer', nullable: true)]
-    private int $userId;
-
     #[ORM\Column(name: 'action_name', type: 'text', nullable: true)]
     private string $actionName;
 
@@ -29,6 +26,10 @@ class TelegramSession
 
     #[ORM\Column(name: 'last_message', type: 'text', nullable: true)]
     private string $lastMessage;
+
+    #[ORM\OneToOne(inversedBy: "telegram_session", targetEntity: User::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
+    private User $user;
 
     public function __construct()
     {

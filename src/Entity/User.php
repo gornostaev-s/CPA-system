@@ -66,8 +66,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'telegram_key', type: 'text')]
     private string $telegramKey;
 
-    #[ORM\Column(name: 'telegram_id', type: 'text', nullable: true)]
-    private string $telegramId;
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: TelegramSession::class, cascade: ['persist', 'remove'])]
+    private ?TelegramSession $telegramSession = null;
 
     public function __construct()
     {
@@ -296,19 +296,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param string $telegramId
+     * @param TelegramSession $telegramSession
      */
-    public function setTelegramId(string $telegramId): void
+    public function setTelegramSession(TelegramSession $telegramSession): void
     {
-        $this->telegramId = $telegramId;
+        $this->telegramSession = $telegramSession;
     }
 
     /**
-     * @return string
+     * @return TelegramSession
      */
-    public function getTelegramId(): string
+    public function getTelegramSession(): TelegramSession
     {
-        return $this->telegramId;
+        return $this->telegramSession;
     }
 
     /**
@@ -317,5 +317,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isWebmaster(): bool
     {
         return $this->mode == UserModeEnum::webmaster->value;
+    }
+
+    public function isTelegramConnected(): bool
+    {
+        return !empty($this->telegramSession);
     }
 }

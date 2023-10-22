@@ -1,5 +1,21 @@
-header{
-    padding: 15px;
+.setting-accent-text {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px grey solid;
+  display: inline-block;
+  width: 100%;
+  outline: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+header {
+  padding: 15px;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  background-image: linear-gradient(180deg, #fff, #ffffff1c);
 }
 
 a{
@@ -64,14 +80,28 @@ p {
   color: black;
 }
 
-.main-slide {
+.main-slide__person {
+  position: absolute;
+  height: 430px;
+  width: 500px;
   background-image: url(../img/businessconsultant.png);
-  background-position: right top;
+  background-size: 90%;
   background-repeat: no-repeat;
-  min-height: 660px;
+  right: 0;
+  bottom: 0;
+}
+
+.main-slide {
+  padding-top: 300px;
+  padding-bottom: 100px;
+  /* background-image: url(../img/businessconsultant.png); */
+  background-image: url(../img/home13-bg1.jpg);
+  /* background-position: right top; */
+  background-repeat: no-repeat;
+  min-height: 560px;
   display: flex;
   align-items: center;
-  background-size: 40%;
+  /*background-size: 40%;*/
 }
 
 .main-slide__title{
@@ -94,9 +124,11 @@ p {
   font-weight: 300;
   font-size: 18px;
   line-height: 27px;
-  color: #8A909A;
+  color: #66696d;
   padding-top: 30px;
 }
+
+
 
 .button-wrapper{
   padding-top: 30px;
@@ -1068,6 +1100,7 @@ p {
 .admin-header {
   min-height: 50px;
   border-bottom: 1px solid #f2f2f2;
+  position: relative;
 }
 
 .publish-card {
@@ -1454,7 +1487,7 @@ p {
 }
 
 .telegram-icon {
-  max-width: 40px;
+  max-width: 25px;
 }
 
 .image-frame {

@@ -27,7 +27,6 @@ class LeadQueriesController extends AbstractController
 {
     public function __construct(
         private readonly LeadQueryRepository $leadQueryRepository,
-        private readonly LeadQueryOfferRepository $leadQueryOfferRepository,
         private readonly LeadQueryOfferService $leadQueryOfferService,
         private readonly LeadQueryService $leadQueryService,
         private readonly RegionRepository $regionRepository,

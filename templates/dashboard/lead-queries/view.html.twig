@@ -135,10 +135,10 @@
                                                 {% for flow in flows %}
                                                     <option
                                                             value="{{ flow.id }}"
-                                                            {% if query.flow.id == flow.id %}
+                                                            {% if query.flow and query.flow.id == flow.id %}
                                                                 selected
                                                             {% endif %}
-                                                    >{{ flow.description }}</option>
+                                                    >{{ flow.whatLeadsSold }}</option>
                                                 {% endfor %}
                                             </select>
                                         </p>
