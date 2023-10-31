@@ -8,6 +8,7 @@ use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\isNewTrait;
 use App\Repository\LeadQueryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: LeadQueryRepository::class)]
@@ -22,7 +23,7 @@ class LeadQuery
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default'=> 0])]
     private bool $resolved;
 
-    #[ORM\OneToOne(targetEntity: Flow::class)]
+    #[ORM\ManyToOne(targetEntity: Flow::class)]
     #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id')]
     private ?Flow $flow;
 
@@ -37,6 +38,9 @@ class LeadQuery
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id')]
     private User $owner;
+
+    #[ORM\OneToMany(mappedBy: 'lead_query', targetEntity: LeadQueryOffer::class)]
+    private PersistentCollection $leadQueryOffer;
 
     #[ORM\Column(name: 'cost_range')]
     private ?array $costRange = [];

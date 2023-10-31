@@ -18,12 +18,12 @@ class LeadQueryOffer
     #[ORM\Column(name: 'lead_query_id', type: 'integer')]
     private int $leadQueryId;
 
-    #[ORM\OneToOne(targetEntity: Flow::class)]
+    #[ORM\ManyToOne(targetEntity: Flow::class)]
     #[ORM\JoinColumn(name: 'flow_id', referencedColumnName: 'id', unique: false)]
     private ?Flow $flow;
 
-    #[ORM\OneToOne(targetEntity: LeadQuery::class)]
-    #[ORM\JoinColumn(name: 'lead_query_id', referencedColumnName: 'id', unique: false)]
+    #[ORM\ManyToOne(targetEntity: LeadQuery::class, cascade: ['persist', 'remove'], inversedBy: "lead_query_offer")]
+    #[ORM\JoinColumn(name: 'lead_query_id', referencedColumnName: 'id')]
     private LeadQuery $leadQuery;
 
     public function __construct()

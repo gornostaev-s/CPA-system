@@ -1,0 +1,76 @@
+<div class="dashboard-table-wrapper">
+    <h1>
+        Импорт лидов из файла
+    </h1>
+
+    <div class="dashboard-table-outer">
+        <table class="dashboard-table">
+            <thead class="dashboard-table__head">
+            <tr>
+                <td class="dashboard-table__col">Телефон</td>
+                <td class="dashboard-table__col">Поток</td>
+                <td class="dashboard-table__col">Дата создания</td>
+                <td class="dashboard-table__col">Статус</td>
+                <td class="dashboard-table__col_last">Действия</td>
+            </tr>
+            </thead>
+            {% for import in imports %}
+                <tr class="dashboard-table__row">
+{#                    <td class="dashboard-table__col">{{ lead.phone }}</td>#}
+{#                    <td class="dashboard-table__col">{{ lead.flow.id }}</td>#}
+{#                    <td class="dashboard-table__col">{{ lead.createdAt }}</td>#}
+{#                    <td class="dashboard-table__col js-leadStatus">{{ lead.statusLabel }}</td>#}
+{#                    <td class="dashboard-table__col js-leadAction" style="text-align: right;">#}
+{#                        {% if lead.status == constant('App\\Enum\\LeadStatusEnum::hold').value %}#}
+{#                            <a class="js-leadAccept" data-id="{{ lead.id }}" href="/dashboard/leads/check/">Подтвердить</a> /#}
+{#                            <a class="js-leadReject" data-id="{{ lead.id }}" href="/dashboard/leads/check/">Отклонить</a>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const $actions = jQuery('.js-leadAction');
+        const $acceptButton = jQuery('.js-leadAccept');
+        const $rejectButton = jQuery('.js-leadReject');
+        const $status = jQuery('.js-leadStatus');
+
+        $acceptButton.on('click', function (e) {
+            e.preventDefault();
+
+            jQuery.ajax({
+                url: jQuery(this).attr('href') + jQuery(this).data('id'),
+                method: 'POST',
+                data: {
+                    id: jQuery(this).data('id'),
+                    handle: 0
+                },
+                success: function (data) {
+                    $status.text(data.statusLabel)
+                    $actions.html('')
+                }
+            })
+        })
+
+        $rejectButton.on('click', function (e) {
+            e.preventDefault();
+
+            jQuery.ajax({
+                url: jQuery(this).attr('href') + jQuery(this).data('id'),
+                method: 'POST',
+                data: {
+                    id: jQuery(this).data('id'),
+                    handle: 1
+                },
+                success: function (data) {
+                    $status.text(data.statusLabel)
+                    $actions.html('')
+                }
+            })
+        })
+    })
+</script>

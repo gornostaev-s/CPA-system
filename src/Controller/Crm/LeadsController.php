@@ -86,15 +86,4 @@ class LeadsController extends AbstractController
             'statusLabel' => $lead->getStatusLabel()
         ]);
     }
-
-    #[Route('/dashboard/leads/import' , name: 'leads_import', methods: ['GET'])]
-    public function import(): Response
-    {
-        return $this->render('dashboard/common/outer.html.twig', [
-            'inner' => 'dashboard/leads/import.html.twig',
-            'flows' => $this->flowService->filter([
-                'ownerId' => $this->getUser()->getId()
-            ])
-        ]);
-    }
 }
