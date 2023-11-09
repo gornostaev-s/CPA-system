@@ -149,45 +149,58 @@
                         </h6>
                     </div>
                     <div class="settings">
-                        <form action="/dashboard/settings" method="post">
-                            <p>
-                                Страница пополнения баланса пока еще в разработке,
-                                напишите <a href="mailto:info@birzha-leads.com">info@birzha-leads.com</a>
-                            </p>
-{#                            <div class="row">#}
-{#                                <div class="col-12">#}
-{#                                    <div class="avatar-uploader">#}
+                        <form action="/dashboard/up-balance" method="post">
+                            <div class="settings-step__wrapper">
+                                <div class="settings-step">
+                                    <h6 class="settings-step__title">
+                                        Шаг 1.
+                                    </h6>
 
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-12">#}
-{#                                    <div class="settings-form-wrapper">#}
-{#                                        <label class="settings-label">Ваше имя</label>#}
-{#                                        <input class="settings-input" type="text" name="name" placeholder="Ваше имя" value="{{ app.user.name }}">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-12">#}
-{#                                    <div class="settings-form-wrapper">#}
-{#                                        <label class="settings-label">Ваша почта</label>#}
-{#                                        <input class="settings-input" type="text" name="mail" placeholder="mail@example.com" value="{{ app.user.email }}">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-12">#}
-{#                                    <div class="settings-form-wrapper">#}
-{#                                        <label class="settings-label">Номер телефона</label>#}
-{#                                        <input class="settings-input" type="text" name="phone" placeholder="+7 (999) 999-99-99" value="{{ app.user.phone }}">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-12">#}
-{#                                    <div class="settings-form-wrapper">#}
-{#                                        <label class="settings-label">Ваш логин на сайте</label>#}
-{#                                        <input class="settings-input" type="text" name="username" placeholder="Придумайте логин" value="{{ app.user.username }}">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="settings-submit-wrapper">#}
-{#                                    <input type="submit" class="button-primary" value="Применить">#}
-{#                                </div>#}
-{#                            </div>#}
+                                    <p>
+                                        Сумма, на которую нужно пополнить баланс
+                                        <input type="number" class="settings-input" name="amount">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="settings-step__wrapper">
+                                <div class="settings-step">
+                                    <h6 class="settings-step__title">
+                                        Шаг 2.
+                                    </h6>
+
+                                    <p>
+                                        Выберите способ оплаты
+                                    </p>
+                                    <div class="payment-items">
+                                        <div class="payment-item">
+                                            <img src="https://online-check.business.ru/wp-content/uploads/2019/10/PAYKEEPER.png" alt="" class="payment-item__pic">
+                                            <span class="payment-item__title">
+                                                Картой онлайн
+                                            </span>
+                                        </div>
+{#                                        <div class="payment-item">#}
+{#                                            <img src="https://online-check.business.ru/wp-content/uploads/2019/10/PAYKEEPER.png" alt="" class="payment-item__pic">#}
+{#                                            <span class="payment-item__title">#}
+{#                                                Картой онлайн#}
+{#                                            </span>#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    jQuery('.js-equalChecker').on('click', function () {
+                                        jQuery(this).find('div').toggle()
+                                        const $checkbox = jQuery(this).parent().find('input[type=checkbox]')
+                                        $checkbox.prop('checked', !$checkbox.prop('checked'))
+                                        jQuery(this).toggleClass('active')
+                                    })
+                                })
+                            </script>
+                            <div class="settings-submit-wrapper">
+                                <input type="submit" class="button-primary" value="Пополнить">
+                            </div>
                         </form>
                     </div>
                 </div>

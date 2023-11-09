@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LeadImportRepository::class)]
 #[ORM\Table(name: 'lead_import')]
-
 class LeadImport
 {
     use IdTrait;

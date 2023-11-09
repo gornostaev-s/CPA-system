@@ -101,11 +101,7 @@ class TelegramProvider
      */
     public function setWebhook(string $url): void
     {
-        $res = $this->client->request('POST', $this->getEndpoint('setWebhook') . "?url=$url");
-
-        echo '<pre>';
-        var_dump($res->getContent(), $url);
-        die;
+        $this->client->request('POST', $this->getEndpoint('setWebhook') . "?url=$url");
     }
 
     public function setRequestData(Request $request)
