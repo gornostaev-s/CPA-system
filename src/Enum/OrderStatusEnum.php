@@ -9,4 +9,9 @@ enum OrderStatusEnum: int
     case accepted = 2;
     case rejected = 3;
     case error = 4;
+
+    public static function getEnumById(int $id): self
+    {
+        return self::from($id);
+    }
 }

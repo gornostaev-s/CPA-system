@@ -78,11 +78,11 @@ class Order
     }
 
     /**
-     * @return int
+     * @return OrderStatusEnum
      */
-    public function getStatus(): int
+    public function getStatus(): OrderStatusEnum
     {
-        return $this->status;
+        return OrderStatusEnum::getEnumById($this->status);
     }
 
     /**
@@ -149,5 +149,21 @@ class Order
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentOrderId(): string
+    {
+        return $this->paymentOrderId;
+    }
+
+    /**
+     * @param string $paymentOrderId
+     */
+    public function setPaymentOrderId(string $paymentOrderId): void
+    {
+        $this->paymentOrderId = $paymentOrderId;
     }
 }

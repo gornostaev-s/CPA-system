@@ -41,4 +41,12 @@ class OrderService
 
         $this->store($order);
     }
+
+    public function complete(Order $order): void
+    {
+        $provider = $this->orderProviderFactory->completePaymentProvider($order->getType());
+        $provider->completeOrder($order);
+
+        $this->store($order);
+    }
 }
