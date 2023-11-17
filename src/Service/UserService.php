@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
@@ -26,6 +27,7 @@ class UserService
         private readonly UserAuthenticatorInterface $authenticator,
         private readonly UserPasswordHasherInterface $encoder,
         private readonly UuidFactory $uuidFactory,
+        private readonly BalanceHistoryService $balanceHistoryService,
     )
     {
 
@@ -89,11 +91,27 @@ class UserService
     /**
      * @param User $user
      * @param float $sum
+     * @param Order|null $order
      * @return float
      */
-    public function upUserBalance(User $user, float $sum): float
+    public function upUserBalance(User $user, float $sum, ?Order $order = null): float
     {
         $user->setBalance($user->getBalance() + $sum);
+        $this->balanceHistoryService->upBalance($user, $sum, $order);
+
+        return $user->getBalance();
+    }
+
+    /**
+     * @param User $user
+     * @param float $sum
+     * @param Order|null $order
+     * @return float
+     */
+    public function downUserBalance(User $user, float $sum, ?Order $order = null): float
+    {
+        $user->setBalance($user->getBalance() - $sum);
+        $this->balanceHistoryService->downBalance($user, $sum, $order);
 
         return $user->getBalance();
     }
