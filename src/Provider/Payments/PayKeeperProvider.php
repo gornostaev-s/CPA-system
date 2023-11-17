@@ -74,7 +74,7 @@ class PayKeeperProvider implements CreatePaymentInterface, CompletePaymentInterf
 
         if ($paymentInfo['status'] == 'paid' && $order->getStatus() == OrderStatusEnum::process ) {
             $order->setStatus(OrderStatusEnum::accepted);
-            $this->userService->upUserBalance($order->getUser(), $order->getAmount());
+            $this->userService->upUserBalance($order->getUser(), $order->getAmount(), $order);
         }
     }
 
