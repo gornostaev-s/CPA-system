@@ -1,0 +1,85 @@
+<div class="dashboard-table-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>
+                Импорт лидов из файла
+            </h1>
+        </div>
+        <div class="col-md-6 text-right">
+            <a class="button-primary" href="/dashboard/leads/import/create/">
+                Добавить импорт
+            </a>
+        </div>
+    </div>
+
+    <div class="dashboard-table-outer">
+        <table class="dashboard-table">
+            <thead class="dashboard-table__head">
+            <tr>
+                <td class="dashboard-table__col">ID</td>
+                <td class="dashboard-table__col">Дата создания</td>
+                <td class="dashboard-table__col">Статус</td>
+                <td class="dashboard-table__col_last">Действия</td>
+            </tr>
+            </thead>
+            {% for leadImport in leadImports %}
+                <tr class="dashboard-table__row">
+                                        <td class="dashboard-table__col">{{ leadImport.id }}</td>
+                                        <td class="dashboard-table__col">{{ leadImport.createdAt }}</td>
+                                        <td class="dashboard-table__col">{{ leadImport.statusLabel }}</td>
+                                        <td class="dashboard-table__col" style="text-align: right;">
+                                            <a href="/dashboard/leads/import/store/{{ leadImport.id }}" class="dashboard-table__buttons">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </a>
+{#                                            <a href="/dashboard/leads/import/delete/{{ leadImport.id }}" class="dashboard-table__buttons">#}
+{#                                                <i class="fa fa-times" aria-hidden="true"></i>#}
+{#                                            </a>#}
+                                        </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const $actions = jQuery('.js-leadAction');
+        const $acceptButton = jQuery('.js-leadAccept');
+        const $rejectButton = jQuery('.js-leadReject');
+        const $status = jQuery('.js-leadStatus');
+
+        $acceptButton.on('click', function (e) {
+            e.preventDefault();
+
+            jQuery.ajax({
+                url: jQuery(this).attr('href') + jQuery(this).data('id'),
+                method: 'POST',
+                data: {
+                    id: jQuery(this).data('id'),
+                    handle: 0
+                },
+                success: function (data) {
+                    $status.text(data.statusLabel)
+                    $actions.html('')
+                }
+            })
+        })
+
+        $rejectButton.on('click', function (e) {
+            e.preventDefault();
+
+            jQuery.ajax({
+                url: jQuery(this).attr('href') + jQuery(this).data('id'),
+                method: 'POST',
+                data: {
+                    id: jQuery(this).data('id'),
+                    handle: 1
+                },
+                success: function (data) {
+                    $status.text(data.statusLabel)
+                    $actions.html('')
+                }
+            })
+        })
+    })
+</script>

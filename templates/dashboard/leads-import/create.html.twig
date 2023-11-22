@@ -1,0 +1,86 @@
+<div class="admin-wrapper">
+    <form action="/dashboard/leads/import/store/0" method="post" class="">
+        <div class="row">
+            <div class="col-md-8 admin-form">
+                <div>
+                    <h1 class="admin-title">
+                        Импорт из файла
+                    </h1>
+                </div>
+
+                <p>
+                    Введите, как называются поля в вашей таблице
+                </p>
+
+                <p>
+                    <br>
+                </p>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="admin-form__group">
+                            <label class="admin-form__label">Поле (id потока)</label>
+                            <input type="text" name="flowId" class="admin-form__text" placeholder="Введите имя клиента">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-form__group">
+                            <label class="admin-form__label">Поле (Имя)</label>
+                            <input type="text" name="name" class="admin-form__text" placeholder="Введите имя клиента">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-form__group">
+                            <label class="admin-form__label">Поле (Телефон)</label>
+                            <input type="text" name="phone" class="admin-form__text" placeholder="Введите имя клиента">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-form__group">
+                            <label class="admin-form__label">Поле (Регион)</label>
+                            <input type="text" name="region" class="admin-form__text" placeholder="Введите имя клиента">
+                        </div>
+                    </div>
+{#                    <div class="col-md-4">#}
+{#                        <div class="admin-form__group">#}
+{#                            <label class="admin-form__label">Поле (Город)</label>#}
+{#                            <input type="text" name="name" class="admin-form__text" placeholder="Введите имя клиента">#}
+{#                        </div>#}
+{#                    </div>#}
+                    <div class="col-md-4">
+                        <div class="admin-form__group">
+                            <label class="admin-form__label">Поле (Комментарий)</label>
+                            <input type="text" name="comment" class="admin-form__text" placeholder="Введите имя клиента">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-form__group">
+                            <label class="admin-form__label">Выберите файл (csv, xlsx)</label>
+                            <input type="file" name="file" placeholder="Выберите файл">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <br>
+                </div>
+
+{#                <div>#}
+{#                    <h2 class="admin-title">#}
+{#                        Предварительный просмотр#}
+{#                    </h2>#}
+{#                </div>#}
+            </div>
+            <div class="col-md-4">
+                <div class="publish-card-wrapper">
+                    <div class="publish-card">
+                        <p>
+                            Шаг 1
+                        </p>
+                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Продолжить">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

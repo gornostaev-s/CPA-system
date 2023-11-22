@@ -14,9 +14,9 @@ class LeadImportRepository extends ServiceEntityRepository
         parent::__construct($registry, LeadImport::class);
     }
 
-    public function store(LeadImport $lead)
+    public function store(LeadImport $leadImport)
     {
-        $this->entityManager->persist($lead);
+        $this->entityManager->persist($leadImport);
         $this->entityManager->flush();
     }
 }

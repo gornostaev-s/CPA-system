@@ -1,0 +1,54 @@
+<div class="admin-wrapper">
+    <form action="/dashboard/leads/add" method="post" class="">
+        <div class="row">
+            <div class="col-md-8 admin-form">
+                <div>
+                    <h1 class="admin-title">
+                        Добавить лид
+                    </h1>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Поток: </label>
+                    <select class="admin-form__select" name="flow_id">
+                        <option value="0">Выберите поток</option>
+                        {% for flow in flows %}
+                            <option value="{{ flow.id }}">{{ flow.description }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Город: </label>
+                    <select class="admin-form__select" name="city_id">
+                        <option value="0">Выберите город</option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.region }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Телефон клиента</label>
+                    <input type="text" name="phone" class="admin-form__text js-phoneInput" placeholder="Введите номер телефона">
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Имя клиента</label>
+                    <input type="text" name="name" class="admin-form__text" placeholder="Введите имя клиента">
+                </div>
+                <div class="admin-form__group">
+                    <label class="admin-form__label">Текст заявки: </label>
+                    <textarea type="text" name="message" placeholder="Описание" class="admin-form__textarea"></textarea>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="publish-card-wrapper">
+                    <div class="publish-card">
+                        <div style="padding-bottom: 20px;">
+                            <a href="/dashboard/leads/import">Добавить лиды из .csv или .xlsx</a>
+                        </div>
+                        <input type="submit" id="submit" class="button-primary w-100 publish-card__submit" value="Добавить">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
