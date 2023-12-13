@@ -5,6 +5,7 @@
 docker/mysql
 docker/logs
 docker/.env
+docs/*
 
 ###> symfony/framework-bundle ###
 /.env.local

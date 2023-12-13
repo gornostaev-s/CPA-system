@@ -2,8 +2,9 @@
 
 namespace App\Entity\Traits;
 
-trait isNewTrait{
-    private bool $isNew;
+trait isNewTrait
+{
+    private bool $isNew = false;
 
     public function setIsNew(bool $isNew): void
     {

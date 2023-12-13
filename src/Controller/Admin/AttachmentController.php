@@ -28,7 +28,7 @@ class AttachmentController extends AbstractController
          * @var UploadedFile $file
          */
         $file = $request->files->get('image');
-        $this->attachmentService->validate($file);
+        $this->attachmentService->validateImage($file);
 
         $attachment = Attachment::make($file);
         $this->attachmentService->store($attachment);

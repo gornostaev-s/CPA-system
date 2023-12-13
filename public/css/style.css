@@ -1665,6 +1665,11 @@ p {
   font-size: 12px;
 }
 
+.field-error {
+  color: #a90000;
+  font-size: 12px;
+}
+
 @media (min-width: 992px) {
   .main-slide .main-slide__content {
     margin-top: -100px;

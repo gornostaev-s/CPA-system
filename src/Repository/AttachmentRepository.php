@@ -14,9 +14,9 @@ class AttachmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Attachment::class);
     }
 
-    public function store(Attachment $page)
+    public function store(Attachment $attachment)
     {
-        $this->entityManager->persist($page);
+        $this->entityManager->persist($attachment);
         $this->entityManager->flush();
     }
 }

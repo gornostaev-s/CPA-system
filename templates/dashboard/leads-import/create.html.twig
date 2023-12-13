@@ -1,5 +1,5 @@
 <div class="admin-wrapper">
-    <form action="/dashboard/leads/import/store/0" method="post" class="">
+    <form action="/dashboard/leads/import/store/0" method="post" enctype="multipart/form-data" class="js-entityForm">
         <div class="row">
             <div class="col-md-8 admin-form">
                 <div>
@@ -20,25 +20,37 @@
                     <div class="col-md-4">
                         <div class="admin-form__group">
                             <label class="admin-form__label">Поле (id потока)</label>
-                            <input type="text" name="flowId" class="admin-form__text" placeholder="Введите имя клиента">
+                            <input type="text" name="flowIdField" class="admin-form__text" placeholder="Введите имя клиента">
+                            <span class="field-error">
+
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="admin-form__group">
                             <label class="admin-form__label">Поле (Имя)</label>
-                            <input type="text" name="name" class="admin-form__text" placeholder="Введите имя клиента">
+                            <input type="text" name="nameField" class="admin-form__text" placeholder="Введите имя клиента">
+                            <span class="field-error">
+
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="admin-form__group">
                             <label class="admin-form__label">Поле (Телефон)</label>
-                            <input type="text" name="phone" class="admin-form__text" placeholder="Введите имя клиента">
+                            <input type="text" name="phoneField" class="admin-form__text" placeholder="Введите имя клиента">
+                            <span class="field-error">
+
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="admin-form__group">
                             <label class="admin-form__label">Поле (Регион)</label>
-                            <input type="text" name="region" class="admin-form__text" placeholder="Введите имя клиента">
+                            <input type="text" name="regionField" class="admin-form__text" placeholder="Введите имя клиента">
+                            <span class="field-error">
+
+                            </span>
                         </div>
                     </div>
 {#                    <div class="col-md-4">#}
@@ -50,13 +62,19 @@
                     <div class="col-md-4">
                         <div class="admin-form__group">
                             <label class="admin-form__label">Поле (Комментарий)</label>
-                            <input type="text" name="comment" class="admin-form__text" placeholder="Введите имя клиента">
+                            <input type="text" name="commentField" class="admin-form__text" placeholder="Введите имя клиента">
+                            <span class="field-error">
+
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="admin-form__group">
                             <label class="admin-form__label">Выберите файл (csv, xlsx)</label>
                             <input type="file" name="file" placeholder="Выберите файл">
+                            <span class="field-error">
+
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -84,3 +102,41 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let $form = jQuery('.js-entityForm');
+        // let $submit = $form.find('[type=submit]');
+        $form.data('validate', 0)
+
+        $form.on('submit', function (e) {
+            let success = true;
+            const formData = new FormData($form.get(0));
+
+            jQuery.ajax({
+                url: 'http://localhost/dashboard/leads/import/validate/1',
+                // data: $form.serialize(),
+                async: false,
+                data: formData,
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (!data.success) {
+                        jQuery('.field-error').text('')
+                        jQuery.each(data.errors, function (i, e) {
+                            jQuery('[name='+ i +']').next().text(e);
+                        })
+
+                        success = false;
+                    }
+                }
+            })
+
+            if (!success) {
+                return false;
+            }
+        })
+    })
+</script>

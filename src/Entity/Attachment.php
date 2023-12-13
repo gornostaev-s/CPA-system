@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\CreatedAtTrait;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\isNewTrait;
 use App\Repository\AttachmentRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,8 +26,11 @@ use Symfony\Component\HttpFoundation\File\File;
 #[ORM\Table(name: 'attachments')]
 class Attachment
 {
+    const EXCEL_UPLOAD_DIR = '/var/www/docs';
+
     use IdTrait;
     use CreatedAtTrait;
+    use isNewTrait;
 
     #[Vich\UploadableField(
         mapping: 'attachments',
@@ -47,14 +51,19 @@ class Attachment
     #[ORM\Column(name: 'image_original_name', type: 'text')]
     private string $originalName;
 
-    #[ORM\Column(name: 'image_dimensions', type: 'json')]
+    #[ORM\Column(name: 'image_dimensions', type: 'json', nullable: true)]
     private array $dimensions;
 
-    #[ORM\Column(name: 'image_size', type: 'integer')]
+    #[ORM\Column(name: 'image_size', type: 'integer', nullable: true)]
     private int $size;
 
     #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTime $updatedAt;
+
+    /**
+     * @var string
+     */
+    private string $path;
 
     public function __construct()
     {
@@ -64,12 +73,14 @@ class Attachment
     }
 
     /**
+     * @param File $imageFile
      * @return Attachment
      */
     public static function make(File $imageFile): Attachment
     {
         $e = new self;
         $e->imageFile = $imageFile;
+        $e->isNew = true;
 
         return $e;
     }
@@ -190,5 +201,10 @@ class Attachment
     public function getUrl(): string
     {
         return getenv('BASE_URI') . "/uploads/attachments/$this->name";
+    }
+
+    public function getPath(): string
+    {
+        return "/var/www/public/uploads/attachments/$this->name";
     }
 }
