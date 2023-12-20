@@ -1,14 +1,15 @@
 <?php
 
+use App\Console\Controllers\CheckCompaniesController;
 use App\Controllers\ExportController;
 use App\Controllers\IndexController;
 use App\Controllers\AuthController;
 use App\Controllers\ApiController;
 use App\Core\Router;
 
-$request = $_SERVER['REQUEST_URI'];
+$request = $argv[1];
 
-Router::route('check-companies', [IndexController::class, 'index']);
+Router::route('check-companies', [CheckCompaniesController::class, 'index']);
 
-echo Router::execute($_SERVER['REQUEST_URI']);
+echo Router::execute($request);
 ?>
