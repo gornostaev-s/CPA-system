@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Provider;
+namespace App\Clients;
 
 use App\Entity\TgButton;
 use App\Kernel;
@@ -16,7 +16,6 @@ class TelegramClient
 
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly Kernel $kernel
     ) {
     }
 
@@ -36,7 +35,7 @@ class TelegramClient
      *
      * @return void
      */
-    private function setBotId(string $botId): void
+    public function setBotId(string $botId): void
     {
         $this->botId = $botId;
 
