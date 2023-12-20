@@ -9,7 +9,7 @@ use Exception;
 class Company extends BaseEntity
 {
     const STATUS_NEW = 1;
-    const STATUS_SYNCHRONIZED = 2;
+    const STATUS_REGISTERED = 2;
 
     public int $id;
     public string $inn;
@@ -67,5 +67,17 @@ class Company extends BaseEntity
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    /**
+     * @param int $status
+     * @return string
+     */
+    public static function getStatusLabel(int $status): string
+    {
+        return match ($status) {
+            self::STATUS_NEW => 'Добавлено',
+            self::STATUS_REGISTERED => 'Компания зарегистрирована'
+        };
     }
 }

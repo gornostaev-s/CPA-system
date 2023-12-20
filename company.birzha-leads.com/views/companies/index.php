@@ -3,6 +3,8 @@
  * @var array $data
  */
 
+use App\Entities\Company;
+
 include __DIR__ . '/../header.php';
 ?>
 <!-- ============================================================== -->
@@ -98,7 +100,7 @@ include __DIR__ . '/../header.php';
                                                     <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
                                                     <td class="modal-table-primary__col text-left"><?= $company->inn ?></td>
                                                     <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                    <td class="modal-table-primary__col text-left">Создано</td>
+                                                    <td class="modal-table-primary__col text-left"><?= Company::getStatusLabel($company->status)?></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>

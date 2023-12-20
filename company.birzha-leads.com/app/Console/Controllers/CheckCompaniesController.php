@@ -3,6 +3,7 @@
 namespace App\Console\Controllers;
 
 use App\Core\Controller;
+use App\Entities\Company;
 use App\Repositories\CompanyRepository;
 use Dadata\DadataClient;
 use ReflectionException;
@@ -24,13 +25,16 @@ class CheckCompaniesController extends Controller
     {
         // https://github.com/hflabs/dadata-php
 
-        $token = "2a96dd4e4f30950cd6df210913e39bb7fe631e6d";
-        $dadata = new DadataClient($token, null);
-        $result = $dadata->findById("party", "7707083893", 1);
+        $dadata = new DadataClient(DADATA_TOKEN, null);
         $companies = $this->companyRepository->getNewCompanies();
 
         foreach ($companies as $company) {
+            $result = $dadata->findById("party", $company->inn, 1);
 
+            if (!empty($result)) {
+                $company->setStatus(Company::STATUS_REGISTERED);
+                $this->companyRepository->save($company);
+            }
         }
     }
 }
