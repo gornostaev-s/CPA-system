@@ -1,2 +1,1 @@
-# 0 */2 * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console check-companies
-* * * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console check-companies
+0 * * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console check-companies

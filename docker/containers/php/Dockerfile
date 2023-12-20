@@ -25,6 +25,7 @@ RUN \
 # creating the log file that will be written to at each cron iteration
 RUN touch test_cron.log
 
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 # copy the crontab in a location where it will be parsed by the system
 COPY ./crontab /etc/cron.d/crontab
 # owner can read and write into the crontab, group and others can read it

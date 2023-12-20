@@ -12,7 +12,8 @@ use ReflectionException;
 
 class CheckCompaniesController extends Controller
 {
-    const RECIPIENT = 875883459;
+//    const RECIPIENT = 875883459;
+    const RECIPIENT = '-4086498612';
 
     public function __construct(
         private readonly CompanyRepository $companyRepository,
@@ -35,7 +36,6 @@ class CheckCompaniesController extends Controller
 
         if (time() < $interval['min'] || time() > $interval['max']) {
             echo "Bye! \n";
-            $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("test");
 
             return;
         }
