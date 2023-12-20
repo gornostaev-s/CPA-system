@@ -2,6 +2,7 @@ version: '2'
 
 services:
   nginx:
+    container_name: nginx
     image: nginx:latest
     ports:
       - "80:80"
@@ -15,11 +16,13 @@ services:
     env_file:
       - ../.env
   php:
+    container_name: php
     build: ./containers/php
     links:
       - mysql
     volumes:
       - ./../:/var/www
+      - ./containers/php/supervisor/:/etc/supervisor/conf.d/
     env_file:
       - ../.env
   mysql:

@@ -15,13 +15,12 @@ RUN apt-get update && apt-get install -y \
     	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
         && docker-php-ext-install -j$(nproc) gd
 
-# installing cron package
-RUN apt-get update && apt-get -y install cron
-
-# putting our test PHP script somewhere in the filesystem
-RUN mkdir /cron_scripts
-WORKDIR /cron_scripts
-COPY cron.txt /cron_scripts
+# Install Supervisor.
+RUN \
+  apt-get update && \
+  apt-get install -y supervisor && \
+  rm -rf /var/lib/apt/lists/* && \
+  sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # creating the log file that will be written to at each cron iteration
 RUN touch test_cron.log
@@ -40,3 +39,5 @@ EXPOSE 9000
 
 # Указываем рабочую директорию для PHP
 WORKDIR /var/www
+
+CMD ["supervisord"]
