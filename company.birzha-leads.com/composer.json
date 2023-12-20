@@ -6,7 +6,8 @@
         "adhocore/jwt": "^1.1",
         "amocrm/amocrm-api-library": "^0.12.5",
         "phpoffice/phpspreadsheet": "^1.29",
-        "hflabs/dadata": "^22.3"
+        "hflabs/dadata": "^22.3",
+        "symfony/http-client": "^6.4"
     },
     "autoload": {
         "psr-4": {
