@@ -32,4 +32,11 @@ class LeadImportService
             $leadImport->setFile($file);
         }
     }
+
+    public function getTableData(LeadImport $leadImport): array
+    {
+        return [];
+    }
 }
+
+// /Users/sergey/projects/home/CPAsystem/company.birzha-leads.com
