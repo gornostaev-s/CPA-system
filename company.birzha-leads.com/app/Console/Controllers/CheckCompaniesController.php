@@ -35,6 +35,7 @@ class CheckCompaniesController extends Controller
 
         if (time() < $interval['min'] || time() > $interval['max']) {
             echo "Bye! \n";
+            $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("test");
 
             return;
         }
