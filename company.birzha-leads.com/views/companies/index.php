@@ -3,7 +3,7 @@
  * @var array $data
  */
 
-include 'header.php';
+include __DIR__ . '/../header.php';
 ?>
 <!-- ============================================================== -->
 <!-- main wrapper -->
@@ -33,12 +33,12 @@ include 'header.php';
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="nav-item ">
-                            <a class="nav-link" href="/">
+                            <a class="nav-link active" href="/">
                                 Компании
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link active" href="/import">
+                            <a class="nav-link" href="/import">
                                 Импорт
                             </a>
                         </li>
@@ -110,39 +110,6 @@ include 'header.php';
                 </div>
             </div>
 
-            <div class="modal" data-modal="revert">
-                <!--                style="display: block"-->
-                <div class="modal__overflow">
-
-                </div>
-                <div class="modal-small">
-                    <h3 class="modal-small__title">
-                        Подтверждение
-                    </h3>
-                    <p class="modal-small__text">
-                        Возврат по заказу: №<span class="js-revertNum">123234</span>
-                    </p>
-
-                    <table class="js-revertTable modal-table-primary w-100">
-                    </table>
-
-                    <div class="js-revertErrors mt-4 text-left text-danger">
-
-                    </div>
-
-                    <div class="modal-small-footer">
-                        <div class="row">
-                            <div class="col-6">
-                                <a href="#" class="modal-button js-refund">Возврат</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="modal-button js-close">Отмена</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
 
                 <script src="/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
@@ -170,7 +137,7 @@ include 'header.php';
 </div>
 
                 <?php
-                include 'footer.php';
+                include __DIR__ . '/../footer.php';
                 ?>
 
 

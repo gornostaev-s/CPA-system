@@ -40,6 +40,8 @@ class IndexController extends Controller
                 $this->companyService->store(Company::make($inn));
             }
         }
+
+        header('Location: /');
     }
 
     public function getTableData(string $path): array
