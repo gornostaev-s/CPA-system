@@ -11,8 +11,15 @@ class Company extends BaseEntity
     const STATUS_NEW = 1;
     const STATUS_REGISTERED = 2;
 
+    const EXTERNAL_STATUS_ACTIVE = 'ACTIVE';
+    const EXTERNAL_STATUS_LIQUIDATING = 'LIQUIDATING';
+    const EXTERNAL_STATUS_LIQUIDATED = 'LIQUIDATED';
+    const EXTERNAL_STATUS_BANKRUPT = 'BANKRUPT';
+    const EXTERNAL_STATUS_REORGANIZING = 'REORGANIZING';
+
     public int $id;
     public string $inn;
+    public ?string $fio;
     public int $status;
     public string $created_at;
 
@@ -67,6 +74,22 @@ class Company extends BaseEntity
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    /**
+     * @param string $fio
+     */
+    public function setFio(string $fio): void
+    {
+        $this->fio = $fio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFio(): string
+    {
+        return $this->fio;
     }
 
     /**

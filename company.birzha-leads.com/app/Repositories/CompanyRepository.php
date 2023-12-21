@@ -65,4 +65,16 @@ class CompanyRepository
 
         return $res;
     }
+
+    /**
+     * @param string $inn
+     * @return Company
+     * @throws ReflectionException
+     */
+    public function findOneByInn(string $inn): Company
+    {
+        $queryRes = $this->mapper->db->query("SELECT * FROM companies WHERE inn = '$inn'")->fetch();
+
+        return (new Company())->load($queryRes);
+    }
 }

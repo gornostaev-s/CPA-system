@@ -47,9 +47,20 @@ class CheckCompaniesController extends Controller
             $result = $dadata->findById("party", $company->inn, 1);
 
             if (!empty($result)) {
-                $company->setStatus(Company::STATUS_REGISTERED);
+                $data = $result[0]['data'];
+
+                if (empty($company->fio)) {
+                    $company->setFio($data['name']['full']);
+                }
+
+                if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
+                    $company->setStatus(Company::STATUS_REGISTERED);
+                    $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
+                } else if ($company->status == Company::STATUS_REGISTERED && $data['state']['status'] != Company::EXTERNAL_STATUS_ACTIVE) {
+                    $company->setStatus(Company::STATUS_NEW);
+                }
+
                 $this->companyRepository->save($company);
-                $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
             }
         }
     }
@@ -66,5 +77,34 @@ class CheckCompaniesController extends Controller
         }
 
         return $data;
+    }
+
+    public function test()
+    {
+        $dadata = new DadataClient(DADATA_TOKEN, null);
+        $company = $this->companyRepository->findOneByInn('232000513392');
+
+        $result = $dadata->findById("party", $company->inn, 1);
+
+        $data = $result[0]['data'];
+
+        if (empty($company->fio)) {
+            $company->setFio($data['name']['full']);
+        }
+
+        if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
+            $company->setStatus(Company::STATUS_REGISTERED);
+        }
+
+
+//        foreach ($companies as $company) {
+//            $result = $dadata->findById("party", $company->inn, 1);
+//
+//            if (!empty($result)) {
+//                $company->setStatus(Company::STATUS_REGISTERED);
+//                $this->companyRepository->save($company);
+//                $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
+//            }
+//        }
     }
 }
