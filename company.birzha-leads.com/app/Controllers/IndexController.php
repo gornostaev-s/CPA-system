@@ -36,8 +36,8 @@ class IndexController extends Controller
         $inns = $this->getTableData($_FILES['excel']['tmp_name']);
 
         foreach ($inns as $inn) {
-            if (!empty($inn)) {
-                $this->companyService->store(Company::make($inn));
+            if (!empty($inn['A'])) {
+                $this->companyService->store(Company::make($inn['A'], $inn['B']));
             }
         }
 
@@ -59,10 +59,6 @@ class IndexController extends Controller
 
             $body[] = $rowRes;
         }
-
-        echo '<pre>';
-        var_dump($body);
-        die;
 
         return $body;
     }

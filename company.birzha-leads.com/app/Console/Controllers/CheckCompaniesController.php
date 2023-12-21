@@ -55,16 +55,11 @@ class CheckCompaniesController extends Controller
             if (!empty($result)) {
                 $data = $result[0]['data'];
 
-                if (empty($company->fio)) {
-                    $company->setFio($data['name']['full']);
-                }
-
                 if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
                     $company->setStatus(Company::STATUS_REGISTERED);
+                    $this->companyRepository->save($company);
                     $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
                 }
-
-                $this->companyRepository->save($company);
             }
         }
     }

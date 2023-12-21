@@ -89,6 +89,7 @@ include __DIR__ . '/../header.php';
                                         <tr class="border-0">
                                             <th class="border-0">#</th>
                                             <th class="border-0">ИНН</th>
+                                            <th class="border-0">ФИО</th>
                                             <th class="border-0">Дата создания</th>
                                             <th class="border-0">Статус</th>
 <!--                                            <th>Действия</th>-->
@@ -99,6 +100,7 @@ include __DIR__ . '/../header.php';
                                                 <tr>
                                                     <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
                                                     <td class="modal-table-primary__col text-left"><?= $company->inn ?></td>
+                                                    <td class="modal-table-primary__col text-left"><?= $company->fio ?></td>
                                                     <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
                                                     <td class="modal-table-primary__col text-left"><?= Company::getStatusLabel($company->status)?></td>
                                                 </tr>
