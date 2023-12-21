@@ -44,6 +44,12 @@ class CheckCompaniesController extends Controller
         $companies = $this->companyRepository->getNewCompanies();
 
         foreach ($companies as $company) {
+            if (time() > $company->getCreatedAt()->modify('+5 days')->getTimestamp()) {
+                $company->setStatus(Company::STATUS_EXPIRED);
+                $this->companyRepository->save($company);
+                continue;
+            }
+
             $result = $dadata->findById("party", $company->inn, 1);
 
             if (!empty($result)) {
@@ -56,8 +62,6 @@ class CheckCompaniesController extends Controller
                 if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
                     $company->setStatus(Company::STATUS_REGISTERED);
                     $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
-                } else if ($company->status == Company::STATUS_REGISTERED && $data['state']['status'] != Company::EXTERNAL_STATUS_ACTIVE) {
-                    $company->setStatus(Company::STATUS_NEW);
                 }
 
                 $this->companyRepository->save($company);
@@ -95,7 +99,6 @@ class CheckCompaniesController extends Controller
         if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
             $company->setStatus(Company::STATUS_REGISTERED);
         }
-
 
 //        foreach ($companies as $company) {
 //            $result = $dadata->findById("party", $company->inn, 1);

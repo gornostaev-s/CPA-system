@@ -10,6 +10,7 @@ class Company extends BaseEntity
 {
     const STATUS_NEW = 1;
     const STATUS_REGISTERED = 2;
+    const STATUS_EXPIRED = 2;
 
     const EXTERNAL_STATUS_ACTIVE = 'ACTIVE';
     const EXTERNAL_STATUS_LIQUIDATING = 'LIQUIDATING';
@@ -55,7 +56,7 @@ class Company extends BaseEntity
      * @return DateTime
      * @throws Exception
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): DateTime
     {
         return new DateTime($this->created_at);
     }
@@ -100,7 +101,8 @@ class Company extends BaseEntity
     {
         return match ($status) {
             self::STATUS_NEW => 'Добавлено',
-            self::STATUS_REGISTERED => 'Компания зарегистрирована'
+            self::STATUS_REGISTERED => 'Компания зарегистрирована',
+            self::STATUS_EXPIRED => 'Просрочено'
         };
     }
 }

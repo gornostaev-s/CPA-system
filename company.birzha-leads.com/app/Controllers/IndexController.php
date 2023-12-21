@@ -52,10 +52,17 @@ class IndexController extends Controller
 
         foreach ($rows as $row) {
             $cells = $row->getCellIterator();
+
             foreach ($cells as $cell) {
-                $body[] = $cell->getValue();
+                $rowRes[$cell->getColumn()] = $cell->getValue();
             }
+
+            $body[] = $rowRes;
         }
+
+        echo '<pre>';
+        var_dump($body);
+        die;
 
         return $body;
     }
