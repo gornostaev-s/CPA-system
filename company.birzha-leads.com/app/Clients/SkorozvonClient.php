@@ -19,6 +19,56 @@ class SkorozvonClient
     }
 
     /**
+     * @param string $phone
+     * @return int|null
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function addLead(string $phone, string $name = ''): ?int
+    {
+        $res = $this->client->request('POST', 'https://app.skorozvon.ru/api/v2/leads', [
+            'body' => [
+                "name" => "Отклик на hh.ru ($name)",
+                "phones" => $phone,
+                "call_project_id" => 50000086198
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->getToken()
+            ]
+        ])->getContent();
+
+        return json_decode($res, true)['id'] ?? null;
+    }
+
+    /**
+     * @return string
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    private function getToken(): string
+    {
+        $last_try = file_get_contents(self::RUNTIME_DIR . "/token.last.time");
+        $last_token = file_get_contents(self::RUNTIME_DIR . "/token.last");
+
+        $cur_time = time();
+
+        if ($last_token !== false && $last_try !== false) {
+            if ($last_token != "" && $last_try != "") {
+                if (($cur_time - intval($last_try)) < 10) {
+                    return $last_token;
+                }
+            }
+        }
+        $this->prepareToken();
+
+        return $this->getToken();
+    }
+
+    /**
      * @return void
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -39,33 +89,7 @@ class SkorozvonClient
 
         $res = json_decode($res, true);
 
-        file_put_contents("../system/token.last.time", time());
-        file_put_contents("../system/token.last", $res['access_token']);
-    }
-
-    /**
-     * @return string
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
-    public function getToken(): string
-    {
-        $last_try = file_get_contents(self::RUNTIME_DIR . "/token.last.time");
-        $last_token = file_get_contents(self::RUNTIME_DIR . "/token.last");
-
-        $cur_time = time();
-
-        if ($last_token !== false && $last_try !== false) {
-            if ($last_token != "" && $last_try != "") {
-                if (($cur_time - intval($last_try)) < 500) {
-                    return $last_token;
-                }
-            }
-        }
-        $this->prepareToken();
-
-        return $this->getToken();
+        file_put_contents(self::RUNTIME_DIR . "/token.last.time", time());
+        file_put_contents(self::RUNTIME_DIR . "/token.last", $res['access_token']);
     }
 }

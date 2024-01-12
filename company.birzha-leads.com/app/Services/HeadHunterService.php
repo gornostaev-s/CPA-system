@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Clients\HeadHunterClient;
+use App\Clients\SkorozvonClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -31,10 +32,8 @@ class HeadHunterService
     {
         $resume = $this->getResumeDataById($queryData['payload']['resume_id']);
         $phone = $this->getPhoneByResume($resume);
-
-        echo '<pre>';
-        var_dump($this->skorozvonClient->getToken(), __DIR__);
-        die;
+        $name = $this->getNameByResume($resume);
+        $this->skorozvonClient->addLead($phone, $name);
     }
 
     /**
@@ -44,6 +43,15 @@ class HeadHunterService
     private function getPhoneByResume(array $resume): ?string
     {
         return $resume['contact'][0]['value']['formatted'] ?? null;
+    }
+
+    /**
+     * @param array $resume
+     * @return string|null
+     */
+    private function getNameByResume(array $resume): ?string
+    {
+        return $resume['first_name'] ?? null;
     }
 
     /**
