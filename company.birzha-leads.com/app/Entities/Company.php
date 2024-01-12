@@ -10,7 +10,7 @@ class Company extends BaseEntity
 {
     const STATUS_NEW = 1;
     const STATUS_REGISTERED = 2;
-    const STATUS_EXPIRED = 2;
+    const STATUS_EXPIRED = 3;
 
     const EXTERNAL_STATUS_ACTIVE = 'ACTIVE';
     const EXTERNAL_STATUS_LIQUIDATING = 'LIQUIDATING';
