@@ -15,6 +15,14 @@ class HeadHunterClient
     ) {
     }
 
+    public function refreshToken($refreshToken)
+    {
+        return $this
+            ->client
+            ->request('POST', 'https://hh.ru/oauth/token', $this->getOptions())
+            ->getContent();
+    }
+
     /**
      * @param string $id
      * @return array

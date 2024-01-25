@@ -22,6 +22,10 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
+RUN pecl install --force redis \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-enable redis
+
 # creating the log file that will be written to at each cron iteration
 RUN touch test_cron.log
 

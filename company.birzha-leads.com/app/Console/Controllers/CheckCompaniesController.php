@@ -44,7 +44,7 @@ class CheckCompaniesController extends Controller
         $companies = $this->companyRepository->getNewCompanies();
 
         foreach ($companies as $company) {
-            if (time() > $company->getCreatedAt()->modify('+5 days')->getTimestamp()) {
+            if (time() > $company->getCreatedAt()->modify('+10 days')->getTimestamp()) {
                 $company->setStatus(Company::STATUS_EXPIRED);
                 $this->companyRepository->save($company);
                 continue;

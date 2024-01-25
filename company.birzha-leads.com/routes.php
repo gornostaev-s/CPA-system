@@ -13,6 +13,7 @@ Router::route('/', [IndexController::class, 'index']);
 Router::route('/import', [IndexController::class, 'importForm']);
 Router::route('/import-process', [IndexController::class, 'import']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
+Router::route('/test', [IndexController::class, 'test']);
 //Router::route('/avito', [ExportController::class, 'avito']);
 //Router::route('/tilda', [ExportController::class, 'tilda']);
 

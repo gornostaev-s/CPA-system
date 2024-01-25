@@ -35,3 +35,14 @@ services:
       - ./logs/mysql/mysql.log:/var/log/mysql.log
     env_file:
       - ../.env
+  redis:
+    image: redis:6.2
+    container_name: company_redis
+    restart: unless-stopped
+#    ports:
+#      - "6379:6379"
+    volumes:
+      - company_redis:/data
+
+volumes:
+  company_redis:
