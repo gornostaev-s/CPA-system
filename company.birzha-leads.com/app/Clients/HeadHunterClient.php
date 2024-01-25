@@ -10,17 +10,25 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class HeadHunterClient
 {
+    const ACCESS_TOKEN_KEY = 'redis.accessToken';
+    const REFRESH_TOKEN_KEY = 'redis.refreshToken';
+    const EXPIRED_TIMESTAMP_KEY = 'redis.expiredTimestamp';
+
     public function __construct(
         private readonly HttpClientInterface $client,
+        private readonly \Redis $redis
     ) {
     }
 
     public function refreshToken($refreshToken)
     {
-        return $this
+        return json_decode($this
             ->client
-            ->request('POST', 'https://hh.ru/oauth/token', $this->getOptions())
-            ->getContent();
+            ->request('POST', 'https://hh.ru/oauth/token', $this->getOptions([
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $refreshToken
+            ]))
+            ->getContent(), true);
     }
 
     /**
@@ -50,13 +58,18 @@ class HeadHunterClient
 
     /**
      * @return string[][]
+     * @throws \RedisException
      */
-    private function getOptions(): array
+    private function getOptions(?array $body = null): array
     {
-        return [
-            'headers' => [
-                'Authorization' => 'Bearer USERHRAS8ATAAOM80M1AJHK0USQ0N85LITL2CDSAMH8409S3A8911C4C0BH6RGKC'
-            ]
+        $options['headers'] = [
+            'Authorization' => 'Bearer ' . $this->redis->get(self::ACCESS_TOKEN_KEY)
         ];
+
+        if (!empty($body)) {
+            $options['body'] = $body;
+        }
+
+        return $options;
     }
 }
