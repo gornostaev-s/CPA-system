@@ -72,4 +72,12 @@ class HeadHunterClient
 
         return $options;
     }
+
+    public function getVacancyResponses(int $vacancyId)
+    {
+        return json_decode($this
+            ->client
+            ->request('GET', $this->getApiUrl('vacancies') . "/$vacancyId/preferred_negotiations_order", $this->getOptions())
+            ->getContent(), true);
+    }
 }
