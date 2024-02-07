@@ -1,21 +1,33 @@
 <?php
 
-use App\Controllers\ExportController;
 use App\Controllers\HeadHunterController;
 use App\Controllers\IndexController;
 use App\Controllers\AuthController;
-use App\Controllers\ApiController;
 use App\Core\Router;
+use App\Middlewares\AuthMiddleware;
 
 $request = $_SERVER['REQUEST_URI'];
 
-Router::route('/', [IndexController::class, 'index']);
+Router::route('/', [IndexController::class, 'index'], AuthMiddleware::class);
 Router::route('/import', [IndexController::class, 'importForm']);
 Router::route('/import-process', [IndexController::class, 'import']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
-Router::route('/test', [IndexController::class, 'test']);
-//Router::route('/avito', [ExportController::class, 'avito']);
-//Router::route('/tilda', [ExportController::class, 'tilda']);
+Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
+Router::route('/login', [AuthController::class, 'index']);
+Router::route('/registration', [AuthController::class, 'registration']);
+
+/**
+ * Api routes
+ */
+//Router::route('/v1/orders', [new ApiController, 'index']);
+//Router::route('/v1/orders/create', [new ApiController, 'create']);
+//Router::route('/v1/orders/notifications', [new ApiController, 'notifications']);
+//Router::route('/v1/orders/refund', [new ApiController, 'refund']);
+//Router::route('/v1/orders/cancel', [new ApiController, 'refund']);
+//Router::route('/v1/orders/detail', [new ApiController, 'orderDetail']);
+
+Router::route('/v1/login', [AuthController::class, 'login']);
+Router::route('/v1/register', [AuthController::class, 'register']);
 
 echo Router::execute($_SERVER['REQUEST_URI']);
 ?>

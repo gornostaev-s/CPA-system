@@ -1,19 +1,24 @@
 <?php
 namespace App\Core;
 
+use App\Controllers\AuthController;
+use App\Controllers\IndexController;
+use App\Utils\Exceptions\NotAuthorizedException;
 use ReflectionException;
 
 class Router
 {
-   private static $routes = [];
+   private static array $routes = [];
+   private static array $middlewares = [];
 
    private function __construct() {}
    private function __clone() {}
 
-   public static function route($pattern, $callback)
+   public static function route($pattern, $callback, string $middleware = null): void
    {
        $pattern = '/^' . str_replace('/', '\/', $pattern) . '$/';
        self::$routes[$pattern] = $callback;
+       self::$middlewares[$pattern] = $middleware;
    }
 
     /**
@@ -27,6 +32,22 @@ class Router
            {
                array_shift($params);
                $callback[0] = Dispatcher::dispatch($callback[0]);
+
+
+               if (!empty(self::$middlewares[$pattern])) {
+                   /** @var MiddlewareInterface $middleware */
+                   $middleware = new self::$middlewares[$pattern];
+
+                   try {
+                       $middleware->run();
+                   } catch (NotAuthorizedException $notAuthorizedException) {
+
+                       return call_user_func_array([
+                           Dispatcher::dispatch(AuthController::class),
+                           'notAuthorizedPage'
+                       ], [$notAuthorizedException->getMessage()]);
+                   }
+               }
 
                return call_user_func_array($callback, $params);
            }

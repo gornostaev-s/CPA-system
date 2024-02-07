@@ -9,12 +9,6 @@ use App\Services\TinkoffService;
 use App\Utils\ValidationUtil;
 
 class ApiController extends Controller{
-    protected $tinkoff;
-    public function __construct()
-    {
-        $this->tinkoff = new TinkoffService();
-    }
-
     public function index()
     {
         $orders = (new Order())

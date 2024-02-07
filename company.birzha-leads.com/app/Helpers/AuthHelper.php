@@ -9,9 +9,10 @@ use App\Helpers\TokenHelper;
  */
 class AuthHelper
 {
-    public static function isAuth()
+    public static function isAuth(): bool|int
     {
         if(empty($_COOKIE['jwt'])){
+
             return false;
         }
 
@@ -23,17 +24,19 @@ class AuthHelper
             empty($data['userId'])
         ){
             TokenHelper::deleteUserToken($token);
+
             return false;
         }
 
         $user = UserHelper::getUserById($data['userId']);
         $user = $user[0];
 
-        if(empty($user) || $user['admin'] != 1 || $token != (string)$user['jwt'] || $token == '0'){
+        if(empty($user) || $token != (string)$user['jwt'] || $token == '0'){
             TokenHelper::deleteUserToken($token);
+
             return false;
         }
 
-        return 1;
+        return true;
     }
 }
