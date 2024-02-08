@@ -3,18 +3,24 @@ include __DIR__ . '/../header.php';
 ?>
 
     <div class="login-section">
-        <form class="login-form js-authForm" action="/v1/login">
+        <form class="login-form js-authForm" action="/v1/register">
             <div class="login-logo">
                 <img class="login-logo__img" src="/assets/images/logo.png" alt="">
             </div>
             <div class="input-group">
-                <input class="input-group__text" type="text" name="email" placeholder="Введите ваш логин">
+                <input required class="input-group__text" type="text" name="name" placeholder="Введите ваше имя">
             </div>
             <div class="input-group">
-                <input class="input-group__text" type="password" name="password" placeholder="Введите ваш пароль">
+                <input required class="input-group__text" type="text" name="email" placeholder="Введите email">
             </div>
             <div class="input-group">
-                <button type="submit" class="button-primary">Войти</button>
+                <input required class="input-group__text" type="password" name="password" placeholder="Введите пароль">
+            </div>
+            <div class="input-group">
+                <input required class="input-group__text" type="password" name="passwordConfirm" placeholder="Повторите пароль">
+            </div>
+            <div class="input-group">
+                <button type="submit" class="button-primary">Зарегистрироваться</button>
             </div>
             <div class="input-group">
                 <div class="input-group__links">
@@ -55,7 +61,7 @@ include __DIR__ . '/../header.php';
                             form[0].reset();
                             form.find('button[type=submit]').hide();
                             form.find('.response-success').html('<p>Вы успешно авторизованы</p>');
-                            window.location.href = '/admin';
+                            window.location.href = '/';
                         }
                     },
                 })

@@ -3,7 +3,13 @@
 namespace App\Controllers\Api;
 
 use App\Core\Controller;
+use App\Entities\Forms\LoginForm;
+use App\Entities\Forms\RegisterForm;
+use App\Helpers\ApiHelper;
 use App\Services\UserService;
+use App\Utils\Exceptions\ValidationException;
+use App\Utils\ValidationUtil;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -14,18 +20,65 @@ class AuthController extends Controller
         parent::__construct();
     }
 
-    public function login()
+    /**
+     * @return bool|string
+     */
+    public function login(): bool|string
     {
-        
+        try{
+            $request = ValidationUtil::validate($_POST,[
+                "email" => 'required',
+                "password" => 'required',
+            ]);
+            $form = LoginForm::makeFromRequest($request);
+            $this->userService->login($form);
+
+            return ApiHelper::sendSuccess('Вы успешно авторизованы');
+
+        } catch (ValidationException $exception) {
+            return ApiHelper::sendError($exception->getErrors());
+        } catch (Throwable $exception) {
+            return ApiHelper::sendError([$exception->getMessage()]);
+        }
     }
 
-    public function register()
+    /**
+     * @return false|string
+     */
+    public function register(): bool|string
     {
-        $this->userService;
+        try{
+            $request = ValidationUtil::validate($_POST,[
+                'name' => 'required',
+                "email" => 'required',
+                "password" => 'required',
+                "passwordConfirm" => 'required',
+            ]);
+
+            $form = RegisterForm::makeFromRequest($request);
+            $this->userService->register($form);
+
+            return ApiHelper::sendSuccess('Вы успешно авторизованы');
+
+        } catch (ValidationException $exception) {
+            return ApiHelper::sendError($exception->getErrors());
+        } catch (Throwable $exception) {
+            return ApiHelper::sendError([$exception->getMessage()]);
+        }
     }
 
-    public function logout()
+
+    /**
+     * @return false|string
+     */
+    public function logout(): bool|string
     {
-        
+        try{
+            $this->userService->logout();
+
+            return ApiHelper::sendSuccess('Вы успешно вышли с профиля');
+        } catch (Throwable $exception) {
+            return ApiHelper::sendError([$exception->getMessage()]);
+        }
     }
 }

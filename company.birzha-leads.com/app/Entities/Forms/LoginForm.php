@@ -13,7 +13,7 @@ class LoginForm extends BaseEntity
     {
         $e = new self;
         $e->email = $request['email'];
-        $e->password = $request['password'];
+        $e->password = md5($request['password']);
 
         return $e;
     }

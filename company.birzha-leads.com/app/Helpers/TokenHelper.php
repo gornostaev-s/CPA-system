@@ -3,69 +3,94 @@
 namespace App\Helpers;
 
 use Ahc\Jwt\JWT;
-use App\Models\User;
+use App\Entities\User;
 use App\Helpers\UserHelper;
+use App\Repositories\UserRepository;
+use ReflectionException;
 
-class TokenHelper {
+class TokenHelper
+{
     const TOKEN = 'uziRpFNRJcd3XhrfHVaG';
 
-    protected static function getJwt()
+    public function __construct(
+        private readonly UserRepository $userRepository
+    )
+    {
+    }
+
+    /**
+     * @param User|null $user
+     * @return void
+     */
+    public function unsetUserToken(?User $user = null): void
+    {
+        unset($_COOKIE['token']);
+        setcookie("token", '', -1, '/');
+
+        if (!empty($user->id)) {
+            $user->setToken('');
+        }
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function validateToken(string $jwt): bool
+    {
+        $data = TokenHelper::getDataByToken($jwt);
+        $user = $this->userRepository->getUserById($data['userId']);
+
+        if (
+            empty($user->id) ||
+            empty($data['IP']) ||
+            $data['IP'] != $_SERVER['REMOTE_ADDR']
+        ) {
+            $this->unsetUserToken($user);
+
+            if (!empty($user->id)) {
+                $this->userRepository->save($user);
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return JWT
+     */
+    protected static function getJwt(): JWT
     {
         return new JWT(TokenHelper::getToken(),'HS256', 365*24*60*60, 10);
 
     }
 
-    public static function getToken()
+    /**
+     * @return string
+     */
+    public static function getToken(): string
     {
         return self::TOKEN;
     }
 
-    protected static function getTokenByUserId($id)
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function getTokenByUserId(int $id): string
     {
-        $jwt = self::getJwt();
-        $userToken = $jwt->encode([
+        return self::getJwt()->encode([
             'userId' => $id,
             'IP' => $_SERVER['REMOTE_ADDR']
         ]);
-
-        return $userToken;
     }
 
-    public static function setUserToken($userId)
-    {
-        $token = self::getTokenByUserId($userId);
-
-        $data = [
-            'jwt' => $token,
-        ];
-        setcookie("jwt", $token, 0, '/');
-
-        User::update($userId, $data);
-    }
-
-    public static function deleteUserToken($userToken)
-    {
-        unset($_COOKIE['jwt']);
-        setcookie("jwt", '', -1, '/');
-
-        $data = self::getDataByToken($userToken);
-
-        $user = UserHelper::getUserById($data['userId']);
-
-        if(empty($user)){
-            return false;
-        }
-
-        $user = $user[0];
-
-        $data = [
-            'jwt' => '0'
-        ];
-
-        User::update($user['id'], $data);
-    }
-
-    public static function getDataByToken($token)
+    /**
+     * @param $token
+     * @return array
+     */
+    public static function getDataByToken($token): array
     {
         $jwt = self::getJwt();
         return $jwt->decode($token);

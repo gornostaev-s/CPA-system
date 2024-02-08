@@ -8,7 +8,18 @@ class RegisterForm extends BaseEntity
 {
     public string $email;
     public string $password;
+    public string $passwordConfirm;
     public string $name;
+
+    public static function makeFromRequest(array $request): RegisterForm
+    {
+        $e = new self;
+        $e->name = $request['name'];
+        $e->email = $request['email'];
+        $e->setPassword($request['password']);
+
+        return $e;
+    }
 
     /**
      * @param string $password

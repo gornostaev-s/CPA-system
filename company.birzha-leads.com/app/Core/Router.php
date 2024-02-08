@@ -36,7 +36,7 @@ class Router
 
                if (!empty(self::$middlewares[$pattern])) {
                    /** @var MiddlewareInterface $middleware */
-                   $middleware = new self::$middlewares[$pattern];
+                   $middleware = Dispatcher::dispatch(self::$middlewares[$pattern]);
 
                    try {
                        $middleware->run();

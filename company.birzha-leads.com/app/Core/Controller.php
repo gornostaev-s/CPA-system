@@ -12,8 +12,22 @@ class Controller
     {
     }
 
-    protected function view($name, $data=null)
+    /**
+     * @param $name
+     * @param $data
+     * @return false|string
+     */
+    protected function view($name, $data=null): bool|string
     {
         return View::load($name, $data);
+    }
+
+    /**
+     * @param string $url
+     * @return void
+     */
+    protected function redirect(string $url): void
+    {
+        header("Location: $url");
     }
 }

@@ -2,15 +2,8 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Entities\Forms\LoginForm;
-use App\Helpers\TokenHelper;
-use App\Helpers\UserHelper;
-use App\Helpers\ApiHelper;
 use App\Services\UserService;
-use App\Utils\ValidationUtil;
-use App\Utils\Exceptions\ValidationException;
-use Exception;
-use Throwable;
+use ReflectionException;
 
 /**
  * @class AuthController
@@ -18,15 +11,10 @@ use Throwable;
 class AuthController extends Controller
 {
     public function __construct(
-        private readonly UserService $userService
+        private readonly UserService $userService,
     )
     {
         parent::__construct();
-    }
-
-    public function index(): string
-    {
-        return $this->view('login/login', []);
     }
 
     /**
@@ -34,21 +22,7 @@ class AuthController extends Controller
      */
     public function login(): bool|string
     {
-        try{
-            $request = ValidationUtil::validate($_POST,[
-                "email" => 'required',
-                "password" => 'required',
-            ]);
-            $form = LoginForm::makeFromRequest($request);
-            $this->userService->login($form);
-
-            return ApiHelper::sendSuccess('Вы успешно авторизованы');
-
-        } catch (ValidationException $exception) {
-            return ApiHelper::sendError($exception->getErrors());
-        } catch (Throwable $exception) {
-            return ApiHelper::sendError([$exception->getMessage()]);
-        }
+        return $this->view('login/login');
     }
 
     public function registration(): bool|string
@@ -56,10 +30,15 @@ class AuthController extends Controller
         return $this->view('login/register');
     }
 
-    public function logout()
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
+    public function logout(): void
     {
-        $jwt = $_COOKIE['jwt'];
-        TokenHelper::deleteUserToken($jwt);
+        $this->userService->logout();
+
+        $this->redirect('/login');
     }
 
     public function notAuthorizedPage($errorMessage): bool|string
