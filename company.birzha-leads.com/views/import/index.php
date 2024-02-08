@@ -13,7 +13,7 @@ include __DIR__ . '/../header.php';
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Импорт компаний из excel файла</h2>
+                        <h2 class="pageheader-title">Импорт клиентов из excel файла</h2>
                     </div>
                 </div>
             </div>
@@ -49,8 +49,8 @@ include __DIR__ . '/../header.php';
     </div>
 </div>
 
-                <?php
-                include __DIR__ . '/../footer.php';
-                ?>
+<?php
+include __DIR__ . '/../footer.php';
+?>
 
 

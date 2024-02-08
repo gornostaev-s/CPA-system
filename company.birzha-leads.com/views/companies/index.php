@@ -13,13 +13,13 @@ include __DIR__ . '/../header.php';
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Импорт компаний из excel файла</h2>
+                        <h2 class="pageheader-title">Клиенты</h2>
                     </div>
                 </div>
             </div>
             <div class="col-12">
                 <div class="card">
-                    <h5 class="card-header">Импорт файла excel</h5>
+                    <h5 class="card-header">Клиенты</h5>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="table-responsive">
