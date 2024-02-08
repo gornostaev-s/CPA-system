@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../header.php';
+include __DIR__ . '/header.php';
 ?>
 
     <div class="login-section">
@@ -55,7 +55,7 @@ include __DIR__ . '/../header.php';
                             form[0].reset();
                             form.find('button[type=submit]').hide();
                             form.find('.response-success').html('<p>Вы успешно авторизованы</p>');
-                            window.location.href = '/admin';
+                            window.location.href = '/';
                         }
                     },
                 })

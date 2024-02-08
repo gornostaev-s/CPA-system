@@ -1,6 +1,6 @@
 <?php
 /** @var array $data */
-include __DIR__ . '/../header.php';
+include __DIR__ . '/header.php';
 ?>
 
     <div class="login-section">

@@ -1,3 +1,8 @@
+<?php
+
+use App\Helpers\ActivePageHelper;
+
+?>
 <!doctype html>
 <html lang="ru">
 
@@ -18,9 +23,65 @@
     <link rel="stylesheet" href="/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
     <title>Панель администратора</title>
 </head>
-<!--  .cancel-button{
-  border: none;
-  color: red;
-  background: transparent;
-} -->
 <body>
+
+<div class="dashboard-main-wrapper">
+    <!-- ============================================================== -->
+    <!-- navbar -->
+    <!-- ============================================================== -->
+    <div class="dashboard-header">
+        <nav class="navbar navbar-expand-lg bg-white fixed-top">
+            <a class="navbar-brand" href="index.html">Компании</a>
+        </nav>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end navbar -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- left sidebar -->
+    <!-- ============================================================== -->
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/', 'active') ?>" href="/">
+                                Клиенты
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/employers', 'active') ?>" href="/employers">
+                                Сотрудники
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
+                                Статистика
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/funnel', 'active') ?>" href="/funnel">
+                                Воронка
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/import', 'active') ?>" href="/import">
+                                Импорт клиентов
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#">
+                                Выйти
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
