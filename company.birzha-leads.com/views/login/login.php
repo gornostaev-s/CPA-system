@@ -39,8 +39,8 @@ include __DIR__ . '/header.php';
                     type: 'post',
                     url: form.attr('action'),
                     data : form.serialize(),
+                    dataType: 'json',
                     success: function(data){
-                        // console.log(data)
                         if(!data.success){
                             var text = '';
                             for (var prop in data.errors) {

@@ -17,6 +17,7 @@ class RegisterForm extends BaseEntity
         $e->name = $request['name'];
         $e->email = $request['email'];
         $e->setPassword($request['password']);
+        $e->passwordConfirm = $request['passwordConfirm'];
 
         return $e;
     }
