@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controllers\Api;
 
 use App\Core\Controller;
 use App\Utils\ValidationUtil;
 
 class ClientsController extends Controller
 {
-    public function updateClient()
+    public function update()
     {
         $request = ValidationUtil::validate($_POST,[
             "inn" => 'default',

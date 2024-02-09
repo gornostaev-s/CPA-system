@@ -119,3 +119,25 @@
 .link-secondary {
   color: #2915ff;
 }
+
+.dashboard-header__logoContainer {
+  max-width: 200px;
+}
+
+.dashboard-header__logo {
+  max-width: 100%;
+}
+
+.table-form__text {
+  border: 0;
+  border-bottom: 1px solid #f2f2f2;
+  width: 100%;
+  outline: 0;
+}
+
+.table-form__select {
+  border: 0;
+  border-bottom: 1px solid #f2f2f2;
+  width: 100%;
+  outline: 0;
+}

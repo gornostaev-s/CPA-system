@@ -12,6 +12,12 @@ class Company extends BaseEntity
     const STATUS_REGISTERED = 2;
     const STATUS_EXPIRED = 3;
 
+    const STATUSES = [
+        self::STATUS_NEW => 'Добавлено',
+        self::STATUS_REGISTERED => 'Компания зарегистрирована',
+        self::STATUS_EXPIRED => 'Просрочено',
+    ];
+
     const EXTERNAL_STATUS_ACTIVE = 'ACTIVE';
     const EXTERNAL_STATUS_LIQUIDATING = 'LIQUIDATING';
     const EXTERNAL_STATUS_LIQUIDATED = 'LIQUIDATED';

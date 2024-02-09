@@ -31,7 +31,11 @@ use App\Helpers\ActivePageHelper;
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="index.html">Компании</a>
+            <div class="dashboard-header__logoContainer">
+                <a class="navbar-brand" href="index.html">
+                    <img class="dashboard-header__logo" src="/assets/images/logo.png" alt="">
+                </a>
+            </div>
         </nav>
     </div>
     <!-- ============================================================== -->
