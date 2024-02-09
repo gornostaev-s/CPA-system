@@ -30,7 +30,7 @@ Router::route('/v1/logout', [\App\Controllers\Api\AuthController::class, 'logout
  * api clients
  */
 
-Router::route('/v1/login', [ClientsController::class, 'update']);
+Router::route('/v1/clients/update', [ClientsController::class, 'update']);
 
 echo Router::execute($_SERVER['REQUEST_URI']);
 ?>

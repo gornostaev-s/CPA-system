@@ -24,7 +24,7 @@ include __DIR__ . '/../header.php';
                         <div class="table-responsive">
                             <div class="table-responsive">
                                 <form action="/clients" class="table-form">
-                                    <table class="table">
+                                    <table class="table js-table">
                                         <thead class="bg-light">
                                         <tr class="border-0">
                                             <th class="border-0">#</th>
@@ -36,7 +36,7 @@ include __DIR__ . '/../header.php';
                                         </thead>
                                         <tbody class="js-orders">
                                         <?php foreach ($data['companies'] as $company) { ?>
-                                            <tr data-id="<?= $company->id ?>">
+                                            <tr class="js-dataRow" data-id="<?= $company->id ?>">
                                                 <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
                                                 <td class="modal-table-primary__col text-left">
                                                     <input type="text" name="inn" value="<?= $company->inn ?>" class="table-form__text">
@@ -66,8 +66,63 @@ include __DIR__ . '/../header.php';
     </div>
 </div>
 
-                <?php
-                include __DIR__ . '/../footer.php';
-                ?>
+<script>
+    // let target = document.querySelector('#search');
+    // let timerId = null;
+
+    // target.oninput = function () {
+    //     let inputValue = this.value.trim();
+    //     let lastTime = performance.now();
+    //
+    //     if (timerId) {
+    //         clearTimeout(timerId);
+    //     }
+    //
+    //     timerId = setTimeout(function() {
+    //         if (performance.now() - lastTime > 1500 && inputValue) {
+    //             console.log('Send', inputValue);
+    //         }
+    //     }, 1500);
+    // }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        let timerId = null;
+
+        jQuery('.js-table').on('input', function (e) {
+            const $input = jQuery(e.target);
+            const $row = jQuery(e.target).parents('.js-dataRow');
+
+            let inputValue = $input.val();
+            let lastTime = performance.now();
+            let values = {};
+
+            values['id'] = $row.data('id');
+            values[$input.attr('name')] = inputValue;
+
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+
+            timerId = setTimeout(function() {
+                if (performance.now() - lastTime > 1500 && inputValue) {
+                    console.log(values);
+                    jQuery.ajax({
+                        url: '/v1/clients/update',
+                        method: 'POST',
+                        data: values,
+                        success: function (data) {
+                            // console.log(data)
+                        }
+                    })
+                }
+            }, 1500);
+        })
+    })
+</script>
+
+<?php
+include __DIR__ . '/../footer.php';
+?>
 
 
