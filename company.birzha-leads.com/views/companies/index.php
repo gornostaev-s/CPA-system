@@ -48,7 +48,7 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <select name="status" class="table-form__select">
                                                         <?php foreach (Company::STATUSES as $key => $status) { ?>
-                                                            <option value="<?= $key ?>" <?= ($company->status == $key) ?: 'selected'?>> <?= $status ?></option>
+                                                            <option value="<?= $key ?>" <?= ($company->status == $key) ? 'selected' : ''?>> <?= $status ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
