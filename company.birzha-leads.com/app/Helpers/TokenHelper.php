@@ -40,16 +40,12 @@ class TokenHelper
         $data = TokenHelper::getDataByToken($jwt);
         $user = $this->userRepository->getUserById($data['userId']);
 
-        if (
-            empty($user->id) ||
-            empty($data['IP']) ||
-            $data['IP'] != $_SERVER['REMOTE_ADDR']
-        ) {
+        if (empty($user->id)) {
             $this->unsetUserToken($user);
 
-            if (!empty($user->id)) {
-                $this->userRepository->save($user);
-            }
+//            if (!empty($user->id)) {
+//                $this->userRepository->save($user);
+//            }
 
             return false;
         }
