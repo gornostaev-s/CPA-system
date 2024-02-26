@@ -141,3 +141,13 @@
   width: 100%;
   outline: 0;
 }
+
+.table thead th {
+  white-space: nowrap;
+  vertical-align: top;
+  min-width: 100px;
+}
+
+.table thead .column-num {
+  min-width: 30px;
+}

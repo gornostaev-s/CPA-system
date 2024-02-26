@@ -8,6 +8,9 @@ class ClientUpdateForm
     public int $id;
     public string $inn;
     public string $fio;
+    public string $address;
+    public string $status;
+    public string $phone;
 
     /**
      * @param array $request

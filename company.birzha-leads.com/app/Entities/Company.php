@@ -27,8 +27,21 @@ class Company extends BaseEntity
     public int $id;
     public string $inn;
     public ?string $fio;
+    public ?string $address;
+    public ?string $phone;
+    public ?string $comment;
+    public ?string $comment_adm;
+    public string $submission_date;
+    public ?string $sent_date;
+    public string $registration_exit_date;
     public int $status;
+    public int $operation_type;
+    public int $owner_id;
     public string $created_at;
+    public ?string $alfabank_data;
+    public ?string $tinkoff_data;
+    public ?string $psb_data;
+    public ?string $sberbank_data;
 
     public function __construct()
     {

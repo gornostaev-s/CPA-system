@@ -21,6 +21,11 @@ class ClientsController extends Controller
             "id" => 'required|integer',
             "inn" => 'max:255',
             "fio" => 'max:255',
+            "phone" => 'max:255',
+            "address" => 'max:255',
+            "comment" => 'max:255',
+            "comment_adm" => 'max:255',
+            "status" => 'integer|max:255',
         ]);
 
         $this->companyService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
