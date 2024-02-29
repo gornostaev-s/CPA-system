@@ -8,6 +8,7 @@ use DateTime;
 class User extends BaseEntity
 {
     public int $id;
+    public int $status;
     public ?bool $is_admin = false;
     public string $name;
     public ?string $token;

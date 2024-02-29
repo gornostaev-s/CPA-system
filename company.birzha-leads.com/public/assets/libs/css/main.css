@@ -151,3 +151,21 @@
 .table thead .column-num {
   min-width: 30px;
 }
+
+.button-container__item {
+  max-width: 20%;
+}
+
+.button-container {
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.btn-primary {
+  font-weight: 600;
+  background-color: #0f0c28;
+  border-color: #0f0c28;
+}

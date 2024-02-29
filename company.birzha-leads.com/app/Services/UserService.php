@@ -49,7 +49,10 @@ class UserService
     {
         $user = User::make($form->name, $form->email, $form->password);
         $this->userRepository->save($user);
-        $this->login(LoginForm::makeFromRequest(['email' => $user->email, 'password' => $form->passwordConfirm]));
+
+        if (!$form->notAuth) {
+            $this->login(LoginForm::makeFromRequest(['email' => $user->email, 'password' => $form->passwordConfirm]));
+        }
 
         return true;
     }

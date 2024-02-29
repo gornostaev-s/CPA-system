@@ -5,6 +5,7 @@
 
 use App\Entities\Company;
 use App\Entities\Enums\OperationType;
+use App\Helpers\AuthHelper;
 
 include __DIR__ . '/../header.php';
 ?>
@@ -32,7 +33,9 @@ include __DIR__ . '/../header.php';
                                             <th rowspan="2" class="border-0">ФИО</th>
                                             <th rowspan="2" class="border-0">ИНН</th>
                                             <th rowspan="2" class="border-0">Телефон</th>
-                                            <th rowspan="2" class="border-0">Сотрудник</th>
+                                            <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                <th rowspan="2" class="border-0">Сотрудник</th>
+                                            <?php } ?>
                                             <th rowspan="2" class="border-0">Тип операции</th>
                                             <th rowspan="2" class="border-0">Адрес</th>
                                             <th rowspan="2" class="border-0">Дата создания</th>
@@ -82,9 +85,11 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <input type="text" name="phone" value="<?= $company->phone ?>" class="table-form__text">
                                                 </td>
-                                                <td class="modal-table-primary__col text-left">
-                                                    Иванов Иван
-                                                </td>
+                                                <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        Иванов Иван
+                                                    </td>
+                                                <?php } ?>
                                                 <td class="modal-table-primary__col text-left">
                                                     <select name="operationType" class="table-form__select">
                                                         <?php foreach (OperationType::cases() as $case) { ?>

@@ -1,0 +1,1 @@
+alter table users modify is_admin int default 0 not null

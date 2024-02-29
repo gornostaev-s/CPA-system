@@ -1,8 +1,9 @@
 <?php
 namespace App\Helpers;
 
-use App\Helpers\UserHelper;
-use App\Helpers\TokenHelper;
+use App\Core\Dispatcher;
+use App\Entities\User;
+use App\Repositories\UserRepository;
 use ReflectionException;
 
 /**
@@ -10,6 +11,7 @@ use ReflectionException;
  */
 class AuthHelper
 {
+    static ?User $user;
     public function __construct(
         private readonly TokenHelper $tokenHelper
     )
@@ -23,5 +25,22 @@ class AuthHelper
     public function isAuth(): bool
     {
         return !empty($_COOKIE['token']) && $this->tokenHelper->validateToken($_COOKIE['token']);
+    }
+
+    /**
+     * @return User|null
+     * @throws ReflectionException
+     */
+    public static function getAuthUser(): ?User
+    {
+        if (!empty(self::$user)) {
+            return self::$user;
+        }
+
+        $data = TokenHelper::getDataByToken($_COOKIE['token']);
+        /** @var UserRepository $userRepository */
+        $userRepository = Dispatcher::dispatch(UserRepository::class);
+
+        return $userRepository->getUserById($data['userId']);
     }
 }

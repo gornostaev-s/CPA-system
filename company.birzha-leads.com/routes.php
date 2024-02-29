@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Api\ClientsController;
+use App\Controllers\EmployersController;
 use App\Controllers\HeadHunterController;
 use App\Controllers\IndexController;
 use App\Controllers\AuthController;
@@ -11,7 +12,7 @@ $request = $_SERVER['REQUEST_URI'];
 
 Router::route('/', [IndexController::class, 'index'], AuthMiddleware::class);
 Router::route('/import', [IndexController::class, 'importForm']);
-Router::route('/employers', [IndexController::class, 'importForm']);
+Router::route('/employers', [EmployersController::class, 'index']);
 Router::route('/import-process', [IndexController::class, 'import']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
 Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);

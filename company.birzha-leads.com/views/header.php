@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\ActivePageHelper;
+use App\Helpers\AuthHelper;
 
 ?>
 <!doctype html>
@@ -51,11 +52,13 @@ use App\Helpers\ActivePageHelper;
                                 Клиенты
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link <?= ActivePageHelper::check('/employers', 'active') ?>" href="/employers">
-                                Сотрудники
-                            </a>
-                        </li>
+                        <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                            <li class="nav-item ">
+                                <a class="nav-link <?= ActivePageHelper::check('/employers', 'active') ?>" href="/employers">
+                                    Сотрудники
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
                                 Статистика
@@ -72,7 +75,7 @@ use App\Helpers\ActivePageHelper;
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link js-logout" href="#">
                                 Выйти
                             </a>
                         </li>

@@ -35,17 +35,12 @@ class TokenHelper
     /**
      * @throws ReflectionException
      */
-    public function validateToken(string $jwt): bool
+    public function validateToken(): bool
     {
-        $data = TokenHelper::getDataByToken($jwt);
-        $user = $this->userRepository->getUserById($data['userId']);
+        $user = AuthHelper::getAuthUser();
 
         if (empty($user->id)) {
             $this->unsetUserToken($user);
-
-//            if (!empty($user->id)) {
-//                $this->userRepository->save($user);
-//            }
 
             return false;
         }

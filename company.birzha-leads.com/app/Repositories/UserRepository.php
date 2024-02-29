@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Core\BaseMapper;
+use App\Entities\Company;
 use App\Entities\User;
 use ReflectionException;
 
@@ -41,6 +42,17 @@ class UserRepository
     }
 
     /**
+     * @return array
+     * @throws ReflectionException
+     */
+    public function getEmployers(): array
+    {
+        $queryRes = $this->mapper->db->query('SELECT * FROM users WHERE is_admin = 0')->fetchAll();
+
+        return $this->prepareRes($queryRes);
+    }
+
+    /**
      * @param User $user
      * @return User
      */
@@ -49,5 +61,23 @@ class UserRepository
         $this->mapper->save($user);
 
         return $user;
+    }
+
+    /**
+     * @param array $queryRes
+     * @return array
+     * @throws ReflectionException
+     */
+    private function prepareRes(array $queryRes): array
+    {
+        $res = [];
+
+        foreach ($queryRes as $item) {
+            $e = new User();
+            $e->load($item);
+            $res[] = $e;
+        }
+
+        return $res;
     }
 }
