@@ -2,31 +2,14 @@
 
 namespace App\Entities\Forms;
 
-class ClientUpdateForm
+use App\Core\BaseUpdateForm;
+
+class ClientUpdateForm extends BaseUpdateForm
 {
-    public array $changedAttributes = [];
     public int $id;
     public string $inn;
     public string $fio;
     public string $address;
     public string $status;
     public string $phone;
-
-    /**
-     * @param array $request
-     * @return ClientUpdateForm
-     */
-    public static function makeFromRequest(array $request): ClientUpdateForm
-    {
-        $e = new self;
-
-        foreach ($request as $key => $value) {
-            if (!empty($value)) {
-                $e->changedAttributes[] = $key;
-                $e->$key = $value;
-            }
-        }
-
-        return $e;
-    }
 }

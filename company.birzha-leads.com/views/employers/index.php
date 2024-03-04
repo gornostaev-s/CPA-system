@@ -42,7 +42,7 @@ include __DIR__ . '/../header.php';
                         <div class="card-body">
                             <div class="table-responsive">
                                 <div class="table-responsive">
-                                    <form action="/employers" class="table-form">
+                                    <form action="/v1/employers/update" class="table-form">
                                         <table class="table js-table">
                                             <thead class="bg-light">
                                             <tr class="border-0">
@@ -68,7 +68,7 @@ include __DIR__ . '/../header.php';
                                                     <td class="modal-table-primary__col text-left">
                                                         <select class="table-form__select" name="status">
                                                             <?php foreach (EmployersStatus::cases() as $case) { ?>
-                                                                <option value="<?= $case->value ?>"><?= EmployersStatus::getLabel($case->value) ?></option>
+                                                                <option <?= ($case->value == $employer->status) ? 'selected' : '' ?> value="<?= $case->value ?>"><?= EmployersStatus::getLabel($case->value) ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </td>
@@ -161,7 +161,7 @@ include __DIR__ . '/../header.php';
                 if (performance.now() - lastTime > 1500 && inputValue) {
                     console.log(values);
                     jQuery.ajax({
-                        url: '/v1/clients/update',
+                        url: '/v1/employers/update',
                         method: 'POST',
                         data: values,
                         success: function (data) {

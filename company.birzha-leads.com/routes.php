@@ -33,5 +33,11 @@ Router::route('/v1/logout', [\App\Controllers\Api\AuthController::class, 'logout
 
 Router::route('/v1/clients/update', [ClientsController::class, 'update']);
 
+/**
+ * api employers
+ */
+
+Router::route('/v1/employers/update', [\App\Controllers\Api\EmployersController::class, 'update']);
+
 echo Router::execute($_SERVER['REQUEST_URI']);
 ?>

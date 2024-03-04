@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entities\Forms\EmployerUpdateForm;
 use App\Entities\Forms\LoginForm;
 use App\Entities\Forms\RegisterForm;
 use App\Entities\User;
@@ -70,5 +71,21 @@ class UserService
         }
 
         $this->tokenHelper->unsetUserToken($this->userRepository->getUserById($data['userId']));
+    }
+
+    /**
+     * @param EmployerUpdateForm $employerUpdateForm
+     * @return void
+     * @throws ReflectionException
+     */
+    public function updateFromEmployerUpdateForm(EmployerUpdateForm $employerUpdateForm): void
+    {
+        $user = $this->userRepository->getUserById($employerUpdateForm->id);
+
+        foreach ($employerUpdateForm->changedAttributes as $changedAttribute) {
+            $user->$changedAttribute = $employerUpdateForm->$changedAttribute;
+        }
+
+        $this->userRepository->save($user);
     }
 }
