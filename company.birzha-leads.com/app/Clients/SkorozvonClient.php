@@ -2,6 +2,8 @@
 
 namespace App\Clients;
 
+use Redis;
+use RedisException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -11,28 +13,43 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class SkorozvonClient
 {
     const RUNTIME_DIR = '/var/www/company.birzha-leads.com/runtime';
+    private array $authData;
 
     public function __construct(
-        private readonly HttpClientInterface $client
+        private readonly HttpClientInterface $client,
+        private readonly Redis $redis
     )
     {
     }
 
+    public function setAuthData(string $username, string $apiKey, string $clientId, string $clientSecret): void
+    {
+        $this->authData = [
+            "grant_type" => "password",
+            "username" => $username,
+            "api_key" => $apiKey,
+            "client_id" => $clientId,
+            "client_secret" => $clientSecret
+        ];
+    }
+
     /**
+     * @param int $projectId
      * @param string $phone
+     * @param string $name
      * @return int|null
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function addLead(string $phone, string $name = ''): ?int
+    public function addLead(int $projectId, string $phone, string $name = ''): ?int
     {
         $res = $this->client->request('POST', 'https://app.skorozvon.ru/api/v2/leads', [
             'body' => [
-                "name" => "Отклик на hh.ru ($name)",
+                "name" => $name,
                 "phones" => $phone,
-                "call_project_id" => 50000086198
+                "call_project_id" => $projectId
             ],
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->getToken()
@@ -48,11 +65,12 @@ class SkorozvonClient
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws RedisException
      */
     private function getToken(): string
     {
-        $last_try = file_get_contents(self::RUNTIME_DIR . "/token.last.time");
-        $last_token = file_get_contents(self::RUNTIME_DIR . "/token.last");
+        $last_try = $this->redis->get($this->authData['username'] . '-TOKEN-LAST-TIME');
+        $last_token = $this->redis->get($this->authData['username'] . '-TOKEN-LAST');
 
         $cur_time = time();
 
@@ -78,18 +96,12 @@ class SkorozvonClient
     private function prepareToken(): void
     {
         $res = $this->client->request('POST', 'https://app.skorozvon.ru/oauth/token', [
-            'body' => [
-                "grant_type" => "password",
-                "username" => "nikoligurjanov@yandex.ru",
-                "api_key" => "121de10d53de42fe1aa13999c0133d2e8d7ba0e33b553a52f899e1f5e4de33d4",
-                "client_id" => "29055bf486467ffb99159edf3c21881d8ec4349ee1eb61c0b172364bbcc623b7",
-                "client_secret" => "172f48c27f7eb1c2322526b8f92d5b25dcc9cbc8785f137a428795b3f4a4cb2a"
-            ]
+            'body' => $this->authData
         ])->getContent();
 
         $res = json_decode($res, true);
 
-        file_put_contents(self::RUNTIME_DIR . "/token.last.time", time());
-        file_put_contents(self::RUNTIME_DIR . "/token.last", $res['access_token']);
+        $this->redis->set($this->authData['username'] . '-TOKEN-LAST-TIME', time());
+        $this->redis->set($this->authData['username'] . '-TOKEN-LAST', $res['access_token']);
     }
 }

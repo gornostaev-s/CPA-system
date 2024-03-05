@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Clients\HeadHunterClient;
 use App\Clients\SkorozvonClient;
+use Redis;
 use RedisException;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -16,9 +17,15 @@ class HeadHunterService
     public function __construct(
         private readonly HeadHunterClient $client,
         private readonly SkorozvonClient $skorozvonClient,
-        private readonly \Redis $redis
+        private readonly Redis $redis
     )
     {
+        $this->skorozvonClient->setAuthData(
+            'nikoligurjanov@yandex.ru',
+            '121de10d53de42fe1aa13999c0133d2e8d7ba0e33b553a52f899e1f5e4de33d4',
+            '29055bf486467ffb99159edf3c21881d8ec4349ee1eb61c0b172364bbcc623b7',
+            '172f48c27f7eb1c2322526b8f92d5b25dcc9cbc8785f137a428795b3f4a4cb2a'
+        );
     }
 
     /**
@@ -43,7 +50,8 @@ class HeadHunterService
         }
         $phone = $this->getPhoneByResume($resume);
         $name = $this->getNameByResume($resume);
-        $this->skorozvonClient->addLead($phone, $name);
+//        $this->skorozvonClient->addLead(50000086198, $phone, "Отклик на hh.ru ($name)");
+        $this->skorozvonClient->addLead(50000086198, $phone, "ТЕСТОВЫЙ ОТКЛИК ($name)");
     }
 
     /**

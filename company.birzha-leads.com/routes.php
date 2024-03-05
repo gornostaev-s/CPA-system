@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Api\ClientsController;
+use App\Controllers\ZvonokController;
 use App\Controllers\EmployersController;
 use App\Controllers\HeadHunterController;
 use App\Controllers\IndexController;
@@ -15,6 +16,7 @@ Router::route('/import', [IndexController::class, 'importForm']);
 Router::route('/employers', [EmployersController::class, 'index']);
 Router::route('/import-process', [IndexController::class, 'import']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
+Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
 Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
 Router::route('/login', [AuthController::class, 'login']);
 Router::route('/registration', [AuthController::class, 'registration']);
