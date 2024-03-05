@@ -26,7 +26,13 @@ class ClientsController extends Controller
             "comment" => 'max:255',
             "comment_adm" => 'max:255',
             "status" => 'integer|max:255',
+            "alfabank.comment" => 'max:255',
+            "alfabank.status" => 'integer|max:255',
         ]);
+
+        echo '<pre>';
+        var_dump($request);
+        die;
 
         $this->companyService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
     }

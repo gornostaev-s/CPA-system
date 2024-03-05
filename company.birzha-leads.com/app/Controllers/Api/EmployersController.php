@@ -23,7 +23,7 @@ class EmployersController extends Controller
      * @throws ValidationException
      * @throws ReflectionException
      */
-    public function update()
+    public function update(): void
     {
         $request = ValidationUtil::validate($_POST,[
             "id" => 'required|integer',

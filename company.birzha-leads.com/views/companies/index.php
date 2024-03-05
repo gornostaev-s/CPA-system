@@ -120,7 +120,9 @@ include __DIR__ . '/../header.php';
                                                 <!-- Альфа банк -->
                                                 <td class="modal-table-primary__col text-left">Создано</td>
                                                 <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <td class="modal-table-primary__col text-left">Комментарий</td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="text" name="alfabank[comment]" value="" class="table-form__text">
+                                                </td>
                                                 <td class="modal-table-primary__col text-left">Локальная</td>
                                                 <!-- Тинькофф банк -->
                                                 <td class="modal-table-primary__col text-left">Создано</td>
