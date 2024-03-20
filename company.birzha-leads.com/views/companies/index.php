@@ -147,17 +147,47 @@ include __DIR__ . '/../header.php';
                                                     </select>
                                                 </td>
                                                 <!-- Тинькофф банк -->
-                                                <td class="modal-table-primary__col text-left">Создано</td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <td class="modal-table-primary__col text-left">Комментарий</td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <select name="tinkoff[status]" class="table-form__select">
+                                                        <?php foreach (BillStatus::cases() as $item) { ?>
+                                                            <option value="<?= $item->value ?>" <?= ($company->tinkoff->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="date" name="tinkoff[date]" class="table-form__text" value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>">
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
+                                                </td>
                                                 <!-- Сбербанк -->
-                                                <td class="modal-table-primary__col text-left">Создано</td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <td class="modal-table-primary__col text-left">Комментарий</td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <select name="sberbank[status]" class="table-form__select">
+                                                        <?php foreach (BillStatus::cases() as $item) { ?>
+                                                            <option value="<?= $item->value ?>" <?= ($company->sberbank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="date" name="sberbank[date]" class="table-form__text" value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>">
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="text" name="sberbank[comment]" value="<?= $company->sberbank->comment ?>" class="table-form__text">
+                                                </td>
                                                 <!-- ПСБ -->
-                                                <td class="modal-table-primary__col text-left">Создано</td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <td class="modal-table-primary__col text-left">Комментарий</td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <select name="psb[status]" class="table-form__select">
+                                                        <?php foreach (BillStatus::cases() as $item) { ?>
+                                                            <option value="<?= $item->value ?>" <?= ($company->psb->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="date" name="psb[date]" class="table-form__text" value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>">
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="text" name="psb[comment]" value="<?= $company->psb->comment ?>" class="table-form__text">
+                                                </td>
                                             </tr>
                                         <?php } ?>
                                         </tbody>

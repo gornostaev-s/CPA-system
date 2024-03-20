@@ -44,6 +44,9 @@ class Company extends BaseEntity
     public ?string $sberbank_data;
 
     public AlfabankClient $alfabank;
+    public TinkoffClient $tinkoff;
+    public SberbankClient $sberbank;
+    public PsbClient $psb;
 
     public function __construct()
     {

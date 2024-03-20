@@ -3,7 +3,7 @@ create table bills
     id      int auto_increment,
     status  int default 0 null,
     type    int       not null,
-    user_id int           null,
+    client_id int           null,
     partner int           null,
     comment text          null,
     date    datetime      null,
