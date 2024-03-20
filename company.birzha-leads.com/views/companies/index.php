@@ -4,7 +4,9 @@
  */
 
 use App\Entities\Company;
+use App\Entities\Enums\BillStatus;
 use App\Entities\Enums\OperationType;
+use App\Entities\Enums\PartnerType;
 use App\Helpers\AuthHelper;
 
 include __DIR__ . '/../header.php';
@@ -114,16 +116,36 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
                                                 </td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
-                                                <!-- Альфа банк -->
-                                                <td class="modal-table-primary__col text-left">Создано</td>
-                                                <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="alfabank[comment]" value="" class="table-form__text">
+                                                    <input type="date" name="submission_date" class="table-form__text" value="<?= (new DateTime($company->submission_date))->format('Y-m-d') ?>">
                                                 </td>
-                                                <td class="modal-table-primary__col text-left">Локальная</td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="date" name="sent_date" class="table-form__text" value="<?= (new DateTime($company->sent_date))->format('Y-m-d') ?>">
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="date" name="registration_exit_date" class="table-form__text" value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>">
+                                                </td>
+                                                <!-- Альфа банк -->
+                                                <td class="modal-table-primary__col text-left">
+                                                    <select name="alfabank[status]" class="table-form__select">
+                                                        <?php foreach (BillStatus::cases() as $item) { ?>
+                                                            <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="date" name="alfabank[date]" class="table-form__text" value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>">
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <input type="text" name="alfabank[comment]" value="<?= $company->alfabank->comment ?>" class="table-form__text">
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <select name="alfabank[partner]" class="table-form__select">
+                                                        <?php foreach (PartnerType::cases() as $item) { ?>
+                                                            <option value="<?= $item->value ?>" <?= ($company->alfabank->partner == $item->value) ? 'selected' : ''?>> <?= PartnerType::getLabel($item->value) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
                                                 <!-- Тинькофф банк -->
                                                 <td class="modal-table-primary__col text-left">Создано</td>
                                                 <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>

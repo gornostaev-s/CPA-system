@@ -23,7 +23,7 @@ class IndexController extends Controller
 
     public function index(): bool|string
     {
-        return $this->view('companies/index', ['companies' => $this->companyRepository->getAllCompanies()]);
+        return $this->view('companies/index', ['companies' => $this->companyRepository->getCompaniesWithData()]);
     }
 
     public function importForm(): bool|string

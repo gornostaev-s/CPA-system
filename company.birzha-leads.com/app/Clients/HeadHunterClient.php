@@ -63,6 +63,7 @@ class HeadHunterClient
     private function getOptions(?array $body = null): array
     {
         $options['headers'] = [
+            'Content-Type' => 'application/x-www-form-urlencoded',
             'Authorization' => 'Bearer ' . $this->redis->get(self::ACCESS_TOKEN_KEY)
         ];
 

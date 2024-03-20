@@ -43,6 +43,8 @@ class Company extends BaseEntity
     public ?string $psb_data;
     public ?string $sberbank_data;
 
+    public AlfabankClient $alfabank;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());

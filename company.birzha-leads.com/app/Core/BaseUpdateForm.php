@@ -17,9 +17,24 @@ abstract class BaseUpdateForm
         $e = new static();
 
         foreach ($request as $key => $value) {
-            if (!empty($value)) {
+            if (!empty($value) && !is_array($value)) {
                 $e->changedAttributes[] = $key;
                 $e->$key = $value;
+            }
+
+            if (is_array($value)) {
+                foreach ($value as $k => $item) {
+                    if ($item === null) {
+                        unset($value[$k]);
+                        continue;
+                    }
+
+                    $e->changedAttributes[] = $key;
+                }
+
+                if (in_array($key, $e->changedAttributes)) {
+                    $e->$key = $value;
+                }
             }
         }
 

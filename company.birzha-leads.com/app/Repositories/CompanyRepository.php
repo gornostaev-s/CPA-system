@@ -3,9 +3,12 @@
 namespace App\Repositories;
 
 use App\Core\BaseMapper;
+use App\Entities\AlfabankClient;
 use App\Entities\Company;
 use App\Entities\Order;
+use App\Helpers\BillsMapHelper;
 use Exception;
+use Generator;
 use ReflectionException;
 
 class CompanyRepository
@@ -93,6 +96,67 @@ class CompanyRepository
         }
 
         return $res;
+    }
+
+    /**
+     * @return Company[]
+     * @throws ReflectionException
+     */
+    public function getCompaniesWithData(): array|Generator
+    {
+        $queryRes = $this->mapper->db->query("with 
+        ab as (select * from bills where type = 1),
+        tb as (select * from bills where type = 2),
+        sb as (select * from bills where type = 3),
+        pb as (select * from bills where type = 4)
+select
+    c.*,
+    coalesce(ab.status, 0) as alfabank_status,
+    coalesce(ab.partner, 0) as alfabank_partner,
+    coalesce(ab.comment, '') as alfabank_comment,
+    ab.date as alfabank_date,
+    coalesce(tb.status, 0) as tinkoff_status,
+    coalesce(tb.comment, '') as tinkoff_comment,
+    tb.date as tinkoff_date,
+    coalesce(sb.status, 0) as sberbank_status,
+    coalesce(sb.comment, '') as sberbank_comment,
+    sb.date as sberbank_date,
+    coalesce(pb.status, 0) as psb_status,
+    coalesce(pb.comment, '') as psb_comment,
+    pb.date as psb_date
+from companies c
+left outer join ab on c.id = ab.client_id
+left outer join tb on c.id = tb.client_id
+left outer join sb on c.id = sb.client_id
+left outer join pb on c.id = pb.client_id")->fetchAll();
+
+        return $this->prepareAggregateRes($queryRes);
+    }
+
+    /**
+     * @param array $queryRes
+     * @return Company[]
+     * @throws ReflectionException
+     */
+    private function prepareAggregateRes(array $queryRes): Generator
+    {
+        foreach ($queryRes as $client) {
+            $company = new Company();
+
+            foreach (BillsMapHelper::MAP as $item) {
+                $billClient = new $item();
+                foreach ($item::getFields() as $field) {
+                    $billClient->$field = $client[$item::getSlug() . "_$field"];
+                    unset($client[$item::getSlug() . "_$field"]);
+                }
+
+                $fieldName = $item::getSlug();
+                $company->$fieldName = $billClient;
+            }
+
+            $company->load($client);
+            yield $company;
+        }
     }
 
     /**

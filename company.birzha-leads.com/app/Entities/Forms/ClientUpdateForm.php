@@ -12,8 +12,20 @@ class ClientUpdateForm extends BaseUpdateForm
     public string $address;
     public string $status;
     public string $phone;
+
+    public string $submission_date;
+    public string $sent_date;
+    public string $registration_exit_date;
+
     public ?array $alfabank;
     public ?array $tinkoff;
     public ?array $sberbank;
     public ?array $psb;
+
+    const RELATED_FIELDS = [
+        'alfabank',
+        'tinkoff',
+        'sberbank',
+        'psb'
+    ];
 }
