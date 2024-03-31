@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Entities\Forms\ZvonokLeadForm;
 use App\Services\ZvonokService;
+use App\Utils\ValidationUtil;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -27,8 +28,12 @@ class ZvonokController extends Controller
      */
     public function callback()
     {
-        $form = ZvonokLeadForm::makeFromRequest($_GET);
-        $form->setProjectId(102862);
+        $request = ValidationUtil::validate($_GET,[
+            "phone" => 'max:255',
+            "projectId" => 'integer|default:102862',
+        ]);
+        $form = ZvonokLeadForm::makeFromRequest($request);
+        $form->setProjectId($request['projectId']);
         $this->zvonokService->addLead($form);
     }
 }
