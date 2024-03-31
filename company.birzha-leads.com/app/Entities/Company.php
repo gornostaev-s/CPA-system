@@ -38,10 +38,6 @@ class Company extends BaseEntity
     public int $operation_type;
     public int $owner_id;
     public string $created_at;
-    public ?string $alfabank_data;
-    public ?string $tinkoff_data;
-    public ?string $psb_data;
-    public ?string $sberbank_data;
 
     public AlfabankClient $alfabank;
     public TinkoffClient $tinkoff;

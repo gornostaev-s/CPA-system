@@ -1,6 +1,8 @@
 <?php
 
+use App\Controllers\Api\ChallengersController;
 use App\Controllers\Api\ClientsController;
+use App\Controllers\FunnelController;
 use App\Controllers\ZvonokController;
 use App\Controllers\EmployersController;
 use App\Controllers\HeadHunterController;
@@ -12,6 +14,7 @@ use App\Middlewares\AuthMiddleware;
 $request = $_SERVER['REQUEST_URI'];
 
 Router::route('/', [IndexController::class, 'index'], AuthMiddleware::class);
+Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
 Router::route('/import', [IndexController::class, 'importForm']);
 Router::route('/employers', [EmployersController::class, 'index']);
 Router::route('/import-process', [IndexController::class, 'import']);
@@ -40,6 +43,14 @@ Router::route('/v1/clients/update', [ClientsController::class, 'update']);
  */
 
 Router::route('/v1/employers/update', [\App\Controllers\Api\EmployersController::class, 'update']);
+
+/**
+ * api challengers
+ */
+
+//
+
+Router::route('/v1/challengers/add', [ChallengersController::class, 'add']);
 
 echo Router::execute($_SERVER['REQUEST_URI']);
 ?>
