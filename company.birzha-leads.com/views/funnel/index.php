@@ -19,16 +19,18 @@ include __DIR__ . '/../header.php';
                         <h2 class="pageheader-title">Воронка клиентов</h2>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card button-container">
-                        <div class="button-container__item">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addChallenger">
-                                Добавить клиента
-                            </button>
+                <?php if (!empty($data['ownerId'])) { ?>
+                    <div class="col-md-12">
+                        <div class="card button-container">
+                            <div class="button-container__item">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addChallenger">
+                                    Добавить клиента
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php } ?>
                 <div class="col-md-10"></div>
             </div>
             <div class="">
