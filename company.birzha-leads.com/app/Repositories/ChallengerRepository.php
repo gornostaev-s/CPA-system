@@ -17,6 +17,31 @@ class ChallengerRepository
     }
 
     /**
+     * @param int $id
+     * @return Challenger|null
+     * @throws ReflectionException
+     */
+    public function getById(int $id): ?Challenger
+    {
+        $queryRes = $this->mapper->db->query("SELECT * FROM challengers WHERE id = $id LIMIT 1")->fetch();
+
+        return $this->prepareChallenger($queryRes);
+    }
+
+    /**
+     * @param array $res
+     * @return Challenger|null
+     * @throws ReflectionException
+     */
+    public function prepareChallenger(array $res): ?Challenger
+    {
+        $e = new Challenger();
+        $e->load($res);
+
+        return $e;
+    }
+
+    /**
      * @param int $ownerId
      * @return User[]
      * @throws ReflectionException
@@ -27,11 +52,6 @@ class ChallengerRepository
 
         return $this->prepareRes($queryRes ?: []);
     }
-
-//    private function prepareChallenger()
-//    {
-//
-//    }
 
     /**
      * @param array $queryRes

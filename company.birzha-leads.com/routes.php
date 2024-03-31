@@ -51,6 +51,7 @@ Router::route('/v1/employers/update', [\App\Controllers\Api\EmployersController:
 //
 
 Router::route('/v1/challengers/add', [ChallengersController::class, 'add']);
+Router::route('/v1/challengers/update', [ChallengersController::class, 'update']);
 
 echo Router::execute($_SERVER['REQUEST_URI']);
 ?>
