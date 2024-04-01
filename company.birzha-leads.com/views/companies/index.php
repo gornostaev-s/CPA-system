@@ -93,9 +93,9 @@ include __DIR__ . '/../header.php';
                                                     </td>
                                                 <?php } ?>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <select name="operationType" class="table-form__select">
+                                                    <select name="operation_type" class="table-form__select">
                                                         <?php foreach (OperationType::cases() as $case) { ?>
-                                                            <option value="<?= $case->value ?>"><?= OperationType::getLabel($case->value) ?></option>
+                                                            <option value="<?= $case->value ?>" <?= ($company->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
