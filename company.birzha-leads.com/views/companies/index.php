@@ -7,6 +7,7 @@ use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
+use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
 
 include __DIR__ . '/../header.php';
@@ -95,7 +96,7 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <select name="operation_type" class="table-form__select">
                                                         <?php foreach (OperationType::cases() as $case) { ?>
-                                                            <option value="<?= $case->value ?>" <?= ($company->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
+                                                            <option value="<?= $case->value ?> <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>" <?= ($company->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
@@ -242,7 +243,7 @@ include __DIR__ . '/../header.php';
             }
 
             timerId = setTimeout(function() {
-                if (performance.now() - lastTime > 1500 && inputValue) {
+                if (performance.now() - lastTime > 500 && inputValue) {
                     console.log(values);
                     jQuery.ajax({
                         url: '/v1/clients/update',

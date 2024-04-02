@@ -128,7 +128,7 @@ from companies c
 left outer join ab on c.id = ab.client_id
 left outer join tb on c.id = tb.client_id
 left outer join sb on c.id = sb.client_id
-left outer join pb on c.id = pb.client_id")->fetchAll();
+left outer join pb on c.id = pb.client_id ORDER BY created_at DESC")->fetchAll();
 
         return $this->prepareAggregateRes($queryRes);
     }

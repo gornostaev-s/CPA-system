@@ -116,7 +116,7 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <select <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> name="operation_type" class="table-form__select">
                                                         <?php foreach (OperationType::cases() as $case) { ?>
-                                                            <option value="<?= $case->value ?>" <?= ($challenger->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
+                                                            <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($challenger->operation_type, $case->value, 'selected') ?>><?= OperationType::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
@@ -286,7 +286,7 @@ include __DIR__ . '/../header.php';
             }
 
             timerId = setTimeout(function() {
-                if (performance.now() - lastTime > 1500 && inputValue) {
+                if (performance.now() - lastTime > 500 && inputValue) {
                     jQuery.ajax({
                         url: '/v1/challengers/update',
                         method: 'POST',
