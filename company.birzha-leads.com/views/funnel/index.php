@@ -6,6 +6,7 @@
 use App\Entities\Challenger;
 use App\Entities\Company;
 use App\Entities\Enums\OperationType;
+use App\Entities\Enums\ProcessStatus;
 use App\Helpers\AuthHelper;
 
 include __DIR__ . '/../header.php';
@@ -70,6 +71,7 @@ include __DIR__ . '/../header.php';
                                             <th class="border-0">Адрес</th>
                                             <th class="border-0">Дата создания</th>
                                             <th class="border-0">Статус</th>
+                                            <th class="border-0">Статус переноса</th>
                                             <th class="border-0">Комментарий</th>
                                             <th class="border-0">Комментарий (адм)</th>
                                         </tr>
@@ -109,6 +111,13 @@ include __DIR__ . '/../header.php';
                                                     <select name="status" class="table-form__select">
                                                         <?php foreach (Company::STATUSES as $key => $status) { ?>
                                                             <option value="<?= $key ?>" <?= ($challenger->status == $key) ? 'selected' : ''?>> <?= $status ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="modal-table-primary__col text-left">
+                                                    <select name="process_status" class="table-form__select">
+                                                        <?php foreach (ProcessStatus::cases() as $case) { ?>
+                                                            <option value="<?= $case->value ?>" <?= ($challenger->process_status == $case->value) ? 'selected' : ''?>> <?= ProcessStatus::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
