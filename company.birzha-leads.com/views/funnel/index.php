@@ -63,7 +63,7 @@ include __DIR__ . '/../header.php';
                             <div class="table-responsive">
                                 <form action="/funnel" class="table-form">
                                     <table class="table js-table">
-                                        <thead class="bg-light">
+                                        <thead class="bg-light js-tableHead">
                                         <tr class="border-0">
                                             <th class="border-0 column-num">#</th>
                                             <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
@@ -272,6 +272,8 @@ include __DIR__ . '/../header.php';
             const $input = jQuery(e.target);
             const $row = jQuery(e.target).parents('.js-dataRow');
 
+            jQuery('.js-tableHead').addClass('table-wait')
+
             let inputValue = $input.val();
             let lastTime = performance.now();
             let values = {};
@@ -290,7 +292,7 @@ include __DIR__ . '/../header.php';
                         method: 'POST',
                         data: values,
                         success: function (data) {
-
+                            jQuery('.js-tableHead').removeClass('table-wait')
                         }
                     })
                 }

@@ -44,7 +44,7 @@ include __DIR__ . '/../header.php';
                                 <div class="table-responsive">
                                     <form action="/v1/employers/update" class="table-form">
                                         <table class="table js-table">
-                                            <thead class="bg-light">
+                                            <thead class="bg-light js-tableHead">
                                             <tr class="border-0">
                                                 <th class="border-0 column-num">#</th>
                                                 <th class="border-0">Фамилия имя</th>
@@ -143,6 +143,7 @@ include __DIR__ . '/../header.php';
         let timerId = null;
 
         jQuery('.js-table').on('input', function (e) {
+            jQuery('.js-tableHead').addClass('table-wait')
             const $input = jQuery(e.target);
             const $row = jQuery(e.target).parents('.js-dataRow');
 
@@ -165,7 +166,7 @@ include __DIR__ . '/../header.php';
                         method: 'POST',
                         data: values,
                         success: function (data) {
-                            // console.log(data)
+                            jQuery('.js-tableHead').removeClass('table-wait')
                         }
                     })
                 }
