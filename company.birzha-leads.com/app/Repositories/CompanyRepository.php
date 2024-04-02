@@ -3,9 +3,8 @@
 namespace App\Repositories;
 
 use App\Core\BaseMapper;
-use App\Entities\AlfabankClient;
 use App\Entities\Company;
-use App\Entities\Order;
+use App\Entities\User;
 use App\Helpers\BillsMapHelper;
 use Exception;
 use Generator;
@@ -104,11 +103,11 @@ class CompanyRepository
      */
     public function getCompaniesWithData(): array|Generator
     {
-        $queryRes = $this->mapper->db->query("with 
-        ab as (select * from bills where type = 1),
-        tb as (select * from bills where type = 2),
-        sb as (select * from bills where type = 3),
-        pb as (select * from bills where type = 4)
+        $queryRes = $this->mapper->db->query("with
+    ab as (select * from bills where type = 1),
+    tb as (select * from bills where type = 2),
+    sb as (select * from bills where type = 3),
+    pb as (select * from bills where type = 4)
 select
     c.*,
     coalesce(ab.status, 0) as alfabank_status,
@@ -123,12 +122,16 @@ select
     sb.date as sberbank_date,
     coalesce(pb.status, 0) as psb_status,
     coalesce(pb.comment, '') as psb_comment,
-    pb.date as psb_date
+    pb.date as psb_date,
+    owner.name as owner_name
 from companies c
-left outer join ab on c.id = ab.client_id
-left outer join tb on c.id = tb.client_id
-left outer join sb on c.id = sb.client_id
-left outer join pb on c.id = pb.client_id ORDER BY created_at DESC")->fetchAll();
+         left outer join ab on c.id = ab.client_id
+         left outer join tb on c.id = tb.client_id
+         left outer join sb on c.id = sb.client_id
+         left outer join pb on c.id = pb.client_id
+        left join users owner on c.owner_id = owner.id
+ORDER BY c.created_at DESC
+")->fetchAll();
 
         return $this->prepareAggregateRes($queryRes);
     }
@@ -142,6 +145,12 @@ left outer join pb on c.id = pb.client_id ORDER BY created_at DESC")->fetchAll()
     {
         foreach ($queryRes as $client) {
             $company = new Company();
+
+            if (!empty($client['owner_name'])) {
+                $company->owner = new User();
+                $company->owner->id = $client['owner_id'];
+                $company->owner->name = $client['owner_name'];
+            }
 
             foreach (BillsMapHelper::MAP as $item) {
                 $billClient = new $item();

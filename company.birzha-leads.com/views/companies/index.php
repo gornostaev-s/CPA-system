@@ -90,7 +90,7 @@ include __DIR__ . '/../header.php';
                                                 </td>
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                     <td class="modal-table-primary__col text-left">
-                                                        Иванов Иван
+                                                        <?= $company->owner->name ?>
                                                     </td>
                                                 <?php } ?>
                                                 <td class="modal-table-primary__col text-left">

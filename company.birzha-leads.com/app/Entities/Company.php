@@ -43,6 +43,7 @@ class Company extends BaseEntity
     public TinkoffClient $tinkoff;
     public SberbankClient $sberbank;
     public PsbClient $psb;
+    public User $owner;
 
     public function __construct()
     {

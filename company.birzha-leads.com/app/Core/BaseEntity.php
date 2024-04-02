@@ -25,7 +25,11 @@ class BaseEntity
     public function load(array $data): self
     {
         foreach ($data as $key => $propData) {
-            $reflection = new ReflectionProperty($this, $key);
+            try {
+                $reflection = new ReflectionProperty($this, $key);
+            } catch (ReflectionException $e) {
+                continue;
+            }
 
             match ($reflection->getType()->getName()) {
                 'int' => $this->$key = (int)$propData,
