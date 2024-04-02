@@ -10,6 +10,7 @@ use App\Services\ChallengerService;
 use App\Utils\Exceptions\ValidationException;
 use App\Utils\ValidationUtil;
 use ReflectionException;
+use Throwable;
 
 class ChallengersController extends Controller
 {
@@ -36,6 +37,7 @@ class ChallengersController extends Controller
             "comment" => 'max:255',
             "comment_adm" => 'max:255',
             "status" => 'integer|max:255',
+            "process_status" => 'integer|max:255',
             "operation_type" => 'integer|max:255',
         ]);
 
@@ -60,5 +62,24 @@ class ChallengersController extends Controller
         $challenger = $this->challengerService->create(ChallengerCreateForm::makeFromRequest($request));
 
         return ApiHelper::sendSuccess(['inn' => $challenger->inn]);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function move(): bool|string
+    {
+        try {
+            $request = ValidationUtil::validate($_GET, [
+                "id" => 'max:255',
+            ]);
+
+            $this->challengerService->move($request['id']);
+        } catch (Throwable $e) {
+
+            return ApiHelper::sendError(['message' => $e->getMessage()]);
+        }
+
+        return ApiHelper::sendSuccess(['message' => 'Клиент создан']);
     }
 }

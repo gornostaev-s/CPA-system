@@ -182,4 +182,10 @@
 
 .employer-select {
   max-width: 250px;
+  font-weight: 700;
+}
+
+.move-link {
+  font-size: 24px;
+  color: #00cf00;
 }

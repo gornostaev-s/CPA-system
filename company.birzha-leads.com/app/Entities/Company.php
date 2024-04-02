@@ -65,6 +65,26 @@ class Company extends BaseEntity
     }
 
     /**
+     * @param Challenger $challenger
+     * @return Company
+     */
+    public static function makeByChallenger(Challenger $challenger): Company
+    {
+        $e = new self;
+        $e->inn = $challenger->inn;
+        $e->fio = $challenger->fio;
+        $e->status = $challenger->status;
+        $e->address = $challenger->address;
+        $e->phone = $challenger->phone;
+        $e->owner_id = $challenger->owner_id;
+        $e->operation_type = $challenger->operation_type;
+        $e->comment = $challenger->comment;
+        $e->comment_adm = $challenger->comment_adm;
+
+        return $e;
+    }
+
+    /**
      * @param DateTime $createdAt
      */
     public function setCreatedAt(DateTime $createdAt): void

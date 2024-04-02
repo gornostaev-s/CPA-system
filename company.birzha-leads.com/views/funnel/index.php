@@ -7,6 +7,7 @@ use App\Entities\Challenger;
 use App\Entities\Company;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\ProcessStatus;
+use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
 
 include __DIR__ . '/../header.php';
@@ -51,6 +52,10 @@ include __DIR__ . '/../header.php';
                                     </select>
                                 </form>
                             </div>
+                            <div class="col-12">
+                                <div class="response-errors"></div>
+                                <div class="response-success"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -61,6 +66,9 @@ include __DIR__ . '/../header.php';
                                         <thead class="bg-light">
                                         <tr class="border-0">
                                             <th class="border-0 column-num">#</th>
+                                            <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                <th class="border-0">Перенести</th>
+                                            <?php } ?>
                                             <th class="border-0">ФИО</th>
                                             <th class="border-0">ИНН</th>
                                             <th class="border-0">Телефон</th>
@@ -82,14 +90,23 @@ include __DIR__ . '/../header.php';
                                             ?>
                                             <tr class="js-dataRow" data-id="<?= $challenger->id ?>">
                                                 <td class="modal-table-primary__col text-left"><?= $challenger->id ?></td>
+                                                <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                <td class="modal-table-primary__col text-center">
+                                                    <?php if ($challenger->process_status == ProcessStatus::wait->value) { ?>
+                                                        <a class="move-link js-moveChallenger" data-id="<?= $challenger->id ?>" href="#">
+                                                            ⇒
+                                                        </a>
+                                                    <?php } ?>
+                                                </td>
+                                                <?php } ?>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="fio" value="<?= $challenger->fio ?>" class="table-form__text">
+                                                    <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="fio" value="<?= $challenger->fio ?>" class="table-form__text">
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="inn" value="<?= $challenger->inn ?>" class="table-form__text">
+                                                    <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="inn" value="<?= $challenger->inn ?>" class="table-form__text">
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="phone" value="<?= $challenger->phone ?>" class="table-form__text">
+                                                    <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="phone" value="<?= $challenger->phone ?>" class="table-form__text">
                                                 </td>
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                     <td class="modal-table-primary__col text-left">
@@ -97,35 +114,35 @@ include __DIR__ . '/../header.php';
                                                     </td>
                                                 <?php } ?>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <select name="operation_type" class="table-form__select">
+                                                    <select <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> name="operation_type" class="table-form__select">
                                                         <?php foreach (OperationType::cases() as $case) { ?>
                                                             <option value="<?= $case->value ?>" <?= ($challenger->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="address" value="<?= $challenger->address ?>" class="table-form__text">
+                                                    <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="address" value="<?= $challenger->address ?>" class="table-form__text">
                                                 </td>
                                                 <td class="modal-table-primary__col text-left"><?= $challenger->created_at ?></td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <select name="status" class="table-form__select">
+                                                    <select <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> name="status" class="table-form__select">
                                                         <?php foreach (Company::STATUSES as $key => $status) { ?>
                                                             <option value="<?= $key ?>" <?= ($challenger->status == $key) ? 'selected' : ''?>> <?= $status ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <select name="process_status" class="table-form__select">
+                                                    <select <?= AttributeCheckHelper::checkEqual($challenger->process_status, ProcessStatus::moved->value, 'disabled') ?> name="process_status" class="table-form__select">
                                                         <?php foreach (ProcessStatus::cases() as $case) { ?>
                                                             <option value="<?= $case->value ?>" <?= ($challenger->process_status == $case->value) ? 'selected' : ''?>> <?= ProcessStatus::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="comment" value="<?= $challenger->comment ?>" class="table-form__text">
+                                                    <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="comment" value="<?= $challenger->comment ?>" class="table-form__text">
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
-                                                    <input type="text" name="comment_adm" value="<?= $challenger->comment_adm ?>" class="table-form__text">
+                                                    <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="comment_adm" value="<?= $challenger->comment_adm ?>" class="table-form__text">
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -191,6 +208,31 @@ include __DIR__ . '/../header.php';
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        jQuery('.js-moveChallenger').on('click', function () {
+            jQuery.ajax({
+                type: 'get',
+                url: '/v1/challengers/move?id=' + jQuery(this).data('id'),
+                success: function(data){
+
+                    console.log(data, data.success)
+
+                    if(!data.success){
+                        var text = '';
+                        for (var prop in data.errors) {
+                            text += '<p>'+data.errors[prop]+'</p>';
+                        }
+                        if (!text) {
+                            jQuery('.response-errors').html("Возникла ошибка!")
+                        } else {
+                            jQuery('.response-errors').html(text)
+                        }
+                    } else {
+                        window.location.reload();
+                    }
+                },
+            })
+        })
 
         jQuery('.js-challengerCreateForm').on('submit', function (e) {
             e.preventDefault();
