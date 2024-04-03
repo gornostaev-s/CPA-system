@@ -53,11 +53,15 @@ class Company extends BaseEntity
         return 'companies';
     }
 
-    public static function make(string $inn, string $fio = ''): Company
+    public static function make(string $inn, string $fio = '', ?int $status = null): Company
     {
         $e = new self;
         $e->inn = $inn;
         $e->fio = $fio;
+
+        if ($status !== null) {
+            $e->status = $status;
+        }
 
         return $e;
     }

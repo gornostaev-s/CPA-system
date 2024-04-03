@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Entities\Company;
+use App\Entities\Enums\BillStatus;
 use App\Entity\Attachment;
 use App\Repositories\CompanyRepository;
 use App\Services\CompanyService;
@@ -37,7 +38,7 @@ class IndexController extends Controller
 
         foreach ($inns as $inn) {
             if (!empty($inn['A'])) {
-                $this->companyService->store(Company::make($inn['A'], $inn['B']));
+                $this->companyService->store(Company::make($inn['A'], $inn['B'], BillStatus::FNS->value));
             }
         }
 
