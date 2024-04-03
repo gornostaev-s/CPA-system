@@ -5,6 +5,7 @@ namespace App\Console\Controllers;
 use App\Core\Controller;
 use App\Entities\Company;
 use App\Clients\TelegramClient;
+use App\Entities\Enums\BillStatus;
 use App\Repositories\CompanyRepository;
 use Dadata\DadataClient;
 use DateTime;
@@ -45,7 +46,7 @@ class CheckCompaniesController extends Controller
 
         foreach ($companies as $company) {
             if (time() > $company->getCreatedAt()->modify('+10 days')->getTimestamp()) {
-                $company->setStatus(Company::STATUS_EXPIRED);
+                $company->setStatus(BillStatus::Reject->value);
                 $this->companyRepository->save($company);
                 continue;
             }
@@ -56,7 +57,7 @@ class CheckCompaniesController extends Controller
                 $data = $result[0]['data'];
 
                 if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
-                    $company->setStatus(Company::STATUS_REGISTERED);
+                    $company->setStatus(BillStatus::Open->value);
                     $this->companyRepository->save($company);
                     $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
                 }
@@ -92,7 +93,7 @@ class CheckCompaniesController extends Controller
         }
 
         if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
-            $company->setStatus(Company::STATUS_REGISTERED);
+            $company->setStatus(BillStatus::Open->value);
         }
 
 //        foreach ($companies as $company) {

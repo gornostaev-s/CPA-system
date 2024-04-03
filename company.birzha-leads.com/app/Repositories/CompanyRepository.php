@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Core\BaseMapper;
 use App\Entities\Company;
+use App\Entities\Enums\BillStatus;
 use App\Entities\User;
 use App\Helpers\BillsMapHelper;
 use Exception;
@@ -57,7 +58,7 @@ class CompanyRepository
      */
     public function getNewCompanies(): array
     {
-        $queryRes = $this->mapper->db->query('SELECT * FROM companies WHERE status = ' . Company::STATUS_NEW)->fetchAll();
+        $queryRes = $this->mapper->db->query('SELECT * FROM companies WHERE status = ' . BillStatus::FNS->value)->fetchAll();
 
         if (empty($queryRes)) {
             throw new Exception('Client not found', 404);

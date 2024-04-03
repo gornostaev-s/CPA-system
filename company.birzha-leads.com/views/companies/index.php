@@ -106,8 +106,8 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
                                                 <td class="modal-table-primary__col text-left">
                                                     <select name="status" class="table-form__select">
-                                                        <?php foreach (Company::STATUSES as $key => $status) { ?>
-                                                            <option value="<?= $key ?>" <?= ($company->status == $key) ? 'selected' : ''?>> <?= $status ?></option>
+                                                        <?php foreach (BillStatus::cases() as $item) { ?>
+                                                            <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>

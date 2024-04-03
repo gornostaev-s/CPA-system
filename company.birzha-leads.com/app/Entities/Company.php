@@ -8,6 +8,7 @@ use Exception;
 
 class Company extends BaseEntity
 {
+    const STATUS_DEFAULT = 0;
     const STATUS_NEW = 1;
     const STATUS_REGISTERED = 2;
     const STATUS_EXPIRED = 3;
@@ -19,10 +20,6 @@ class Company extends BaseEntity
     ];
 
     const EXTERNAL_STATUS_ACTIVE = 'ACTIVE';
-    const EXTERNAL_STATUS_LIQUIDATING = 'LIQUIDATING';
-    const EXTERNAL_STATUS_LIQUIDATED = 'LIQUIDATED';
-    const EXTERNAL_STATUS_BANKRUPT = 'BANKRUPT';
-    const EXTERNAL_STATUS_REORGANIZING = 'REORGANIZING';
 
     public int $id;
     public string $inn;
