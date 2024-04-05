@@ -61,7 +61,7 @@ class CompanyRepository
         $queryRes = $this->mapper->db->query('SELECT * FROM companies WHERE status = ' . BillStatus::FNS->value)->fetchAll();
 
         if (empty($queryRes)) {
-            throw new Exception('Client not found', 404);
+            throw new Exception('Clients not found', 404);
         }
 
         return $this->prepareRes($queryRes);

@@ -57,7 +57,7 @@ class CheckCompaniesController extends Controller
                 $data = $result[0]['data'];
 
                 if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
-                    $company->setStatus(BillStatus::Open->value);
+                    $company->setStatus(BillStatus::Work->value);
                     $this->companyRepository->save($company);
                     $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
                 }
