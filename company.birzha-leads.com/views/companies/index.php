@@ -215,6 +215,9 @@ include __DIR__ . '/../header.php';
     </div>
 </div>
 
+<?php
+$fields = $_GET['fields'] ?? [];
+?>
 <!-- Modal -->
 <div class="modal fade" id="fieldFilter" tabindex="-1" role="dialog" aria-labelledby="Фильтр полей" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -231,7 +234,7 @@ include __DIR__ . '/../header.php';
                         <div class="col-md-4">
                             <div class="input-group">
                                 <label for="">
-                                    <input <?= empty($_GET['fields'] || in_array('fio', $_GET['fields'])) ? 'checked' : ''?> value="fio" type="checkbox" name="fields[]">
+                                    <input <?= empty($fields) || in_array('fio', $fields) ? 'checked' : ''?> value="fio" type="checkbox" name="fields[]">
                                     <span>
                                         ФИО
                                     </span>
