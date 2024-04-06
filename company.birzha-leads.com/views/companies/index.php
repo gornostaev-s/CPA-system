@@ -9,8 +9,11 @@ use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
+use App\Helpers\TableColumnHelper;
 
 include __DIR__ . '/../header.php';
+
+$showFields = $_GET['fields'] ?? [];
 ?>
 <div class="dashboard-wrapper">
     <div class="dashboard-ecommerce">
@@ -44,14 +47,68 @@ include __DIR__ . '/../header.php';
                                             <thead class="bg-light js-tableHead">
                                             <tr class="border-0">
                                                 <th rowspan="2" class="border-0 column-num">#</th>
-                                                <th rowspan="2" class="border-0">ФИО</th>
-                                                <th rowspan="2" class="border-0">ИНН</th>
-                                                <th rowspan="2" class="border-0">Телефон</th>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0'
+                                                    ])
+                                                    ->setData('ФИО')
+                                                    ->isHide((!empty($showFields) && !in_array('fio', $showFields)))
+                                                    ->build()
+                                                ?>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0'
+                                                    ])
+                                                    ->setData('ИНН')
+                                                    ->isHide((!empty($showFields) && !in_array('inn', $showFields)))
+                                                    ->build()
+                                                ?>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0'
+                                                    ])
+                                                    ->setData('Телефон')
+                                                    ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
+                                                    ->build()
+                                                ?>
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
-                                                    <th rowspan="2" class="border-0">Сотрудник</th>
+                                                    <?= TableColumnHelper::make()
+                                                        ->setTag('th')
+                                                        ->setAttributes([
+                                                            'rowspan' => 2,
+                                                            'class' => 'border-0'
+                                                        ])
+                                                        ->setData('Сотрудник')
+                                                        ->isHide((!empty($showFields) && !in_array('employer', $showFields)))
+                                                        ->build()
+                                                    ?>
                                                 <?php } ?>
-                                                <th rowspan="2" class="border-0">Тип операции</th>
-                                                <th rowspan="2" class="border-0">Адрес</th>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0'
+                                                    ])
+                                                    ->setData('Тип операции')
+                                                    ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
+                                                    ->build()
+                                                ?>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0'
+                                                    ])
+                                                    ->setData('Адрес')
+                                                    ->isHide((!empty($showFields) && !in_array('address', $showFields)))
+                                                    ->build()
+                                                ?>
                                                 <th rowspan="2" class="border-0">Дата создания</th>
                                                 <th rowspan="2" class="border-0">Статус</th>
                                                 <th rowspan="2" class="border-0">Комментарий</th>
@@ -90,30 +147,63 @@ include __DIR__ . '/../header.php';
                                                 ?>
                                                 <tr class="js-dataRow" data-id="<?= $company->id ?>">
                                                     <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="fio" value="<?= $company->fio ?>" class="table-form__text">
-                                                    </td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="inn" value="<?= $company->inn ?>" class="table-form__text">
-                                                    </td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="phone" value="<?= $company->phone ?>" class="table-form__text">
-                                                    </td>
+
+                                                    <?= TableColumnHelper::make()
+                                                        ->setTag('td')
+                                                        ->setAttributes([
+                                                            'class' => 'modal-table-primary__col text-left'
+                                                        ])
+                                                        ->setData('<input type="text" name="fio" value="' . $company->fio . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('fio', $showFields)))
+                                                        ->build()
+                                                    ?>
+                                                    <?= TableColumnHelper::make()
+                                                        ->setTag('td')
+                                                        ->setAttributes([
+                                                            'class' => 'modal-table-primary__col text-left'
+                                                        ])
+                                                        ->setData('<input type="text" name="inn" value="' . $company->inn . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('inn', $showFields)))
+                                                        ->build()
+                                                    ?>
+                                                    <?= TableColumnHelper::make()
+                                                        ->setTag('td')
+                                                        ->setAttributes([
+                                                            'class' => 'modal-table-primary__col text-left'
+                                                        ])
+                                                        ->setData('<input type="text" name="phone" value="' . $company->phone . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
+                                                        ->build()
+                                                    ?>
                                                     <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                        <?= TableColumnHelper::make()
+                                                            ->setTag('td')
+                                                            ->setAttributes([
+                                                                'class' => 'modal-table-primary__col text-left'
+                                                            ])
+                                                            ->setData($company->owner->name)
+                                                            ->isHide((!empty($showFields) && !in_array('employer', $showFields)))
+                                                            ->build()
+                                                        ?>
+                                                    <?php } ?>
+                                                    <?php if (!(!empty($showFields) && !in_array('operation_type', $showFields))) { ?>
                                                         <td class="modal-table-primary__col text-left">
-                                                            <?= $company->owner->name ?>
+                                                            <select name="operation_type" class="table-form__select">
+                                                                <?php foreach (OperationType::cases() as $case) { ?>
+                                                                    <option value="<?= $case->value ?> <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>" <?= ($company->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
                                                         </td>
                                                     <?php } ?>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="operation_type" class="table-form__select">
-                                                            <?php foreach (OperationType::cases() as $case) { ?>
-                                                                <option value="<?= $case->value ?> <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>" <?= ($company->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="address" value="<?= $company->address ?>" class="table-form__text">
-                                                    </td>
+                                                    <?= TableColumnHelper::make()
+                                                        ->setTag('td')
+                                                        ->setAttributes([
+                                                            'class' => 'modal-table-primary__col text-left'
+                                                        ])
+                                                        ->setData('<input type="text" name="address" value="' . $company->address . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('address', $showFields)))
+                                                        ->build()
+                                                    ?>
                                                     <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <select name="status" class="table-form__select">
@@ -230,6 +320,7 @@ $fields = $_GET['fields'] ?? [];
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" value="id" name="fields[]">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="input-group">
@@ -237,6 +328,56 @@ $fields = $_GET['fields'] ?? [];
                                     <input <?= empty($fields) || in_array('fio', $fields) ? 'checked' : ''?> value="fio" type="checkbox" name="fields[]">
                                     <span>
                                         ФИО
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <label for="">
+                                    <input <?= empty($fields) || in_array('inn', $fields) ? 'checked' : ''?> value="inn" type="checkbox" name="fields[]">
+                                    <span>
+                                        ИНН
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <label for="">
+                                    <input <?= empty($fields) || in_array('phone', $fields) ? 'checked' : ''?> value="phone" type="checkbox" name="fields[]">
+                                    <span>
+                                        Телефон
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <label for="">
+                                    <input <?= empty($fields) || in_array('employer', $fields) ? 'checked' : ''?> value="employer" type="checkbox" name="fields[]">
+                                    <span>
+                                        Сотрудник
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <label for="">
+                                    <input <?= empty($fields) || in_array('operation_type', $fields) ? 'checked' : ''?> value="operation_type" type="checkbox" name="fields[]">
+                                    <span>
+                                        Тип операции
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <label for="">
+                                    <input <?= empty($fields) || in_array('address', $fields) ? 'checked' : ''?> value="address" type="checkbox" name="fields[]">
+                                    <span>
+                                        Адрес
                                     </span>
                                 </label>
                             </div>
