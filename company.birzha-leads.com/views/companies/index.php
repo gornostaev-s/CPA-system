@@ -29,7 +29,7 @@ $showFields = $_GET['fields'] ?? [];
                         <div class="button-container__item">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fieldFilter">
-                                Фильтр полей
+                                Отображение полей
                             </button>
                         </div>
                     </div>
@@ -309,12 +309,12 @@ $showFields = $_GET['fields'] ?? [];
 $fields = $_GET['fields'] ?? [];
 ?>
 <!-- Modal -->
-<div class="modal fade" id="fieldFilter" tabindex="-1" role="dialog" aria-labelledby="Фильтр полей" aria-hidden="true">
+<div class="modal fade" id="fieldFilter" tabindex="-1" role="dialog" aria-labelledby="Отображение полей" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="/">
                 <div class="modal-header">
-                    <h5 class="modal-title">Фильтр полей</h5>
+                    <h5 class="modal-title">Отображение полей</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

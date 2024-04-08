@@ -5,8 +5,10 @@ use App\Core\Controller;
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entity\Attachment;
+use App\Queries\ClientIndexQuery;
 use App\Repositories\CompanyRepository;
 use App\Services\CompanyService;
+use App\Utils\ValidationUtil;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
@@ -16,7 +18,8 @@ class IndexController extends Controller
 {
     public function __construct(
         private readonly CompanyService $companyService,
-        private readonly CompanyRepository $companyRepository
+        private readonly CompanyRepository $companyRepository,
+        private readonly ClientIndexQuery $query
     )
     {
         parent::__construct();
@@ -24,7 +27,11 @@ class IndexController extends Controller
 
     public function index(): bool|string
     {
-        return $this->view('companies/index', ['companies' => $this->companyRepository->getCompaniesWithData()]);
+        $request = ValidationUtil::validate($_POST,[
+            "fields" => 'max:255',
+        ]);
+
+        return $this->view('companies/index', ['companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request))]);
     }
 
     public function importForm(): bool|string

@@ -37,6 +37,29 @@ class BaseEntity
             };
         }
 
+        $this->setDefaults();
+
         return $this;
+    }
+
+    private function setDefaults()
+    {
+        $properties = (new ReflectionClass($this))->getProperties();
+
+        foreach ($properties as $property) {
+            $name = $property->getName();
+            if (!isset($this->$name)) {
+                if ($property->getType()->allowsNull()) {
+                    $this->$name = null;
+                    continue;
+                }
+
+                $this->$name = match ($property->getType()->getName()) {
+                    'string' => '',
+                    'int' => 0,
+                    'boolean' => false,
+                };
+            }
+        }
     }
 }
