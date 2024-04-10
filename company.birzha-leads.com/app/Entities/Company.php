@@ -25,6 +25,7 @@ class Company extends BaseEntity
     public string $inn;
     public ?string $fio;
     public ?string $responsible;
+    public ?string $scoring;
     public ?string $phone;
     public ?string $comment;
     public ?string $comment_adm;

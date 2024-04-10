@@ -104,6 +104,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
                                                     ->build()
                                                 ?>
+                                                <th rowspan="2" class="border-0" style="min-width: min-content;">Дата создания</th>
+                                                <th rowspan="2" class="border-0" style="min-width: 75px;">Статус</th>
                                                 <?= TableColumnHelper::make()
                                                     ->setTag('th')
                                                     ->setAttributes([
@@ -114,8 +116,16 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0" style="min-width: min-content;">Дата создания</th>
-                                                <th rowspan="2" class="border-0" style="min-width: 75px;">Статус</th>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0'
+                                                    ])
+                                                    ->setData('Забив.')
+                                                    ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
+                                                    ->build()
+                                                ?>
                                                 <th rowspan="2" class="border-0">Комментарий</th>
                                                 <th rowspan="2" class="border-0">Комментарий (адм)</th>
 <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
@@ -200,6 +210,14 @@ $showFields = $_GET['fields'] ?? [];
                                                             </select>
                                                         </td>
                                                     <?php } ?>
+                                                    <td class="modal-table-primary__col text-left"><?= (new DateTime($company->created_at))->format('d.m.Y') ?></td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <select name="status" class="table-form__select">
+                                                            <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')
                                                         ->setAttributes([
@@ -209,23 +227,21 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                         ->build()
                                                     ?>
-                                                    <td class="modal-table-primary__col text-left"><?= (new DateTime($company->created_at))->format('d.m.Y') ?></td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="status" class="table-form__select">
-                                                            <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </td>
+                                                    <?= TableColumnHelper::make()
+                                                        ->setTag('td')
+                                                        ->setAttributes([
+                                                            'class' => 'modal-table-primary__col text-left'
+                                                        ])
+                                                        ->setData('<input type="text" name="scoring" value="' . $company->scoring . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
+                                                        ->build()
+                                                    ?>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="comment" value="<?= $company->comment ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
                                                     </td>
-<!--                                                    <td class="modal-table-primary__col text-left">-->
-<!--                                                        <input type="date" name="submission_date" class="table-form__text" value="--><?//= (new DateTime($company->submission_date))->format('Y-m-d') ?><!--">-->
-<!--                                                    </td>-->
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="date" name="sent_date" class="table-form__text" value="<?= (new DateTime($company->sent_date))->format('Y-m-d') ?>">
                                                     </td>

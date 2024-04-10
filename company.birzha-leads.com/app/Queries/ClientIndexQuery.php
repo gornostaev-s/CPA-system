@@ -77,6 +77,7 @@ class ClientIndexQuery extends QueryBuilder
         !$this->isShowField('fio', $this->request['fields']) ?: $this->addSelect(['fio']);
         !$this->isShowField('inn', $this->request['fields']) ?: $this->addSelect(['inn']);
         !$this->isShowField('responsible', $this->request['fields']) ?: $this->addSelect(['responsible']);
+        !$this->isShowField('scoring', $this->request['fields']) ?: $this->addSelect(['scoring']);
         !$this->isShowField('operation_type', $this->request['fields']) ?: $this->addSelect(['operation_type']);
         !$this->isShowField('phone', $this->request['fields']) ?: $this->addSelect(['phone']);
         !$this->isShowField('comment', $this->request['fields']) ?: $this->addSelect(['c.comment']);
