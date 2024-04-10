@@ -26,7 +26,7 @@ use App\Helpers\AuthHelper;
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
             <div class="dashboard-header__logoContainer">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
                     <img class="dashboard-header__logo" src="/assets/images/logo.png" alt="">
                 </a>
             </div>

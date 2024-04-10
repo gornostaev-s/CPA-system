@@ -24,7 +24,7 @@ class Company extends BaseEntity
     public int $id;
     public string $inn;
     public ?string $fio;
-    public ?string $address;
+    public ?string $responsible;
     public ?string $phone;
     public ?string $comment;
     public ?string $comment_adm;
@@ -76,7 +76,7 @@ class Company extends BaseEntity
         $e->inn = $challenger->inn;
         $e->fio = $challenger->fio;
         $e->status = $challenger->status;
-        $e->address = $challenger->address;
+        $e->responsible = $challenger->address;
         $e->phone = $challenger->phone;
         $e->owner_id = $challenger->owner_id;
         $e->operation_type = $challenger->operation_type;

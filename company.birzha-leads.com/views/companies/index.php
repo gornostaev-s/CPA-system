@@ -85,7 +85,8 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setTag('th')
                                                         ->setAttributes([
                                                             'rowspan' => 2,
-                                                            'class' => 'border-0'
+                                                            'class' => 'border-0',
+                                                            'style' => 'min-width: 80px;'
                                                         ])
                                                         ->setData('Сотрудник')
                                                         ->isHide((!empty($showFields) && !in_array('employer', $showFields)))
@@ -110,16 +111,16 @@ $showFields = $_GET['fields'] ?? [];
                                                         'class' => 'border-0'
                                                     ])
                                                     ->setData('Адрес')
-                                                    ->isHide((!empty($showFields) && !in_array('address', $showFields)))
+                                                    ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                     ->build()
                                                 ?>
                                                 <th rowspan="2" class="border-0" style="min-width: min-content;">Дата создания</th>
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;">Статус</th>
                                                 <th rowspan="2" class="border-0">Комментарий</th>
                                                 <th rowspan="2" class="border-0">Комментарий (адм)</th>
-                                                <th rowspan="2" class="border-0">Дата передачи заявки</th>
-                                                <th rowspan="2" class="border-0">Дата отправки документа</th>
-                                                <th rowspan="2" class="border-0">Дата выхода с регистрации</th>
+<!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
+                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата отп</th>
+                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата вых</th>
                                                 <th colspan="4" class="border-0">Альфа банк</th>
                                                 <th colspan="3" class="border-0">Тинькофф банк</th>
                                                 <th colspan="3" class="border-0">Сбербанк</th>
@@ -128,20 +129,20 @@ $showFields = $_GET['fields'] ?? [];
                                             <tr>
                                                 <!-- Альфа банк -->
                                                 <th>Статус</th>
-                                                <th>Дата</th>
+                                                <th style="min-width: 90px;">Дата</th>
                                                 <th>Комментарий</th>
                                                 <th>Партнерка</th>
                                                 <!-- Тинькофф банк -->
                                                 <th>Статус</th>
-                                                <th>Дата</th>
+                                                <th style="min-width: 90px;">Дата</th>
                                                 <th>Комментарий</th>
                                                 <!-- Сбербанк -->
                                                 <th>Статус</th>
-                                                <th>Дата</th>
+                                                <th style="min-width: 90px;">Дата</th>
                                                 <th>Комментарий</th>
                                                 <!-- ПСБ -->
                                                 <th>Статус</th>
-                                                <th>Дата</th>
+                                                <th style="min-width: 90px;">Дата</th>
                                                 <th>Комментарий</th>
                                             </tr>
                                             </thead>
@@ -204,8 +205,8 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="address" value="' . $company->address . '" class="table-form__text">')
-                                                        ->isHide((!empty($showFields) && !in_array('address', $showFields)))
+                                                        ->setData('<input type="text" name="responsible" value="' . $company->responsible . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                         ->build()
                                                     ?>
                                                     <td class="modal-table-primary__col text-left"><?= (new DateTime($company->created_at))->format('d.m.Y') ?></td>
@@ -222,9 +223,9 @@ $showFields = $_GET['fields'] ?? [];
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
                                                     </td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="submission_date" class="table-form__text" value="<?= (new DateTime($company->submission_date))->format('Y-m-d') ?>">
-                                                    </td>
+<!--                                                    <td class="modal-table-primary__col text-left">-->
+<!--                                                        <input type="date" name="submission_date" class="table-form__text" value="--><?//= (new DateTime($company->submission_date))->format('Y-m-d') ?><!--">-->
+<!--                                                    </td>-->
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="date" name="sent_date" class="table-form__text" value="<?= (new DateTime($company->sent_date))->format('Y-m-d') ?>">
                                                     </td>
@@ -379,7 +380,7 @@ $fields = $_GET['fields'] ?? [];
                         <div class="col-md-4">
                             <div class="input-group">
                                 <label for="">
-                                    <input <?= empty($fields) || in_array('address', $fields) ? 'checked' : ''?> value="address" type="checkbox" name="fields[]">
+                                    <input <?= empty($fields) || in_array('responsible', $fields) ? 'checked' : ''?> value="responsible" type="checkbox" name="fields[]">
                                     <span>
                                         Адрес
                                     </span>
