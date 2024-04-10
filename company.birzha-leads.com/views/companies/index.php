@@ -110,7 +110,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setTag('th')
                                                     ->setAttributes([
                                                         'rowspan' => 2,
-                                                        'class' => 'border-0'
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: min-content;'
                                                     ])
                                                     ->setData('Ответственный')
                                                     ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
@@ -120,7 +121,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setTag('th')
                                                     ->setAttributes([
                                                         'rowspan' => 2,
-                                                        'class' => 'border-0'
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: min-content;'
                                                     ])
                                                     ->setData('Забив.')
                                                     ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
