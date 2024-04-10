@@ -219,4 +219,8 @@ thead {
   max-height: 500px;
 }
 
+.table-form__text {
+  background-color: transparent;
+}
+
 /*#b84480*/

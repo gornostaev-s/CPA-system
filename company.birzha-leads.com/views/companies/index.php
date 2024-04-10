@@ -9,6 +9,7 @@ use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
+use App\Helpers\CompanyColorHelper;
 use App\Helpers\TableColumnHelper;
 
 include __DIR__ . '/../header.php';
@@ -162,7 +163,7 @@ $showFields = $_GET['fields'] ?? [];
                                             <?php foreach ($data['companies'] as $company) {
                                                 /** @var $company Company */
                                                 ?>
-                                                <tr class="js-dataRow" data-id="<?= $company->id ?>">
+                                                <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
                                                     <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
 
                                                     <?= TableColumnHelper::make()
