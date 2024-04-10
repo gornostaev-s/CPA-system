@@ -110,7 +110,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         'rowspan' => 2,
                                                         'class' => 'border-0'
                                                     ])
-                                                    ->setData('Адрес')
+                                                    ->setData('Ответственный')
                                                     ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                     ->build()
                                                 ?>
