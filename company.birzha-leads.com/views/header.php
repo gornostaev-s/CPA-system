@@ -14,7 +14,7 @@ use App\Helpers\AuthHelper;
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css?v=1">
     <link rel="stylesheet" href="/assets/libs/css/style.css">
-    <link rel="stylesheet" href="/assets/libs/css/main.css?v=4">
+    <link rel="stylesheet" href="/assets/libs/css/main.css?v=5">
     <title>Панель администратора</title>
 </head>
 <body>
