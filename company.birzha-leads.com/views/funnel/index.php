@@ -69,16 +69,15 @@ include __DIR__ . '/../header.php';
                                             <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                 <th class="border-0">Перенести</th>
                                             <?php } ?>
-                                            <th class="border-0">ФИО</th>
-                                            <th class="border-0">ИНН</th>
-                                            <th class="border-0">Телефон</th>
+                                            <th class="border-0" style="min-width: 190px;">ФИО</th>
+                                            <th class="border-0" style="min-width: 100px;">Телефон</th>
                                             <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                 <th class="border-0">Сотрудник</th>
                                             <?php } ?>
-                                            <th class="border-0">Тип операции</th>
+                                            <th class="border-0" style="min-width: 90px;">Тип операции</th>
                                             <th class="border-0">Адрес</th>
                                             <th class="border-0">Дата создания</th>
-                                            <th class="border-0">Статус</th>
+                                            <th class="border-0" style="min-width: 75px;">Статус</th>
                                             <th class="border-0">Статус переноса</th>
                                             <th class="border-0">Комментарий</th>
                                             <th class="border-0">Комментарий (адм)</th>
@@ -123,7 +122,7 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="address" value="<?= $challenger->address ?>" class="table-form__text">
                                                 </td>
-                                                <td class="modal-table-primary__col text-left"><?= $challenger->created_at ?></td>
+                                                <td class="modal-table-primary__col text-left"><?= (new DateTime($challenger->created_at))->format('d.m.Y') ?></td>
                                                 <td class="modal-table-primary__col text-left">
                                                     <select <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> name="status" class="table-form__select">
                                                         <?php foreach (Company::STATUSES as $key => $status) { ?>

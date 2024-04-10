@@ -155,7 +155,15 @@
 .table thead th {
   white-space: nowrap;
   vertical-align: top;
-  min-width: 150px;
+  min-width: 130px;
+}
+
+.dashboard-wrapper {
+  margin-left: 0;
+}
+
+.top-menu {
+  width: 100%;
 }
 
 .table thead .column-num {
@@ -191,10 +199,11 @@
 }
 
 .table td, .table th {
-  padding: 5px;
+  padding: 3px;
   vertical-align: middle;
   border-top: 1px solid #e6e6f2;
   font-weight: normal;
+  font-size: 12px;
 }
 
 thead {
@@ -204,6 +213,10 @@ thead {
 .table-wait {
   /*background-color: #b84480 !important;*/
   background-color: #e2e2e8 !important;
+}
+
+.table-responsive {
+  max-height: 500px;
 }
 
 /*#b84480*/

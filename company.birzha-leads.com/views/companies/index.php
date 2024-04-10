@@ -51,7 +51,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setTag('th')
                                                     ->setAttributes([
                                                         'rowspan' => 2,
-                                                        'class' => 'border-0'
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 190px;'
                                                     ])
                                                     ->setData('ФИО')
                                                     ->isHide((!empty($showFields) && !in_array('fio', $showFields)))
@@ -61,7 +62,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setTag('th')
                                                     ->setAttributes([
                                                         'rowspan' => 2,
-                                                        'class' => 'border-0'
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 85px;'
                                                     ])
                                                     ->setData('ИНН')
                                                     ->isHide((!empty($showFields) && !in_array('inn', $showFields)))
@@ -71,7 +73,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setTag('th')
                                                     ->setAttributes([
                                                         'rowspan' => 2,
-                                                        'class' => 'border-0'
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 100px;'
                                                     ])
                                                     ->setData('Телефон')
                                                     ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
@@ -93,7 +96,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setTag('th')
                                                     ->setAttributes([
                                                         'rowspan' => 2,
-                                                        'class' => 'border-0'
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 90px'
                                                     ])
                                                     ->setData('Тип операции')
                                                     ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
@@ -109,8 +113,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('address', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0">Дата создания</th>
-                                                <th rowspan="2" class="border-0">Статус</th>
+                                                <th rowspan="2" class="border-0" style="min-width: min-content;">Дата создания</th>
+                                                <th rowspan="2" class="border-0" style="min-width: 75px;">Статус</th>
                                                 <th rowspan="2" class="border-0">Комментарий</th>
                                                 <th rowspan="2" class="border-0">Комментарий (адм)</th>
                                                 <th rowspan="2" class="border-0">Дата передачи заявки</th>
@@ -204,7 +208,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('address', $showFields)))
                                                         ->build()
                                                     ?>
-                                                    <td class="modal-table-primary__col text-left"><?= $company->created_at ?></td>
+                                                    <td class="modal-table-primary__col text-left"><?= (new DateTime($company->created_at))->format('d.m.Y') ?></td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <select name="status" class="table-form__select">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>

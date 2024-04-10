@@ -105,7 +105,7 @@ class CompanyRepository
      */
     public function getCompaniesWithData(QueryBuilder $builder): array|Generator
     {
-        $queryRes = $this->mapper->db->query($builder->build([]) . 'ORDER BY c.created_at DESC')->fetchAll();
+        $queryRes = $this->mapper->db->query($builder->build([]) . 'ORDER BY c.id DESC LIMIT 100')->fetchAll();
 
         return $this->prepareAggregateRes($queryRes);
     }

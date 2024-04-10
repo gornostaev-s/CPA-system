@@ -4,6 +4,8 @@ namespace App\Queries;
 
 use App\Core\Query;
 use App\Core\QueryBuilder;
+use App\Helpers\AuthHelper;
+use ReflectionException;
 
 class ClientIndexQuery extends QueryBuilder
 {
@@ -16,6 +18,9 @@ class ClientIndexQuery extends QueryBuilder
         return $this;
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function build(array $request): string
     {
         $this->addWith(['ab' => Query::make()
@@ -80,6 +85,10 @@ class ClientIndexQuery extends QueryBuilder
         !$this->isShowField('sent_date', $this->request['fields']) ?: $this->addSelect(['sent_date']);
         !$this->isShowField('registration_exit_date', $this->request['fields']) ?: $this->addSelect(['registration_exit_date']);
         !$this->isShowField('status', $this->request['fields']) ?: $this->addSelect(['c.status']);
+
+        if (!AuthHelper::getAuthUser()->isAdmin()) {
+            $this->addWhere(['owner_id' => AuthHelper::getAuthUser()->id]);
+        }
 
         $this->addFrom('companies c');
 
