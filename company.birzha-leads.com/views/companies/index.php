@@ -122,7 +122,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setAttributes([
                                                         'rowspan' => 2,
                                                         'class' => 'border-0',
-                                                        'style' => 'min-width: min-content;'
+                                                        'style' => 'min-width: 80px;'
                                                     ])
                                                     ->setData('Забив.')
                                                     ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
