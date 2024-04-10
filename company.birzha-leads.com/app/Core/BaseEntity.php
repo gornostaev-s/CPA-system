@@ -58,6 +58,7 @@ class BaseEntity
                     'string' => '',
                     'int' => 0,
                     'boolean' => false,
+                    default => null
                 };
             }
         }

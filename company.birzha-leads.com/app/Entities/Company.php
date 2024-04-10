@@ -36,11 +36,11 @@ class Company extends BaseEntity
     public int $owner_id;
     public string $created_at;
 
-    public AlfabankClient $alfabank;
-    public TinkoffClient $tinkoff;
-    public SberbankClient $sberbank;
-    public PsbClient $psb;
-    public User $owner;
+    public ?AlfabankClient $alfabank;
+    public ?TinkoffClient $tinkoff;
+    public ?SberbankClient $sberbank;
+    public ?PsbClient $psb;
+    public ?User $owner;
 
     public function __construct()
     {

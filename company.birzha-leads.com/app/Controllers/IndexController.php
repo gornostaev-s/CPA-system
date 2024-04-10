@@ -29,6 +29,7 @@ class IndexController extends Controller
     {
         $request = ValidationUtil::validate($_POST,[
             "fields" => 'max:255',
+            "date_interval" => 'max:255',
         ]);
 
         return $this->view('companies/index', ['companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request))]);
