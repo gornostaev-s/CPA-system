@@ -5,8 +5,10 @@ use App\Core\Controller;
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entity\Attachment;
+use App\Helpers\AuthHelper;
 use App\Queries\ClientIndexQuery;
 use App\Repositories\CompanyRepository;
+use App\Repositories\UserRepository;
 use App\Services\CompanyService;
 use App\Utils\ValidationUtil;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -19,7 +21,8 @@ class IndexController extends Controller
     public function __construct(
         private readonly CompanyService $companyService,
         private readonly CompanyRepository $companyRepository,
-        private readonly ClientIndexQuery $query
+        private readonly ClientIndexQuery $query,
+        private readonly UserRepository $userRepository,
     )
     {
         parent::__construct();
@@ -32,7 +35,12 @@ class IndexController extends Controller
             "date_interval" => 'max:255',
         ]);
 
-        return $this->view('companies/index', ['companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request))]);
+        $employers = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getAllActiveUsers() : [] ;
+
+        return $this->view('companies/index', [
+            'companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request)),
+            'employers' => $employers
+        ]);
     }
 
     public function importForm(): bool|string

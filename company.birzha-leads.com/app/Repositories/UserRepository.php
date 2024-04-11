@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Core\BaseMapper;
 use App\Entities\Company;
+use App\Entities\Enums\EmployersStatus;
 use App\Entities\User;
 use ReflectionException;
 
@@ -48,6 +49,17 @@ class UserRepository
     public function getEmployers(): array
     {
         $queryRes = $this->mapper->db->query('SELECT * FROM users WHERE is_admin = 0')->fetchAll();
+
+        return $this->prepareRes($queryRes);
+    }
+
+    /**
+     * @return array
+     * @throws ReflectionException
+     */
+    public function getAllActiveUsers(): array
+    {
+        $queryRes = $this->mapper->db->query('SELECT * FROM users WHERE status =' . EmployersStatus::TYPE1->value)->fetchAll();
 
         return $this->prepareRes($queryRes);
     }

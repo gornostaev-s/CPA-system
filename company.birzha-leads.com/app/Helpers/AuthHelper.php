@@ -29,7 +29,6 @@ class AuthHelper
 
     /**
      * @return User|null
-     * @throws ReflectionException
      */
     public static function getAuthUser(): ?User
     {
@@ -37,10 +36,14 @@ class AuthHelper
             return self::$user;
         }
 
-        $data = TokenHelper::getDataByToken($_COOKIE['token']);
-        /** @var UserRepository $userRepository */
-        $userRepository = Dispatcher::dispatch(UserRepository::class);
+        try {
+            $data = TokenHelper::getDataByToken($_COOKIE['token']);
+            /** @var UserRepository $userRepository */
+            $userRepository = Dispatcher::dispatch(UserRepository::class);
 
-        return $userRepository->getUserById($data['userId']);
+            return $userRepository->getUserById($data['userId']);
+        } catch (ReflectionException $e) {}
+
+        return null;
     }
 }

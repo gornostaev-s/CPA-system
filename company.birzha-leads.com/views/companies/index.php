@@ -7,6 +7,7 @@ use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
+use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
 use App\Helpers\CompanyColorHelper;
@@ -163,7 +164,7 @@ $showFields = $_GET['fields'] ?? [];
                                             <?php foreach ($data['companies'] as $company) {
                                                 /** @var $company Company */
                                                 ?>
-                                                <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
+                                                <tr class="js-dataRow" data-id="<?= $company->id ?>">
                                                     <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
 
                                                     <?= TableColumnHelper::make()
@@ -194,28 +195,28 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->build()
                                                     ?>
                                                     <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
-                                                        <?= TableColumnHelper::make()
-                                                            ->setTag('td')
-                                                            ->setAttributes([
-                                                                'class' => 'modal-table-primary__col text-left'
-                                                            ])
-                                                            ->setData($company->owner->name)
-                                                            ->isHide((!empty($showFields) && !in_array('employer', $showFields)))
-                                                            ->build()
-                                                        ?>
+                                                        <?php if (!(!empty($showFields) && !in_array('employer', $showFields))) { ?>
+                                                            <td class="modal-table-primary__col text-left">
+                                                                <select name="owner_id" class="table-form__select">
+                                                                    <?php foreach ($data['employers'] as $employer) { ?>
+                                                                        <option value="<?= $employer->id ?>" <?= AttributeCheckHelper::checkEqual($company->owner_id, $employer->id, 'selected') ?>><?= $employer->name ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </td>
+                                                        <?php } ?>
                                                     <?php } ?>
                                                     <?php if (!(!empty($showFields) && !in_array('operation_type', $showFields))) { ?>
                                                         <td class="modal-table-primary__col text-left">
                                                             <select name="operation_type" class="table-form__select">
                                                                 <?php foreach (OperationType::cases() as $case) { ?>
-                                                                    <option value="<?= $case->value ?> <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>" <?= ($company->operation_type == $case->value) ? 'selected' : ''?>><?= OperationType::getLabel($case->value) ?></option>
+                                                                    <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>><?= OperationType::getLabel($case->value) ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </td>
                                                     <?php } ?>
                                                     <td class="modal-table-primary__col text-left"><?= (new DateTime($company->created_at))->format('d.m.Y') ?></td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="status" class="table-form__select">
+                                                        <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                             <?php } ?>

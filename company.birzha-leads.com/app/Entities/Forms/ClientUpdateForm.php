@@ -7,6 +7,7 @@ use App\Core\BaseUpdateForm;
 class ClientUpdateForm extends BaseUpdateForm
 {
     public int $id;
+    public string $owner_id;
     public string $inn;
     public string $fio;
     public string $address;

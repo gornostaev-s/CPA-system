@@ -29,6 +29,7 @@ class ClientsController extends Controller
             "operation_type" => 'integer|max:255',
             "submission_date" => 'max:255',
             "sent_date" => 'max:255',
+            "owner_id" => 'max:255',
             "registration_exit_date" => 'max:255',
             "alfabank.status" => 'integer|max:255',
             "alfabank.date" => 'max:255',
