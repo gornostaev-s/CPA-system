@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entities\Forms\ChangePasswordForm;
 use App\Entities\Forms\EmployerUpdateForm;
 use App\Entities\Forms\LoginForm;
 use App\Entities\Forms\RegisterForm;
@@ -18,6 +19,19 @@ class UserService
         private readonly TokenHelper $tokenHelper,
     )
     {
+    }
+
+    /**
+     * @param ChangePasswordForm $form
+     * @return void
+     * @throws ReflectionException
+     */
+    public function changePassword(ChangePasswordForm $form): void
+    {
+        $user = $this->userRepository->getUserById($form->id);
+        $user->load(['password' => $form->getPassword()]);
+
+        $this->userRepository->save($user);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Entities\Company;
 use App\Entities\Enums\EmployersStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\User;
+use App\Helpers\AttributeCheckHelper;
 
 include __DIR__ . '/../header.php';
 ?>
@@ -29,7 +30,7 @@ include __DIR__ . '/../header.php';
                         </div>
                         <div class="button-container__item">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEmployer">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePassword">
                                 Поменять пароль
                             </button>
                         </div>
@@ -137,6 +138,50 @@ include __DIR__ . '/../header.php';
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="Поменять пароль" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="js-changePassword" action="/v1/change-employer-password" data-redirect="/employers">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Поменять пароль сотрудника</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <select name="id" class="input-group__select">
+                            <option value="">Выберите сотрудника</option>
+                            <?php foreach ($data['employers'] as $employer) { ?>
+                                <option value="<?= $employer->id ?>"><?= $employer->name ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input required class="input-group__text" type="password" name="password" placeholder="Введите пароль">
+                    </div>
+                    <div class="input-group">
+                        <input required class="input-group__text" type="password" name="passwordConfirm" placeholder="Повторите пароль">
+                    </div>
+                    <div class="input-group">
+                        <div class="response-success">
+
+                        </div>
+                        <div class="response-errors">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Поменять пароль</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -175,6 +220,38 @@ include __DIR__ . '/../header.php';
                     })
                 }
             }, 1500);
+        })
+
+        jQuery('.js-changePassword').on('submit', function (e) {
+            e.preventDefault();
+            var form = jQuery(e.target);
+            var redirect = form.data('redirect')
+
+            jQuery.ajax({
+                type: 'post',
+                url: form.attr('action'),
+                data : form.serialize(),
+                success: function(data){
+                    jQuery('.response-errors').html("")
+                    jQuery('.response-success').html("")
+                    // console.log(data)
+                    if(!data.success){
+                        var text = '';
+                        for (var prop in data.errors) {
+                            text += '<p>'+data.errors[prop]+'</p>';
+                        }
+                        if (!text) {
+                            jQuery('.response-errors').html("Возникла ошибка!")
+                        } else {
+                            jQuery('.response-errors').html(text)
+                        }
+                    } else {
+                        form[0].reset();
+                        form.find('button[type=submit]').hide();
+                        form.find('.response-success').html('<p>Пароль успешно изменен</p>');
+                    }
+                },
+            })
         })
     })
 </script>

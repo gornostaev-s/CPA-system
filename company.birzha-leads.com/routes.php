@@ -43,6 +43,7 @@ Router::route('/v1/clients/update', [ClientsController::class, 'update']);
  */
 
 Router::route('/v1/employers/update', [\App\Controllers\Api\EmployersController::class, 'update']);
+Router::route('/v1/change-employer-password', [\App\Controllers\Api\EmployersController::class, 'changePassword']);
 
 /**
  * api challengers
