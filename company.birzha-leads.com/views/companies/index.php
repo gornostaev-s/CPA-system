@@ -419,27 +419,37 @@ $fields = $_GET['fields'] ?? [];
 </div>
 
 <script>
-    // let target = document.querySelector('#search');
-    // let timerId = null;
-
-    // target.oninput = function () {
-    //     let inputValue = this.value.trim();
-    //     let lastTime = performance.now();
-    //
-    //     if (timerId) {
-    //         clearTimeout(timerId);
-    //     }
-    //
-    //     timerId = setTimeout(function() {
-    //         if (performance.now() - lastTime > 1500 && inputValue) {
-    //             console.log('Send', inputValue);
-    //         }
-    //     }, 1500);
-    // }
-
     document.addEventListener('DOMContentLoaded', function () {
+        function updateStatusColor ($input, inputValue) {
+            switch (inputValue) {
+                case '1':
+                    $input.css('background-color', '#468e00')
+                    break;
+                case '2':
+                case '3':
+                case '4':
+                    $input.css('background-color', '#ffc8aa')
+                    break;
+                case '5':
+                case '6':
+                case '7':
+                    $input.css('background-color', '#b10202')
+                    break;
+                case '8':
+                    $input.css('background-color', '#b9bc00')
+                    break;
+            }
+        }
 
         let timerId = null;
+
+        function afterUpdate ($row, $input, inputValue) {
+            switch ($input.attr('name')) {
+                case 'status':
+                    updateStatusColor($input, inputValue)
+                    break;
+            }
+        }
 
         jQuery('.js-table').on('input', function (e) {
             jQuery('.js-tableHead').addClass('table-wait')
@@ -459,13 +469,13 @@ $fields = $_GET['fields'] ?? [];
 
             timerId = setTimeout(function() {
                 if (performance.now() - lastTime > 500 && inputValue) {
-                    console.log(values);
                     jQuery.ajax({
                         url: '/v1/clients/update',
                         method: 'POST',
                         data: values,
                         success: function (data) {
                             jQuery('.js-tableHead').removeClass('table-wait')
+                            afterUpdate($row, $input, inputValue)
                         }
                     })
                 }

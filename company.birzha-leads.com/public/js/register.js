@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     jQuery('.js-authForm').on('submit', (e) => {
         e.preventDefault();
         var form = jQuery('.js-authForm');
+        var redirect = form.data('redirect')
 
         jQuery.ajax({
             type: 'post',
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     form[0].reset();
                     form.find('button[type=submit]').hide();
                     form.find('.response-success').html('<p>Вы успешно авторизованы</p>');
-                    window.location.href = '/';
+                    window.location.href = redirect ? redirect : '/';
                 }
             },
         })

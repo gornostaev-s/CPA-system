@@ -100,7 +100,7 @@ include __DIR__ . '/../header.php';
 <div class="modal fade" id="addEmployer" tabindex="-1" role="dialog" aria-labelledby="Добавить сотрудника" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="js-authForm" action="/v1/register">
+            <form class="js-authForm" action="/v1/register" data-redirect="/employers">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Добавить сотрудника</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -140,6 +140,10 @@ include __DIR__ . '/../header.php';
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
+        function afterUpdate ($row, $input, inputValue) {
+            console.log($row, $input, inputValue)
+        }
+
         let timerId = null;
 
         jQuery('.js-table').on('input', function (e) {
@@ -160,13 +164,13 @@ include __DIR__ . '/../header.php';
 
             timerId = setTimeout(function() {
                 if (performance.now() - lastTime > 1500 && inputValue) {
-                    console.log(values);
                     jQuery.ajax({
                         url: '/v1/employers/update',
                         method: 'POST',
                         data: values,
                         success: function (data) {
                             jQuery('.js-tableHead').removeClass('table-wait')
+                            afterUpdate($row, $input, inputValue);
                         }
                     })
                 }
