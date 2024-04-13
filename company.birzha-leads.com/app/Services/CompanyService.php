@@ -35,6 +35,10 @@ class CompanyService
     {
         $client = $this->companyRepository->getById($clientUpdateForm->id);
 
+//        echo '<pre>';
+//        var_dump($clientUpdateForm->changedAttributes);
+//        die;
+
         foreach ($clientUpdateForm->changedAttributes as $changedAttribute) {
             if (is_array($clientUpdateForm->$changedAttribute)) {
                 continue;

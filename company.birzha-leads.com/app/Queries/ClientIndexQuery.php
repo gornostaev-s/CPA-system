@@ -82,7 +82,8 @@ class ClientIndexQuery extends QueryBuilder
         !$this->isShowField('phone', $this->request['fields']) ?: $this->addSelect(['phone']);
         !$this->isShowField('comment', $this->request['fields']) ?: $this->addSelect(['c.comment']);
         !$this->isShowField('comment_adm', $this->request['fields']) ?: $this->addSelect(['comment_adm']);
-        !$this->isShowField('submission_date', $this->request['fields']) ?: $this->addSelect(['submission_date']);
+        !$this->isShowField('mode', $this->request['fields']) ?: $this->addSelect(['mode']);
+//        !$this->isShowField('submission_date', $this->request['fields']) ?: $this->addSelect(['submission_date']);
         !$this->isShowField('sent_date', $this->request['fields']) ?: $this->addSelect(['sent_date']);
         !$this->isShowField('registration_exit_date', $this->request['fields']) ?: $this->addSelect(['registration_exit_date']);
         !$this->isShowField('status', $this->request['fields']) ?: $this->addSelect(['c.status']);

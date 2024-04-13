@@ -12,6 +12,7 @@ class ClientUpdateForm extends BaseUpdateForm
     public string $fio;
     public string $address;
     public string $status;
+    public string $mode;
     public string $phone;
 
     public string $submission_date;

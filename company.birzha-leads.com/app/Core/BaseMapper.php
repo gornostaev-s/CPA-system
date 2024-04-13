@@ -103,7 +103,7 @@ class BaseMapper
         $data = [];
 
         foreach ($fields as $field) {
-            if (!empty($entity->$field)) {
+            if (!is_null($entity->$field)) {
                 $data[$field] = $entity->$field;
             }
         }

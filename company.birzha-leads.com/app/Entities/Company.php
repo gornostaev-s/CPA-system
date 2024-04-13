@@ -29,10 +29,10 @@ class Company extends BaseEntity
     public ?string $phone;
     public ?string $comment;
     public ?string $comment_adm;
-    public string $submission_date;
     public ?string $sent_date;
     public string $registration_exit_date;
     public int $status;
+    public int $mode;
     public int $operation_type;
     public int $owner_id;
     public string $created_at;

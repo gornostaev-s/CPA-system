@@ -49,11 +49,13 @@ use App\Helpers\AuthHelper;
                             Статистика
                         </a>
                     </li>
+                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                     <li class="nav-item ">
                         <a class="nav-link <?= ActivePageHelper::check('/funnel', 'active') ?>" href="/funnel">
                             Воронка
                         </a>
                     </li>
+                    <?php } ?>
                     <li class="nav-item ">
                         <a class="nav-link <?= ActivePageHelper::check('/import', 'active') ?>" href="/import">
                             Импорт клиентов

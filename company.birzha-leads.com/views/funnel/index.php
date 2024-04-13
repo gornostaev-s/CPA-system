@@ -42,16 +42,18 @@ include __DIR__ . '/../header.php';
                             <div class="col-6">
                                 <h5>Воронка клиентов</h5>
                             </div>
-                            <div class="col-6 text-right">
-                                <form action="/funnel" class="js-employerSelect">
-                                    <select class="table-form__select employer-select" name="ownerId">
-                                        <option value="0">Выберите сотрудника</option>
-                                        <?php foreach ($data['employers'] as $employer) { ?>
-                                            <option <?= $data['ownerId'] == $employer->id ? 'selected' : ''?> value="<?= $employer->id ?>"><?= $employer->name ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </form>
-                            </div>
+                            <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                <div class="col-6 text-right">
+                                    <form action="/funnel" class="js-employerSelect">
+                                        <select class="table-form__select employer-select" name="ownerId">
+                                            <option value="0">Выберите сотрудника</option>
+                                            <?php foreach ($data['employers'] as $employer) { ?>
+                                                <option <?= $data['ownerId'] == $employer->id ? 'selected' : ''?> value="<?= $employer->id ?>"><?= $employer->name ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </form>
+                                </div>
+                            <?php } ?>
                             <div class="col-12">
                                 <div class="response-errors"></div>
                                 <div class="response-success"></div>
@@ -70,6 +72,7 @@ include __DIR__ . '/../header.php';
                                                 <th class="border-0">Перенести</th>
                                             <?php } ?>
                                             <th class="border-0" style="min-width: 190px;">ФИО</th>
+                                            <th class="border-0" style="min-width: 190px;">ИНН</th>
                                             <th class="border-0" style="min-width: 100px;">Телефон</th>
                                             <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                 <th class="border-0">Сотрудник</th>
@@ -132,7 +135,11 @@ include __DIR__ . '/../header.php';
                                                 </td>
                                                 <td class="modal-table-primary__col text-left">
                                                     <select <?= AttributeCheckHelper::checkEqual($challenger->process_status, ProcessStatus::moved->value, 'disabled') ?> name="process_status" class="table-form__select">
-                                                        <?php foreach (ProcessStatus::cases() as $case) { ?>
+                                                        <?php foreach (ProcessStatus::cases() as $case) {
+                                                            if ($case->value == ProcessStatus::moved->value && !AuthHelper::getAuthUser()?->isAdmin()) {
+                                                                continue;
+                                                            }
+                                                            ?>
                                                             <option value="<?= $case->value ?>" <?= ($challenger->process_status == $case->value) ? 'selected' : ''?>> <?= ProcessStatus::getLabel($case->value) ?></option>
                                                         <?php } ?>
                                                     </select>

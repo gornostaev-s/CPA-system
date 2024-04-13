@@ -5,6 +5,7 @@
 
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
+use App\Entities\Enums\ClientMode;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
 use App\Entities\User;
@@ -80,6 +81,17 @@ $showFields = $_GET['fields'] ?? [];
                                                     ])
                                                     ->setData('Телефон')
                                                     ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
+                                                    ->build()
+                                                ?>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 100px;'
+                                                    ])
+                                                    ->setData('Режим')
+                                                    ->isHide((!empty($showFields) && !in_array('mode', $showFields)))
                                                     ->build()
                                                 ?>
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
@@ -194,6 +206,17 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
                                                         ->build()
                                                     ?>
+                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                        <?php if (!(!empty($showFields) && !in_array('mode', $showFields))) { ?>
+                                                            <td class="modal-table-primary__col text-left">
+                                                                <select name="mode" class="table-form__select">
+                                                                    <?php foreach (ClientMode::cases() as $case) { ?>
+                                                                        <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->mode, $case->value, 'selected') ?>><?= ClientMode::getLabel($case->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </td>
+                                                        <?php } ?>
+                                                    <?php } ?>
                                                     <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                         <?php if (!(!empty($showFields) && !in_array('employer', $showFields))) { ?>
                                                             <td class="modal-table-primary__col text-left">
