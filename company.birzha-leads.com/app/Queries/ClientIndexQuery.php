@@ -52,6 +52,11 @@ class ClientIndexQuery extends QueryBuilder
             ->addFrom('bills')
             ->getQuery()
         ]);
+
+        // #468e002e green
+        // #b1020233 red
+        // #ffc8aa52 yellow
+
         $this->addJoin('LEFT OUTER JOIN sb ON c.id = sb.client_id');
         $this->addSelect(['coalesce(sb.status, 0) as sberbank_status']);
         $this->addSelect(['coalesce(sb.comment, \'\') as sberbank_comment']);

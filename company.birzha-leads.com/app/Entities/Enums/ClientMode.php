@@ -8,10 +8,10 @@ enum ClientMode: int
     case Take = 1; // забрать
     case Design = 2; // оформить
     case Clogged = 3; // забит
-    case Bank = 5; // банк
-    case CameOut = 6; // вышел
-    case Ready = 7; // готово
-    case Reject = 8; // Отказ
+    case Bank = 4; // банк
+    case CameOut = 5; // вышел
+    case Ready = 6; // готово
+    case Reject = 7; // Отказ
 
     public static function getLabel(int $enum): string
     {

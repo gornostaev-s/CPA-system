@@ -176,7 +176,7 @@ $showFields = $_GET['fields'] ?? [];
                                             <?php foreach ($data['companies'] as $company) {
                                                 /** @var $company Company */
                                                 ?>
-                                                <tr class="js-dataRow" data-id="<?= $company->id ?>">
+                                                <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByMode($company->mode) ?>">
                                                     <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
 
                                                     <?= TableColumnHelper::make()
@@ -464,12 +464,42 @@ $fields = $_GET['fields'] ?? [];
             }
         }
 
+        function updateModeColor ($row, inputValue) {
+            switch (inputValue) {
+                case '0':
+                case '1':
+                    $row.css('background-color', 'transparent')
+                    break;
+                case '2':
+                    $row.css('background-color', '#b1020233')
+                    break;
+                case '3':
+                    $row.css('background-color', '#ff800042')
+                    break;
+                case '4':
+                    $row.css('background-color', '#00d80030')
+                    break;
+                case '5':
+                    $row.css('background-color', '#964b0052')
+                    break;
+                case '6':
+                    $row.css('background-color', '#8000ff2b')
+                    break;
+                case '7':
+                    $row.css('background-color', '#006ad52b')
+                    break;
+            }
+        }
+
         let timerId = null;
 
         function afterUpdate ($row, $input, inputValue) {
             switch ($input.attr('name')) {
                 case 'status':
-                    updateStatusColor($input, inputValue)
+                    updateStatusColor($input, inputValue);
+                    break;
+                case 'mode' :
+                    updateModeColor($row, inputValue);
                     break;
             }
         }
