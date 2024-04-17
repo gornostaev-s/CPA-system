@@ -9,7 +9,7 @@ class User extends BaseEntity
 {
     public int $id;
     public int $status;
-    public ?bool $is_admin = false;
+    public ?int $is_admin = 0;
     public string $name;
     public ?string $token;
     public string $email;
