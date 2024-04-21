@@ -12,5 +12,5 @@ class ChallengerCreateForm extends BaseUpdateForm
 //    public int $status = 1;
     public int $operation_type;
     public int $owner_id;
-    public string $address;
+    public string $comment;
 }

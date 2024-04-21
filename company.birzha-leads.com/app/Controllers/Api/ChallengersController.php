@@ -54,7 +54,7 @@ class ChallengersController extends Controller
             "inn" => 'max:255',
             "fio" => 'max:255',
             "phone" => 'max:255',
-            "address" => 'max:255',
+            "comment" => 'max:255',
             "operation_type" => 'integer|max:255',
             "owner_id" => 'integer',
         ]);
