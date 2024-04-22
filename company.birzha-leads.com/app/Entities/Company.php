@@ -45,7 +45,9 @@ class Company extends BaseEntity
 
     public function __construct()
     {
-        $this->setCreatedAt(new DateTime());
+        if (empty($this->id)) {
+            $this->setCreatedAt(new DateTime());
+        }
         $this->setStatus(self::STATUS_NEW);
     }
 

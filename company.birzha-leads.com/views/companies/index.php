@@ -237,7 +237,9 @@ $showFields = $_GET['fields'] ?? [];
                                                             </select>
                                                         </td>
                                                     <?php } ?>
-                                                    <td class="modal-table-primary__col text-left"><?= (new DateTime($company->created_at))->format('d.m.Y') ?></td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <input type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
+                                                    </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>

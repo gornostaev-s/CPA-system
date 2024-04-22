@@ -18,6 +18,7 @@ class ClientUpdateForm extends BaseUpdateForm
     public string $submission_date;
     public string $sent_date;
     public string $registration_exit_date;
+    public string $created_at;
 
     public ?array $alfabank;
     public ?array $tinkoff;

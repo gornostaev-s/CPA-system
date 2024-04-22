@@ -31,6 +31,7 @@ class Challenger extends BaseEntity
         $e->fio = !empty($form->fio) ? $form->fio : null;
         $e->phone = !empty($form->phone) ? $form->phone : null;
         $e->address = !empty($form->address) ? $form->address : null;
+        $e->comment = !empty($form->comment) ? $form->comment : null;
         $e->operation_type = !empty($form->operation_type) ? $form->operation_type : null;
 
         return $e;
