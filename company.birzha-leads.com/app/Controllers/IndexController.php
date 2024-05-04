@@ -39,7 +39,8 @@ class IndexController extends Controller
 
         return $this->view('companies/index', [
             'companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request)),
-            'employers' => $employers
+            'employers' => $employers,
+            'ownerId' => AuthHelper::getAuthUser()->id
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entities\Bill;
 use App\Entities\Company;
 use App\Entities\Enums\BillType;
+use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Repositories\BillRepository;
 use App\Repositories\CompanyRepository;
@@ -18,6 +19,18 @@ class CompanyService
         private readonly BillRepository $billRepository
     )
     {
+    }
+
+    /**
+     * @param ClientCreateForm $form
+     * @return Company
+     */
+    public function add(ClientCreateForm $form): Company
+    {
+        $c = Company::makeFromForm($form);
+        $this->store($c);
+
+        return $c;
     }
 
     public function store(Company $company): void
@@ -34,10 +47,6 @@ class CompanyService
     public function updateFromClientUpdateForm(ClientUpdateForm $clientUpdateForm): void
     {
         $client = $this->companyRepository->getById($clientUpdateForm->id);
-
-//        echo '<pre>';
-//        var_dump($clientUpdateForm->changedAttributes);
-//        die;
 
         foreach ($clientUpdateForm->changedAttributes as $changedAttribute) {
             if (is_array($clientUpdateForm->$changedAttribute)) {

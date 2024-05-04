@@ -35,6 +35,12 @@ $showFields = $_GET['fields'] ?? [];
                                 Отображение полей
                             </button>
                         </div>
+                        <div class="button-container__item">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClient">
+                                Добавить клиента
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -358,6 +364,55 @@ $showFields = $_GET['fields'] ?? [];
 <?php
 $fields = $_GET['fields'] ?? [];
 ?>
+
+<!-- Modal -->
+<div class="modal fade" id="addClient" tabindex="-1" role="dialog" aria-labelledby="Добавить клиента" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="js-clientCreateForm" action="/v1/clients/add">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавить клиента</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <input required class="input-group__text" type="text" name="fio" placeholder="ФИО">
+                    </div>
+                    <div class="input-group">
+                        <input required class="input-group__text" type="text" name="inn" placeholder="ИНН">
+                    </div>
+                    <div class="input-group">
+                        <input required class="input-group__text" type="text" name="phone" placeholder="Телефон">
+                    </div>
+                    <div class="input-group">
+                        <input required class="input-group__text" type="text" name="comment" placeholder="Комментарий">
+                    </div>
+                    <div class="input-group">
+                        <label for="operationType">Тип операции</label>
+                        <select id="operationType" name="operation_type" class="input-group__select">
+                            <?php foreach (OperationType::cases() as $case) { ?>
+                                <option value="<?= $case->value ?>"><?= OperationType::getLabel($case->value) ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <div class="response-errors">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input class="input-group__text" type="hidden" name="owner_id" value="<?= $data['ownerId'] ?>">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="fieldFilter" tabindex="-1" role="dialog" aria-labelledby="Отображение полей" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -445,6 +500,34 @@ $fields = $_GET['fields'] ?? [];
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        jQuery('.js-clientCreateForm').on('submit', function (e) {
+            e.preventDefault();
+            var form = jQuery(this);
+
+            console.log(form.attr('action'));
+
+            jQuery.ajax({
+                type: 'post',
+                url: form.attr('action'),
+                data : form.serialize(),
+                success: function(data){
+                    if(!data.success){
+                        var text = '';
+                        for (var prop in data.errors) {
+                            text += '<p>'+data.errors[prop]+'</p>';
+                        }
+                        if (!text) {
+                            jQuery('.response-errors').html("Возникла ошибка!")
+                        } else {
+                            jQuery('.response-errors').html(text)
+                        }
+                    } else {
+                        window.location.reload();
+                    }
+                },
+            })
+        })
+
         function updateStatusColor ($input, inputValue) {
             switch (inputValue) {
                 case '1':

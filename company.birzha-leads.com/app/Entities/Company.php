@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Core\BaseEntity;
+use App\Entities\Forms\ClientCreateForm;
 use DateTime;
 use Exception;
 
@@ -65,6 +66,21 @@ class Company extends BaseEntity
         if ($status !== null) {
             $e->status = $status;
         }
+
+        return $e;
+    }
+
+    public static function makeFromForm(
+        ClientCreateForm $form
+    ): Company
+    {
+        $e = new self;
+        $e->owner_id = $form->owner_id;
+        $e->inn = !empty($form->inn) ? $form->inn : null;
+        $e->fio = !empty($form->fio) ? $form->fio : null;
+        $e->phone = !empty($form->phone) ? $form->phone : null;
+        $e->comment = !empty($form->comment) ? $form->comment : null;
+        $e->operation_type = !empty($form->operation_type) ? $form->operation_type : null;
 
         return $e;
     }

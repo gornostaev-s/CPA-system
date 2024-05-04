@@ -3,7 +3,10 @@
 namespace App\Controllers\Api;
 
 use App\Core\Controller;
+use App\Entities\Forms\ChallengerCreateForm;
+use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
+use App\Helpers\ApiHelper;
 use App\Services\CompanyService;
 use App\Utils\ValidationUtil;
 
@@ -13,6 +16,23 @@ class ClientsController extends Controller
         private readonly CompanyService $companyService
     )
     {
+        parent::__construct();
+    }
+
+    public function add(): bool|string
+    {
+        $request = ValidationUtil::validate($_POST,[
+            "inn" => 'max:255',
+            "fio" => 'max:255',
+            "phone" => 'max:255',
+            "comment" => 'max:255',
+            "operation_type" => 'integer|max:255',
+            "owner_id" => 'integer',
+        ]);
+
+        $client = $this->companyService->add(ClientCreateForm::makeFromRequest($request));
+
+        return ApiHelper::sendSuccess(['inn' => $client->inn]);
     }
 
     public function update()
