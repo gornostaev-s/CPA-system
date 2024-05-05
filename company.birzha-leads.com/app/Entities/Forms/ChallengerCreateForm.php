@@ -13,4 +13,9 @@ class ChallengerCreateForm extends BaseUpdateForm
     public int $operation_type;
     public int $owner_id;
     public string $comment;
+
+    protected function afterLoad(): void
+    {
+        $this->phone = str_replace(['(', ')', '-', ' ', '+'], '', $this->phone);
+    }
 }
