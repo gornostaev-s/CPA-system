@@ -179,7 +179,7 @@ include __DIR__ . '/../header.php';
                             <input required class="input-group__text" type="text" name="inn" placeholder="ИНН">
                         </div>
                         <div class="input-group">
-                            <input required class="input-group__text" type="text" name="phone" placeholder="Телефон">
+                            <input required class="input-group__text js-phone" type="text" name="phone" placeholder="Телефон">
                         </div>
                         <div class="input-group">
                             <input required class="input-group__text" type="text" name="comment" placeholder="Комментарий">

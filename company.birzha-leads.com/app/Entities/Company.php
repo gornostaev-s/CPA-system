@@ -49,7 +49,7 @@ class Company extends BaseEntity
         if (empty($this->id)) {
             $this->setCreatedAt(new DateTime());
         }
-        $this->setStatus(self::STATUS_NEW);
+        $this->setStatus(self::STATUS_DEFAULT);
     }
 
     public function getTableName(): string

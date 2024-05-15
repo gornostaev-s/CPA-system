@@ -46,6 +46,5 @@ abstract class BaseUpdateForm
 
     protected function afterLoad(): void
     {
-        echo 234; die;
     }
 }
