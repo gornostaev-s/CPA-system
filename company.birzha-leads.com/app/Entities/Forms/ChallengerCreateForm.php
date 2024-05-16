@@ -3,6 +3,7 @@
 namespace App\Entities\Forms;
 
 use App\Core\BaseUpdateForm;
+use App\Helpers\PhoneHelper;
 
 class ChallengerCreateForm extends BaseUpdateForm
 {
@@ -16,6 +17,6 @@ class ChallengerCreateForm extends BaseUpdateForm
 
     protected function afterLoad(): void
     {
-        $this->phone = str_replace(['(', ')', '-', ' ', '+'], '', $this->phone);
+        $this->phone = PhoneHelper::phoneToInt($this->phone);
     }
 }

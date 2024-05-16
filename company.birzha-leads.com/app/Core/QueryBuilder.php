@@ -87,6 +87,11 @@ abstract class QueryBuilder
         ]);
     }
 
+    public function prepare($value): string
+    {
+        return $this->db->quote($value);
+    }
+
     /**
      * @return string
      */
@@ -112,8 +117,12 @@ abstract class QueryBuilder
         $count = count($this->where);
 
         foreach ($this->where as $key => $value) {
-            $val = is_int($value) ? $value : $this->db->quote($value);
-            $where .= "`$key`=" . $val;
+            if (is_int($key)) {
+                $where .= " $value ";
+            } else {
+                $val = is_int($value) ? $value : $this->db->quote($value);
+                $where .= "`$key`=" . $val;
+            }
             if($i < $count){
                 $where .= ' ' . $operator . ' ';
             }

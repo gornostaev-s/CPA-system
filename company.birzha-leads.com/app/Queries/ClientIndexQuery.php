@@ -5,6 +5,7 @@ namespace App\Queries;
 use App\Core\Query;
 use App\Core\QueryBuilder;
 use App\Helpers\AuthHelper;
+use App\Helpers\PhoneHelper;
 use ReflectionException;
 
 class ClientIndexQuery extends QueryBuilder
@@ -21,7 +22,7 @@ class ClientIndexQuery extends QueryBuilder
     /**
      * @throws ReflectionException
      */
-    public function build(array $request): string
+    public function build(): string
     {
         $this->addWith(['ab' => Query::make()
             ->addSelect(['*'])
@@ -53,14 +54,19 @@ class ClientIndexQuery extends QueryBuilder
             ->getQuery()
         ]);
 
-        // #468e002e green
-        // #b1020233 red
-        // #ffc8aa52 yellow
-
         $this->addJoin('LEFT OUTER JOIN sb ON c.id = sb.client_id');
         $this->addSelect(['coalesce(sb.status, 0) as sberbank_status']);
         $this->addSelect(['coalesce(sb.comment, \'\') as sberbank_comment']);
         $this->addSelect(['sb.date as sberbank_date']);
+
+        if (!empty($this->request['phone'])) {
+            $phone = PhoneHelper::phoneToInt($this->request['phone']);
+            $this->addWhere(["phone LIKE '%$phone%'"]);
+        }
+
+        if (!empty($this->request['inn'])) {
+            $this->addWhere(["inn LIKE '%{$this->request['inn']}%'"]);
+        }
 
         $this->addWith(['pb' => Query::make()
             ->addSelect(['*'])
@@ -99,6 +105,10 @@ class ClientIndexQuery extends QueryBuilder
         }
 
         $this->addFrom('companies c');
+
+//        echo '<pre>';
+//        var_dump($this->getQuery());
+//        die;
 
         return $this->getQuery();
     }

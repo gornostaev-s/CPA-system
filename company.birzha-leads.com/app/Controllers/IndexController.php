@@ -32,6 +32,8 @@ class IndexController extends Controller
     {
         $request = ValidationUtil::validate($_POST,[
             "fields" => 'max:255',
+            'phone' => 'max:255',
+            'inn' => 'max:255',
             "date_interval" => 'max:255',
         ]);
 

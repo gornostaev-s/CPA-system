@@ -28,18 +28,35 @@ $showFields = $_GET['fields'] ?? [];
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="card button-container">
-                        <div class="button-container__item">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fieldFilter">
-                                Отображение полей
-                            </button>
-                        </div>
-                        <div class="button-container__item">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClient">
-                                Добавить клиента
-                            </button>
+                    <div class="header-container">
+                        <div class="card button-container">
+                            <div class="button-container__item">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fieldFilter">
+                                    Отображение полей
+                                </button>
+                            </div>
+                            <div class="button-container__item">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClient">
+                                    Добавить клиента
+                                </button>
+                            </div>
+                            <div class="button-container__item button-container_search">
+                                <form class="search-panel" method="POST" action="/">
+                                    <div class="search-panel__group">
+                                        <input <?= !empty($_POST['inn']) ? "value=\"{$_POST['inn']}\"" : ''?> type="text" class="search-panel__text" name="inn" placeholder="ИНН">
+                                    </div>
+                                    <div class="search-panel__group">
+                                        <input <?= !empty($_POST['phone']) ? "value=\"{$_POST['phone']}\"" : ''?> type="text" class="search-panel__text" name="phone" placeholder="Телефон">
+                                    </div>
+                                    <div class="search-panel__group">
+                                        <button type="submit" class="btn btn-primary">
+                                            Показать
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
