@@ -12,6 +12,7 @@ use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
 use App\Helpers\CompanyColorHelper;
+use App\Helpers\FormHelper;
 use App\Helpers\TableColumnHelper;
 
 include __DIR__ . '/../header.php';
@@ -43,12 +44,13 @@ $showFields = $_GET['fields'] ?? [];
                                 </button>
                             </div>
                             <div class="button-container__item button-container_search">
-                                <form class="search-panel" method="POST" action="/">
+                                <form class="search-panel" method="GET" action="/">
+                                    <?= FormHelper::formShowInputs() ?>
                                     <div class="search-panel__group">
-                                        <input <?= !empty($_POST['inn']) ? "value=\"{$_POST['inn']}\"" : ''?> type="text" class="search-panel__text" name="inn" placeholder="ИНН">
+                                        <input <?= !empty($_GET['inn']) ? "value=\"{$_GET['inn']}\"" : ''?> type="text" class="search-panel__text" name="inn" placeholder="ИНН">
                                     </div>
                                     <div class="search-panel__group">
-                                        <input <?= !empty($_POST['phone']) ? "value=\"{$_POST['phone']}\"" : ''?> type="text" class="search-panel__text" name="phone" placeholder="Телефон">
+                                        <input <?= !empty($_GET['phone']) ? "value=\"{$_GET['phone']}\"" : ''?> type="text" class="search-panel__text" name="phone" placeholder="Телефон">
                                     </div>
                                     <div class="search-panel__group">
                                         <button type="submit" class="btn btn-primary">
@@ -435,6 +437,7 @@ $fields = $_GET['fields'] ?? [];
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="/">
+                <?= FormHelper::formSearchInput() ?>
                 <div class="modal-header">
                     <h5 class="modal-title">Отображение полей</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

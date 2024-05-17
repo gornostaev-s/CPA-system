@@ -30,7 +30,7 @@ class IndexController extends Controller
 
     public function index(): bool|string
     {
-        $request = ValidationUtil::validate($_POST,[
+        $request = ValidationUtil::validate($_GET, [
             "fields" => 'max:255',
             'phone' => 'max:255',
             'inn' => 'max:255',
