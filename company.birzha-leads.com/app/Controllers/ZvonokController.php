@@ -53,11 +53,6 @@ class ZvonokController extends Controller
      */
     public function index(): bool|string
     {
-        $this->zvonokClientRepository->save(ZvonokClient::make(
-            '+74445556677',
-            (int)'23'
-        ));
-
         return $this->view('skorozvon/index', [
             'clients' => $this->zvonokClientRepository->getAllClients(),
         ]);

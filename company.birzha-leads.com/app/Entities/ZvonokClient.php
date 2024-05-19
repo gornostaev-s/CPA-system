@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Core\BaseEntity;
+use DateTime;
 
 class ZvonokClient extends BaseEntity
 {
@@ -12,6 +13,12 @@ class ZvonokClient extends BaseEntity
     public string $created_at;
     public int $status;
 
+    public function __construct()
+    {
+        if (empty($this->created_at)) {
+            $this->setCreatedAt((new DateTime())->format('Y-m-d H:i:s'));
+        }
+    }
 
     public function getTableName(): string
     {
@@ -25,5 +32,13 @@ class ZvonokClient extends BaseEntity
         $e->project_id = $projectId;
 
         return $e;
+    }
+
+    /**
+     * @param string $created_at
+     */
+    public function setCreatedAt(string $created_at): void
+    {
+        $this->created_at = $created_at;
     }
 }
