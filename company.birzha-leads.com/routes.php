@@ -20,6 +20,7 @@ Router::route('/employers', [EmployersController::class, 'index']);
 Router::route('/import-process', [IndexController::class, 'import']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
 Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
+Router::route('/skorozvon-integration', [ZvonokController::class, 'index']);
 Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
 Router::route('/login', [AuthController::class, 'login']);
 Router::route('/registration', [AuthController::class, 'registration']);

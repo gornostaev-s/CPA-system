@@ -13,6 +13,7 @@ use App\Helpers\AuthHelper;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css?v=1">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/assets/libs/css/style.css">
     <link rel="stylesheet" href="/assets/libs/css/main.css?v=5">
     <title>Панель администратора</title>
@@ -58,6 +59,13 @@ use App\Helpers\AuthHelper;
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/import', 'active') ?>" href="/import">
                                 Импорт клиентов
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/skorozvon-integration', 'active') ?>" href="/skorozvon-integration">
+                                Интеграция (звонок - скорозвон)
                             </a>
                         </li>
                     <?php } ?>

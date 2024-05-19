@@ -47,6 +47,9 @@ $showFields = $_GET['fields'] ?? [];
                                 <form class="search-panel" method="GET" action="/">
                                     <?= FormHelper::formShowInputs() ?>
                                     <div class="search-panel__group">
+                                        <input type="text" class="js-date search-panel__text" name="datetime" />
+                                    </div>
+                                    <div class="search-panel__group">
                                         <input <?= !empty($_GET['inn']) ? "value=\"{$_GET['inn']}\"" : ''?> type="text" class="search-panel__text" name="inn" placeholder="ИНН">
                                     </div>
                                     <div class="search-panel__group">
@@ -520,6 +523,9 @@ $fields = $_GET['fields'] ?? [];
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        jQuery('.js-date').daterangepicker();
+
         jQuery('.js-clientCreateForm').on('submit', function (e) {
             e.preventDefault();
             var form = jQuery(this);
