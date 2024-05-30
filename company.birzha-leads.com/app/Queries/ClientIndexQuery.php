@@ -107,14 +107,14 @@ class ClientIndexQuery extends QueryBuilder
 
         $this->addFrom('companies c');
 
-        $dateInterval = !empty($this->request['date_interval']) ? DateTimeInputHelper::getIntervalFromString($this->request['date_interval'], 'Y-m-d') : DateTimeInputHelper::getDefaultInterval('Y-m-d');
+        $dateInterval = !empty($this->request['datetime']) ? DateTimeInputHelper::getIntervalFromString($this->request['datetime'], 'Y-m-d') : DateTimeInputHelper::getDefaultInterval('Y-m-d');
         $this->addWhere(["c.created_at >= '{$dateInterval['startDate']} 00:00:00'"]);
-        $this->addWhere(["c.created_at <= '{$dateInterval['endDate']} 00:00:00'"]);
+        $this->addWhere(["c.created_at <= '{$dateInterval['endDate']} 23:59:59'"]);
 
         return $this->getQuery();
     }
 
-    private function isShowField(string $field, $fields)
+    private function isShowField(string $field, $fields): bool
     {
         return !(!empty($fields) && !in_array($field, $fields));
     }

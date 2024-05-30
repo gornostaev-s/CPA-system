@@ -35,7 +35,7 @@ class IndexController extends Controller
             "fields" => 'max:255',
             'phone' => 'max:255',
             'inn' => 'max:255',
-            "date_interval" => 'max:255',
+            "datetime" => 'max:255',
         ]);
 
         $employers = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getAllActiveUsers() : [] ;
