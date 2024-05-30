@@ -44,7 +44,7 @@ class TableColumnHelper
 
     public function build(): string
     {
-        return $this->hide ? '' : strtr("<{tag}{attributes}>{data}</{tag}>", [
+        return $this->hide ? '' : strtr("<{tag}{attributes}><span>{data}</span></{tag}>", [
             "{tag}" => $this->tag,
             "{data}" => $this->data,
             "{attributes}" => $this->prepareAttributes()

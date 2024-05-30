@@ -72,12 +72,16 @@ $showFields = $_GET['fields'] ?? [];
                         <h5 class="card-header">Клиенты</h5>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <div class="table-responsive">
+                                <div class="table-responsive js-tableScroll">
                                     <form action="/clients" class="table-form">
                                         <table class="table js-table">
                                             <thead class="bg-light js-tableHead">
                                             <tr class="border-0">
-                                                <th rowspan="2" class="border-0 column-num">#</th>
+                                                <th rowspan="2" class="border-0 column-num">
+                                                    <span>
+                                                        #
+                                                    </span>
+                                                </th>
                                                 <?= TableColumnHelper::make()
                                                     ->setTag('th')
                                                     ->setAttributes([
@@ -146,8 +150,8 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0" style="min-width: min-content;">Дата создания</th>
-                                                <th rowspan="2" class="border-0" style="min-width: 75px;">Статус</th>
+                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата создания</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
                                                 <?= TableColumnHelper::make()
                                                     ->setTag('th')
                                                     ->setAttributes([
@@ -170,34 +174,34 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0">Комментарий</th>
-                                                <th rowspan="2" class="border-0">Комментарий (адм)</th>
+                                                <th rowspan="2" class="border-0"><span>Комментарий</span></th>
+                                                <th rowspan="2" class="border-0"><span>Комментарий (адм)</span></th>
 <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
-                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата отп</th>
-                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата вых</th>
-                                                <th colspan="4" class="border-0">Альфа банк</th>
-                                                <th colspan="3" class="border-0">Тинькофф банк</th>
-                                                <th colspan="3" class="border-0">Сбербанк</th>
-                                                <th colspan="3" class="border-0">ПСБ</th>
+                                                <th rowspan="2" class="border-0" style="min-width: 90px;"><span> отп</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 90px;"><span>Дата вых</span></th>
+                                                <th colspan="4" class="border-0"><span>Альфа банк</span></th>
+                                                <th colspan="3" class="border-0"><span>Тинькофф банк</span></th>
+                                                <th colspan="3" class="border-0"><span>Сбербанк</span></th>
+                                                <th colspan="3" class="border-0"><span>ПСБ</span></th>
                                             </tr>
                                             <tr>
                                                 <!-- Альфа банк -->
-                                                <th>Статус</th>
-                                                <th style="min-width: 90px;">Дата</th>
-                                                <th>Комментарий</th>
-                                                <th>Партнерка</th>
+                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th><span>Комментарий</span></th>
+                                                <th><span>Партнерка</span></th>
                                                 <!-- Тинькофф банк -->
-                                                <th>Статус</th>
-                                                <th style="min-width: 90px;">Дата</th>
-                                                <th>Комментарий</th>
+                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th><span>Комментарий</span></th>
                                                 <!-- Сбербанк -->
-                                                <th>Статус</th>
-                                                <th style="min-width: 90px;">Дата</th>
-                                                <th>Комментарий</th>
+                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th><span>Комментарий</span></th>
                                                 <!-- ПСБ -->
-                                                <th>Статус</th>
-                                                <th style="min-width: 90px;">Дата</th>
-                                                <th>Комментарий</th>
+                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th><span>Комментарий</span></th>
                                             </tr>
                                             </thead>
                                             <tbody class="js-orders">
@@ -314,7 +318,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="alfabank[date]" class="table-form__text" value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>">
+                                                        <input type="date" name="alfabank[date]" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="alfabank[comment]" value="<?= $company->alfabank->comment ?>" class="table-form__text">
@@ -335,7 +339,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="tinkoff[date]" class="table-form__text" value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>">
+                                                        <input type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
@@ -349,7 +353,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="sberbank[date]" class="table-form__text" value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>">
+                                                        <input type="date" name="sberbank[date]" class="table-form__text" <?php if (!empty($company->sberbank->date)) { ?> value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>" <?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="sberbank[comment]" value="<?= $company->sberbank->comment ?>" class="table-form__text">
@@ -363,7 +367,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="psb[date]" class="table-form__text" value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>">
+                                                        <input type="date" name="psb[date]" class="table-form__text" <?php if (!empty($company->psb->date)) { ?>value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>" <?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="psb[comment]" value="<?= $company->psb->comment ?>" class="table-form__text">
@@ -523,6 +527,34 @@ $fields = $_GET['fields'] ?? [];
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        jQuery('.js-tableScroll').on('scroll', function (e) {
+            console.log(e.target.scrollTop)
+            if (e.target.scrollTop > 10) {
+                jQuery('.js-tableHead').addClass("thead-sticky");
+                jQuery(e).find('span').css('top',  e.target.scrollTop + 'px')
+            } else {
+                jQuery(e).find('span').css('top',  0)
+                jQuery('.js-tableHead').removeClass("thead-sticky");
+            }
+        })
+        // window.onscroll = function() {scrollTableHeader()};
+        // const $header = jQuery('thead');
+        //
+        // function scrollTableHeader() {
+        //     $header.each(function (i, e) {
+        //         console.log(jQuery(document).scrollTop())
+        //         if (jQuery(document).scrollTop() > jQuery(e).offset().top) {
+        //             const $win = jQuery(window);
+        //             jQuery(e).addClass("thead-sticky");
+        //             jQuery(e).find('span').css('top',  $win.scrollTop() - jQuery(e).offset().top + 'px')
+        //         } else {
+        //             jQuery(e).find('span').css('top',  0)
+        //             jQuery(e).removeClass("thead-sticky");
+        //         }
+        //     })
+        // }
+    })
+    document.addEventListener('DOMContentLoaded', function () {
 
         jQuery('.js-date').daterangepicker();
 
@@ -647,6 +679,16 @@ $fields = $_GET['fields'] ?? [];
         })
     })
 </script>
+
+<style>
+    .thead-sticky {
+        position: relative;
+    }
+
+    .thead-sticky span {
+        position: relative;
+    }
+</style>
 
 <?php
 include __DIR__ . '/../footer.php';
