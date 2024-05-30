@@ -12,6 +12,7 @@ use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
 use App\Helpers\CompanyColorHelper;
+use App\Helpers\DateTimeInputHelper;
 use App\Helpers\FormHelper;
 use App\Helpers\TableColumnHelper;
 
@@ -47,7 +48,7 @@ $showFields = $_GET['fields'] ?? [];
                                 <form class="search-panel" method="GET" action="/">
                                     <?= FormHelper::formShowInputs() ?>
                                     <div class="search-panel__group">
-                                        <input type="text" class="js-date search-panel__text" name="datetime" />
+                                        <input type="text" class="js-date search-panel__text" value="<?= !empty($_GET['datetime']) ? $_GET['datetime'] : DateTimeInputHelper::getDefaultIntervalString() ?>" name="datetime" />
                                     </div>
                                     <div class="search-panel__group">
                                         <input <?= !empty($_GET['inn']) ? "value=\"{$_GET['inn']}\"" : ''?> type="text" class="search-panel__text" name="inn" placeholder="ИНН">
@@ -304,10 +305,10 @@ $showFields = $_GET['fields'] ?? [];
                                                         <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="sent_date" class="table-form__text" value="<?= (new DateTime($company->sent_date))->format('Y-m-d') ?>">
+                                                        <input type="date" name="sent_date" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->sent_date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="registration_exit_date" class="table-form__text" value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>">
+                                                        <input type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <!-- Альфа банк -->
                                                     <td class="modal-table-primary__col text-left">
@@ -527,14 +528,14 @@ $fields = $_GET['fields'] ?? [];
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const $head = jQuery('.js-tableHead');
         jQuery('.js-tableScroll').on('scroll', function (e) {
-            console.log(e.target.scrollTop)
             if (e.target.scrollTop > 10) {
-                jQuery('.js-tableHead').addClass("thead-sticky");
-                jQuery(e).find('span').css('top',  e.target.scrollTop + 'px')
+                $head.addClass("thead-sticky");
+                $head.find('span').css('top',  e.target.scrollTop + 'px')
             } else {
-                jQuery(e).find('span').css('top',  0)
-                jQuery('.js-tableHead').removeClass("thead-sticky");
+                $head.find('span').css('top',  0)
+                $head.removeClass("thead-sticky");
             }
         })
         // window.onscroll = function() {scrollTableHeader()};
@@ -556,7 +557,11 @@ $fields = $_GET['fields'] ?? [];
     })
     document.addEventListener('DOMContentLoaded', function () {
 
-        jQuery('.js-date').daterangepicker();
+        jQuery('.js-date').daterangepicker({
+            locale: {
+                format: 'DD.MM.YYYY'
+            }
+        });
 
         jQuery('.js-clientCreateForm').on('submit', function (e) {
             e.preventDefault();
@@ -685,8 +690,16 @@ $fields = $_GET['fields'] ?? [];
         position: relative;
     }
 
+    .table thead.thead-sticky th {
+        padding: 0px;
+    }
+
     .thead-sticky span {
         position: relative;
+        display: block;
+        background-color: #e6e6f5;
+        padding-left: 3px;
+        padding-bottom: 5px;
     }
 </style>
 
