@@ -108,8 +108,8 @@ class ClientIndexQuery extends QueryBuilder
         $this->addFrom('companies c');
 
         $dateInterval = !empty($this->request['date_interval']) ? DateTimeInputHelper::getIntervalFromString($this->request['date_interval']) : DateTimeInputHelper::getDefaultInterval();
-        $this->addWhere(["create_date >= '{$dateInterval['startDate']} 00:00:00'"]);
-        $this->addWhere(["create_date <= '{$dateInterval['endDate']} 00:00:00'"]);
+        $this->addWhere(["created_at >= '{$dateInterval['startDate']} 00:00:00'"]);
+        $this->addWhere(["created_at <= '{$dateInterval['endDate']} 00:00:00'"]);
 
         return $this->getQuery();
     }
