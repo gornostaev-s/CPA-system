@@ -16,18 +16,18 @@ class DateTimeInputHelper
         return "{$startDate->format('d.m.Y')} - {$endDate->format('d.m.Y')}";
     }
 
-    public static function getDefaultInterval(): array
+    public static function getDefaultInterval($format = 'd.m.Y'): array
     {
         $startDate = (new DateTimeImmutable())->modify('-'.self::DEFAULT_INTERVAL.' days');
         $endDate = (new DateTimeImmutable());
 
         return [
-            'startDate' => $startDate->format('d.m.Y'),
-            'endDate' => $endDate->format('d.m.Y')
+            'startDate' => $startDate->format($format),
+            'endDate' => $endDate->format($format)
         ];
     }
 
-    public static function getIntervalFromString(string $dateTimeInterval): array
+    public static function getIntervalFromString(string $dateTimeInterval, $format = 'd.m.Y'): array
     {
         preg_match_all('/(.+) - (.+)/', $dateTimeInterval, $m);
 
@@ -35,8 +35,8 @@ class DateTimeInputHelper
         $endDate = $m[2][0];
 
         return [
-            'startDate' => $startDate,
-            'endDate' => $endDate
+            'startDate' => (new DateTimeImmutable($startDate))->format($format),
+            'endDate' => (new DateTimeImmutable($endDate))->format($format)
         ];
     }
 }
