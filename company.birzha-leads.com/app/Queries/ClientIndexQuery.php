@@ -5,6 +5,7 @@ namespace App\Queries;
 use App\Core\Query;
 use App\Core\QueryBuilder;
 use App\Helpers\AuthHelper;
+use App\Helpers\DateTimeInputHelper;
 use App\Helpers\PhoneHelper;
 use ReflectionException;
 
@@ -106,9 +107,9 @@ class ClientIndexQuery extends QueryBuilder
 
         $this->addFrom('companies c');
 
-//        echo '<pre>';
-//        var_dump($this->getQuery());
-//        die;
+        $dateInterval = !empty($this->request['date_interval']) ? DateTimeInputHelper::getIntervalFromString($this->request['date_interval']) : DateTimeInputHelper::getDefaultInterval();
+        $this->addWhere(["create_date >= '{$dateInterval['startDate']} 00:00:00'"]);
+        $this->addWhere(["create_date <= '{$dateInterval['endDate']} 00:00:00'"]);
 
         return $this->getQuery();
     }
