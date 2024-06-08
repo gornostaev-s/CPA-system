@@ -9,9 +9,13 @@ use App\Entities\Enums\OperationType;
 use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\BillHelper;
+use App\Helpers\ClientHelper;
 
 /** @var BillHelper $billHelper */
 $billHelper = $data['billHelper'];
+
+/** @var ClientHelper $clientHelper */
+$clientHelper = $data['clientHelper'];
 
 include __DIR__ . '/../header.php';
 ?>
@@ -81,10 +85,10 @@ include __DIR__ . '/../header.php';
                                                         <input type="text" name="inn" value="<?= $employer->email ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        0
+                                                        <?= $clientHelper->getClientsCountByUserId($employer->id) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id) ?>
+                                                        <?= $billHelper->getOpenBillsCountByUserId($employer->id) ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

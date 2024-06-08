@@ -153,4 +153,11 @@ class CompanyRepository
 
         return (new Company())->load($queryRes);
     }
+
+    public function getClientsCountByUserId(int $userId)
+    {
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM companies c WHERE c.owner_id = $userId")->fetch();
+
+        return $queryRes['count'];
+    }
 }

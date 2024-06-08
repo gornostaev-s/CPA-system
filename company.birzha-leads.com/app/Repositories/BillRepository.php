@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Core\BaseMapper;
 use App\Entities\Bill;
+use App\Entities\Enums\BillStatus;
 use ReflectionException;
 
 class BillRepository
@@ -36,9 +37,9 @@ class BillRepository
         return !empty($queryRes) ? $this->prepareBill($queryRes) : null;
     }
 
-    public function getBillsCountByUserId(int $userId)
+    public function getOpenBillsCountByUserId(int $userId)
     {
-        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM companies c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId")->fetch();
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM companies c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value)->fetch();
 
         return $queryRes['count'];
     }
