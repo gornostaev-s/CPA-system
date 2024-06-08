@@ -8,6 +8,10 @@ use App\Entities\Enums\EmployersStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
+use App\Helpers\BillHelper;
+
+/** @var BillHelper $billHelper */
+$billHelper = $data['billHelper'];
 
 include __DIR__ . '/../header.php';
 ?>
@@ -80,7 +84,7 @@ include __DIR__ . '/../header.php';
                                                         0
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        0
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id) ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

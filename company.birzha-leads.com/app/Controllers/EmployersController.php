@@ -3,18 +3,28 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Helpers\BillHelper;
 use App\Repositories\UserRepository;
+use ReflectionException;
 
 class EmployersController extends Controller
 {
     public function __construct(
-        private readonly UserRepository $userRepository
+        private readonly UserRepository $userRepository,
+        private readonly BillHelper $billHelper
     )
     {
     }
 
+    /**
+     * @return bool|string
+     * @throws ReflectionException
+     */
     public function index(): bool|string
     {
-        return $this->view('employers/index', ['employers' => $this->userRepository->getEmployers()]);
+        return $this->view('employers/index', [
+            'employers' => $this->userRepository->getEmployers(),
+            'billHelper' => $this->billHelper
+        ]);
     }
 }
