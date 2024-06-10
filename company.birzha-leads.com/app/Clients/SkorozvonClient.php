@@ -37,19 +37,22 @@ class SkorozvonClient
      * @param int $projectId
      * @param string $phone
      * @param string $name
+     * @param string $tag
      * @return int|null
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
+     * @throws RedisException
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function addLead(int $projectId, string $phone, string $name = ''): ?int
+    public function addLead(int $projectId, string $phone, string $name = '', string $tag = ''): ?int
     {
         $res = $this->client->request('POST', 'https://app.skorozvon.ru/api/v2/leads', [
             'body' => [
                 "name" => $name,
                 "phones" => $phone,
-                "call_project_id" => $projectId
+                "call_project_id" => $projectId,
+                "tags" => $tag
             ],
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->getToken()

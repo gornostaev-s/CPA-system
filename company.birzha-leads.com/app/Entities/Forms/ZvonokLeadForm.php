@@ -6,6 +6,7 @@ class ZvonokLeadForm
 {
     public string $name;
     public string $phone;
+    public string $tag;
     public int $projectId;
 
     public static function makeFromRequest(array $request): ZvonokLeadForm
@@ -13,6 +14,7 @@ class ZvonokLeadForm
         $e = new self;
         $e->name = $request['phone'];
         $e->phone = $request['phone'];
+        $e->tag = $request['tag'];
 
         return $e;
     }

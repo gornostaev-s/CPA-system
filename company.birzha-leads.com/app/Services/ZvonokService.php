@@ -36,7 +36,8 @@ class ZvonokService
         $this->skorozvonClient->addLead(
             $zvonokLeadForm->projectId,
             $zvonokLeadForm->phone,
-            $zvonokLeadForm->name
+            $zvonokLeadForm->name,
+            $zvonokLeadForm->tag
         );
     }
 }
