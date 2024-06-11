@@ -35,7 +35,7 @@ class ZvonokController extends Controller
         $request = ValidationUtil::validate($_GET,[
             "phone" => 'max:255',
             "projectId" => 'integer|default:102862',
-            "tag" => 'max:255' // {ct_campaign_id}
+            "tag" => 'max:255|default:\'\'' // {ct_campaign_id}
         ]);
 
         $this->zvonokClientRepository->save(ZvonokClient::make(
