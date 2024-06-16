@@ -3,6 +3,7 @@
 use App\Controllers\Api\ChallengersController;
 use App\Controllers\Api\ClientsController;
 use App\Controllers\FunnelController;
+use App\Controllers\StatController;
 use App\Controllers\ZvonokController;
 use App\Controllers\EmployersController;
 use App\Controllers\HeadHunterController;
@@ -15,15 +16,16 @@ $request = $_SERVER['REQUEST_URI'];
 
 Router::route('/', [IndexController::class, 'index'], AuthMiddleware::class);
 Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
-Router::route('/import', [IndexController::class, 'importForm']);
-Router::route('/employers', [EmployersController::class, 'index']);
-Router::route('/import-process', [IndexController::class, 'import']);
-Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
-Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
-Router::route('/skorozvon-integration', [ZvonokController::class, 'index']);
-Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
+Router::route('/import', [IndexController::class, 'importForm'], AuthMiddleware::class);
+Router::route('/employers', [EmployersController::class, 'index'], AuthMiddleware::class);
+Router::route('/import-process', [IndexController::class, 'import'], AuthMiddleware::class);
+Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], AuthMiddleware::class);
+Router::route('/stat', [StatController::class, 'index'], AuthMiddleware::class);
+//Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
 Router::route('/login', [AuthController::class, 'login']);
 Router::route('/registration', [AuthController::class, 'registration']);
+Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
+Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
 
 /**
  * Api routes

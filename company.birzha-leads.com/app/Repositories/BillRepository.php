@@ -44,6 +44,15 @@ class BillRepository
         return $queryRes['count'];
     }
 
+    public function getBillsCountByUserId(int $userId, int $type = null)
+    {
+        $typeQuery = $type ? " AND b.type=$type" : '';
+
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM companies c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value . $typeQuery)->fetch();
+
+        return $queryRes['count'];
+    }
+
     /**
      * @param array $queryRes
      * @return Bill|null
