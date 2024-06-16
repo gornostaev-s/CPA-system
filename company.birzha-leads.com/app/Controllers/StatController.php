@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Helpers\AuthHelper;
 use App\Helpers\BillHelper;
 use App\Helpers\ClientHelper;
 use App\Repositories\UserRepository;
@@ -25,8 +26,10 @@ class StatController extends Controller
      */
     public function index(): bool|string
     {
+        $user = AuthHelper::getAuthUser();
+        $isAdmin = $user?->isAdmin();
         return $this->view('stat/index', [
-            'employers' => $this->userRepository->getEmployers(),
+            'employers' => !$isAdmin ? [$this->userRepository->getUserById($user->id)] : $this->userRepository->getEmployers(),
             'billHelper' => $this->billHelper,
             'clientHelper' => $this->clientHelper,
         ]);

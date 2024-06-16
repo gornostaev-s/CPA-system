@@ -24,7 +24,6 @@ class FunnelController extends Controller
         $isAdmin = $user?->isAdmin();
         $employers = [];
 
-
         if ($isAdmin) {
             $request = ValidationUtil::validate($_GET,[
                 "ownerId" => 'integer|max:255',
