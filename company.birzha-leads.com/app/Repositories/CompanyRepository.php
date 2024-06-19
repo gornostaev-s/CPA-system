@@ -58,7 +58,7 @@ class CompanyRepository
     {
         $queryRes = $this->mapper->db->query("SELECT * FROM companies WHERE id = $id LIMIT 1")->fetch();
 
-        return $this->prepareCompany($queryRes);
+        return !$queryRes ? null : $this->prepareCompany($queryRes);
     }
 
     /**

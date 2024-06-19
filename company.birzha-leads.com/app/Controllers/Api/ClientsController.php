@@ -44,7 +44,7 @@ class ClientsController extends Controller
         try {
             $this->companyService->delete($request['id']);
         } catch (ValidationException $e) {
-            return ApiHelper::sendError([$e->getMessage()]);
+            return ApiHelper::sendError(['message' => $e->getMessage()]);
         }
 
         return ApiHelper::sendSuccess(['id' => $request['id']]);
