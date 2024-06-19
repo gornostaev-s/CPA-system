@@ -8,6 +8,7 @@ use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Helpers\ApiHelper;
 use App\Services\CompanyService;
+use App\Utils\Exceptions\ValidationException;
 use App\Utils\ValidationUtil;
 
 class ClientsController extends Controller
@@ -33,6 +34,20 @@ class ClientsController extends Controller
         $client = $this->companyService->add(ClientCreateForm::makeFromRequest($request));
 
         return ApiHelper::sendSuccess(['inn' => $client->inn]);
+    }
+
+    public function delete(): bool|string
+    {
+        $request = ValidationUtil::validate($_POST,[
+            "id" => 'integer',
+        ]);
+        try {
+            $this->companyService->delete($request['id']);
+        } catch (ValidationException $e) {
+            return ApiHelper::sendError([$e->getMessage()]);
+        }
+
+        return ApiHelper::sendSuccess(['id' => $request['id']]);
     }
 
     public function update()

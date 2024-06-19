@@ -9,6 +9,7 @@ use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Repositories\BillRepository;
 use App\Repositories\CompanyRepository;
+use App\Utils\Exceptions\ValidationException;
 use Exception;
 use ReflectionException;
 
@@ -31,6 +32,19 @@ class CompanyService
         $this->store($c);
 
         return $c;
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $company = $this->companyRepository->getById($id);
+        if (empty($company)) {
+            throw new ValidationException("Клиента с ID:$id не существует");
+        }
+        $this->companyRepository->delete($id);
     }
 
     public function store(Company $company): void

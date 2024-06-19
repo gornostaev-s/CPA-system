@@ -465,7 +465,7 @@ $fields = $_GET['fields'] ?? [];
 <div class="modal fade" id="deleteClient" tabindex="-1" role="dialog" aria-labelledby="Удалить клиента" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="js-clientCreateForm" action="/v1/clients/delete">
+            <form class="js-clientDeleteForm" action="/v1/clients/delete">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Удалить клиента</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -616,6 +616,34 @@ $fields = $_GET['fields'] ?? [];
         });
 
         jQuery('.js-clientCreateForm').on('submit', function (e) {
+            e.preventDefault();
+            var form = jQuery(this);
+
+            console.log(form.attr('action'));
+
+            jQuery.ajax({
+                type: 'post',
+                url: form.attr('action'),
+                data : form.serialize(),
+                success: function(data){
+                    if(!data.success){
+                        var text = '';
+                        for (var prop in data.errors) {
+                            text += '<p>'+data.errors[prop]+'</p>';
+                        }
+                        if (!text) {
+                            jQuery('.response-errors').html("Возникла ошибка!")
+                        } else {
+                            jQuery('.response-errors').html(text)
+                        }
+                    } else {
+                        window.location.reload();
+                    }
+                },
+            })
+        })
+
+        jQuery('.js-clientDeleteForm').on('submit', function (e) {
             e.preventDefault();
             var form = jQuery(this);
 

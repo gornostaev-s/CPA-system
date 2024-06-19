@@ -30,6 +30,15 @@ class CompanyRepository
     }
 
     /**
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $this->mapper->db->query("DELETE FROM companies WHERE id=$id");
+    }
+
+    /**
      * @return Company[]
      * @throws ReflectionException
      */
