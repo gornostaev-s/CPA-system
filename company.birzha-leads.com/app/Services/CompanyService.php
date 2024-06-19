@@ -7,6 +7,7 @@ use App\Entities\Company;
 use App\Entities\Enums\BillType;
 use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
+use App\Helpers\AuthHelper;
 use App\Repositories\BillRepository;
 use App\Repositories\CompanyRepository;
 use App\Utils\Exceptions\ValidationException;
@@ -37,9 +38,14 @@ class CompanyService
     /**
      * @param int $id
      * @return void
+     * @throws ReflectionException
+     * @throws ValidationException
      */
     public function delete(int $id): void
     {
+        if (!AuthHelper::getAuthUser()->isAdmin()) {
+            throw new ValidationException("Вы не можете удалить клиента");
+        }
         $company = $this->companyRepository->getById($id);
         if (empty($company)) {
             throw new ValidationException("Клиента с ID:$id не существует");
