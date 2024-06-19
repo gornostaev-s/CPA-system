@@ -291,13 +291,19 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                         ->build()
                                                     ?>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="scoring" class="table-form__select">
-                                                            <?php foreach ($data['admins'] as $employer) { ?>
-                                                                <option value="<?= $employer->id ?>" <?= AttributeCheckHelper::checkEqual($company->scoring, $employer->id, 'selected') ?>><?= $employer->name ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </td>
+                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <select name="scoring" class="table-form__select">
+                                                                <?php foreach ($data['admins'] as $employer) { ?>
+                                                                    <option value="<?= $employer->id ?>" <?= AttributeCheckHelper::checkEqual($company->scoring, $employer->id, 'selected') ?>><?= $employer->name ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </td>
+                                                    <?php } else { ?>
+<!--                                                        <td class="modal-table-primary__col text-left">-->
+<!--                                                            $employer->name -->
+<!--                                                        </td>-->
+                                                    <?php } ?>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')
                                                         ->setAttributes([
