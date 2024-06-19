@@ -88,7 +88,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setAttributes([
                                                         'rowspan' => 2,
                                                         'class' => 'border-0',
-                                                        'style' => 'min-width: 190px;'
+                                                        'style' => 'min-width: 130px;'
                                                     ])
                                                     ->setData('ФИО')
                                                     ->isHide((!empty($showFields) && !in_array('fio', $showFields)))
@@ -121,7 +121,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->setAttributes([
                                                         'rowspan' => 2,
                                                         'class' => 'border-0',
-                                                        'style' => 'min-width: 100px;'
+                                                        'style' => 'min-width: 67px;'
                                                     ])
                                                     ->setData('Режим')
                                                     ->isHide((!empty($showFields) && !in_array('mode', $showFields)))
@@ -151,7 +151,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата создания</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
                                                 <?= TableColumnHelper::make()
                                                     ->setTag('th')
@@ -187,20 +187,20 @@ $showFields = $_GET['fields'] ?? [];
                                             </tr>
                                             <tr>
                                                 <!-- Альфа банк -->
-                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: 90px;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                                 <th><span>Партнерка</span></th>
                                                 <!-- Тинькофф банк -->
-                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: 90px;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                                 <!-- Сбербанк -->
-                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: 90px;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                                 <!-- ПСБ -->
-                                                <th><span>Статус</span></th>
+                                                <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: 90px;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                             </tr>
@@ -210,7 +210,9 @@ $showFields = $_GET['fields'] ?? [];
                                                 /** @var $company Company */
                                                 ?>
                                                 <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByMode($company->mode) ?>">
-                                                    <td class="modal-table-primary__col text-left"><?= $company->id ?></td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <span class="t-small"><?= $company->id ?></span>
+                                                    </td>
 
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')
@@ -242,7 +244,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                         <?php if (!(!empty($showFields) && !in_array('mode', $showFields))) { ?>
                                                             <td class="modal-table-primary__col text-left">
-                                                                <select name="mode" class="table-form__select">
+                                                                <select name="mode" class="table-form__select" style="width: 60px;">
                                                                     <?php foreach (ClientMode::cases() as $case) { ?>
                                                                         <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->mode, $case->value, 'selected') ?>><?= ClientMode::getLabel($case->value) ?></option>
                                                                     <?php } ?>
@@ -271,7 +273,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </td>
                                                     <?php } ?>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
+                                                        <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
@@ -289,6 +291,13 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                         ->build()
                                                     ?>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <select name="scoring" class="table-form__select">
+                                                            <?php foreach ($data['admins'] as $employer) { ?>
+                                                                <option value="<?= $employer->id ?>" <?= AttributeCheckHelper::checkEqual($company->scoring, $employer->id, 'selected') ?>><?= $employer->name ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')
                                                         ->setAttributes([

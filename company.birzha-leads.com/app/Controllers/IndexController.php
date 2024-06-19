@@ -38,11 +38,13 @@ class IndexController extends Controller
             "datetime" => 'max:255',
         ]);
 
-        $employers = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getAllActiveUsers() : [] ;
+        $employers = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getEmployers() : [] ;
+        $admins = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getAdmins() : [] ;
 
         return $this->view('companies/index', [
             'companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request)),
             'employers' => $employers,
+            'admins' => $admins,
             'ownerId' => AuthHelper::getAuthUser()->id
         ]);
     }

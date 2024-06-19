@@ -1,3 +1,7 @@
+.t-small {
+  font-size: 10px;
+}
+
 .cancel-button{
   border: none;
   color: red;

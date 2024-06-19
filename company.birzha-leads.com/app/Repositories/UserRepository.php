@@ -57,6 +57,17 @@ class UserRepository
      * @return array
      * @throws ReflectionException
      */
+    public function getAdmins(): array
+    {
+        $queryRes = $this->mapper->db->query('SELECT * FROM users WHERE is_admin = 1')->fetchAll();
+
+        return $this->prepareRes($queryRes);
+    }
+
+    /**
+     * @return array
+     * @throws ReflectionException
+     */
     public function getAllActiveUsers(): array
     {
         $queryRes = $this->mapper->db->query('SELECT * FROM users WHERE status =' . EmployersStatus::TYPE1->value)->fetchAll();
