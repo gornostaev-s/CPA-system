@@ -8,6 +8,7 @@ class ClientUpdateForm extends BaseUpdateForm
 {
     public int $id;
     public string $owner_id;
+    public string $scoring;
     public string $inn;
     public string $fio;
     public string $address;
