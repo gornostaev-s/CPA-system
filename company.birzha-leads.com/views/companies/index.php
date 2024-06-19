@@ -44,12 +44,14 @@ $showFields = $_GET['fields'] ?? [];
                                     Добавить клиента
                                 </button>
                             </div>
-                            <div class="button-container__item">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteClient">
-                                    Удалить клиента
-                                </button>
-                            </div>
+                            <?php if (AuthHelper::getAuthUser()->isAdmin()) { ?>
+                                <div class="button-container__item">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteClient">
+                                        Удалить клиента
+                                    </button>
+                                </div>
+                            <?php } ?>
                             <div class="button-container__item button-container_search">
                                 <form class="search-panel" method="GET" action="/">
                                     <?= FormHelper::formShowInputs() ?>
