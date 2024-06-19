@@ -187,7 +187,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th rowspan="2" class="border-0"><span>Комментарий (адм)</span></th>
 <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
                                                 <th rowspan="2" class="border-0" style="min-width: 90px;"><span> отп</span></th>
-                                                <th rowspan="2" class="border-0" style="min-width: 90px;"><span>Дата вых</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                 <th colspan="4" class="border-0"><span>Альфа банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Тинькофф банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Сбербанк</span></th>
@@ -196,20 +196,20 @@ $showFields = $_GET['fields'] ?? [];
                                             <tr>
                                                 <!-- Альфа банк -->
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
-                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                                 <th><span>Партнерка</span></th>
                                                 <!-- Тинькофф банк -->
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
-                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                                 <!-- Сбербанк -->
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
-                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                                 <!-- ПСБ -->
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
-                                                <th style="min-width: 90px;"><span>Дата</span></th>
+                                                <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
                                             </tr>
                                             </thead>
@@ -328,10 +328,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="sent_date" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->sent_date))->format('Y-m-d') ?>"<?php } ?>>
-                                                    </td>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <!-- Альфа банк -->
                                                     <td class="modal-table-primary__col text-left">
@@ -342,7 +339,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="alfabank[date]" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <input style="width: 49px;" type="date" name="alfabank[date]" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="alfabank[comment]" value="<?= $company->alfabank->comment ?>" class="table-form__text">
@@ -363,7 +360,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <input style="width: 49px;" type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
@@ -377,7 +374,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="sberbank[date]" class="table-form__text" <?php if (!empty($company->sberbank->date)) { ?> value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <input style="width: 49px;" type="date" name="sberbank[date]" class="table-form__text" <?php if (!empty($company->sberbank->date)) { ?> value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>" <?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="sberbank[comment]" value="<?= $company->sberbank->comment ?>" class="table-form__text">
@@ -391,7 +388,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="date" name="psb[date]" class="table-form__text" <?php if (!empty($company->psb->date)) { ?>value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <input style="width: 49px;" type="date" name="psb[date]" class="table-form__text" <?php if (!empty($company->psb->date)) { ?>value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>" <?php } ?>>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="psb[comment]" value="<?= $company->psb->comment ?>" class="table-form__text">
@@ -407,6 +404,21 @@ $showFields = $_GET['fields'] ?? [];
                     </div>
                 </div>
             </div>
+
+<!--            <div class="card button-container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="paging text_center js-paging">-->
+<!--                            <button class="paging__item active">1</button>-->
+<!--                            <button class="paging__item">2</button>-->
+<!--                            <button class="paging__item">3</button>-->
+<!--                            <button class="paging__item">4</button>-->
+<!--                            <button class="paging__item">5</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
         </div>
     </div>
 </div>
