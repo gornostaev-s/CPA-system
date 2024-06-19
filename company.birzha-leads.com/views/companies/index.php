@@ -462,7 +462,7 @@ $fields = $_GET['fields'] ?? [];
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="addClient" tabindex="-1" role="dialog" aria-labelledby="Удалить клиента" aria-hidden="true">
+<div class="modal fade" id="deleteClient" tabindex="-1" role="dialog" aria-labelledby="Удалить клиента" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="js-clientCreateForm" action="/v1/clients/delete">
