@@ -29,7 +29,7 @@ enum OperationType: int
     public static function getLabel(int $enum): string
     {
         return match ($enum) {
-            self::NOT_SELECTED->value => 'Не выбрано',
+            self::NOT_SELECTED->value => '-',
             self::TYPE1->value => 'Рег А+Т+С',
             self::TYPE2->value => 'Рега АБ',
             self::TYPE3->value => 'Рега СБ',

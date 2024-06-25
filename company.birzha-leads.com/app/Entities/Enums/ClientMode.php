@@ -16,7 +16,7 @@ enum ClientMode: int
     public static function getLabel(int $enum): string
     {
         return match ($enum) {
-            self::Default->value => 'Не выбрано',
+            self::Default->value => '-',
             self::Take->value => 'Забрать',
             self::Design->value => 'Оформить',
             self::Clogged->value => 'Забит',

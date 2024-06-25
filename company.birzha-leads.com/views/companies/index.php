@@ -86,6 +86,17 @@ $showFields = $_GET['fields'] ?? [];
                                         <table class="table js-table">
                                             <thead class="bg-light js-tableHead">
                                             <tr class="border-0">
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 67px;'
+                                                    ])
+                                                    ->setData('Режим')
+                                                    ->isHide((!empty($showFields) && !in_array('mode', $showFields)))
+                                                    ->build()
+                                                ?>
                                                 <th rowspan="2" class="border-0 column-num">
                                                     <span>
                                                         #
@@ -124,17 +135,6 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <?= TableColumnHelper::make()
-                                                    ->setTag('th')
-                                                    ->setAttributes([
-                                                        'rowspan' => 2,
-                                                        'class' => 'border-0',
-                                                        'style' => 'min-width: 67px;'
-                                                    ])
-                                                    ->setData('Режим')
-                                                    ->isHide((!empty($showFields) && !in_array('mode', $showFields)))
-                                                    ->build()
-                                                ?>
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('th')
@@ -159,7 +159,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
+<!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
                                                 <?= TableColumnHelper::make()
                                                     ->setTag('th')
@@ -183,10 +183,11 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <th rowspan="2" class="border-0"><span>Комментарий</span></th>
-                                                <th rowspan="2" class="border-0"><span>Комментарий (адм)</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
 <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
-                                                <th rowspan="2" class="border-0" style="min-width: 90px;"><span> отп</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Комм (МП)</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                 <th colspan="4" class="border-0"><span>Альфа банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Тинькофф банк</span></th>
@@ -218,6 +219,17 @@ $showFields = $_GET['fields'] ?? [];
                                                 /** @var $company Company */
                                                 ?>
                                                 <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByMode($company->mode) ?>">
+                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                        <?php if (!(!empty($showFields) && !in_array('mode', $showFields))) { ?>
+                                                            <td class="modal-table-primary__col text-left">
+                                                                <select name="mode" class="table-form__select" style="width: 60px;">
+                                                                    <?php foreach (ClientMode::cases() as $case) { ?>
+                                                                        <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->mode, $case->value, 'selected') ?>><?= ClientMode::getLabel($case->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </td>
+                                                        <?php } ?>
+                                                    <?php } ?>
                                                     <td class="modal-table-primary__col text-left">
                                                         <span class="t-small"><?= $company->id ?></span>
                                                     </td>
@@ -250,20 +262,10 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->build()
                                                     ?>
                                                     <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
-                                                        <?php if (!(!empty($showFields) && !in_array('mode', $showFields))) { ?>
-                                                            <td class="modal-table-primary__col text-left">
-                                                                <select name="mode" class="table-form__select" style="width: 60px;">
-                                                                    <?php foreach (ClientMode::cases() as $case) { ?>
-                                                                        <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->mode, $case->value, 'selected') ?>><?= ClientMode::getLabel($case->value) ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </td>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                         <?php if (!(!empty($showFields) && !in_array('employer', $showFields))) { ?>
                                                             <td class="modal-table-primary__col text-left">
                                                                 <select name="owner_id" class="table-form__select">
+                                                                    <option value="0">-</option>
                                                                     <?php foreach ($data['employers'] as $employer) { ?>
                                                                         <option value="<?= $employer->id ?>" <?= AttributeCheckHelper::checkEqual($company->owner_id, $employer->id, 'selected') ?>><?= $employer->name ?></option>
                                                                     <?php } ?>
@@ -280,9 +282,6 @@ $showFields = $_GET['fields'] ?? [];
                                                             </select>
                                                         </td>
                                                     <?php } ?>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
-                                                    </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
@@ -302,6 +301,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                         <td class="modal-table-primary__col text-left">
                                                             <select name="scoring" class="table-form__select">
+                                                                <option value="0">-</option>
                                                                 <?php foreach ($data['admins'] as $employer) { ?>
                                                                     <option value="<?= $employer->id ?>" <?= AttributeCheckHelper::checkEqual($company->scoring, $employer->id, 'selected') ?>><?= $employer->name ?></option>
                                                                 <?php } ?>
@@ -326,6 +326,9 @@ $showFields = $_GET['fields'] ?? [];
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
