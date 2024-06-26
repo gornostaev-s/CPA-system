@@ -86,6 +86,8 @@ class ClientIndexQuery extends QueryBuilder
 
         $this->addSelect(['c.id']);
         $this->addSelect(['c.created_at']);
+        $this->addSelect(['npd']);
+        $this->addSelect(['empl']);
 
         !$this->isShowField('fio', $this->request['fields']) ?: $this->addSelect(['fio']);
         !$this->isShowField('inn', $this->request['fields']) ?: $this->addSelect(['inn']);
