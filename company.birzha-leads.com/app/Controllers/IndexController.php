@@ -76,6 +76,7 @@ class IndexController extends Controller
 
     public function importAll()
     {
+ini_set('max_execution_time', '300');
         $data = $this->getTableData($_FILES['excel']['tmp_name']);
 
         $i = 0;
@@ -103,7 +104,7 @@ class IndexController extends Controller
             $inn = !empty($client['D']) ? $client['D'] : '1';
 //            $phone = $client['E'];
 
-            $employer = $this->userRepository->getUserByName($client['F'])->id; //$client['F'];
+            $employer = $this->userRepository->getUserByName($client['F'])?->id; //$client['F'];
 
             $operationType = match ($client['G']) {
                 OperationType::getLabel(OperationType::TYPE1->value) => OperationType::TYPE1->value,
@@ -155,8 +156,9 @@ class IndexController extends Controller
             $comment = $client['L'];
             $commentAdm = $client['M'];
             $commentMp = $client['N'];
-            $createdAt = $client['O'];
-            $registrationExitDate = $client['P'];
+            $createdAt = is_int($client['O']) ? date('Y-m-d', ($client['O'] - 25569) * 86400) : '';
+            $registrationExitDate = is_int($client['P']) ? date('Y-m-d', ($client['P'] - 25569) * 86400) : null;
+
             $alfaStatus = match ($client['Q']) {
                 BillStatus::getLabel(BillStatus::Open->value) => BillStatus::Open->value,
                 BillStatus::getLabel(BillStatus::FNS->value) => BillStatus::FNS->value,
@@ -168,7 +170,7 @@ class IndexController extends Controller
                 BillStatus::getLabel(BillStatus::Thinks->value) => BillStatus::Thinks->value,
                 default => 0,
             };
-            $alfaDate = $client['R'];
+            $alfaDate = is_int($client['R']) ? date('Y-m-d', ($client['R'] - 25569) * 86400) : null;
             $alfaComment = $client['S'];
             $alfaPartner = match ($client['T']) {
                 PartnerType::getLabel(PartnerType::local->value) => PartnerType::local->value,
@@ -176,16 +178,25 @@ class IndexController extends Controller
                 default => 0,
             };
 
-            $tinkoffStatus = $client['U'];
-            $tinkoffDate = $client['V'];
+            $tinkoffStatus = match ($client['U']) {
+                PartnerType::getLabel(PartnerType::local->value) => PartnerType::local->value,
+                PartnerType::getLabel(PartnerType::federal->value) => PartnerType::federal->value,
+                default => 0,
+            };
+            $tinkoffDate = is_int($client['V']) ? date('Y-m-d', ($client['V'] - 25569) * 86400) : null;
             $tinkoffComment = $client['W'];
-            $sberStatus = $client['X'];
-            $sberDate = $client['Y'];
+
+            $sberStatus = match ($client['X']) {
+                PartnerType::getLabel(PartnerType::local->value) => PartnerType::local->value,
+                PartnerType::getLabel(PartnerType::federal->value) => PartnerType::federal->value,
+                default => 0,
+            };
+            $sberDate = is_int($client['Y']) ? date('Y-m-d', ($client['Y'] - 25569) * 86400) : null;
             $sberComment = $client['Z'];
 
             $company = Company::make($inn, $fio, $status);
             $company->mode = $mode;
-            $company->owner_id = $employer;
+            if (!empty($employer)) { $company->owner_id = $employer; }
             $company->phone = $phone;
             $company->operation_type = $operationType;
             $company->npd = $npd;
@@ -193,8 +204,8 @@ class IndexController extends Controller
             $company->scoring = $scoring;
             $company->comment = $comment;
             $company->comment_adm = $commentAdm;
-            $company->created_at = '2024-06-26'; //$createdAt;
-            $company->registration_exit_date = '2024-06-26'; //$registrationExitDate;
+            $company->created_at = $createdAt; //$createdAt;
+            $company->registration_exit_date = $registrationExitDate; //$registrationExitDate;
 
             $id = $this->companyService->store($company);
 
@@ -202,17 +213,37 @@ class IndexController extends Controller
                 'id' => $id,
                 'alfabank' => [
                     'status' => $alfaStatus,
-                    'date' => '2024-06-26',
+                    'date' => $alfaDate,
                     'comment' => $alfaComment,
                     'partner' => $alfaPartner,
                 ]
             ]);
 
-            $this->companyService->updateRelatedData($alfabank);
+            $tinkoff = ClientUpdateForm::makeFromRequest([
+                'id' => $id,
+                'tinkoff' => [
+                    'status' => $tinkoffStatus,
+                    'date' => $tinkoffDate,
+                    'comment' => $tinkoffComment,
+                ]
+            ]);
 
-            if ($i == 200) {
-                break;
-            }
+            $sber = ClientUpdateForm::makeFromRequest([
+                'id' => $id,
+                'sber' => [
+                    'status' => $sberStatus,
+                    'date' => $sberDate,
+                    'comment' => $sberComment,
+                ]
+            ]);
+
+            try { $this->companyService->updateRelatedData($alfabank); } catch (\Throwable $e) { echo '<pre>'; var_dump($alfabank); die; }
+            try { $this->companyService->updateRelatedData($tinkoff); } catch (\Throwable $e) { echo '<pre>'; var_dump($tinkoff); die; }
+            try { $this->companyService->updateRelatedData($sber); } catch (\Throwable $e) { echo '<pre>'; var_dump($sber); die; }
+
+//            if ($i == 200) {
+//                break;
+//            }
         }
 
         header('Location: /');
