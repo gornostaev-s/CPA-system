@@ -30,6 +30,7 @@ class Company extends BaseEntity
     public ?string $phone;
     public ?string $comment;
     public ?string $comment_adm;
+    public ?string $comment_mp;
     public ?string $sent_date;
     public ?string $submission_date;
     public string $registration_exit_date;

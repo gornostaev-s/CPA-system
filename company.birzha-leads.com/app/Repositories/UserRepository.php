@@ -30,6 +30,18 @@ class UserRepository
     }
 
     /**
+     * @param string $name
+     * @return User|null
+     * @throws ReflectionException
+     */
+    public function getUserByName(string $name): ?User
+    {
+        $res = $this->mapper->db->query("SELECT * FROM users WHERE name = '$name' LIMIT 1")->fetch();
+
+        return !empty($res) ? (new User)->load($res) : null;
+    }
+
+    /**
      * @param $email
      * @param $password
      * @return User|null

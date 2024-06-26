@@ -53,9 +53,9 @@ class CompanyService
         $this->companyRepository->delete($id);
     }
 
-    public function store(Company $company): void
+    public function store(Company $company): int
     {
-        $this->companyRepository->save($company);
+        return $this->companyRepository->save($company);
     }
 
     /**

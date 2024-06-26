@@ -335,15 +335,15 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="scoring" value="' . $company->scoring . '" class="table-form__text">')
-                                                        ->isHide((!empty($showFields) && !in_array('scoring', $showFields)))
+                                                        ->setData('<input type="text" name="comment" value="' . $company->comment . '" class="table-form__text">')
+                                                        ->isHide((!empty($showFields) && !in_array('comment', $showFields)))
                                                         ->build()
                                                     ?>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="comment" value="<?= $company->comment ?>" class="table-form__text">
+                                                        <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
+                                                        <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">

@@ -22,11 +22,11 @@ class CompanyRepository
 
     /**
      * @param Company $company
-     * @return void
+     * @return int
      */
-    public function save(Company $company): void
+    public function save(Company $company): int
     {
-        $this->mapper->save($company);
+        return $this->mapper->save($company);
     }
 
     /**

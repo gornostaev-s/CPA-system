@@ -60,6 +60,7 @@ class ClientsController extends Controller
             "address" => 'max:255',
             "comment" => 'max:255',
             "comment_adm" => 'max:255',
+            "comment_mp" => 'max:255',
             "status" => 'integer|max:255',
             "npd" => 'integer|max:255',
             "empl" => 'integer|max:255',
