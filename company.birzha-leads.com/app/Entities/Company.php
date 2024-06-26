@@ -33,6 +33,8 @@ class Company extends BaseEntity
     public ?string $sent_date;
     public string $registration_exit_date;
     public int $status;
+    public int $npd;
+    public int $empl;
     public int $mode;
     public int $operation_type;
     public int $owner_id;

@@ -6,6 +6,8 @@
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entities\Enums\ClientMode;
+use App\Entities\Enums\EmplStatus;
+use App\Entities\Enums\NpdStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
 use App\Entities\User;
@@ -161,6 +163,8 @@ $showFields = $_GET['fields'] ?? [];
                                                 ?>
 <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 75px;"><span>НПД</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Отправили <br> Самозан</span></th>
                                                 <?= TableColumnHelper::make()
                                                     ->setTag('th')
                                                     ->setAttributes([
@@ -286,6 +290,20 @@ $showFields = $_GET['fields'] ?? [];
                                                         <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <select name="npd" class="table-form__select">
+                                                            <?php foreach (NpdStatus::cases() as $item) { ?>
+                                                                <option value="<?= $item->value ?>" <?= ($company->npd == $item->value) ? 'selected' : ''?>> <?= NpdStatus::getLabel($item->value) ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <select name="empl" class="table-form__select">
+                                                            <?php foreach (EmplStatus::cases() as $item) { ?>
+                                                                <option value="<?= $item->value ?>" <?= ($company->empl == $item->value) ? 'selected' : ''?>> <?= EmplStatus::getLabel($item->value) ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </td>
