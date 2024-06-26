@@ -13,6 +13,8 @@ class ClientUpdateForm extends BaseUpdateForm
     public string $fio;
     public string $address;
     public string $status;
+    public string $npd;
+    public string $empl;
     public string $mode;
     public string $phone;
 

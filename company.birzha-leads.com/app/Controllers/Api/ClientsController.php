@@ -61,6 +61,8 @@ class ClientsController extends Controller
             "comment" => 'max:255',
             "comment_adm" => 'max:255',
             "status" => 'integer|max:255',
+            "npd" => 'integer|max:255',
+            "empl" => 'integer|max:255',
             "mode" => 'integer|max:255',
             "operation_type" => 'integer|max:255',
             "submission_date" => 'max:255',
