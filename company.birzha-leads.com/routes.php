@@ -15,6 +15,7 @@ use App\Middlewares\AuthMiddleware;
 $request = $_SERVER['REQUEST_URI'];
 
 Router::route('/', [IndexController::class, 'index'], AuthMiddleware::class);
+Router::route('/clients', [ClientsController::class, 'index'], AuthMiddleware::class);
 Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
 Router::route('/import', [IndexController::class, 'importForm'], AuthMiddleware::class);
 Router::route('/employers', [EmployersController::class, 'index'], AuthMiddleware::class);

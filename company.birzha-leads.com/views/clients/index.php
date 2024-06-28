@@ -161,7 +161,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('operation_type', $showFields)))
                                                     ->build()
                                                 ?>
-<!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
+                                                <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>НПД</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Отправили <br> Самозан</span></th>
@@ -189,7 +189,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 ?>
                                                 <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
-<!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
+                                                <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
                                                 <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Комм (МП)</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
@@ -326,9 +326,9 @@ $showFields = $_GET['fields'] ?? [];
                                                             </select>
                                                         </td>
                                                     <?php } else { ?>
-<!--                                                        <td class="modal-table-primary__col text-left">-->
-<!--                                                            $employer->name -->
-<!--                                                        </td>-->
+                                                        <!--                                                        <td class="modal-table-primary__col text-left">-->
+                                                        <!--                                                            $employer->name -->
+                                                        <!--                                                        </td>-->
                                                     <?php } ?>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')
@@ -426,19 +426,19 @@ $showFields = $_GET['fields'] ?? [];
                 </div>
             </div>
 
-<!--            <div class="card button-container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-12">-->
-<!--                        <div class="paging text_center js-paging">-->
-<!--                            <button class="paging__item active">1</button>-->
-<!--                            <button class="paging__item">2</button>-->
-<!--                            <button class="paging__item">3</button>-->
-<!--                            <button class="paging__item">4</button>-->
-<!--                            <button class="paging__item">5</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="card button-container">-->
+            <!--                <div class="row">-->
+            <!--                    <div class="col-12">-->
+            <!--                        <div class="paging text_center js-paging">-->
+            <!--                            <button class="paging__item active">1</button>-->
+            <!--                            <button class="paging__item">2</button>-->
+            <!--                            <button class="paging__item">3</button>-->
+            <!--                            <button class="paging__item">4</button>-->
+            <!--                            <button class="paging__item">5</button>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
         </div>
     </div>
@@ -821,5 +821,3 @@ $fields = $_GET['fields'] ?? [];
 <?php
 include __DIR__ . '/../footer.php';
 ?>
-
-
