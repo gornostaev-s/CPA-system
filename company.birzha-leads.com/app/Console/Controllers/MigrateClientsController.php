@@ -32,12 +32,10 @@ class MigrateClientsController extends Controller
 
     public function index()
     {
-        echo '<pre>';
-        var_dump(__DIR__);
-        die;
+        // '/var/www/company.birzha-leads.com/base.xlsx'
 
         ini_set('max_execution_time', '300');
-        $data = $this->getTableData($_FILES['excel']['tmp_name']);
+        $data = $this->getTableData('/var/www/company.birzha-leads.com/base.xlsx');
 
         $i = 0;
         foreach ($data as $client) {
@@ -60,7 +58,7 @@ class MigrateClientsController extends Controller
                 default => 0,
             };
             $id = $client['B'];
-            $fio = $client['C'];
+            $fio = $client['C'] ?: '';
             $inn = !empty($client['D']) ? $client['D'] : '1';
 //            $phone = $client['E'];
 

@@ -17,7 +17,7 @@ $request = $_SERVER['REQUEST_URI'];
 Router::route('/', [IndexController::class, 'index'], AuthMiddleware::class);
 Router::route('/clients', [\App\Controllers\ClientsController::class, 'index'], AuthMiddleware::class);
 Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
-Router::route('/import', [IndexController::class, 'importForm'], AuthMiddleware::class);
+Router::route('/import', [IndexController::class, 'import'], AuthMiddleware::class);
 Router::route('/employers', [EmployersController::class, 'index'], AuthMiddleware::class);
 Router::route('/import-process', [\App\Controllers\ClientsController::class, 'importAll'], AuthMiddleware::class);
 Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], AuthMiddleware::class);
