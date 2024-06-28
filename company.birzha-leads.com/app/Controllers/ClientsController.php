@@ -41,7 +41,7 @@ class ClientsController extends Controller
         $admins = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getAdmins() : [] ;
 
         return $this->view('clients/index', [
-            'companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request)),
+            'companies' => $this->companyRepository->getCompaniesWithData($this->query->setRequest($request)->setTable('clients')),
             'employers' => $employers,
             'admins' => $admins,
             'ownerId' => AuthHelper::getAuthUser()->id

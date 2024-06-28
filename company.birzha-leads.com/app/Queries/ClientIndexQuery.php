@@ -12,10 +12,18 @@ use ReflectionException;
 class ClientIndexQuery extends QueryBuilder
 {
     private array $request;
+    private string $table = 'companies';
 
     public function setRequest(array $request): self
     {
         $this->request = $request;
+
+        return $this;
+    }
+
+    public function setTable(string $table): self
+    {
+        $this->table = $table;
 
         return $this;
     }
@@ -108,7 +116,7 @@ class ClientIndexQuery extends QueryBuilder
             $this->addWhere(['owner_id' => AuthHelper::getAuthUser()->id]);
         }
 
-        $this->addFrom('companies c');
+        $this->addFrom($this->table . ' c');
 
         $dateInterval = !empty($this->request['datetime']) ? DateTimeInputHelper::getIntervalFromString($this->request['datetime'], 'Y-m-d') : DateTimeInputHelper::getDefaultInterval('Y-m-d');
         $this->addWhere(["c.created_at >= '{$dateInterval['startDate']} 00:00:00'"]);
