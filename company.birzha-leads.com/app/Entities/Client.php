@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Entities;
+
+use App\Core\BaseEntity;
+use App\Entities\Forms\ClientCreateForm;
+use DateTime;
+use Exception;
+
+class Client extends BaseEntity
+{
+    const STATUS_DEFAULT = 0;
+    const STATUS_NEW = 1;
+    const STATUS_REGISTERED = 2;
+    const STATUS_EXPIRED = 3;
+
+    const STATUSES = [
+        self::STATUS_NEW => 'Добавлено',
+        self::STATUS_REGISTERED => 'Компания зарегистрирована',
+        self::STATUS_EXPIRED => 'Просрочено',
+    ];
+
+    const EXTERNAL_STATUS_ACTIVE = 'ACTIVE';
+
+    public int $id;
+    public string $inn;
+    public ?string $fio;
+    public ?string $responsible;
+    public ?string $scoring;
+    public ?string $phone;
+    public ?string $comment;
+    public ?string $comment_adm;
+    public ?string $comment_mp;
+    public ?string $sent_date;
+    public ?string $submission_date;
+    public ?string $registration_exit_date;
+    public int $status;
+    public int $npd;
+    public int $empl;
+    public int $mode;
+    public int $operation_type;
+    public int $owner_id;
+    public string $created_at;
+
+    public ?AlfabankClient $alfabank;
+    public ?TinkoffClient $tinkoff;
+    public ?SberbankClient $sberbank;
+    public ?PsbClient $psb;
+    public ?User $owner;
+
+    public function __construct()
+    {
+        if (empty($this->id)) {
+            $this->setCreatedAt(new DateTime());
+        }
+        $this->setStatus(self::STATUS_DEFAULT);
+    }
+
+    public function getTableName(): string
+    {
+        return 'clients';
+    }
+
+    public static function make(string $inn, string $fio = '', ?int $status = null): self
+    {
+        $e = new self;
+        $e->inn = $inn;
+        $e->fio = $fio;
+
+        if ($status !== null) {
+            $e->status = $status;
+        }
+
+        return $e;
+    }
+
+    public static function makeFromForm(
+        ClientCreateForm $form
+    ): self
+    {
+        $e = new self;
+        $e->owner_id = $form->owner_id;
+        $e->inn = !empty($form->inn) ? $form->inn : null;
+        $e->fio = !empty($form->fio) ? $form->fio : null;
+        $e->phone = !empty($form->phone) ? $form->phone : null;
+        $e->comment = !empty($form->comment) ? $form->comment : null;
+        $e->operation_type = !empty($form->operation_type) ? $form->operation_type : null;
+
+        return $e;
+    }
+
+    /**
+     * @param Challenger $challenger
+     * @return Client
+     */
+    public static function makeByChallenger(Challenger $challenger): self
+    {
+        $e = new self;
+        $e->inn = $challenger->inn;
+        $e->fio = $challenger->fio;
+        $e->status = $challenger->status;
+        $e->responsible = $challenger->address;
+        $e->phone = $challenger->phone;
+        $e->owner_id = $challenger->owner_id;
+        $e->operation_type = $challenger->operation_type;
+        $e->comment = $challenger->comment;
+        $e->comment_adm = $challenger->comment_adm;
+
+        return $e;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+
+        $this->created_at = $createdAt->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * @return DateTime
+     * @throws Exception
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return new DateTime($this->created_at);
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $fio
+     */
+    public function setFio(string $fio): void
+    {
+        $this->fio = $fio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFio(): string
+    {
+        return $this->fio;
+    }
+
+    /**
+     * @param int $status
+     * @return string
+     */
+    public static function getStatusLabel(int $status): string
+    {
+        return match ($status) {
+            self::STATUS_NEW => 'Добавлено',
+            self::STATUS_REGISTERED => 'Компания зарегистрирована',
+            self::STATUS_EXPIRED => 'Просрочено'
+        };
+    }
+}
