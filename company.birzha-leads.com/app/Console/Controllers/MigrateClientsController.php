@@ -118,14 +118,14 @@ class MigrateClientsController extends Controller
             $registrationExitDate = is_int($client['P']) ? date('Y-m-d', ($client['P'] - 25569) * 86400) : null;
 
             $alfaStatus = match ($client['Q']) {
-                BillStatus::getLabel(BillStatus::Open->value) => BillStatus::Open->value,
-                BillStatus::getLabel(BillStatus::FNS->value) => BillStatus::FNS->value,
-                BillStatus::getLabel(BillStatus::Work->value) => BillStatus::Work->value,
-                BillStatus::getLabel(BillStatus::Indent->value) => BillStatus::Indent->value,
-                BillStatus::getLabel(BillStatus::Reject->value) => BillStatus::Reject->value,
-                BillStatus::getLabel(BillStatus::RNO->value) => BillStatus::RNO->value,
-                BillStatus::getLabel(BillStatus::BRR->value) => BillStatus::BRR->value,
-                BillStatus::getLabel(BillStatus::Thinks->value) => BillStatus::Thinks->value,
+                'Откр' => BillStatus::Open->value,
+                'ФНС' => BillStatus::FNS->value,
+                'Раб' => BillStatus::Work->value,
+                'Инд' => BillStatus::Indent->value,
+                'Откз' => BillStatus::Reject->value,
+                'Дуб' => BillStatus::Double->value,
+                'Ошб' => BillStatus::Error->value,
+                'Дума' => BillStatus::Thinks->value,
                 default => 0,
             };
             $alfaDate = is_int($client['R']) ? date('Y-m-d', ($client['R'] - 25569) * 86400) : null;
@@ -137,16 +137,28 @@ class MigrateClientsController extends Controller
             };
 
             $tinkoffStatus = match ($client['U']) {
-                PartnerType::getLabel(PartnerType::local->value) => PartnerType::local->value,
-                PartnerType::getLabel(PartnerType::federal->value) => PartnerType::federal->value,
+                'Откр' => BillStatus::Open->value,
+                'ФНС' => BillStatus::FNS->value,
+                'Раб' => BillStatus::Work->value,
+                'Инд' => BillStatus::Indent->value,
+                'Откз' => BillStatus::Reject->value,
+                'Дуб' => BillStatus::Double->value,
+                'Ошб' => BillStatus::Error->value,
+                'Дума' => BillStatus::Thinks->value,
                 default => 0,
             };
             $tinkoffDate = is_int($client['V']) ? date('Y-m-d', ($client['V'] - 25569) * 86400) : null;
             $tinkoffComment = $client['W'];
 
             $sberStatus = match ($client['X']) {
-                PartnerType::getLabel(PartnerType::local->value) => PartnerType::local->value,
-                PartnerType::getLabel(PartnerType::federal->value) => PartnerType::federal->value,
+                'Откр' => BillStatus::Open->value,
+                'ФНС' => BillStatus::FNS->value,
+                'Раб' => BillStatus::Work->value,
+                'Инд' => BillStatus::Indent->value,
+                'Откз' => BillStatus::Reject->value,
+                'Дуб' => BillStatus::Double->value,
+                'Ошб' => BillStatus::Error->value,
+                'Дума' => BillStatus::Thinks->value,
                 default => 0,
             };
             $sberDate = is_int($client['Y']) ? date('Y-m-d', ($client['Y'] - 25569) * 86400) : null;
@@ -188,7 +200,7 @@ class MigrateClientsController extends Controller
 
             $sber = ClientUpdateForm::makeFromRequest([
                 'id' => $id,
-                'sber' => [
+                'sberbank' => [
                     'status' => $sberStatus,
                     'date' => $sberDate,
                     'comment' => $sberComment,

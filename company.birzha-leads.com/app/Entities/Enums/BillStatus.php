@@ -13,6 +13,8 @@ enum BillStatus: int
     case RNO = 6;
     case BRR = 7;
     case Thinks = 8;
+    case Double = 9;
+    case Error = 10;
 
     public static function getLabel(int $enum): string
     {
@@ -26,6 +28,8 @@ enum BillStatus: int
             self::RNO->value => 'РНО',
             self::BRR->value => 'БРР',
             self::Thinks->value => 'Думает',
+            self::Double->value => 'Дубль',
+            self::Error->value => 'Ошибка',
             default => ''
         };
     }
