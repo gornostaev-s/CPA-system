@@ -128,6 +128,15 @@ class Company extends BaseEntity
     }
 
     /**
+     * @return DateTime
+     * @throws Exception
+     */
+    public function getRegistrationExitDate(): DateTime
+    {
+        return new DateTime($this->registration_exit_date);
+    }
+
+    /**
      * @param int $status
      */
     public function setStatus(int $status): void

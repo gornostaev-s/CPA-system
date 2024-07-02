@@ -45,7 +45,7 @@ class CheckCompaniesController extends Controller
         $companies = $this->companyRepository->getNewCompanies();
 
         foreach ($companies as $company) {
-            if (time() > $company->getCreatedAt()->modify('+10 days')->getTimestamp()) {
+            if (time() > $company->getRegistrationExitDate()->modify('+20 days')->getTimestamp()) {
                 $company->setStatus(BillStatus::Reject->value);
                 $this->companyRepository->save($company);
                 continue;
