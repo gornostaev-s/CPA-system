@@ -22,7 +22,7 @@ class MigrateClientsController extends Controller
 {
     public function __construct(
         private readonly ClientsService $clientsService,
-//        private readonly ClientsRepository $clientsRepository,
+        private readonly ClientsRepository $clientsRepository,
 //        private readonly ClientIndexQuery $query,
         private readonly UserRepository $userRepository,
     )
@@ -32,6 +32,26 @@ class MigrateClientsController extends Controller
 
     public function index()
     {
+        ini_set('max_execution_time', '300');
+        $data = $this->getTableData('/var/www/company.birzha-leads.com/base.xlsx');
+        $i = 0;
+        foreach ($data as $client) {
+            if ($client['F'] != 'Даниил2' || empty($client['D'])) {
+                continue;
+            }
+
+            $clients = $this->clientsRepository->getClientsByInn($client['D']);
+
+            foreach ($clients as $client) {
+                /** @var Client $client */
+                $client->owner_id = 35;
+                $this->clientsRepository->save($client);
+            }
+        }
+    }
+
+    public function indexAll()
+    {
         // '/var/www/company.birzha-leads.com/base.xlsx'
 
         ini_set('max_execution_time', '300');
@@ -39,6 +59,9 @@ class MigrateClientsController extends Controller
 
         $i = 0;
         foreach ($data as $client) {
+            if ($client['F'] != 'Никит 2 Ц') {
+                continue;
+            }
             $phone = $client['E'];
             if ($phone == 'тел') {
                 continue;
@@ -62,7 +85,7 @@ class MigrateClientsController extends Controller
             $inn = !empty($client['D']) ? $client['D'] : '1';
 //            $phone = $client['E'];
 
-            $employer = $this->userRepository->getUserByName($client['F'])?->id; //$client['F'];
+            $employer = 22; //$client['F'];
 
             $operationType = match ($client['G']) {
                 OperationType::getLabel(OperationType::TYPE1->value) => OperationType::TYPE1->value,

@@ -55,7 +55,7 @@ $showFields = $_GET['fields'] ?? [];
                                 </div>
                             <?php } ?>
                             <div class="button-container__item button-container_search">
-                                <form class="search-panel" method="GET" action="/">
+                                <form class="search-panel" method="GET" action="/clients">
                                     <?= FormHelper::formShowInputs() ?>
                                     <div class="search-panel__group">
                                         <input type="text" class="js-date search-panel__text" value="<?= !empty($_GET['datetime']) ? $_GET['datetime'] : DateTimeInputHelper::getDefaultIntervalString() ?>" name="datetime" />
@@ -531,7 +531,7 @@ $fields = $_GET['fields'] ?? [];
 <div class="modal fade" id="fieldFilter" tabindex="-1" role="dialog" aria-labelledby="Отображение полей" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="/">
+            <form action="/clients">
                 <?= FormHelper::formSearchInput() ?>
                 <div class="modal-header">
                     <h5 class="modal-title">Отображение полей</h5>

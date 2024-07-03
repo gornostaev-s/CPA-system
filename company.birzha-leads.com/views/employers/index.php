@@ -82,7 +82,7 @@ include __DIR__ . '/../header.php';
                                                         </select>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="inn" value="<?= $employer->email ?>" class="table-form__text">
+                                                        <input type="text" name="email" value="<?= $employer->email ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $clientHelper->getClientsCountByUserId($employer->id) ?>

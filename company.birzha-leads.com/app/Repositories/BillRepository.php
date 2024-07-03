@@ -39,7 +39,7 @@ class BillRepository
 
     public function getOpenBillsCountByUserId(int $userId)
     {
-        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM companies c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value)->fetch();
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value)->fetch();
 
         return $queryRes['count'];
     }
@@ -48,7 +48,7 @@ class BillRepository
     {
         $typeQuery = $type ? " AND b.type=$type" : '';
 
-        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM companies c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value . $typeQuery)->fetch();
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value . $typeQuery)->fetch();
 
         return $queryRes['count'];
     }

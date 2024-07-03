@@ -120,6 +120,13 @@ class ClientsRepository
         return $this->prepareAggregateRes($queryRes);
     }
 
+    public function getClientsByInn(string $inn)
+    {
+        $queryRes = $this->mapper->db->query("SELECT * FROM clients WHERE inn='$inn' LIMIT 1000")->fetchAll();
+
+        return $this->prepareRes($queryRes);
+    }
+
     /**
      * @param array $queryRes
      * @return Client[]

@@ -73,7 +73,7 @@ include __DIR__ . '/../header.php';
                                                         <?= $employer->id ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="name" value="<?= $employer->name ?>" class="table-form__text">
+                                                        <?= $employer->name ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $clientHelper->getClientsCountByUserId($employer->id) ?>

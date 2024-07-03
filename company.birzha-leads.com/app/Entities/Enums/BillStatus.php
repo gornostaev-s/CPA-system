@@ -20,16 +20,16 @@ enum BillStatus: int
     {
         return match ($enum) {
             self::Disabled->value => ' - ',
-            self::Open->value => 'Открыто',
+            self::Open->value => 'Откр',
             self::FNS->value => 'ФНС',
-            self::Work->value => 'Работает',
-            self::Indent->value => 'Идентификация',
-            self::Reject->value => 'Отклонено',
+            self::Work->value => 'Раб',
+            self::Indent->value => 'Инд',
+            self::Reject->value => 'Откз',
             self::RNO->value => 'РНО',
             self::BRR->value => 'БРР',
-            self::Thinks->value => 'Думает',
-            self::Double->value => 'Дубль',
-            self::Error->value => 'Ошибка',
+            self::Thinks->value => 'Дума',
+            self::Double->value => 'Дуб',
+            self::Error->value => 'Ошб',
             default => ''
         };
     }
