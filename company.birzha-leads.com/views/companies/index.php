@@ -751,6 +751,15 @@ $fields = $_GET['fields'] ?? [];
                 case '7':
                     $row.css('background-color', '#006ad52b')
                     break;
+                case '8':
+                    $row.css('background-color', 'rgba(113, 0, 224, 0.38)')
+                    break;
+                case '9':
+                    $row.css('background-color', 'rgba(26, 175, 9, 0.49)')
+                    break;
+                case '10':
+                    $row.css('background-color', 'rgba(255, 238, 0, 0.47)')
+                    break;
             }
         }
 

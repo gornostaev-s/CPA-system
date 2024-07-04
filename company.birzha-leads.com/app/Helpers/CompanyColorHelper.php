@@ -31,6 +31,9 @@ class CompanyColorHelper
             ClientMode::CameOut->value => '#964b0052',
             ClientMode::Ready->value => '#8000ff2b',
             ClientMode::Reject->value => '#006ad52b',
+            ClientMode::Tinkoff->value => 'rgba(113, 0, 224, 0.38)',
+            ClientMode::Sber->value => 'rgba(26, 175, 9, 0.49)',
+            ClientMode::Alfa->value => 'rgba(255, 238, 0, 0.47)',
             default => 'transparent'
         };
     }
