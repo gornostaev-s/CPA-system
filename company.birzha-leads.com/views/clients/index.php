@@ -387,8 +387,8 @@ $showFields = $_GET['fields'] ?? [];
                                                         <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
                                                     </td>
                                                     <!-- Сбербанк -->
-                                                    <td class="modal-table-primary__col text-left" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->sberbank->status) ?>">
-                                                        <select name="sberbank[status]" class="table-form__select">
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <select name="sberbank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->sberbank->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->sberbank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                             <?php } ?>

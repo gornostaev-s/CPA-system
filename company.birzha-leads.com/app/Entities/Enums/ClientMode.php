@@ -27,7 +27,7 @@ enum ClientMode: int
             self::CameOut->value => 'Вышел',
             self::Ready->value => 'Готово',
             self::Reject->value => 'Отказ',
-            self::Tinkoff->value => 'Т-Банк',
+            self::Tinkoff->value => 'Т-банк',
             self::Sber->value => 'Сбер',
             self::Alfa->value => 'Альфа',
             default => ''

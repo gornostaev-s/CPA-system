@@ -7,6 +7,7 @@ use App\Entities\Forms\ChallengerCreateForm;
 use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Helpers\ApiHelper;
+use App\Services\ClientsService;
 use App\Services\CompanyService;
 use App\Utils\Exceptions\ValidationException;
 use App\Utils\ValidationUtil;
@@ -14,7 +15,7 @@ use App\Utils\ValidationUtil;
 class ClientsController extends Controller
 {
     public function __construct(
-        private readonly CompanyService $companyService
+        private readonly ClientsService $clientsService
     )
     {
         parent::__construct();
@@ -31,7 +32,7 @@ class ClientsController extends Controller
             "owner_id" => 'integer',
         ]);
 
-        $client = $this->companyService->add(ClientCreateForm::makeFromRequest($request));
+        $client = $this->clientsService->add(ClientCreateForm::makeFromRequest($request));
 
         return ApiHelper::sendSuccess(['inn' => $client->inn]);
     }
@@ -42,7 +43,7 @@ class ClientsController extends Controller
             "id" => 'integer',
         ]);
         try {
-            $this->companyService->delete($request['id']);
+            $this->clientsService->delete($request['id']);
         } catch (ValidationException $e) {
             return ApiHelper::sendError(['message' => $e->getMessage()]);
         }
@@ -87,6 +88,6 @@ class ClientsController extends Controller
             "psb.comment" => 'max:255',
         ]);
 
-        $this->companyService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
+        $this->clientsService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
     }
 }

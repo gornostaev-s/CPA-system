@@ -171,4 +171,13 @@ class Client extends BaseEntity
             self::STATUS_EXPIRED => 'Просрочено'
         };
     }
+
+    /**
+     * @return DateTime
+     * @throws Exception
+     */
+    public function getRegistrationExitDate(): DateTime
+    {
+        return new DateTime($this->registration_exit_date);
+    }
 }

@@ -7,6 +7,9 @@ use App\Entities\Forms\ClientCreateForm;
 use DateTime;
 use Exception;
 
+/**
+ * @deprecated
+ */
 class Company extends BaseEntity
 {
     const STATUS_DEFAULT = 0;

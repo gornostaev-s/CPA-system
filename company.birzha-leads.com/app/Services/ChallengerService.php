@@ -3,11 +3,13 @@
 namespace App\Services;
 
 use App\Entities\Challenger;
+use App\Entities\Client;
 use App\Entities\Company;
 use App\Entities\Enums\ProcessStatus;
 use App\Entities\Forms\ChallengerCreateForm;
 use App\Entities\Forms\ChallengerUpdateForm;
 use App\Repositories\ChallengerRepository;
+use App\Repositories\ClientsRepository;
 use App\Repositories\CompanyRepository;
 use Exception;
 use ReflectionException;
@@ -16,7 +18,7 @@ class ChallengerService
 {
     public function __construct(
         private readonly ChallengerRepository $challengerRepository,
-        private readonly CompanyRepository $companyRepository,
+        private readonly ClientsRepository $clientsRepository,
     )
     {
     }
@@ -67,7 +69,7 @@ class ChallengerService
             throw new Exception('Клиент в воронке не найден!');
         }
 
-        $this->companyRepository->save(Company::makeByChallenger($challenger));
+        $this->clientsRepository->save(Client::makeByChallenger($challenger));
         $challenger->process_status = ProcessStatus::moved->value;
         $this->challengerRepository->save($challenger);
     }

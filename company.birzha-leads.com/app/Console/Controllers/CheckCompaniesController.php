@@ -6,6 +6,7 @@ use App\Core\Controller;
 use App\Entities\Company;
 use App\Clients\TelegramClient;
 use App\Entities\Enums\BillStatus;
+use App\Repositories\ClientsRepository;
 use App\Repositories\CompanyRepository;
 use Dadata\DadataClient;
 use DateTime;
@@ -17,7 +18,7 @@ class CheckCompaniesController extends Controller
     const RECIPIENT = '-4086498612';
 
     public function __construct(
-        private readonly CompanyRepository $companyRepository,
+        private readonly ClientsRepository $clientsRepository,
         private readonly TelegramClient $telegramClient
     )
     {
@@ -42,12 +43,12 @@ class CheckCompaniesController extends Controller
         }
 
         $dadata = new DadataClient(DADATA_TOKEN, null);
-        $companies = $this->companyRepository->getNewCompanies();
+        $companies = $this->clientsRepository->getNewCompanies();
 
         foreach ($companies as $company) {
             if (time() > $company->getRegistrationExitDate()->modify('+20 days')->getTimestamp()) {
                 $company->setStatus(BillStatus::Reject->value);
-                $this->companyRepository->save($company);
+                $this->clientsRepository->save($company);
                 continue;
             }
 
@@ -58,7 +59,7 @@ class CheckCompaniesController extends Controller
 
                 if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
                     $company->setStatus(BillStatus::Work->value);
-                    $this->companyRepository->save($company);
+                    $this->clientsRepository->save($company);
                     $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
                 }
             }
@@ -82,7 +83,7 @@ class CheckCompaniesController extends Controller
     public function test()
     {
         $dadata = new DadataClient(DADATA_TOKEN, null);
-        $company = $this->companyRepository->findOneByInn('232000513392');
+        $company = $this->clientsRepository->findOneByInn('232000513392');
 
         $result = $dadata->findById("party", $company->inn, 1);
 
