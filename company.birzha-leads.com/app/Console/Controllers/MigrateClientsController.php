@@ -60,9 +60,9 @@ class MigrateClientsController extends Controller
         $i = 0;
         foreach ($data as $client) {
             $inn = !empty($client['D']) ? $client['D'] : '1';
-            if ($inn != '770604716506') {
-                continue;
-            }
+//            if ($inn != '770604716506') {
+//                continue;
+//            }
 
             $phone = $client['E'];
             if ($phone == 'тел') {
@@ -80,6 +80,9 @@ class MigrateClientsController extends Controller
                 ClientMode::getLabel(ClientMode::CameOut->value) => ClientMode::CameOut->value,
                 ClientMode::getLabel(ClientMode::Ready->value) => ClientMode::Ready->value,
                 ClientMode::getLabel(ClientMode::Reject->value) => ClientMode::Reject->value,
+                ClientMode::getLabel(ClientMode::Tinkoff->value) => ClientMode::Tinkoff->value,
+                ClientMode::getLabel(ClientMode::Sber->value) => ClientMode::Sber->value,
+                ClientMode::getLabel(ClientMode::Alfa->value) => ClientMode::Alfa->value,
                 default => 0,
             };
 //            $id = $client['B'];
@@ -203,7 +206,9 @@ class MigrateClientsController extends Controller
             $company->scoring = $scoring;
             $company->comment = $comment;
             $company->comment_adm = $commentAdm;
-//            $company->comment_mp = $commentMp;
+            if ($inn != '770604716506') {
+                $company->comment_mp = $commentMp;
+            }
             $company->created_at = $createdAt; //$createdAt;
             $company->registration_exit_date = $registrationExitDate; //$registrationExitDate;
 

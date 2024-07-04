@@ -353,7 +353,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     </td>
                                                     <!-- Альфа банк -->
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="alfabank[status]" class="table-form__select">
+                                                        <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                             <?php } ?>
@@ -374,7 +374,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     </td>
                                                     <!-- Тинькофф банк -->
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="tinkoff[status]" class="table-form__select">
+                                                        <select name="tinkoff[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->tinkoff->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->tinkoff->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                             <?php } ?>
@@ -387,7 +387,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
                                                     </td>
                                                     <!-- Сбербанк -->
-                                                    <td class="modal-table-primary__col text-left">
+                                                    <td class="modal-table-primary__col text-left" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->sberbank->status) ?>">
                                                         <select name="sberbank[status]" class="table-form__select">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->sberbank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
@@ -402,7 +402,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     </td>
                                                     <!-- ПСБ -->
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="psb[status]" class="table-form__select">
+                                                        <select name="psb[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
                                                                 <option value="<?= $item->value ?>" <?= ($company->psb->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                             <?php } ?>
@@ -768,6 +768,10 @@ $fields = $_GET['fields'] ?? [];
         function afterUpdate ($row, $input, inputValue) {
             switch ($input.attr('name')) {
                 case 'status':
+                case 'alfabank[status]':
+                case 'tinkoff[status]':
+                case 'sberbank[status]':
+                case 'psb[status]':
                     updateStatusColor($input, inputValue);
                     break;
                 case 'mode' :
