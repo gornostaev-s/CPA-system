@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Entities\Client;
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entities\Enums\ClientMode;
@@ -17,6 +18,7 @@ use App\Helpers\PhoneHelper;
 use App\Queries\ClientIndexQuery;
 use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
+use App\Services\ClientsService;
 use App\Services\CompanyService;
 use App\Utils\ValidationUtil;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -28,6 +30,7 @@ class IndexController extends Controller
 {
     public function __construct(
         private readonly CompanyService $companyService,
+        private readonly ClientsService $clientsService,
         private readonly CompanyRepository $companyRepository,
         private readonly ClientIndexQuery $query,
         private readonly UserRepository $userRepository,
@@ -67,7 +70,7 @@ class IndexController extends Controller
 
         foreach ($inns as $inn) {
             if (!empty($inn['A'])) {
-                $this->companyService->store(Company::make($inn['A'], $inn['B'], BillStatus::FNS->value));
+                $this->clientsService->store(Client::make($inn['A'], $inn['B'], BillStatus::FNS->value));
             }
         }
 
