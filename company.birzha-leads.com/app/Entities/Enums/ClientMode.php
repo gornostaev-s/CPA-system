@@ -12,6 +12,9 @@ enum ClientMode: int
     case CameOut = 5; // вышел
     case Ready = 6; // готово
     case Reject = 7; // Отказ
+    case Tinkoff = 8; // Т-Банк
+    case Sber = 9; // Сбер
+    case Alfa = 10; // Альфа
 
     public static function getLabel(int $enum): string
     {
@@ -24,6 +27,9 @@ enum ClientMode: int
             self::CameOut->value => 'Вышел',
             self::Ready->value => 'Готово',
             self::Reject->value => 'Отказ',
+            self::Tinkoff->value => 'Т-Банк',
+            self::Sber->value => 'Сбер',
+            self::Alfa->value => 'Альфа',
             default => ''
         };
     }

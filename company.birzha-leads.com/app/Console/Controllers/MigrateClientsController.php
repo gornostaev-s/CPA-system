@@ -30,7 +30,7 @@ class MigrateClientsController extends Controller
         parent::__construct();
     }
 
-    public function index()
+    public function indexAll()
     {
         ini_set('max_execution_time', '300');
         $data = $this->getTableData('/var/www/company.birzha-leads.com/base.xlsx');
@@ -50,7 +50,7 @@ class MigrateClientsController extends Controller
         }
     }
 
-    public function indexAll()
+    public function index()
     {
         // '/var/www/company.birzha-leads.com/base.xlsx'
 
@@ -59,9 +59,11 @@ class MigrateClientsController extends Controller
 
         $i = 0;
         foreach ($data as $client) {
-            if ($client['F'] != 'Никит 2 Ц') {
+            $inn = !empty($client['D']) ? $client['D'] : '1';
+            if ($inn != '770604716506') {
                 continue;
             }
+
             $phone = $client['E'];
             if ($phone == 'тел') {
                 continue;
@@ -80,12 +82,16 @@ class MigrateClientsController extends Controller
                 ClientMode::getLabel(ClientMode::Reject->value) => ClientMode::Reject->value,
                 default => 0,
             };
-            $id = $client['B'];
+//            $id = $client['B'];
             $fio = $client['C'] ?: '';
             $inn = !empty($client['D']) ? $client['D'] : '1';
 //            $phone = $client['E'];
 
-            $employer = 22; //$client['F'];
+            $employer = match ($client['F']) {
+                'Никит 2 Ц' => 22,
+                'Даниил2' => 35,
+                default => $this->userRepository->getUserByName($client['F'])?->id
+            }; //$client['F'];
 
             $operationType = match ($client['G']) {
                 OperationType::getLabel(OperationType::TYPE1->value) => OperationType::TYPE1->value,
@@ -197,10 +203,15 @@ class MigrateClientsController extends Controller
             $company->scoring = $scoring;
             $company->comment = $comment;
             $company->comment_adm = $commentAdm;
+//            $company->comment_mp = $commentMp;
             $company->created_at = $createdAt; //$createdAt;
             $company->registration_exit_date = $registrationExitDate; //$registrationExitDate;
 
-            $id = $this->clientsService->store($company);
+            try {
+                $id = $this->clientsService->store($company);
+            } catch (\Throwable $e) {
+                var_dump($inn, $commentMp, $e->getMessage());
+            }
 
             $alfabank = ClientUpdateForm::makeFromRequest([
                 'id' => $id,
