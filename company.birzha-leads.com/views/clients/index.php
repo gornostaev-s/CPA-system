@@ -233,6 +233,10 @@ $showFields = $_GET['fields'] ?? [];
                                                                 </select>
                                                             </td>
                                                         <?php } ?>
+                                                    <?php } else { ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?= ClientMode::getLabel($company->mode) ?>
+                                                        </td>
                                                     <?php } ?>
                                                     <td class="modal-table-primary__col text-left">
                                                         <span class="t-small"><?= $company->id ?></span>
@@ -326,9 +330,11 @@ $showFields = $_GET['fields'] ?? [];
                                                             </select>
                                                         </td>
                                                     <?php } else { ?>
-                                                        <!--                                                        <td class="modal-table-primary__col text-left">-->
-                                                        <!--                                                            $employer->name -->
-                                                        <!--                                                        </td>-->
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php foreach ($data['admins'] as $admin) { ?>
+                                                                <?= AttributeCheckHelper::checkEqual($company->scoring, $admin->id, 'selected') ?>
+                                                            <?php } ?>
+                                                        </td>
                                                     <?php } ?>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')

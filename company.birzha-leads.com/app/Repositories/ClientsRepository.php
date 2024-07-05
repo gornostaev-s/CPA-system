@@ -55,11 +55,11 @@ class ClientsRepository
      * @return Client|null
      * @throws ReflectionException
      */
-    public function getById(int $id): ?Company
+    public function getById(int $id): ?Client
     {
         $queryRes = $this->mapper->db->query("SELECT * FROM clients WHERE id = $id LIMIT 1")->fetch();
 
-        return !$queryRes ? null : $this->prepareCompany($queryRes);
+        return !$queryRes ? null : $this->prepareClient($queryRes);
     }
 
     /**
@@ -83,7 +83,7 @@ class ClientsRepository
      * @return Client|null
      * @throws ReflectionException
      */
-    public function prepareCompany(array $res): ?Company
+    public function prepareClient(array $res): ?Client
     {
         $e = new Client();
         $e->load($res);
@@ -164,7 +164,7 @@ class ClientsRepository
      * @return Company
      * @throws ReflectionException
      */
-    public function findOneByInn(string $inn): Company
+    public function findOneByInn(string $inn): Client
     {
         $queryRes = $this->mapper->db->query("SELECT * FROM clients WHERE inn = '$inn'")->fetch();
 

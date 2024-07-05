@@ -34,6 +34,7 @@ class Client extends BaseEntity
     public ?string $sent_date;
     public ?string $submission_date;
     public ?string $registration_exit_date;
+    public ?string $fns_date;
     public int $status;
     public int $npd;
     public int $empl;
@@ -179,5 +180,14 @@ class Client extends BaseEntity
     public function getRegistrationExitDate(): DateTime
     {
         return new DateTime($this->registration_exit_date);
+    }
+
+    /**
+     * @return DateTime
+     * @throws Exception
+     */
+    public function getFnsDate(): DateTime
+    {
+        return new DateTime($this->fns_date);
     }
 }
