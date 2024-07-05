@@ -3,8 +3,10 @@
 namespace App\Entities;
 
 use App\Core\BaseEntity;
+use App\Entities\Enums\BillStatus;
 use App\Entities\Forms\ClientCreateForm;
 use DateTime;
+use DateTimeImmutable;
 use Exception;
 
 class Client extends BaseEntity
@@ -70,6 +72,9 @@ class Client extends BaseEntity
 
         if ($status !== null) {
             $e->status = $status;
+            if ($status == BillStatus::FNS->value) {
+                $e->fns_date = (new DateTimeImmutable())->modify('+3 days')->format('Y-m-d H:i:s');
+            }
         }
 
         return $e;
