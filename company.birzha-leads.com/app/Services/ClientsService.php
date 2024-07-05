@@ -8,6 +8,7 @@ use App\Entities\Company;
 use App\Entities\Enums\BillType;
 use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
+use App\Events\BeforeUpdateClient;
 use App\Helpers\AuthHelper;
 use App\Repositories\BillRepository;
 use App\Repositories\ClientsRepository;
@@ -69,6 +70,8 @@ class ClientsService
     public function updateFromClientUpdateForm(ClientUpdateForm $clientUpdateForm): void
     {
         $client = $this->clientsRepository->getById($clientUpdateForm->id);
+
+        (new BeforeUpdateClient($client))->handle($clientUpdateForm);
 
         foreach ($clientUpdateForm->changedAttributes as $changedAttribute) {
             if (is_array($clientUpdateForm->$changedAttribute)) {
