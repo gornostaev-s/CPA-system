@@ -5,7 +5,7 @@ namespace App\Events;
 use App\Entities\Client;
 use App\Entities\Enums\BillStatus;
 use App\Entities\Forms\ClientUpdateForm;
-use Monolog\DateTimeImmutable;
+use DateTimeImmutable;
 
 class BeforeUpdateClient
 {
@@ -19,7 +19,7 @@ class BeforeUpdateClient
     public function handle(ClientUpdateForm $clientUpdateForm): void
     {
         if (!empty($clientUpdateForm->status) && $clientUpdateForm->status == BillStatus::FNS->value) {
-            $this->client->fns_date = (new DateTimeImmutable(false))
+            $this->client->fns_date = (new DateTimeImmutable())
                 ->modify('+3 days')
                 ->format('Y-m-d H:i:s')
             ;
