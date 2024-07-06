@@ -20,6 +20,8 @@ use App\Helpers\TableColumnHelper;
 
 include __DIR__ . '/../header.php';
 
+$isAdmin = AuthHelper::getAuthUser()?->isAdmin();
+
 $showFields = $_GET['fields'] ?? [];
 ?>
 <div class="dashboard-wrapper">
@@ -247,7 +249,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="fio" value="' . $company->fio . '" class="table-form__text">')
+                                                        ->setData(!$isAdmin ? $company->fio : '<input type="text" name="fio" value="' . $company->fio . '" class="table-form__text">')
                                                         ->isHide((!empty($showFields) && !in_array('fio', $showFields)))
                                                         ->build()
                                                     ?>
@@ -256,7 +258,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="inn" value="' . $company->inn . '" class="table-form__text">')
+                                                        ->setData(!$isAdmin ? $company->inn : '<input type="text" name="inn" value="' . $company->inn . '" class="table-form__text">')
                                                         ->isHide((!empty($showFields) && !in_array('inn', $showFields)))
                                                         ->build()
                                                     ?>
@@ -265,7 +267,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="phone" value="' . $company->phone . '" class="table-form__text">')
+                                                        ->setData(!$isAdmin ? $company->phone : '<input type="text" name="phone" value="' . $company->phone . '" class="table-form__text">')
                                                         ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
                                                         ->build()
                                                     ?>
@@ -283,40 +285,56 @@ $showFields = $_GET['fields'] ?? [];
                                                     <?php } ?>
                                                     <?php if (!(!empty($showFields) && !in_array('operation_type', $showFields))) { ?>
                                                         <td class="modal-table-primary__col text-left">
-                                                            <select name="operation_type" class="table-form__select">
-                                                                <?php foreach (OperationType::cases() as $case) { ?>
-                                                                    <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>><?= OperationType::getLabel($case->value) ?></option>
-                                                                <?php } ?>
-                                                            </select>
+                                                            <?php if ($isAdmin) { ?>
+                                                                <select name="operation_type" class="table-form__select">
+                                                                    <?php foreach (OperationType::cases() as $case) { ?>
+                                                                        <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->operation_type, $case->value, 'selected') ?>><?= OperationType::getLabel($case->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            <?php } else { ?>
+                                                                <?= OperationType::getLabel($company->operation_type) ?>
+                                                            <?php } ?>
                                                         </td>
                                                     <?php } ?>
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
-                                                            <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                    <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="status" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>">
+                                                                <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= BillStatus::getLabel($company->status) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="npd" class="table-form__select">
-                                                            <?php foreach (NpdStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->npd == $item->value) ? 'selected' : ''?>> <?= NpdStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="npd" class="table-form__select">
+                                                                <?php foreach (NpdStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->npd == $item->value) ? 'selected' : ''?>> <?= NpdStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= NpdStatus::getLabel($company->npd) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="empl" class="table-form__select">
-                                                            <?php foreach (EmplStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->empl == $item->value) ? 'selected' : ''?>> <?= EmplStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="empl" class="table-form__select">
+                                                                <?php foreach (EmplStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->empl == $item->value) ? 'selected' : ''?>> <?= EmplStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= EmplStatus::getLabel($company->empl) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('td')
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="responsible" value="' . $company->responsible . '" class="table-form__text">')
+                                                        ->setData(!$isAdmin ? ($company->responsible ?: '') : '<input type="text" name="responsible" value="' . $company->responsible . '" class="table-form__text">')
                                                         ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                         ->build()
                                                     ?>
@@ -341,84 +359,148 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'class' => 'modal-table-primary__col text-left'
                                                         ])
-                                                        ->setData('<input type="text" name="comment" value="' . $company->comment . '" class="table-form__text">')
+                                                        ->setData(!$isAdmin ? ($company->comment ?: '') :'<input type="text" name="comment" value="' . $company->comment . '" class="table-form__text">')
                                                         ->isHide((!empty($showFields) && !in_array('comment', $showFields)))
                                                         ->build()
                                                     ?>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input type="text" name="comment_adm" value="<?= $company->comment_adm ?>" class="table-form__text">
+                                                        <?php } else { ?>
+                                                            <?= $company->comment_adm ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">
+                                                        <?php } else { ?>
+                                                            <?= (new DateTime($company->created_at))->format('Y-m-d') ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->registration_exit_date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->registration_exit_date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <?php } else { ?>
+                                                            <?= $company->registration_exit_date ?(new DateTime($company->registration_exit_date))->format('Y-m-d') : '' ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <!-- Альфа банк -->
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
-                                                            <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                    <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
+                                                                <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= BillStatus::getLabel($company->alfabank->status) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="alfabank[date]" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="alfabank[date]" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <?php } else { ?>
+                                                            <?= $company->alfabank->date ? (new DateTime($company->alfabank->date))->format('m-d') : '' ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="alfabank[comment]" value="<?= $company->alfabank->comment ?>" class="table-form__text">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input type="text" name="alfabank[comment]" value="<?= $company->alfabank->comment ?>" class="table-form__text">
+                                                        <?php } else { ?>
+                                                            <?= $company->alfabank->comment ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <select name="alfabank[partner]" class="table-form__select">
-                                                            <?php foreach (PartnerType::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->alfabank->partner == $item->value) ? 'selected' : ''?>> <?= PartnerType::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="alfabank[partner]" class="table-form__select">
+                                                                <?php foreach (PartnerType::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->alfabank->partner == $item->value) ? 'selected' : ''?>> <?= PartnerType::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= PartnerType::getLabel($company->alfabank->partner) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <!-- Тинькофф банк -->
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="tinkoff[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->tinkoff->status) ?>">
-                                                            <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->tinkoff->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                    <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->tinkoff->status) ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="tinkoff[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->tinkoff->status) ?>">
+                                                                <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->tinkoff->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= BillStatus::getLabel($company->tinkoff->status) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                        <?php } else { ?>
+                                                            <?= $company->tinkoff->date ? (new DateTime($company->tinkoff->date))->format('m-d') : '' ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input type="text" name="tinkoff[comment]" value="<?= $company->tinkoff->comment ?>" class="table-form__text">
+                                                        <?php } else { ?>
+                                                            <?= $company->tinkoff->comment ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <!-- Сбербанк -->
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="sberbank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->sberbank->status) ?>">
-                                                            <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->sberbank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                    <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->sberbank->status) ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="sberbank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->sberbank->status) ?>">
+                                                                <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->sberbank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= BillStatus::getLabel($company->sberbank->status) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="sberbank[date]" class="table-form__text" <?php if (!empty($company->sberbank->date)) { ?> value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="sberbank[date]" class="table-form__text" <?php if (!empty($company->sberbank->date)) { ?> value="<?= (new DateTime($company->sberbank->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <?php } else { ?>
+                                                            <?= $company->sberbank->date ? (new DateTime($company->sberbank->date))->format('m-d') : '' ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="sberbank[comment]" value="<?= $company->sberbank->comment ?>" class="table-form__text">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input type="text" name="sberbank[comment]" value="<?= $company->sberbank->comment ?>" class="table-form__text">
+                                                        <?php } else { ?>
+                                                            <?= $company->sberbank->comment ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <!-- ПСБ -->
-                                                    <td class="modal-table-primary__col text-left">
-                                                        <select name="psb[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">
-                                                            <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                <option value="<?= $item->value ?>" <?= ($company->psb->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                            <?php } ?>
-                                                        </select>
+                                                    <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="psb[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">
+                                                                <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->psb->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= BillStatus::getLabel($company->psb->status) ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input style="width: 49px;" type="date" name="psb[date]" class="table-form__text" <?php if (!empty($company->psb->date)) { ?>value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="psb[date]" class="table-form__text" <?php if (!empty($company->psb->date)) { ?>value="<?= (new DateTime($company->psb->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <?php } else { ?>
+                                                            <?= $company->psb->date ? (new DateTime($company->psb->date))->format('m-d') : '' ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <input type="text" name="psb[comment]" value="<?= $company->psb->comment ?>" class="table-form__text">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input type="text" name="psb[comment]" value="<?= $company->psb->comment ?>" class="table-form__text">
+                                                        <?php } else { ?>
+                                                            <?= $company->psb->comment ?>
+                                                        <?php } ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

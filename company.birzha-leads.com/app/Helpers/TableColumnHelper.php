@@ -28,7 +28,7 @@ class TableColumnHelper
         return $this;
     }
 
-    public function setData(string $data): self
+    public function setData(?string $data): self
     {
         $this->data = $data;
 
