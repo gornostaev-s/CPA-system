@@ -58,6 +58,7 @@ Router::route('/v1/change-employer-password', [\App\Controllers\Api\EmployersCon
 //
 
 Router::route('/v1/challengers/add', [ChallengersController::class, 'add']);
+Router::route('/v1/challengers/delete', [ChallengersController::class, 'delete']);
 Router::route('/v1/challengers/update', [ChallengersController::class, 'update']);
 Router::route('/v1/challengers/move', [ChallengersController::class, 'move']);
 
