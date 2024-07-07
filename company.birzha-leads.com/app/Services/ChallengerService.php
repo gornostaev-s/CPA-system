@@ -78,12 +78,12 @@ class ChallengerService
 
     public function delete(int $id)
     {
-        if (!AuthHelper::getAuthUser()->isAdmin()) {
-            throw new ValidationException("Вы не можете удалить клиента");
-        }
         $company = $this->challengerRepository->getById($id);
         if (empty($company)) {
             throw new ValidationException("Клиента с ID:$id не существует");
+        }
+        if (!($company->owner_id == AuthHelper::getAuthUser()->id || AuthHelper::getAuthUser()->isAdmin())) {
+            throw new ValidationException("Вы не можете удалить клиента");
         }
         $this->challengerRepository->delete($id);
     }

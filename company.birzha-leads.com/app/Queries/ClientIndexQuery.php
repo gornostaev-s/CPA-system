@@ -106,6 +106,7 @@ class ClientIndexQuery extends QueryBuilder
         !$this->isShowField('comment', $this->request['fields']) ?: $this->addSelect(['c.comment']);
         !$this->isShowField('comment_adm', $this->request['fields']) ?: $this->addSelect(['comment_adm']);
         !$this->isShowField('comment_mp', $this->request['fields']) ?: $this->addSelect(['comment_mp']);
+
         !$this->isShowField('mode', $this->request['fields']) ?: $this->addSelect(['mode']);
 //        !$this->isShowField('submission_date', $this->request['fields']) ?: $this->addSelect(['submission_date']);
         !$this->isShowField('sent_date', $this->request['fields']) ?: $this->addSelect(['sent_date']);

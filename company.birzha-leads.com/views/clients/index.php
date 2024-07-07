@@ -57,7 +57,7 @@ $showFields = $_GET['fields'] ?? [];
                                 </div>
                             <?php } ?>
                             <div class="button-container__item button-container_search">
-                                <form class="search-panel" method="GET" action="/clients">
+                                <form class="search-panel" method="GET" action="/">
                                     <?= FormHelper::formShowInputs() ?>
                                     <div class="search-panel__group">
                                         <input type="text" class="js-date search-panel__text" value="<?= !empty($_GET['datetime']) ? $_GET['datetime'] : DateTimeInputHelper::getDefaultIntervalString() ?>" name="datetime" />
@@ -86,7 +86,7 @@ $showFields = $_GET['fields'] ?? [];
                         <div class="card-body">
                             <div class="table-responsive">
                                 <div class="table-responsive js-tableScroll">
-                                    <form action="/clients" class="table-form">
+                                    <form action="/" class="table-form">
                                         <table class="table js-table">
                                             <thead class="bg-light js-tableHead">
                                             <tr class="border-0">
@@ -619,7 +619,7 @@ $fields = $_GET['fields'] ?? [];
 <div class="modal fade" id="fieldFilter" tabindex="-1" role="dialog" aria-labelledby="Отображение полей" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="/clients">
+            <form action="/">
                 <?= FormHelper::formSearchInput() ?>
                 <div class="modal-header">
                     <h5 class="modal-title">Отображение полей</h5>
@@ -685,11 +685,21 @@ $fields = $_GET['fields'] ?? [];
                                 <label for="">
                                     <input <?= empty($fields) || in_array('responsible', $fields) ? 'checked' : ''?> value="responsible" type="checkbox" name="fields[]">
                                     <span>
-                                        Адрес
+                                        Ответственный
                                     </span>
                                 </label>
                             </div>
                         </div>
+
+                        <input type="hidden" name="fields[]" value="mode">
+                        <input type="hidden" name="fields[]" value="comment">
+                        <input type="hidden" name="fields[]" value="comment_mp">
+                        <input type="hidden" name="fields[]" value="comment_adm">
+                        <input type="hidden" name="fields[]" value="npd">
+                        <input type="hidden" name="fields[]" value="empl">
+                        <input type="hidden" name="fields[]" value="status">
+                        <input type="hidden" name="fields[]" value="scoring">
+
                     </div>
                 </div>
                 <div class="modal-footer">

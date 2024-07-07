@@ -5,6 +5,7 @@
 
 use App\Entities\Challenger;
 use App\Entities\Company;
+use App\Entities\Enums\ChallengerStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\ProcessStatus;
 use App\Helpers\AttributeCheckHelper;
@@ -117,7 +118,9 @@ include __DIR__ . '/../header.php';
                                                 </td>
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                     <td class="modal-table-primary__col text-left">
-                                                        Иванов Иван
+                                                        <?php foreach ($data['employers'] as $employer) { ?>
+                                                            <?= ($employer->id == $data['ownerId']) ? $employer->name : '' ?>
+                                                        <?php } ?>
                                                     </td>
                                                 <?php } ?>
                                                 <td class="modal-table-primary__col text-left">
@@ -130,8 +133,8 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left"><?= (new DateTime($challenger->created_at))->format('d.m.Y') ?></td>
                                                 <td class="modal-table-primary__col text-left">
                                                     <select <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> name="status" class="table-form__select">
-                                                        <?php foreach (Company::STATUSES as $key => $status) { ?>
-                                                            <option value="<?= $key ?>" <?= ($challenger->status == $key) ? 'selected' : ''?>> <?= $status ?></option>
+                                                        <?php foreach (ChallengerStatus::cases() as $status) { ?>
+                                                            <option value="<?= $status->value ?>" <?= ($challenger->status == $status->value) ? 'selected' : ''?>> <?= ChallengerStatus::getLabel($status->value) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </td>

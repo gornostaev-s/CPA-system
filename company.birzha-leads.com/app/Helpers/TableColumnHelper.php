@@ -6,7 +6,7 @@ class TableColumnHelper
 {
     private string $tag;
     private array $attributes;
-    private string $data;
+    private ?string $data;
     private bool $hide;
 
     public static function make(): self

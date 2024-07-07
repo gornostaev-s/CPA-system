@@ -104,7 +104,7 @@ class Client extends BaseEntity
         $e = new self;
         $e->inn = $challenger->inn;
         $e->fio = $challenger->fio;
-        $e->status = $challenger->status;
+        $e->status = BillStatus::Disabled->value;
         $e->responsible = $challenger->address;
         $e->phone = $challenger->phone;
         $e->owner_id = $challenger->owner_id;
