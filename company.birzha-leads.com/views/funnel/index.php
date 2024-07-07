@@ -248,6 +248,34 @@ include __DIR__ . '/../header.php';
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
+        jQuery('.js-clientDeleteForm').on('submit', function (e) {
+            e.preventDefault();
+            var form = jQuery(this);
+
+            console.log(form.attr('action'));
+
+            jQuery.ajax({
+                type: 'post',
+                url: form.attr('action'),
+                data : form.serialize(),
+                success: function(data){
+                    if(!data.success){
+                        var text = '';
+                        for (var prop in data.errors) {
+                            text += '<p>'+data.errors[prop]+'</p>';
+                        }
+                        if (!text) {
+                            jQuery('.response-errors').html("Возникла ошибка!")
+                        } else {
+                            jQuery('.response-errors').html(text)
+                        }
+                    } else {
+                        window.location.reload();
+                    }
+                },
+            })
+        })
+
         jQuery('.js-moveChallenger').on('click', function () {
             jQuery.ajax({
                 type: 'get',
