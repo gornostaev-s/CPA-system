@@ -21,7 +21,7 @@ class Challenger extends BaseEntity
     public int $process_status;
     public string $created_at;
 
-    public static function makeFromForm(
+    public static function  makeFromForm(
         ChallengerCreateForm $form
     ): Challenger
     {
@@ -31,6 +31,7 @@ class Challenger extends BaseEntity
         $e->fio = !empty($form->fio) ? $form->fio : null;
         $e->phone = !empty($form->phone) ? $form->phone : null;
         $e->comment = !empty($form->comment) ? $form->comment : null;
+        $e->status = 0;
         $e->operation_type = !empty($form->operation_type) ? $form->operation_type : null;
 
         return $e;
