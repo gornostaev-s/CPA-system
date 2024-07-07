@@ -31,12 +31,18 @@ class FunnelController extends Controller
 
             $employers = $this->userRepository->getEmployers();
             $ownerId = $request['ownerId'];
+            if (empty($ownerId)) {
+                $challengers = $this->challengerRepository->getReadyToMoveChallengers();
+            } else {
+                $challengers = $this->challengerRepository->getChallengersByOwnerId($user->id);
+            }
         } else {
+            $challengers = $this->challengerRepository->getChallengersByOwnerId($user->id);
             $ownerId = $user->id;
         }
 
         return $this->view('funnel/index', [
-            'challengers' => $ownerId ? $this->challengerRepository->getChallengersByOwnerId($ownerId) : [],
+            'challengers' => $challengers,
             'employers' => $employers ?? [],
             'ownerId' => $ownerId
         ]);

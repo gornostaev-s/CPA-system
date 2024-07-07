@@ -7,10 +7,12 @@ use App\Entities\Forms\ChallengerCreateForm;
 use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Helpers\ApiHelper;
+use App\Helpers\AuthHelper;
 use App\Services\ClientsService;
 use App\Services\CompanyService;
 use App\Utils\Exceptions\ValidationException;
 use App\Utils\ValidationUtil;
+use ReflectionException;
 
 class ClientsController extends Controller
 {
@@ -31,6 +33,10 @@ class ClientsController extends Controller
             "operation_type" => 'integer|max:255',
             "owner_id" => 'integer',
         ]);
+
+        if (!AuthHelper::getAuthUser()->isAdmin()) {
+            ApiHelper::sendError(['message' => 'Добавить клиента может только администратор']);
+        }
 
         $client = $this->clientsService->add(ClientCreateForm::makeFromRequest($request));
 
@@ -91,6 +97,12 @@ class ClientsController extends Controller
         $this->clientsService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
     }
 
+    /**
+     * @return void
+     * @throws ValidationException
+     * @throws ReflectionException
+     * @deprecated
+     */
     public function updateCompany()
     {
         $request = ValidationUtil::validate($_POST,[

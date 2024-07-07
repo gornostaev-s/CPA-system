@@ -62,6 +62,13 @@ class ChallengerRepository
         return $this->prepareRes($queryRes ?: []);
     }
 
+    public function getReadyToMoveChallengers(): Generator|array
+    {
+        $queryRes = $this->mapper->db->query("SELECT * FROM challengers WHERE process_status = 1")->fetchAll();
+
+        return $this->prepareRes($queryRes ?: []);
+    }
+
     /**
      * @param array $queryRes
      * @return Generator
