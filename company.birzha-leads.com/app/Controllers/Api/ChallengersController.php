@@ -86,7 +86,7 @@ class ChallengersController extends Controller
     public function delete(): bool|string
     {
         try {
-            $request = ValidationUtil::validate($_GET, [
+            $request = ValidationUtil::validate($_POST, [
                 "id" => 'max:255',
             ]);
 
