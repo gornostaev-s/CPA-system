@@ -77,8 +77,8 @@ include __DIR__ . '/../header.php';
                                             <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                 <th class="border-0">Перенести</th>
                                             <?php } ?>
-                                            <th class="border-0" style="min-width: 190px;">ФИО</th>
-                                            <th class="border-0" style="min-width: 190px;">ИНН</th>
+                                            <th class="border-0" style="min-width: 130px;">ФИО</th>
+                                            <th class="border-0" style="min-width: 85px;">ИНН</th>
                                             <th class="border-0" style="min-width: 100px;">Телефон</th>
                                             <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                 <th class="border-0">Сотрудник</th>
