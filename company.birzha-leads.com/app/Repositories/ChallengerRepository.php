@@ -29,6 +29,15 @@ class ChallengerRepository
     }
 
     /**
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $this->mapper->db->query("DELETE FROM challengers WHERE id=$id");
+    }
+
+    /**
      * @param array $res
      * @return Challenger|null
      * @throws ReflectionException

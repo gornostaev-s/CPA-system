@@ -8,9 +8,11 @@ use App\Entities\Company;
 use App\Entities\Enums\ProcessStatus;
 use App\Entities\Forms\ChallengerCreateForm;
 use App\Entities\Forms\ChallengerUpdateForm;
+use App\Helpers\AuthHelper;
 use App\Repositories\ChallengerRepository;
 use App\Repositories\ClientsRepository;
 use App\Repositories\CompanyRepository;
+use App\Utils\Exceptions\ValidationException;
 use Exception;
 use ReflectionException;
 
@@ -74,13 +76,15 @@ class ChallengerService
         $this->challengerRepository->save($challenger);
     }
 
-//    public function get()
-//    {
-//
-//    }
-
-//    public function delete()
-//    {
-//
-//    }
+    public function delete(int $id)
+    {
+        if (!AuthHelper::getAuthUser()->isAdmin()) {
+            throw new ValidationException("Вы не можете удалить клиента");
+        }
+        $company = $this->challengerRepository->getById($id);
+        if (empty($company)) {
+            throw new ValidationException("Клиента с ID:$id не существует");
+        }
+        $this->challengerRepository->delete($id);
+    }
 }

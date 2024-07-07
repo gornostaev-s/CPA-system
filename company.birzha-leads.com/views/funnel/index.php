@@ -30,6 +30,12 @@ include __DIR__ . '/../header.php';
                                     Добавить клиента
                                 </button>
                             </div>
+                            <div class="button-container__item">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteClient">
+                                    Удалить клиента
+                                </button>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
@@ -201,6 +207,37 @@ include __DIR__ . '/../header.php';
                     <div class="modal-footer">
                         <input class="input-group__text" type="hidden" name="owner_id" value="<?= $data['ownerId'] ?>">
                         <button type="submit" class="btn btn-primary">Добавить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteClient" tabindex="-1" role="dialog" aria-labelledby="Удалить клиента" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="js-clientDeleteForm" action="/v1/challengers/delete">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Удалить клиента</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <input required class="input-group__text" type="text" name="id" placeholder="ID">
+                        </div>
+                        <div class="input-group">
+                            <div class="response-errors">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="input-group__text" type="hidden" name="owner_id" value="<?= $data['ownerId'] ?>">
+                        <button type="submit" class="btn btn-primary">Удалить</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     </div>
                 </form>

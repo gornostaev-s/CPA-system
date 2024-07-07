@@ -82,4 +82,20 @@ class ChallengersController extends Controller
 
         return ApiHelper::sendSuccess(['message' => 'Клиент создан']);
     }
+
+    public function delete(): bool|string
+    {
+        try {
+            $request = ValidationUtil::validate($_GET, [
+                "id" => 'max:255',
+            ]);
+
+            $this->challengerService->delete($request['id']);
+        } catch (Throwable $e) {
+
+            return ApiHelper::sendError(['message' => $e->getMessage()]);
+        }
+
+        return ApiHelper::sendSuccess(['message' => 'Клиент создан']);
+    }
 }
