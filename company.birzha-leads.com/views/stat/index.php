@@ -61,7 +61,7 @@ include __DIR__ . '/../header.php';
                                                 <th class="border-0">Альфа</th>
                                                 <th class="border-0">Тин</th>
                                                 <th class="border-0">Сбер</th>
-                                                <th class="border-0">Итого</th>
+                                                <th class="border-0">А+Т+С</th>
                                             </tr>
                                             </thead>
                                             <tbody class="js-orders">
