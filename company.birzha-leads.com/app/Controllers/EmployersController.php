@@ -26,6 +26,7 @@ class EmployersController extends Controller
     {
         return $this->view('employers/index', [
             'employers' => $this->userRepository->getEmployers(),
+            'admins' => $this->userRepository->getAdmins(),
             'billHelper' => $this->billHelper,
             'clientHelper' => $this->clientHelper,
         ]);

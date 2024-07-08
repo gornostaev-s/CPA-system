@@ -100,6 +100,62 @@ include __DIR__ . '/../header.php';
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12">
+                    <div class="card">
+                        <h5 class="card-header">Админы</h5>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div class="table-responsive">
+                                    <form action="/v1/employers/update" class="table-form">
+                                        <table class="table js-table">
+                                            <thead class="bg-light js-tableHead">
+                                            <tr class="border-0">
+                                                <th class="border-0 column-num">#</th>
+                                                <th class="border-0">Фамилия имя</th>
+                                                <th class="border-0">Статус</th>
+                                                <th class="border-0">Почта</th>
+                                                <th class="border-0">Количество клиентов</th>
+                                                <th class="border-0">Количество открытых счетов</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="js-orders">
+                                            <?php foreach ($data['admins'] as $employer) {
+                                                /** @var $employer User */
+                                                ?>
+                                                <tr class="js-dataRow" data-id="<?= $employer->id ?>">
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $employer->id ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <input type="text" name="name" value="<?= $employer->name ?>" class="table-form__text">
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <select class="table-form__select" name="status">
+                                                            <?php foreach (EmployersStatus::cases() as $case) { ?>
+                                                                <option <?= ($case->value == $employer->status) ? 'selected' : '' ?> value="<?= $case->value ?>"><?= EmployersStatus::getLabel($case->value) ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <input type="text" name="email" value="<?= $employer->email ?>" class="table-form__text">
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $clientHelper->getClientsCountByUserId($employer->id) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $billHelper->getOpenBillsCountByUserId($employer->id) ?>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
