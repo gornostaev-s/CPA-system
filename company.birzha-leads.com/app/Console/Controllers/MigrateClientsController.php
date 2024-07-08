@@ -30,27 +30,45 @@ class MigrateClientsController extends Controller
         parent::__construct();
     }
 
-    public function indexAll()
+    public function index()
     {
         ini_set('max_execution_time', '300');
         $data = $this->getTableData('/var/www/company.birzha-leads.com/base.xlsx');
         $i = 0;
         foreach ($data as $client) {
-            if ($client['F'] != 'Даниил2' || empty($client['D'])) {
-                continue;
-            }
+            $clients = $this->clientsRepository->getClientsByInn($client['D'] ?: '');
 
-            $clients = $this->clientsRepository->getClientsByInn($client['D']);
+            foreach ($clients as $c) {
+                /** @var Client $c */
+                $c->mode = match ($client['A']) {
+                    ClientMode::getLabel(ClientMode::Take->value) => ClientMode::Take->value,
+                    ClientMode::getLabel(ClientMode::Design->value) => ClientMode::Design->value,
+                    ClientMode::getLabel(ClientMode::Clogged->value) => ClientMode::Clogged->value,
+                    ClientMode::getLabel(ClientMode::Bank->value) => ClientMode::Bank->value,
+                    ClientMode::getLabel(ClientMode::CameOut->value) => ClientMode::CameOut->value,
+                    ClientMode::getLabel(ClientMode::Ready->value) => ClientMode::Ready->value,
+                    ClientMode::getLabel(ClientMode::Reject->value) => ClientMode::Reject->value,
+                    'Т-банк' => ClientMode::Tinkoff->value,
+                    ClientMode::getLabel(ClientMode::Sber->value) => ClientMode::Sber->value,
+                    ClientMode::getLabel(ClientMode::Alfa->value) => ClientMode::Alfa->value,
+                    default => 0,
+                };
+                $ownerId = match ($client['F']) {
+                    'Никит 2 Ц' => 22,
+                    'Даниил2' => 35,
+                    default => $this->userRepository->getUserByName($client['F'])?->id
+                };
 
-            foreach ($clients as $client) {
-                /** @var Client $client */
-                $client->owner_id = 35;
-                $this->clientsRepository->save($client);
+                if (!empty($employer)) { $c->owner_id = $ownerId; }
+
+                var_dump("CLIENT ID: $c->id");
+
+                $this->clientsRepository->save($c);
             }
         }
     }
 
-    public function index()
+    public function indexAll()
     {
         // '/var/www/company.birzha-leads.com/base.xlsx'
 
