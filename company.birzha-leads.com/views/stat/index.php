@@ -91,7 +91,7 @@ include __DIR__ . '/../header.php';
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id) ?>
+                                                        <?= $clientHelper->getOperationTypeCount(OperationType::TYPE1->value) ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

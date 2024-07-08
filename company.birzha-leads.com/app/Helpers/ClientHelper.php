@@ -17,4 +17,9 @@ class ClientHelper
     {
         return $this->clientsRepository->getClientsCountByUserId($userId);
     }
+
+    public function getOperationTypeCount(int $operationType)
+    {
+        return $this->clientsRepository->getOperationTypeCount($operationType);
+    }
 }
