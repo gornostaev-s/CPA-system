@@ -34,7 +34,7 @@ class FunnelController extends Controller
             if (empty($ownerId)) {
                 $challengers = $this->challengerRepository->getReadyToMoveChallengers();
             } else {
-                $challengers = $this->challengerRepository->getChallengersByOwnerId($user->id);
+                $challengers = $this->challengerRepository->getChallengersByOwnerId($ownerId);
             }
         } else {
             $challengers = $this->challengerRepository->getChallengersByOwnerId($user->id);

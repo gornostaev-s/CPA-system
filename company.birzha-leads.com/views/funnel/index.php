@@ -119,7 +119,7 @@ include __DIR__ . '/../header.php';
                                                 <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?php foreach ($data['employers'] as $employer) { ?>
-                                                            <?= ($employer->id == $data['ownerId']) ? $employer->name : '' ?>
+                                                            <?= ($employer->id == $challenger->owner_id) ? $employer->name : '' ?>
                                                         <?php } ?>
                                                     </td>
                                                 <?php } ?>
