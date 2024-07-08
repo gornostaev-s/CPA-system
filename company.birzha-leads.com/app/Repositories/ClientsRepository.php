@@ -178,9 +178,9 @@ class ClientsRepository
         return $queryRes['count'];
     }
 
-    public function getOperationTypeCount(int $operationType)
+    public function getOperationTypeCountByUserId(int $userId, int $operationType)
     {
-        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c WHERE c.operation_type = $operationType")->fetch();
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c WHERE c.operation_type = $operationType AND c.owner_id = $userId")->fetch();
 
         return $queryRes['count'];
     }
