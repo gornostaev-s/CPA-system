@@ -69,7 +69,7 @@ class ClientsRepository
      */
     public function getNewCompanies(): array
     {
-        $queryRes = $this->mapper->db->query('SELECT * FROM clients WHERE status = ' . BillStatus::FNS->value)->fetchAll();
+        $queryRes = $this->mapper->db->query('SELECT * FROM clients WHERE status = ' . BillStatus::FNS->value . ' AND fns_date < CURRENT_TIMESTAMP()')->fetchAll();
 
         if (empty($queryRes)) {
             throw new Exception('Clients not found', 404);
