@@ -67,6 +67,8 @@ class IndexController extends Controller
     public function importFull()
     {
         $this->clientsService->importFromFile($_FILES['excel']['tmp_name']);
+
+        header('Location: /');
     }
 
     public function import()
