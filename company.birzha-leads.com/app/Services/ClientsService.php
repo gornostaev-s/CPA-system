@@ -20,7 +20,7 @@ use App\Helpers\PhoneHelper;
 use App\Repositories\BillRepository;
 use App\Repositories\ClientsRepository;
 use App\Repositories\CompanyRepository;
-use App\Repository\UserRepository;
+use App\Repositories\UserRepository;
 use App\Utils\Exceptions\ValidationException;
 use Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
