@@ -64,6 +64,11 @@ class IndexController extends Controller
         return $this->view('import/index');
     }
 
+    public function importFull()
+    {
+        $this->clientsService->importFromFile($_FILES['excel']['tmp_name']);
+    }
+
     public function import()
     {
         $inns = $this->getTableData($_FILES['excel']['tmp_name']);

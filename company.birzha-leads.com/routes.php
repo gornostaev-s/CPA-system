@@ -19,7 +19,7 @@ Router::route('/', [\App\Controllers\ClientsController::class, 'index'], AuthMid
 Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
 Router::route('/import', [IndexController::class, 'importForm'], AuthMiddleware::class);
 Router::route('/employers', [EmployersController::class, 'index'], AuthMiddleware::class);
-Router::route('/import-process', [IndexController::class, 'import'], AuthMiddleware::class);
+Router::route('/import-process', [IndexController::class, 'importFull'], AuthMiddleware::class);
 Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], AuthMiddleware::class);
 Router::route('/stat', [StatController::class, 'index'], AuthMiddleware::class);
 //Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
