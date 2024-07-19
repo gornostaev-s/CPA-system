@@ -17,10 +17,12 @@ use App\Helpers\CompanyColorHelper;
 use App\Helpers\DateTimeInputHelper;
 use App\Helpers\FormHelper;
 use App\Helpers\TableColumnHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 
 include __DIR__ . '/../header.php';
 
-$isAdmin = AuthHelper::getAuthUser()?->isAdmin();
+$isAdmin = PermissionManager::getInstance()->has(PermissionsEnum::editClients->value);
 
 $showFields = $_GET['fields'] ?? [];
 ?>
@@ -139,7 +141,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
                                                     ->build()
                                                 ?>
-                                                <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                     <?= TableColumnHelper::make()
                                                         ->setTag('th')
                                                         ->setAttributes([
@@ -225,7 +227,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 /** @var $company Company */
                                                 ?>
                                                 <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByMode($company->mode) ?>">
-                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                         <?php if (!(!empty($showFields) && !in_array('mode', $showFields))) { ?>
                                                             <td class="modal-table-primary__col text-left">
                                                                 <select name="mode" class="table-form__select" style="width: 60px;">
@@ -271,7 +273,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
                                                         ->build()
                                                     ?>
-                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                         <?php if (!(!empty($showFields) && !in_array('employer', $showFields))) { ?>
                                                             <td class="modal-table-primary__col text-left">
                                                                 <select name="owner_id" class="table-form__select">
@@ -338,7 +340,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->isHide((!empty($showFields) && !in_array('responsible', $showFields)))
                                                         ->build()
                                                     ?>
-                                                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                         <td class="modal-table-primary__col text-left">
                                                             <select name="scoring" class="table-form__select">
                                                                 <option value="0">-</option>

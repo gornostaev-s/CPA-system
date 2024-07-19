@@ -4,14 +4,14 @@ namespace App\Queries;
 
 use App\Core\Query;
 use App\Core\QueryBuilder;
+use App\Entities\Enums\BillStatus;
 use App\Helpers\AuthHelper;
 use App\Helpers\DateTimeInputHelper;
 use App\Helpers\PhoneHelper;
 use App\RBAC\Enums\PermissionsEnum;
 use App\RBAC\Managers\PermissionManager;
-use ReflectionException;
 
-class ClientIndexQuery extends QueryBuilder
+class RkoSberQuery extends QueryBuilder
 {
     private array $request;
     private string $table = 'companies';
@@ -120,6 +120,10 @@ class ClientIndexQuery extends QueryBuilder
         }
 
         $this->addFrom($this->table . ' c');
+
+        $this->addWhere(['c.status = ' . BillStatus::Open->value]);
+//        $this->addWhere(['ab.status <> ' . BillStatus::Indent->value]);
+        $this->addWhere(['(ab.status <> '.BillStatus::Indent->value.' OR ab.status is null)']);
 
         $dateInterval = !empty($this->request['datetime']) ? DateTimeInputHelper::getIntervalFromString($this->request['datetime'], 'Y-m-d') : DateTimeInputHelper::getDefaultInterval('Y-m-d');
         $this->addWhere(["c.created_at >= '{$dateInterval['startDate']} 00:00:00'"]);

@@ -3,6 +3,7 @@
 use App\Controllers\Api\ChallengersController;
 use App\Controllers\Api\ClientsController;
 use App\Controllers\FunnelController;
+use App\Controllers\Api\RBAC\UserRolesController;
 use App\Controllers\StatController;
 use App\Controllers\ZvonokController;
 use App\Controllers\EmployersController;
@@ -11,14 +12,18 @@ use App\Controllers\IndexController;
 use App\Controllers\AuthController;
 use App\Core\Router;
 use App\Middlewares\AuthMiddleware;
+use App\Middlewares\PermissionMiddleware;
 
 $request = $_SERVER['REQUEST_URI'];
 
 Router::route('/', [\App\Controllers\ClientsController::class, 'index'], AuthMiddleware::class);
+Router::route('/alfa', [\App\Controllers\ClientsController::class, 'alfa'], AuthMiddleware::class);
+Router::route('/sber', [\App\Controllers\ClientsController::class, 'sber'], AuthMiddleware::class);
+Router::route('/tinkoff', [\App\Controllers\ClientsController::class, 'tinkoff'], AuthMiddleware::class);
 //Router::route('/clients', [\App\Controllers\ClientsController::class, 'index'], AuthMiddleware::class);
 Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
 Router::route('/import', [IndexController::class, 'importForm'], AuthMiddleware::class);
-Router::route('/employers', [EmployersController::class, 'index'], AuthMiddleware::class);
+Router::route('/employers', [EmployersController::class, 'index'], PermissionMiddleware::class);
 Router::route('/import-process', [IndexController::class, 'importFull'], AuthMiddleware::class);
 Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], AuthMiddleware::class);
 Router::route('/stat', [StatController::class, 'index'], AuthMiddleware::class);
@@ -27,6 +32,12 @@ Router::route('/login', [AuthController::class, 'login']);
 Router::route('/registration', [AuthController::class, 'registration']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
 Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
+
+/**
+ * RBAC
+ */
+
+Router::route('/user-roles', [App\Controllers\RBAC\UserRolesController::class, 'index']);
 
 /**
  * Api routes
@@ -55,12 +66,16 @@ Router::route('/v1/change-employer-password', [\App\Controllers\Api\EmployersCon
  * api challengers
  */
 
-//
-
 Router::route('/v1/challengers/add', [ChallengersController::class, 'add']);
 Router::route('/v1/challengers/delete', [ChallengersController::class, 'delete']);
 Router::route('/v1/challengers/update', [ChallengersController::class, 'update']);
 Router::route('/v1/challengers/move', [ChallengersController::class, 'move']);
+
+/**
+ * api RBAC
+ */
+
+Router::route('/v1/rbac/users/update', [UserRolesController::class, 'update']);
 
 echo Router::execute($_SERVER['REQUEST_URI']);
 ?>

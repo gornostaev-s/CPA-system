@@ -17,11 +17,12 @@ class AuthMiddleware implements MiddlewareInterface
     }
 
     /**
+     * @param array $callback
      * @return void
      * @throws NotAuthorizedException
      * @throws ReflectionException
      */
-    public function run(): void
+    public function run(array $callback): void
     {
         if (!$this->authHelper->isAuth() || AuthHelper::getAuthUser()->status == EmployersStatus::TYPE2->value) {
             throw new NotAuthorizedException('Вы не авторизованы!', 403);

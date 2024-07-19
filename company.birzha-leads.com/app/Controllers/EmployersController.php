@@ -18,6 +18,10 @@ class EmployersController extends Controller
     {
     }
 
+    public array $access = [
+        'index' => ['editUsers']
+    ];
+
     /**
      * @return bool|string
      * @throws ReflectionException

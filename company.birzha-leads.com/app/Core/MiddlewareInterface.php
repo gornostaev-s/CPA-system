@@ -7,8 +7,9 @@ use App\Utils\Exceptions\NotAuthorizedException;
 interface MiddlewareInterface
 {
     /**
+     * @param array $callback
      * @return void
      * @throws NotAuthorizedException
      */
-    public function run(): void;
+    public function run(array $callback): void;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Console\Controllers;
 
+use App\RBAC\Enums\PermissionsEnum;
 use App\RBAC\Managers\PermissionManager;
 
 class TestController
@@ -14,8 +15,6 @@ class TestController
 
     public function test()
     {
-        echo '<pre>';
-        var_dump($this->permissionManager->setUserId(1)->has('editUsers'));
-        die;
+        $this->permissionManager->flushPermissionsCache();
     }
 }

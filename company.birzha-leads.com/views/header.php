@@ -2,6 +2,8 @@
 
 use App\Helpers\ActivePageHelper;
 use App\Helpers\AuthHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 
 ?>
 <!doctype html>
@@ -38,13 +40,41 @@ use App\Helpers\AuthHelper;
                             Клиенты
                         </a>
                     </li>
-                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/alfa', 'active') ?>" href="/alfa">
+                                Альфа
+                            </a>
+                        </li>
+                    <?php }?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/tinkoff', 'active') ?>" href="/tinkoff">
+                                Тинькофф
+                            </a>
+                        </li>
+                    <?php }?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/sber', 'active') ?>" href="/sber">
+                                Сбер
+                            </a>
+                        </li>
+                    <?php }?>
+                    <?php if (PermissionManager::getInstance()->has('editUsers')) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/employers', 'active') ?>" href="/employers">
                                 Сотрудники
                             </a>
                         </li>
-                    <?php } ?>
+                    <?php }?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editUserPermissions->value)) { ?>
+                        <li>
+                            <a class="nav-link <?= ActivePageHelper::check('/user-roles', 'active') ?>" href="/user-roles">
+                                Доступы
+                            </a>
+                        </li>
+                    <?php }?>
                     <li class="nav-item ">
                         <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
                             Статистика
@@ -55,20 +85,20 @@ use App\Helpers\AuthHelper;
                             Воронка
                         </a>
                     </li>
-                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::importClients->value)) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/import', 'active') ?>" href="/import">
-                                Импорт клиентов
+                                Импорт
                             </a>
                         </li>
                     <?php } ?>
-                    <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/skorozvon-integration', 'active') ?>" href="/skorozvon-integration">
-                                Интеграция (звонок - скорозвон)
+                                Звонок
                             </a>
                         </li>
-                    <?php } ?>
+                    <?php }?>
                     <li class="nav-item ">
                         <a class="nav-link js-logout" href="#">
                             Выйти

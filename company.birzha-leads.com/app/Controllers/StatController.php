@@ -6,6 +6,8 @@ use App\Core\Controller;
 use App\Helpers\AuthHelper;
 use App\Helpers\BillHelper;
 use App\Helpers\ClientHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 use App\Repositories\UserRepository;
 use ReflectionException;
 
@@ -15,6 +17,7 @@ class StatController extends Controller
         private readonly UserRepository $userRepository,
         private readonly BillHelper $billHelper,
         private readonly ClientHelper $clientHelper,
+        private readonly PermissionManager $permissionManager
     )
     {
         parent::__construct();
@@ -27,7 +30,8 @@ class StatController extends Controller
     public function index(): bool|string
     {
         $user = AuthHelper::getAuthUser();
-        $isAdmin = $user?->isAdmin();
+        $isAdmin = $this->permissionManager->has(PermissionsEnum::allStat->value);
+
         return $this->view('stat/index', [
             'employers' => !$isAdmin ? [$this->userRepository->getUserById($user->id)] : $this->userRepository->getEmployers(),
             'billHelper' => $this->billHelper,

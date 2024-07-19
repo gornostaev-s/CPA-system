@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Helpers\AuthHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 use App\Repositories\ChallengerRepository;
 use App\Repositories\UserRepository;
 use App\Utils\ValidationUtil;
@@ -12,7 +14,8 @@ class FunnelController extends Controller
 {
     public function __construct(
         private readonly ChallengerRepository $challengerRepository,
-        private readonly UserRepository $userRepository
+        private readonly UserRepository $userRepository,
+        private readonly PermissionManager $permissionManager
     )
     {
         parent::__construct();
@@ -21,7 +24,7 @@ class FunnelController extends Controller
     public function index()
     {
         $user = AuthHelper::getAuthUser();
-        $isAdmin = $user?->isAdmin();
+        $isAdmin = $this->permissionManager->has(PermissionsEnum::editFunnels->value);
         $employers = [];
 
         if ($isAdmin) {

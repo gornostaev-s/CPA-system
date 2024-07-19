@@ -39,7 +39,7 @@ class Router
                    $middleware = Dispatcher::dispatch(self::$middlewares[$pattern]);
 
                    try {
-                       $middleware->run();
+                       $middleware->run($callback);
                    } catch (NotAuthorizedException $notAuthorizedException) {
 
                        return call_user_func_array([

@@ -10,6 +10,8 @@ use App\Entities\Enums\OperationType;
 use App\Entities\Enums\ProcessStatus;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 
 include __DIR__ . '/../header.php';
 ?>
@@ -49,7 +51,7 @@ include __DIR__ . '/../header.php';
                             <div class="col-6">
                                 <h5>Воронка клиентов</h5>
                             </div>
-                            <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                            <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                 <div class="col-6 text-right">
                                     <form action="/funnel" class="js-employerSelect">
                                         <select class="table-form__select employer-select" name="ownerId">
@@ -75,13 +77,13 @@ include __DIR__ . '/../header.php';
                                         <thead class="bg-light js-tableHead">
                                         <tr class="border-0">
                                             <th class="border-0 column-num">#</th>
-                                            <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                            <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                 <th class="border-0">Перенести</th>
                                             <?php } ?>
                                             <th class="border-0" style="min-width: 130px;">ФИО</th>
                                             <th class="border-0" style="min-width: 85px;">ИНН</th>
                                             <th class="border-0" style="min-width: 100px;">Телефон</th>
-                                            <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                            <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                 <th class="border-0">Сотрудник</th>
                                             <?php } ?>
                                             <th class="border-0" style="min-width: 90px;">Тип операции</th>
@@ -98,7 +100,7 @@ include __DIR__ . '/../header.php';
                                             ?>
                                             <tr class="js-dataRow" data-id="<?= $challenger->id ?>">
                                                 <td class="modal-table-primary__col text-left"><?= $challenger->id ?></td>
-                                                <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                 <td class="modal-table-primary__col text-center">
                                                     <?php if ($challenger->process_status == ProcessStatus::wait->value) { ?>
                                                         <a class="move-link js-moveChallenger" data-id="<?= $challenger->id ?>" href="#">
@@ -116,7 +118,7 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <input <?= AttributeCheckHelper::checkNotEqual($challenger->process_status, ProcessStatus::default->value, 'disabled') ?> type="text" name="phone" value="<?= $challenger->phone ?>" class="table-form__text">
                                                 </td>
-                                                <?php if (AuthHelper::getAuthUser()?->isAdmin()) { ?>
+                                                <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?php foreach ($data['employers'] as $employer) { ?>
                                                             <?= ($employer->id == $challenger->owner_id) ? $employer->name : '' ?>
@@ -141,7 +143,7 @@ include __DIR__ . '/../header.php';
                                                 <td class="modal-table-primary__col text-left">
                                                     <select <?= AttributeCheckHelper::checkEqual($challenger->process_status, ProcessStatus::moved->value, 'disabled') ?> name="process_status" class="table-form__select">
                                                         <?php foreach (ProcessStatus::cases() as $case) {
-                                                            if ($case->value == ProcessStatus::moved->value && !AuthHelper::getAuthUser()?->isAdmin()) {
+                                                            if ($case->value == ProcessStatus::moved->value && !PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) {
                                                                 continue;
                                                             }
                                                             ?>

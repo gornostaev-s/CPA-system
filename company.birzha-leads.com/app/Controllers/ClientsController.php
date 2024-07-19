@@ -15,6 +15,11 @@ use App\Entities\Forms\ClientUpdateForm;
 use App\Helpers\AuthHelper;
 use App\Helpers\PhoneHelper;
 use App\Queries\ClientIndexQuery;
+use App\Queries\RkoAlfaQuery;
+use App\Queries\RkoSberQuery;
+use App\Queries\RkoTinkoffQuery;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 use App\Repositories\ClientsRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
@@ -28,10 +33,13 @@ use ReflectionException;
 class ClientsController extends Controller
 {
     public function __construct(
-        private readonly ClientsService $clientsService,
         private readonly ClientsRepository $clientsRepository,
         private readonly ClientIndexQuery $query,
+        private readonly RkoAlfaQuery $alfaQuery,
+        private readonly RkoTinkoffQuery $tinkoffQuery,
+        private readonly RkoSberQuery $sberQuery,
         private readonly UserRepository $userRepository,
+        private readonly PermissionManager $permissionManager,
     )
     {
         parent::__construct();
@@ -51,13 +59,76 @@ class ClientsController extends Controller
             "datetime" => 'max:255',
         ]);
 
-        $employers = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getEmployers() : [] ;
-        $admins = AuthHelper::getAuthUser()->isAdmin() ? $this->userRepository->getAdmins() : [] ;
-
         return $this->view('clients/index', [
             'companies' => $this->clientsRepository->getCompaniesWithData($this->query->setRequest($request)->setTable('clients')),
-            'employers' => $employers,
-            'admins' => $admins,
+            'employers' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getEmployers() : [],
+            'admins' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getAdmins() : [],
+            'ownerId' => AuthHelper::getAuthUser()->id
+        ]);
+    }
+
+    /**
+     * @return bool|string
+     * @throws ReflectionException
+     * @throws ValidationException
+     */
+    public function alfa(): bool|string
+    {
+        $request = ValidationUtil::validate($_GET, [
+            "fields" => 'max:255',
+            'phone' => 'max:255',
+            'inn' => 'max:255',
+            "datetime" => 'max:255',
+        ]);
+
+        return $this->view('clients/alfa', [
+            'companies' => $this->clientsRepository->getCompaniesWithData($this->alfaQuery->setRequest($request)->setTable('clients')),
+            'employers' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getEmployers() : [],
+            'admins' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getAdmins() : [],
+            'ownerId' => AuthHelper::getAuthUser()->id
+        ]);
+    }
+
+    /**
+     * @return bool|string
+     * @throws ReflectionException
+     * @throws ValidationException
+     */
+    public function sber(): bool|string
+    {
+        $request = ValidationUtil::validate($_GET, [
+            "fields" => 'max:255',
+            'phone' => 'max:255',
+            'inn' => 'max:255',
+            "datetime" => 'max:255',
+        ]);
+
+        return $this->view('clients/sber', [
+            'companies' => $this->clientsRepository->getCompaniesWithData($this->sberQuery->setRequest($request)->setTable('clients')),
+            'employers' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getEmployers() : [],
+            'admins' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getAdmins() : [],
+            'ownerId' => AuthHelper::getAuthUser()->id
+        ]);
+    }
+
+    /**
+     * @return bool|string
+     * @throws ReflectionException
+     * @throws ValidationException
+     */
+    public function tinkoff(): bool|string
+    {
+        $request = ValidationUtil::validate($_GET, [
+            "fields" => 'max:255',
+            'phone' => 'max:255',
+            'inn' => 'max:255',
+            "datetime" => 'max:255',
+        ]);
+
+        return $this->view('clients/tinkoff', [
+            'companies' => $this->clientsRepository->getCompaniesWithData($this->tinkoffQuery->setRequest($request)->setTable('clients')),
+            'employers' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getEmployers() : [],
+            'admins' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getAdmins() : [],
             'ownerId' => AuthHelper::getAuthUser()->id
         ]);
     }
