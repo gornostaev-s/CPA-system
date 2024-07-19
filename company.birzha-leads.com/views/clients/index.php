@@ -3,6 +3,7 @@
  * @var array $data
  */
 
+use App\Entities\Command;
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
 use App\Entities\Enums\ClientMode;
@@ -195,6 +196,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
                                                 <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
                                                 <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Комм (МП)</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Команда</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                 <th colspan="4" class="border-0"><span>Альфа банк</span></th>
@@ -375,6 +377,27 @@ $showFields = $_GET['fields'] ?? [];
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
                                                     </td>
+                                                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <select name="command_id" class="table-form__select">
+                                                                <option value="0">-</option>
+                                                                <?php foreach ($data['commands'] as $command) { ?>
+                                                                    <?php
+                                                                    /**
+                                                                     * @var Command $command
+                                                                     */
+                                                                    ?>
+                                                                    <option value="<?= $command->id ?>" <?= AttributeCheckHelper::checkEqual($company->command_id, $command->id, 'selected') ?>><?= $command->title ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </td>
+                                                    <?php } else { ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php foreach ($data['admins'] as $admin) { ?>
+                                                                <?= AttributeCheckHelper::checkEqual($company->scoring, $admin->id, 'selected') ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                    <?php } ?>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?php if ($isAdmin) { ?>
                                                             <input style="width: 49px;" type="date" name="created_at" class="table-form__text" value="<?= (new DateTime($company->created_at))->format('Y-m-d') ?>">

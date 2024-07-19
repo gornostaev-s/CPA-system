@@ -43,6 +43,7 @@ class Client extends BaseEntity
     public int $mode;
     public int $operation_type;
     public int $owner_id;
+    public int $command_id;
     public string $created_at;
 
     public ?AlfabankClient $alfabank;

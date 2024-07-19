@@ -93,6 +93,7 @@ class ClientIndexQuery extends QueryBuilder
         $this->addJoin('LEFT JOIN users owner ON c.owner_id = owner.id');
         $this->addSelect(['owner.name as owner_name']);
         $this->addSelect(['owner_id']);
+        $this->addSelect(['command_id']);
 
         $this->addSelect(['c.id']);
         $this->addSelect(['c.created_at']);

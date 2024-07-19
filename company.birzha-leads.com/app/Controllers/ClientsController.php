@@ -21,6 +21,7 @@ use App\Queries\RkoTinkoffQuery;
 use App\RBAC\Enums\PermissionsEnum;
 use App\RBAC\Managers\PermissionManager;
 use App\Repositories\ClientsRepository;
+use App\Repositories\CommandRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
 use App\Services\ClientsService;
@@ -40,6 +41,7 @@ class ClientsController extends Controller
         private readonly RkoSberQuery $sberQuery,
         private readonly UserRepository $userRepository,
         private readonly PermissionManager $permissionManager,
+        private readonly CommandRepository $commandRepository
     )
     {
         parent::__construct();
@@ -60,6 +62,7 @@ class ClientsController extends Controller
         ]);
 
         return $this->view('clients/index', [
+            'commands' => $this->commandRepository->getAllCommands(),
             'companies' => $this->clientsRepository->getCompaniesWithData($this->query->setRequest($request)->setTable('clients')),
             'employers' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getEmployers() : [],
             'admins' => $this->permissionManager->has(PermissionsEnum::editClients->value) ? $this->userRepository->getAdmins() : [],

@@ -76,6 +76,7 @@ class ClientsController extends Controller
             "submission_date" => 'max:255',
             "sent_date" => 'max:255',
             "owner_id" => 'max:255',
+            "command_id" => 'max:255',
             "scoring" => 'max:255',
             "registration_exit_date" => 'max:255',
             "created_at" => 'max:255',
