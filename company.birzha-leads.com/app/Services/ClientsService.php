@@ -39,9 +39,17 @@ class ClientsService
     /**
      * @param ClientCreateForm $form
      * @return Client
+     * @throws ReflectionException
+     * @throws ValidationException
      */
     public function add(ClientCreateForm $form): Client
     {
+        $matchClient = $this->clientsRepository->findOneByInn($form->inn);
+
+        if ($matchClient) {
+            throw new ValidationException("Данный ИНН есть в системе обратитесь к Администратору");
+        }
+
         $c = Client::makeFromForm($form);
         $this->store($c);
 

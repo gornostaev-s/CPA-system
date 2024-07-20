@@ -13,6 +13,7 @@ use App\Services\CompanyService;
 use App\Utils\Exceptions\ValidationException;
 use App\Utils\ValidationUtil;
 use ReflectionException;
+use Throwable;
 
 class ClientsController extends Controller
 {
@@ -35,10 +36,14 @@ class ClientsController extends Controller
         ]);
 
         if (!AuthHelper::getAuthUser()->isAdmin()) {
-            ApiHelper::sendError(['message' => 'Добавить клиента может только администратор']);
+            return ApiHelper::sendError(['message' => 'Добавить клиента может только администратор']);
         }
 
-        $client = $this->clientsService->add(ClientCreateForm::makeFromRequest($request));
+        try {
+            $client = $this->clientsService->add(ClientCreateForm::makeFromRequest($request));
+        } catch (ValidationException $exception) {
+            return ApiHelper::sendError(['message' => $exception->getMessage()]);
+        }
 
         return ApiHelper::sendSuccess(['inn' => $client->inn]);
     }

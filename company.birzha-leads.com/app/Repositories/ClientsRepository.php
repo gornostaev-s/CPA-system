@@ -164,11 +164,11 @@ class ClientsRepository
      * @return Company
      * @throws ReflectionException
      */
-    public function findOneByInn(string $inn): Client
+    public function findOneByInn(string $inn): ?Client
     {
         $queryRes = $this->mapper->db->query("SELECT * FROM clients WHERE inn = '$inn'")->fetch();
 
-        return (new Client())->load($queryRes);
+        return !empty($queryRes) ? (new Client())->load($queryRes) : null;
     }
 
     public function getClientsCountByUserId(int $userId)
