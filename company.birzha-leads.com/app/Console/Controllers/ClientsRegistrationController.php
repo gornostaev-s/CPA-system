@@ -12,8 +12,7 @@ class ClientsRegistrationController
 {
     public function __construct(
         private readonly StatService $service,
-        private readonly TelegramClient $client,
-        private readonly CommandRepository $commandRepository
+        private readonly TelegramClient $client
     )
     {
         $this->client->setBotId(getenv('COMPANY_TELEGRAM_ID'));
@@ -26,10 +25,9 @@ class ClientsRegistrationController
             (new DateTimeImmutable())->modify('-1 day')
         );
 
-        $recipient = $this->commandRepository->getById(1)->telegram_id;
         $res = $this->service->getClientsRegistrationsCountByPeriod($period);
         $header = "Регистрации за {$period->startDate->format('d.m.Y')}\n";
-        $this->client->setRecipientId($recipient)->sendMessage($this->prepareMessage($res, $period, $header));
+        $this->client->setRecipientId(getenv('COMPANY_MAIN_GROUP_ID'))->sendMessage($this->prepareMessage($res, $period, $header));
     }
 
     public function today(): void
@@ -39,10 +37,9 @@ class ClientsRegistrationController
             (new DateTimeImmutable())
         );
 
-        $recipient = $this->commandRepository->getById(1)->telegram_id;
         $res = $this->service->getClientsRegistrationsCountByPeriod($period);
         $header = "Регистрации за {$period->startDate->format('d.m.Y')}\n";
-        $this->client->setRecipientId($recipient)->sendMessage($this->prepareMessage($res, $period, $header));
+        $this->client->setRecipientId(getenv('COMPANY_MAIN_GROUP_ID'))->sendMessage($this->prepareMessage($res, $period, $header));
     }
 
     public function weekly(): void
@@ -52,9 +49,8 @@ class ClientsRegistrationController
             (new DateTimeImmutable())
         );
 
-        $recipient = $this->commandRepository->getById(1)->telegram_id;
         $res = $this->service->getClientsRegistrationsCountByPeriod($period);
-        $this->client->setRecipientId($recipient)->sendMessage($this->prepareMessage($res, $period));
+        $this->client->setRecipientId(getenv('COMPANY_MAIN_GROUP_ID'))->sendMessage($this->prepareMessage($res, $period));
     }
 
     private function prepareMessage($clients, DateTimePeriod $period, string $header = null): string

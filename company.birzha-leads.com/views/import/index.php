@@ -27,20 +27,40 @@ include __DIR__ . '/../header.php';
 
             <!-- recent orders  -->
             <!-- ============================================================== -->
-            <div class="col-md-6">
-                <div class="card">
-                    <h5 class="card-header">Импорт файла excel</h5>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <form action="/import-process" method="post" enctype="multipart/form-data">
-                                <label for=""><div style="padding-bottom: 10px">Выберите файл</div>
-                                    <input type="file" name="excel">
-                                </label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <h5 class="card-header">Импорт файла excel</h5>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <form action="/import-process" method="post" enctype="multipart/form-data">
+                                    <label for=""><div style="padding-bottom: 10px">Выберите файл</div>
+                                        <input type="file" name="excel">
+                                    </label>
 
-                                <div>
-                                    <input type="submit" value="Загрузить" class="button-primary">
-                                </div>
-                            </form>
+                                    <div>
+                                        <input type="submit" value="Загрузить" class="button-primary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <h5 class="card-header">Обновить статусы банков excel</h5>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <form action="/update-bills-process" method="post" enctype="multipart/form-data">
+                                    <label for=""><div style="padding-bottom: 10px">Выберите файл</div>
+                                        <input type="file" name="excel">
+                                    </label>
+
+                                    <div>
+                                        <input type="submit" value="Загрузить" class="button-primary">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
