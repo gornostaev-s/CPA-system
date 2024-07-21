@@ -7,6 +7,7 @@ use PDO;
 abstract class QueryBuilder
 {
     private array $from = [];
+    private array $group = [];
     private array $select = [];
     private array $where = [];
     private array $with = [];
@@ -36,6 +37,17 @@ abstract class QueryBuilder
     public function addFrom(string $from): self
     {
         $this->from[] = $from;
+
+        return $this;
+    }
+
+    /**
+     * @param string $from
+     * @return $this
+     */
+    public function addGroup(string $group): self
+    {
+        $this->group[] = $group;
 
         return $this;
     }
@@ -78,12 +90,13 @@ abstract class QueryBuilder
      */
     public function getQuery(): string
     {
-        return strtr('{with}SELECT {select} FROM {from} {join} {where}', [
+        return strtr('{with}SELECT {select} FROM {from} {join} {where} {group}', [
             '{with}' => $this->prepareWith(),
             '{select}' => $this->prepareSelect(),
             '{from}' => $this->prepareFrom(),
             '{join}' => $this->preapareJoin(),
             '{where}' => $this->prepareWhere(),
+            '{group}' => $this->prepareGroup(),
         ]);
     }
 
@@ -138,6 +151,11 @@ abstract class QueryBuilder
     private function prepareSelect(): string
     {
         return implode(', ', $this->select);
+    }
+
+    private function prepareGroup(): string
+    {
+        return !empty($this->group) ? "GROUP BY " . implode(', ', $this->group) : '';
     }
 
     /**

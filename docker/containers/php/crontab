@@ -1,1 +1,5 @@
 0 * * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console check-companies
+0 11 * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console clients-registration-yesterday
+0 14 * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console clients-registration-today
+0 17 * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console clients-registration-weekly
+0 19 * * * cd /var/www/company.birzha-leads.com && /usr/local/bin/php console clients-registration-today
