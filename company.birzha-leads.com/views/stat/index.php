@@ -11,6 +11,7 @@ use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\BillHelper;
 use App\Helpers\ClientHelper;
+use App\Helpers\DateTimeInputHelper;
 
 /** @var BillHelper $billHelper */
 $billHelper = $data['billHelper'];
@@ -27,6 +28,24 @@ include __DIR__ . '/../header.php';
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
                         <h2 class="pageheader-title">Статистика</h2>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="header-container">
+                        <div class="card button-container">
+                            <div class="button-container__item button-container_search">
+                                <form class="search-panel" method="GET" action="/stat">
+                                    <div class="search-panel__group">
+                                        <input type="text" class="js-date search-panel__text" value="<?= !empty($_GET['datetime']) ? $_GET['datetime'] : null ?>" name="datetime" />
+                                    </div>
+                                    <div class="search-panel__group">
+                                        <button type="submit" class="btn btn-primary">
+                                            Показать
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
 <!--                <div class="col-md-12">-->
@@ -62,6 +81,8 @@ include __DIR__ . '/../header.php';
                                                 <th class="border-0">Тин</th>
                                                 <th class="border-0">Сбер</th>
                                                 <th class="border-0">А+Т+С</th>
+                                                <th class="border-0">День(А+Т+С)</th>
+                                                <th class="border-0">Неделя(А+Т+С)</th>
                                             </tr>
                                             </thead>
                                             <tbody class="js-orders">
@@ -91,7 +112,16 @@ include __DIR__ . '/../header.php';
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $clientHelper->getOperationTypeCountByUserId($employer->id, OperationType::TYPE1->value) ?>
+                                                        <?= empty($data['period'])
+                                                            ? $clientHelper->getOperationTypeCountByUserId($employer->id, OperationType::TYPE1->value)
+                                                            : $clientHelper->getOperationTypeCountByUserIdAndPeriod($employer->id, OperationType::TYPE1->value, $data['period'])
+                                                        ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $clientHelper->getOperationTypeCountByUserIdAndPeriod($employer->id, OperationType::TYPE1->value, $data['dayPeriod']) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $clientHelper->getOperationTypeCountByUserIdAndPeriod($employer->id, OperationType::TYPE1->value, $data['weekPeriod']) ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>
@@ -195,6 +225,12 @@ include __DIR__ . '/../header.php';
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        jQuery('.js-date').daterangepicker({
+            locale: {
+                format: 'DD.MM.YYYY'
+            }
+        });
 
         function afterUpdate ($row, $input, inputValue) {
             console.log($row, $input, inputValue)

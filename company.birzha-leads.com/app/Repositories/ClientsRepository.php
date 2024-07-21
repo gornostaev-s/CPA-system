@@ -6,6 +6,7 @@ use App\Core\BaseMapper;
 use App\Core\QueryBuilder;
 use App\Entities\Client;
 use App\Entities\Company;
+use App\Entities\DateTimePeriod;
 use App\Entities\Enums\BillStatus;
 use App\Entities\User;
 use App\Helpers\BillsMapHelper;
@@ -180,8 +181,27 @@ class ClientsRepository
 
     public function getOperationTypeCountByUserId(int $userId, int $operationType)
     {
-        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c WHERE c.operation_type = $operationType AND c.owner_id = $userId")->fetch();
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c WHERE c.operation_type = $operationType AND c.owner_id = $userId AND status <> " . BillStatus::Reject->value)->fetch();
 
         return $queryRes['count'];
+    }
+
+    public function getOperationTypeCountByUserIdAndPeriod(int $userId, int $operationType, DateTimePeriod $period)
+    {
+        $queryRes = $this->mapper->db->query("
+SELECT count(c.id) as count 
+FROM clients c 
+WHERE c.operation_type = $operationType 
+    AND c.owner_id = $userId 
+    AND {$this->preparePeriodWhere($period)}
+    AND status <> " . BillStatus::Reject->value
+        )->fetch();
+
+        return $queryRes['count'];
+    }
+
+    private function preparePeriodWhere(DateTimePeriod $period): string
+    {
+        return "created_at >= '{$period->startDate->format('Y-m-d 00:00:00')}' AND created_at <= '{$period->endDate->format('Y-m-d 23:59:59')}' ";
     }
 }
