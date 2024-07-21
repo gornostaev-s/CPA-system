@@ -99,6 +99,13 @@ use App\RBAC\Managers\PermissionManager;
                             </a>
                         </li>
                     <?php }?>
+                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/commands', 'active') ?>" href="/commands">
+                                Команды
+                            </a>
+                        </li>
+                    <?php }?>
                     <li class="nav-item ">
                         <a class="nav-link js-logout" href="#">
                             Выйти

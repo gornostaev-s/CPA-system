@@ -2,6 +2,7 @@
 
 use App\Controllers\Api\ChallengersController;
 use App\Controllers\Api\ClientsController;
+use App\Controllers\CommandsController;
 use App\Controllers\FunnelController;
 use App\Controllers\Api\RBAC\UserRolesController;
 use App\Controllers\StatController;
@@ -32,6 +33,7 @@ Router::route('/login', [AuthController::class, 'login']);
 Router::route('/registration', [AuthController::class, 'registration']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
 Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
+Router::route('/commands', [CommandsController::class, 'index']);
 
 /**
  * RBAC
