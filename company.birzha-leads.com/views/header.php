@@ -95,7 +95,7 @@ use App\RBAC\Managers\PermissionManager;
                         </li>
                     <?php }?>
                     <?php if (PermissionManager::getInstance()->hasPermissions([
-                        PermissionsEnum::EditFunnel->value, PermissionsEnum::EditAllFunnel->value
+                        PermissionsEnum::viewStat->value, PermissionsEnum::allStat->value
                     ])) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
@@ -103,11 +103,15 @@ use App\RBAC\Managers\PermissionManager;
                             </a>
                         </li>
                     <?php }?>
-                    <li class="nav-item ">
-                        <a class="nav-link <?= ActivePageHelper::check('/funnel', 'active') ?>" href="/funnel">
-                            Воронка
-                        </a>
-                    </li>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                        PermissionsEnum::EditFunnel->value, PermissionsEnum::EditAllFunnel->value
+                    ])) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/funnel', 'active') ?>" href="/funnel">
+                                Воронка
+                            </a>
+                        </li>
+                    <?php }?>
                     <?php if (PermissionManager::getInstance()->has(PermissionsEnum::importClients->value)) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/import', 'active') ?>" href="/import">
