@@ -33,6 +33,17 @@ use ReflectionException;
 
 class ClientsController extends Controller
 {
+    /*
+     * case ViewRkoTinkoff = 'ViewRkoTinkoff';
+    case EditRkoTinkoff = 'EditRkoTinkoff';
+     */
+    public array $access = [
+        'index' => ['viewClients', 'editClients'],
+        'alfa' => ['ViewRkoAlfa', 'EditRkoAlfa', 'DemoRkoAlfa'],
+        'sber' => ['ViewRkoSber', 'EditRkoSber'],
+        'tinkoff' => ['ViewRkoTinkoff', 'EditRkoTinkoff'],
+    ];
+
     public function __construct(
         private readonly ClientsRepository $clientsRepository,
         private readonly ClientIndexQuery $query,

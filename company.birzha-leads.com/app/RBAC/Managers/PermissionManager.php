@@ -15,6 +15,12 @@ use ReflectionException;
 class PermissionManager
 {
     private int $userId;
+
+    /**
+     * Синглтон
+     *
+     * @var PermissionManager|null
+     */
     public static ?PermissionManager $self;
 
     /**
@@ -39,6 +45,10 @@ class PermissionManager
         $this->userId = (php_sapi_name() != 'cli') ? AuthHelper::getAuthUser()?->id : 0;
     }
 
+    /**
+     * @param int $userId
+     * @return $this
+     */
     public function setUserId(int $userId): self
     {
         $this->userId = $userId;
@@ -46,11 +56,38 @@ class PermissionManager
         return $this;
     }
 
+    /**
+     * @param string $permissionName
+     * @return bool
+     * @throws ReflectionException
+     */
     public function has(string $permissionName): bool
     {
         return in_array($permissionName, $this->permissionHandler->handle($this->userId));
     }
 
+    /**
+     * @param array $permissions
+     * @return bool
+     * @throws ReflectionException
+     */
+    public function hasPermissions(array $permissions): bool
+    {
+        $access = false;
+
+        foreach ($permissions as $permission) {
+            if (in_array($permission, $this->permissionHandler->handle($this->userId))) {
+                $access = true;
+                break;
+            }
+        }
+        return $access;
+    }
+
+    /**
+     * @param int|null $userId
+     * @return Role|null
+     */
     public function getUserRole(int $userId = null): ?Role
     {
         if (empty($userId)) {

@@ -40,21 +40,27 @@ use App\RBAC\Managers\PermissionManager;
                             Клиенты
                         </a>
                     </li>
-                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                        PermissionsEnum::ViewRkoAlfa->value, PermissionsEnum::EditRkoAlfa->value, PermissionsEnum::DemoAlfa->value
+                    ])) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/alfa', 'active') ?>" href="/alfa">
                                 Альфа
                             </a>
                         </li>
                     <?php }?>
-                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                        PermissionsEnum::ViewRkoTinkoff->value, PermissionsEnum::EditRkoTinkoff->value
+                    ])) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/tinkoff', 'active') ?>" href="/tinkoff">
                                 Тинькофф
                             </a>
                         </li>
                     <?php }?>
-                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::viewSkorozvonTable->value)) { ?>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                            PermissionsEnum::ViewRkoSber->value, PermissionsEnum::EditRkoSber->value
+                    ])) { ?>
                         <li class="nav-item ">
                             <a class="nav-link <?= ActivePageHelper::check('/sber', 'active') ?>" href="/sber">
                                 Сбер
