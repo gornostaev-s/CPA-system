@@ -66,6 +66,7 @@ $inns = !empty($data['inns']) ? $data['inns'] : [];
                                     <?php
                                     if (!empty($inns)) { ?>
                                         <div>
+                                            <br> <br>
                                             <h4>Не удалось найти следующие ИНН:</h4>
                                             <?php foreach ($inns as $inn) { ?>
                                                 <span><?= $inn ?></span> <br>
