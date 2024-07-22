@@ -81,6 +81,7 @@ class PermissionManager
                 break;
             }
         }
+
         return $access;
     }
 

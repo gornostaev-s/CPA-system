@@ -35,11 +35,15 @@ use App\RBAC\Managers\PermissionManager;
             </div>
             <div class="top-menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item ">
-                        <a class="nav-link <?= ActivePageHelper::check('/', 'active') ?>" href="/">
-                            Клиенты
-                        </a>
-                    </li>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                        PermissionsEnum::viewClients->value, PermissionsEnum::editClients->value, PermissionsEnum::clients->value
+                    ])) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/', 'active') ?>" href="/">
+                                Клиенты
+                            </a>
+                        </li>
+                    <?php }?>
                     <?php if (PermissionManager::getInstance()->hasPermissions([
                         PermissionsEnum::ViewRkoAlfa->value, PermissionsEnum::EditRkoAlfa->value, PermissionsEnum::DemoAlfa->value
                     ])) { ?>
@@ -81,11 +85,24 @@ use App\RBAC\Managers\PermissionManager;
                             </a>
                         </li>
                     <?php }?>
-                    <li class="nav-item ">
-                        <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
-                            Статистика
-                        </a>
-                    </li>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                        PermissionsEnum::allStat->value, PermissionsEnum::viewStat->value
+                    ])) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
+                                Статистика
+                            </a>
+                        </li>
+                    <?php }?>
+                    <?php if (PermissionManager::getInstance()->hasPermissions([
+                        PermissionsEnum::EditFunnel->value, PermissionsEnum::EditAllFunnel->value
+                    ])) { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
+                                Статистика
+                            </a>
+                        </li>
+                    <?php }?>
                     <li class="nav-item ">
                         <a class="nav-link <?= ActivePageHelper::check('/funnel', 'active') ?>" href="/funnel">
                             Воронка
