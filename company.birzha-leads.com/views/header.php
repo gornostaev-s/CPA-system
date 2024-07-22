@@ -86,15 +86,6 @@ use App\RBAC\Managers\PermissionManager;
                         </li>
                     <?php }?>
                     <?php if (PermissionManager::getInstance()->hasPermissions([
-                        PermissionsEnum::allStat->value, PermissionsEnum::viewStat->value
-                    ])) { ?>
-                        <li class="nav-item ">
-                            <a class="nav-link <?= ActivePageHelper::check('/stat', 'active') ?>" href="/stat">
-                                Статистика
-                            </a>
-                        </li>
-                    <?php }?>
-                    <?php if (PermissionManager::getInstance()->hasPermissions([
                         PermissionsEnum::viewStat->value, PermissionsEnum::allStat->value
                     ])) { ?>
                         <li class="nav-item ">
