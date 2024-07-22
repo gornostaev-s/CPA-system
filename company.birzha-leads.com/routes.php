@@ -17,23 +17,24 @@ use App\Middlewares\PermissionMiddleware;
 
 $request = $_SERVER['REQUEST_URI'];
 
-Router::route('/', [\App\Controllers\ClientsController::class, 'index'], AuthMiddleware::class);
-Router::route('/alfa', [\App\Controllers\ClientsController::class, 'alfa'], AuthMiddleware::class);
-Router::route('/sber', [\App\Controllers\ClientsController::class, 'sber'], AuthMiddleware::class);
-Router::route('/tinkoff', [\App\Controllers\ClientsController::class, 'tinkoff'], AuthMiddleware::class);
+Router::route('/', [\App\Controllers\ClientsController::class, 'index'], PermissionMiddleware::class);
+Router::route('/alfa', [\App\Controllers\ClientsController::class, 'alfa'], PermissionMiddleware::class);
+Router::route('/sber', [\App\Controllers\ClientsController::class, 'sber'], PermissionMiddleware::class);
+Router::route('/tinkoff', [\App\Controllers\ClientsController::class, 'tinkoff'], PermissionMiddleware::class);
 //Router::route('/clients', [\App\Controllers\ClientsController::class, 'index'], AuthMiddleware::class);
-Router::route('/funnel', [FunnelController::class, 'index'], AuthMiddleware::class);
-Router::route('/import', [IndexController::class, 'importForm'], AuthMiddleware::class);
+Router::route('/funnel', [FunnelController::class, 'index'], PermissionMiddleware::class);
+Router::route('/import', [IndexController::class, 'importForm'], PermissionMiddleware::class);
 Router::route('/employers', [EmployersController::class, 'index'], PermissionMiddleware::class);
-Router::route('/import-process', [IndexController::class, 'importFull'], AuthMiddleware::class);
-Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], AuthMiddleware::class);
-Router::route('/stat', [StatController::class, 'index'], AuthMiddleware::class);
+Router::route('/import-process', [IndexController::class, 'importFull'], PermissionMiddleware::class);
+Router::route('/update-bills-process', [IndexController::class, 'updateFull'], PermissionMiddleware::class);
+Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], PermissionMiddleware::class);
+Router::route('/stat', [StatController::class, 'index'], PermissionMiddleware::class);
 //Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
 Router::route('/login', [AuthController::class, 'login']);
 Router::route('/registration', [AuthController::class, 'registration']);
 Router::route('/hh/callback', [HeadHunterController::class, 'callback']);
 Router::route('/zvonok/callback', [ZvonokController::class, 'callback']);
-Router::route('/commands', [CommandsController::class, 'index']);
+Router::route('/commands', [CommandsController::class, 'index'], PermissionMiddleware::class);
 
 /**
  * RBAC

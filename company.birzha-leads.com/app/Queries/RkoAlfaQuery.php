@@ -114,8 +114,10 @@ class RkoAlfaQuery extends QueryBuilder
         !$this->isShowField('sent_date', $this->request['fields']) ?: $this->addSelect(['sent_date']);
         !$this->isShowField('registration_exit_date', $this->request['fields']) ?: $this->addSelect(['registration_exit_date']);
         !$this->isShowField('status', $this->request['fields']) ?: $this->addSelect(['c.status']);
-
-        if (!PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) {
+        if (
+            !PermissionManager::getInstance()->has(PermissionsEnum::editClients->value) &&
+            !PermissionManager::getInstance()->has(PermissionsEnum::DemoAlfa->value)
+        ) {
             $this->addWhere(['owner_id' => AuthHelper::getAuthUser()->id]);
         }
 

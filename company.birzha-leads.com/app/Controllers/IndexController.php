@@ -71,6 +71,11 @@ class IndexController extends Controller
         header('Location: /');
     }
 
+    public function updateFull()
+    {
+        $this->clientsService->updateFromFile($_FILES['excel']['tmp_name']);
+    }
+
     public function import()
     {
         $inns = $this->getTableData($_FILES['excel']['tmp_name']);

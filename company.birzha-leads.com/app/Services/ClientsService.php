@@ -24,6 +24,7 @@ use App\Repositories\UserRepository;
 use App\Utils\Exceptions\ValidationException;
 use Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Redis;
 use ReflectionException;
 
 class ClientsService
@@ -31,7 +32,8 @@ class ClientsService
     public function __construct(
         private readonly ClientsRepository $clientsRepository,
         private readonly BillRepository $billRepository,
-        private readonly UserRepository $userRepository
+        private readonly UserRepository $userRepository,
+        private readonly Redis $redis
     )
     {
     }
@@ -138,6 +140,53 @@ class ClientsService
         }
 
         return $bill;
+    }
+
+    public function updateFromFile(string $path)
+    {
+        $data = $this->getTableData($path);
+        foreach ($data as $client) {
+            $clients = $this->clientsRepository->getClientsByInn($client['B'] ?: '');
+
+            if (empty($clients)) {
+                $this->pushInnToCache($client['B'], $path);
+            }
+
+            foreach ($clients as $c) {
+                $billType = match ($client['A']) {
+                    'Альфа' => BillType::alfabank->value,
+                    'Сбер' => BillType::sberbank->value,
+                    'Т-банк' => BillType::tinkoff->value,
+                };
+
+                $bill = $this->getClientBill($billType, $c->id);
+                $bill->status = match($client['C']) {
+                    'Откр' => BillStatus::Open->value,
+                    'ФНС' => BillStatus::FNS->value,
+                    'Раб' => BillStatus::Work->value,
+                    'Инд' => BillStatus::Indent->value,
+                    'Откз' => BillStatus::Reject->value,
+                    'Дуб' => BillStatus::Double->value,
+                    'Ошб' => BillStatus::Error->value,
+                    'Дума' => BillStatus::Thinks->value,
+                };
+                $this->billRepository->save($bill);
+            }
+        }
+    }
+
+    public function pushInnToCache(string $inn, string $path): void
+    {
+        $data = $this->getInnsFromCache($path);
+        $data[] = $inn;
+        $this->redis->set('import-' . $path, json_encode($data));
+    }
+
+    public function getInnsFromCache(string $path): array
+    {
+        $data = $this->redis->get('import-' . $path);
+
+        return !empty($data) ? json_decode($data, true) : [];
     }
 
     public function importFromFile(string $path)
