@@ -1,5 +1,8 @@
 <?php
 include __DIR__ . '/../header.php';
+
+$inns = !empty($data['inns']) ? $data['inns'] : [];
+
 ?>
 <!-- ============================================================== -->
 <!-- main wrapper -->
@@ -59,6 +62,17 @@ include __DIR__ . '/../header.php';
                                     <div>
                                         <input type="submit" value="Загрузить" class="button-primary">
                                     </div>
+
+                                    <?php
+                                    if (!empty($inns)) { ?>
+                                        <div>
+                                            <h2>Не удалось найти следующие ИНН:</h2>
+                                            <?php foreach ($inns as $inn) { ?>
+                                                <p><?= $inn ?></p>
+                                            <?php } ?>
+                                        </div>
+                                    <?php }
+                                    ?>
                                 </form>
                             </div>
                         </div>

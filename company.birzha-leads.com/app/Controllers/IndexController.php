@@ -61,7 +61,9 @@ class IndexController extends Controller
 
     public function importForm(): bool|string
     {
-        return $this->view('import/index');
+        return $this->view('import/index', [
+            'inns' => $this->clientsService->getInnsFromCache($_GET['key'])
+        ]);
     }
 
     public function importFull()
