@@ -146,6 +146,9 @@ class ClientsService
     {
         $data = $this->getTableData($path);
         foreach ($data as $client) {
+            if ($client['B'] == 'ИНН') {
+                continue;
+            }
             $clients = $this->clientsRepository->getClientsByInn($client['B'] ?: '');
 
             if (empty($clients)) {
