@@ -74,6 +74,11 @@ class IndexController extends Controller
     public function updateFull()
     {
         $this->clientsService->updateFromFile($_FILES['excel']['tmp_name']);
+
+        $key = $_FILES['excel']['tmp_name'];
+        $path = "/import?key=$key";
+
+        header('Location: ' . $path);
     }
 
     public function import()
