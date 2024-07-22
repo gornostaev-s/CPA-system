@@ -1,7 +1,5 @@
 FROM php:8.1.1-fpm
 
-ENV TZ=${TZ}
-
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
@@ -29,7 +27,7 @@ RUN pecl install --force redis \
     && docker-php-ext-enable redis
 
 # creating the log file that will be written to at each cron iteration
-RUN touch test_cron.log
+RUN touch /var/log/cron.log
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 # copy the crontab in a location where it will be parsed by the system
@@ -43,10 +41,6 @@ RUN /usr/bin/crontab /etc/cron.d/crontab
 ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 
 EXPOSE 9000
-
-#SET TIMEZONE EUROPE/MOSCOW
-# RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-# RUN ln -snf /usr/share/zoneinfo/Europe/Moscow /etc/localtime && echo Europe/Moscow > /etc/timezone
 
 # Указываем рабочую директорию для PHP
 WORKDIR /var/www

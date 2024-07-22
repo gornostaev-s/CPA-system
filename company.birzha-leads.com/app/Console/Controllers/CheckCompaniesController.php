@@ -25,7 +25,10 @@ class CheckCompaniesController extends Controller
         date_default_timezone_set('Europe/Moscow');
         parent::__construct();
 
-        $this->telegramClient->setBotId(getenv('COMPANY_TELEGRAM_ID'));
+        $env = parse_ini_file('/var/www/.env');
+        file_put_contents('/test.txt', !empty($env['COMPANY_TELEGRAM_ID']) ? $env['COMPANY_TELEGRAM_ID'] : 'NULL', FILE_APPEND);
+
+        $this->telegramClient->setBotId($env);
     }
 
     /**

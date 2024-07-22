@@ -15,7 +15,9 @@ class ClientsRegistrationController
         private readonly TelegramClient $client
     )
     {
-        $this->client->setBotId(getenv('COMPANY_TELEGRAM_ID'));
+        $env = parse_ini_file('/var/www/.env');
+        $this->client->setBotId($env['COMPANY_TELEGRAM_ID']);
+        $this->client->setRecipientId($env['COMPANY_MAIN_GROUP_ID']);
     }
 
     public function yesterday(): void
@@ -27,7 +29,7 @@ class ClientsRegistrationController
 
         $res = $this->service->getClientsRegistrationsCountByPeriod($period);
         $header = "Регистрации за {$period->startDate->format('d.m.Y')}\n";
-        $this->client->setRecipientId(getenv('COMPANY_MAIN_GROUP_ID'))->sendMessage($this->prepareMessage($res, $period, $header));
+        $this->client->sendMessage($this->prepareMessage($res, $period, $header));
     }
 
     public function today(): void
@@ -39,7 +41,7 @@ class ClientsRegistrationController
 
         $res = $this->service->getClientsRegistrationsCountByPeriod($period);
         $header = "Регистрации за {$period->startDate->format('d.m.Y')}\n";
-        $this->client->setRecipientId(getenv('COMPANY_MAIN_GROUP_ID'))->sendMessage($this->prepareMessage($res, $period, $header));
+        $this->client->sendMessage($this->prepareMessage($res, $period, $header));
     }
 
     public function weekly(): void
@@ -50,7 +52,7 @@ class ClientsRegistrationController
         );
 
         $res = $this->service->getClientsRegistrationsCountByPeriod($period);
-        $this->client->setRecipientId(getenv('COMPANY_MAIN_GROUP_ID'))->sendMessage($this->prepareMessage($res, $period));
+        $this->client->sendMessage($this->prepareMessage($res, $period));
     }
 
     private function prepareMessage($clients, DateTimePeriod $period, string $header = null): string
