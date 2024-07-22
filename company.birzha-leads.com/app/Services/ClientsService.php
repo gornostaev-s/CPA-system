@@ -178,8 +178,11 @@ class ClientsService
     public function pushInnToCache(string $inn, string $path): void
     {
         $data = $this->getInnsFromCache($path);
-        $data[] = $inn;
-        $this->redis->set('import-' . $path, json_encode($data));
+
+        if (!in_array($inn, $data)) {
+            $data[] = $inn;
+            $this->redis->set('import-' . $path, json_encode($data));
+        }
     }
 
     public function getInnsFromCache(string $path): array

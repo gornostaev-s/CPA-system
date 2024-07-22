@@ -26,7 +26,7 @@ Router::route('/funnel', [FunnelController::class, 'index'], PermissionMiddlewar
 Router::route('/import', [IndexController::class, 'importForm'], PermissionMiddleware::class);
 Router::route('/employers', [EmployersController::class, 'index'], PermissionMiddleware::class);
 Router::route('/import-process', [IndexController::class, 'importFull'], PermissionMiddleware::class);
-Router::route('/update-bills-process', [IndexController::class, 'updateFull'], PermissionMiddleware::class);
+Router::route('/update-bills-process', [IndexController::class, '   updateFull'], PermissionMiddleware::class);
 Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], PermissionMiddleware::class);
 Router::route('/stat', [StatController::class, 'index'], PermissionMiddleware::class);
 //Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
