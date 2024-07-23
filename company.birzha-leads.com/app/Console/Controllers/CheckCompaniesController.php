@@ -3,6 +3,7 @@
 namespace App\Console\Controllers;
 
 use App\Core\Controller;
+use App\Entities\Client;
 use App\Entities\Company;
 use App\Clients\TelegramClient;
 use App\Entities\Enums\BillStatus;
@@ -26,9 +27,9 @@ class CheckCompaniesController extends Controller
         parent::__construct();
 
         $env = parse_ini_file('/var/www/.env');
-        file_put_contents('/test.txt', !empty($env['COMPANY_TELEGRAM_ID']) ? $env['COMPANY_TELEGRAM_ID'] : 'NULL', FILE_APPEND);
+//        file_put_contents('/test.txt', !empty($env['COMPANY_TELEGRAM_ID']) ? $env['COMPANY_TELEGRAM_ID'] : 'NULL', FILE_APPEND);
 
-        $this->telegramClient->setBotId($env);
+        $this->telegramClient->setBotId($env['COMPANY_TELEGRAM_ID']);
     }
 
     /**
@@ -60,8 +61,8 @@ class CheckCompaniesController extends Controller
             if (!empty($result)) {
                 $data = $result[0]['data'];
 
-                if ($data['state']['status'] == Company::EXTERNAL_STATUS_ACTIVE) {
-                    $company->setStatus(BillStatus::Work->value);
+                if ($data['state']['status'] == Client::EXTERNAL_STATUS_ACTIVE) {
+                    $company->setStatus(BillStatus::Open->value);
                     $this->clientsRepository->save($company);
                     $this->telegramClient->setRecipientId(self::RECIPIENT)->sendMessage("Компания с ИНН: ($company->inn) зарегистрирована в реестре");
                 }
