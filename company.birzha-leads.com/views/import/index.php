@@ -81,7 +81,7 @@ $inns = !empty($data['inns']) ? $data['inns'] : [];
                                             </label>
                                             <select id="status" name="bank_id" class="input-group__select">
                                                 <?php foreach (BillType::cases() as $case) { ?>
-                                                    <option value="<?= $case->value ?>"><?= BillStatus::getLabel($case->value) ?></option><?php ?>
+                                                    <option value="<?= $case->value ?>"><?= BillType::getLabel($case->value) ?></option><?php ?>
                                                 <?php } ?>
                                             </select>
                                         </div>
