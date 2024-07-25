@@ -43,32 +43,10 @@ class RkoAlfaQuery extends QueryBuilder
         ]);
         $this->addJoin('LEFT OUTER JOIN ab ON c.id = ab.client_id');
         $this->addSelect(['coalesce(ab.status, 0) as alfabank_status']);
+        $this->addSelect(['coalesce(ab.bank_status, 0) as alfabank_bank_status']);
         $this->addSelect(['coalesce(ab.partner, 0) as alfabank_partner']);
         $this->addSelect(['coalesce(ab.comment, \'\') as alfabank_comment']);
         $this->addSelect(['ab.date as alfabank_date']);
-
-        $this->addWith(['tb' => Query::make()
-            ->addSelect(['*'])
-            ->addWhere(['type' => 2])
-            ->addFrom('bills')
-            ->getQuery()
-        ]);
-        $this->addJoin('LEFT OUTER JOIN tb ON c.id = tb.client_id');
-        $this->addSelect(['coalesce(tb.status, 0) as tinkoff_status']);
-        $this->addSelect(['coalesce(tb.comment, \'\') as tinkoff_comment']);
-        $this->addSelect(['tb.date as tinkoff_date']);
-
-        $this->addWith(['sb' => Query::make()
-            ->addSelect(['*'])
-            ->addWhere(['type' => 3])
-            ->addFrom('bills')
-            ->getQuery()
-        ]);
-
-        $this->addJoin('LEFT OUTER JOIN sb ON c.id = sb.client_id');
-        $this->addSelect(['coalesce(sb.status, 0) as sberbank_status']);
-        $this->addSelect(['coalesce(sb.comment, \'\') as sberbank_comment']);
-        $this->addSelect(['sb.date as sberbank_date']);
 
         if (!empty($this->request['phone'])) {
             $phone = PhoneHelper::phoneToInt($this->request['phone']);
