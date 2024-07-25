@@ -75,7 +75,12 @@ class IndexController extends Controller
 
     public function updateFull()
     {
-        $this->clientsService->updateFromFile($_FILES['excel']['tmp_name']);
+        $request = ValidationUtil::validate($_POST, [
+            "status" => 'integer',
+            'bank_id' => 'integer',
+        ]);
+
+        $this->clientsService->updateFromFile($_FILES['excel']['tmp_name'], $request);
 
         $key = $_FILES['excel']['tmp_name'];
         $path = "/import?key=$key";

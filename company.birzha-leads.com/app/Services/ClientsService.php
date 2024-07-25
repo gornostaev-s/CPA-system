@@ -142,37 +142,24 @@ class ClientsService
         return $bill;
     }
 
-    public function updateFromFile(string $path)
+    public function updateFromFile(string $path, array $request): void
     {
         $data = $this->getTableData($path);
         foreach ($data as $client) {
-            if ($client['B'] == 'ИНН') {
+            $inn = $client['A'];
+            if ($inn == 'ИНН') {
                 continue;
             }
-            $clients = $this->clientsRepository->getClientsByInn($client['B'] ?: '');
+            $clients = $this->clientsRepository->getClientsByInn($inn ?: '');
 
             if (empty($clients)) {
-                $this->pushInnToCache($client['B'], $path);
+                $this->pushInnToCache($inn, $path);
             }
 
             foreach ($clients as $c) {
-                $billType = match ($client['A']) {
-                    'Альфа' => BillType::alfabank->value,
-                    'Сбер' => BillType::sberbank->value,
-                    'Т-банк' => BillType::tinkoff->value,
-                };
-
+                $billType = $request['bank_id'];
                 $bill = $this->getClientBill($billType, $c->id);
-                $bill->status = match($client['C']) {
-                    'Откр' => BillStatus::Open->value,
-                    'ФНС' => BillStatus::FNS->value,
-                    'Раб' => BillStatus::Work->value,
-                    'Инд' => BillStatus::Indent->value,
-                    'Откз' => BillStatus::Reject->value,
-                    'Дуб' => BillStatus::Double->value,
-                    'Ошб' => BillStatus::Error->value,
-                    'Дума' => BillStatus::Thinks->value,
-                };
+                $bill->status = $request['status'];
                 $this->billRepository->save($bill);
             }
         }

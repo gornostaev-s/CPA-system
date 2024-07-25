@@ -70,7 +70,7 @@ $inns = !empty($data['inns']) ? $data['inns'] : [];
                                                 Статус
                                             </label>
                                             <select id="status" name="status" class="input-group__select">
-                                                <?php foreach (BillStatus::cases() as $case) { ?>
+                                                <?php foreach (BillStatus::cases() as $case) { if ($case->value == 0) {continue;} ?>
                                                     <option value="<?= $case->value ?>"><?= BillStatus::getLabel($case->value) ?></option><?php ?>
                                                 <?php } ?>
                                             </select>
