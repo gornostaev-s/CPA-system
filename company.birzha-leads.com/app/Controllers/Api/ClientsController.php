@@ -29,7 +29,7 @@ class ClientsController extends Controller
     public function index()
     {
         $request = ValidationUtil::validate($_POST,[
-            "inns" => 'max:255'
+            "phones" => 'max:255'
         ]);
 
         $clients = $this->clientsRepository->getAllClients($request['inns']);
