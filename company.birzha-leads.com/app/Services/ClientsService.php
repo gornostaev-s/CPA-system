@@ -146,7 +146,12 @@ class ClientsService
     {
         $data = $this->getTableData($path);
         foreach ($data as $client) {
-            $inn = $client['A'];
+            $inn = (string)$client['A'];
+
+            if (empty($inn)) {
+                continue;
+            }
+
             if ($inn == 'ИНН') {
                 continue;
             }
