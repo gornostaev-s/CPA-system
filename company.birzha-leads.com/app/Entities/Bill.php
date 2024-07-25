@@ -8,6 +8,7 @@ class Bill extends BaseEntity
 {
     public ?int $id = null;
     public ?int $status;
+    public ?int $bank_status;
     public int $type;
     public int $client_id;
     public ?int $partner;

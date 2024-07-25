@@ -129,15 +129,16 @@ $showFields = $_GET['fields'] ?? [];
                                                             ->build()
                                                         ?>
                                                     <?php } ?>
-                                                    <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
-                                                    <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
-                                                    <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий</span></th>
-                                                    <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
-                                                    <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
-                                                    <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Комм (МП)</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Партнерка</span></th>
+                                                    <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
+                                                    <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус ИП</span></th>
+                                                    <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус Альфа</span></th>
+                                                    <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий альфа</span></th>
+                                                    <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
+                                                    <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
+                                                    <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Комм (МП)</span></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="js-orders">
@@ -188,36 +189,6 @@ $showFields = $_GET['fields'] ?? [];
                                                                 </td>
                                                             <?php } ?>
                                                         <?php } ?>
-                                                        <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>"<?php } ?>>
-                                                            <?php if ($isAdmin) { ?>
-                                                                <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
-                                                                    <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                        <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            <?php } else { ?>
-                                                                <?= BillStatus::getLabel($company->alfabank->status) ?>
-                                                            <?php } ?>
-                                                        </td>
-                                                        <td class="modal-table-primary__col text-left">
-                                                            <?php if ($isAdmin) { ?>
-                                                                <input type="text" name="comment" value="<?= $company->comment ?>" class="table-form__text">
-                                                            <?php } else { ?>
-                                                                <?= $company->comment ?>
-                                                            <?php } ?>
-                                                        </td>
-                                                        <?= TableColumnHelper::make()
-                                                            ->setTag('td')
-                                                            ->setAttributes([
-                                                                'class' => 'modal-table-primary__col text-left'
-                                                            ])
-                                                            ->setData(!$isAdmin ? ($company->alfabank->comment ?: '') :'<input type="text" name="alfabank[comment]" value="' . $company->alfabank->comment . '" class="table-form__text">')
-                                                            ->isHide((!empty($showFields) && !in_array('alfabank[comment]', $showFields)))
-                                                            ->build()
-                                                        ?>
-                                                        <td class="modal-table-primary__col text-left">
-                                                            <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
-                                                        </td>
                                                         <td class="modal-table-primary__col text-left">
                                                             <?php if ($isAdmin) { ?>
                                                                 <input style="width: 49px;" type="date" name="alfabank[date]" class="table-form__text" <?php if (!empty($company->alfabank->date)) { ?>value="<?= (new DateTime($company->alfabank->date))->format('Y-m-d') ?>"<?php } ?>>
@@ -242,6 +213,47 @@ $showFields = $_GET['fields'] ?? [];
                                                             <?php } else { ?>
                                                                 <?= PartnerType::getLabel($company->alfabank->partner) ?>
                                                             <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>"<?php } ?>>
+                                                            <?php if ($isAdmin) { ?>
+                                                                <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
+                                                                    <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                        <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            <?php } else { ?>
+                                                                <?= BillStatus::getLabel($company->alfabank->status) ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <select name="alfabank[bank_status]" class="table-form__select">
+                                                                    <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                        <option value="<?= $item->value ?>" <?= ($company->alfabank->bank_status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            <?php } else { ?>
+                                                                <?= BillStatus::getLabel($company->alfabank->bank_status) ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <input type="text" name="comment" value="<?= $company->comment ?>" class="table-form__text">
+                                                            <?php } else { ?>
+                                                                <?= $company->comment ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <?= TableColumnHelper::make()
+                                                            ->setTag('td')
+                                                            ->setAttributes([
+                                                                'class' => 'modal-table-primary__col text-left'
+                                                            ])
+                                                            ->setData(!$isAdmin ? ($company->alfabank->comment ?: '') :'<input type="text" name="alfabank[comment]" value="' . $company->alfabank->comment . '" class="table-form__text">')
+                                                            ->isHide((!empty($showFields) && !in_array('alfabank[comment]', $showFields)))
+                                                            ->build()
+                                                        ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
                                                         </td>
                                                     </tr>
                                                 <?php } ?>

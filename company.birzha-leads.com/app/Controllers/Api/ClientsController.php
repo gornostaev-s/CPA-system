@@ -104,6 +104,7 @@ class ClientsController extends Controller
             "registration_exit_date" => 'max:255',
             "created_at" => 'max:255',
             "alfabank.status" => 'integer|max:255',
+            "alfabank.bank_status" => 'integer|max:255',
             "alfabank.date" => 'max:255',
             "alfabank.comment" => 'max:255',
             "alfabank.partner" => 'integer|max:255',
