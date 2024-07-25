@@ -148,9 +148,8 @@ class ClientsRepository
             foreach (BillsMapHelper::MAP as $item) {
                 $billClient = new $item();
 
-                $isVal = isset($client[$item::getSlug() . "_$field"]) && $client[$item::getSlug() . "_$field"] != null;
-
                 foreach ($item::getFields() as $field) {
+                    $isVal = isset($client[$item::getSlug() . "_$field"]) && $client[$item::getSlug() . "_$field"] != null;
                     $billClient->$field = $isVal ? $client[$item::getSlug() . "_$field"] : match ((new ReflectionClass($billClient))->getProperty($field)->getType()->getName()) {
                         'string' => '',
                         'int' => 0,
