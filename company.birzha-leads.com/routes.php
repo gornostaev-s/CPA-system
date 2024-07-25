@@ -57,6 +57,7 @@ Router::route('/v1/logout', [\App\Controllers\Api\AuthController::class, 'logout
 Router::route('/v1/clients/update', [ClientsController::class, 'update']);
 Router::route('/v1/clients/add', [ClientsController::class, 'add']);
 Router::route('/v1/clients/delete', [ClientsController::class, 'delete']);
+Router::route('/v1/clients/', [ClientsController::class, 'index']);
 
 /**
  * api employers

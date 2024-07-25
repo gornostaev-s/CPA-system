@@ -1,4 +1,8 @@
 <?php
+
+use App\Entities\Enums\BillStatus;
+use App\Entities\Enums\BillType;
+
 include __DIR__ . '/../header.php';
 
 $inns = !empty($data['inns']) ? $data['inns'] : [];
@@ -55,9 +59,33 @@ $inns = !empty($data['inns']) ? $data['inns'] : [];
                         <div class="card-body">
                             <div class="table-responsive">
                                 <form action="/update-bills-process" method="post" enctype="multipart/form-data">
-                                    <label for=""><div style="padding-bottom: 10px">Выберите файл</div>
-                                        <input type="file" name="excel">
-                                    </label>
+                                    <div class="d-flex">
+                                        <div class="col-6">
+                                            <label for=""><div style="padding-bottom: 10px">Выберите файл</div>
+                                                <input type="file" name="excel">
+                                            </label>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="status">
+                                                Статус
+                                            </label>
+                                            <select id="status" name="status" class="input-group__select">
+                                                <?php foreach (BillStatus::cases() as $case) { ?>
+                                                    <option value="<?= $case->value ?>"><?= BillStatus::getLabel($case->value) ?></option><?php ?>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="bank_id">
+                                                Банк
+                                            </label>
+                                            <select id="status" name="bank_id" class="input-group__select">
+                                                <?php foreach (BillType::cases() as $case) { ?>
+                                                    <option value="<?= $case->value ?>"><?= BillStatus::getLabel($case->value) ?></option><?php ?>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div>
                                         <input type="submit" value="Загрузить" class="button-primary">

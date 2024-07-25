@@ -44,7 +44,7 @@ class ClientsRepository
      * @return Client[]
      * @throws ReflectionException
      */
-    public function getAllCompanies(): array
+    public function getAllClients(): array
     {
         $queryRes = $this->mapper->db->query('SELECT * FROM clients')->fetchAll();
 

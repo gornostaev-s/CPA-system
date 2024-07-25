@@ -8,6 +8,7 @@ use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Helpers\ApiHelper;
 use App\Helpers\AuthHelper;
+use App\Repositories\ClientsRepository;
 use App\Services\ClientsService;
 use App\Services\CompanyService;
 use App\Utils\Exceptions\ValidationException;
@@ -18,10 +19,27 @@ use Throwable;
 class ClientsController extends Controller
 {
     public function __construct(
-        private readonly ClientsService $clientsService
+        private readonly ClientsService $clientsService,
+        private readonly ClientsRepository $clientsRepository
     )
     {
         parent::__construct();
+    }
+
+    public function index()
+    {
+        $clients = $this->clientsRepository->getAllClients();
+
+        $res = [];
+        foreach ($clients as $client) {
+            $res[] = [
+                'mode' => $client->mode,
+                'phone' => $client->phone,
+                'inn' => $client->inn
+            ];
+        }
+
+        return ApiHelper::sendSuccess(json_encode($res));
     }
 
     public function add(): bool|string
