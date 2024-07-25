@@ -32,7 +32,7 @@ class ClientsController extends Controller
             "phones" => 'max:255'
         ]);
 
-        $clients = $this->clientsRepository->getAllClients($request['inns']);
+        $clients = $this->clientsRepository->getAllClients($request['phones']);
 
         $res = [];
         foreach ($clients as $client) {
