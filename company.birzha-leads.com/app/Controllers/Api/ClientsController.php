@@ -39,7 +39,7 @@ class ClientsController extends Controller
             ];
         }
 
-        return ApiHelper::sendSuccess(json_encode($res));
+        return ApiHelper::sendSuccess($res);
     }
 
     public function add(): bool|string
