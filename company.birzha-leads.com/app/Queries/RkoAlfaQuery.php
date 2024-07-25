@@ -57,17 +57,6 @@ class RkoAlfaQuery extends QueryBuilder
             $this->addWhere(["inn LIKE '%{$this->request['inn']}%'"]);
         }
 
-        $this->addWith(['pb' => Query::make()
-            ->addSelect(['*'])
-            ->addWhere(['type' => 4])
-            ->addFrom('bills')
-            ->getQuery()
-        ]);
-        $this->addJoin('LEFT OUTER JOIN pb ON c.id = pb.client_id');
-        $this->addSelect(['coalesce(pb.status, 0) as psb_status']);
-        $this->addSelect(['coalesce(pb.comment, \'\') as psb_comment']);
-        $this->addSelect(['pb.date as psb_date']);
-
         $this->addJoin('LEFT JOIN users owner ON c.owner_id = owner.id');
         $this->addSelect(['owner.name as owner_name']);
         $this->addSelect(['owner_id']);

@@ -12,6 +12,7 @@ use App\Entities\User;
 use App\Helpers\BillsMapHelper;
 use Exception;
 use Generator;
+use ReflectionClass;
 use ReflectionException;
 
 class ClientsRepository
@@ -147,7 +148,12 @@ class ClientsRepository
             foreach (BillsMapHelper::MAP as $item) {
                 $billClient = new $item();
                 foreach ($item::getFields() as $field) {
-                    $billClient->$field = $client[$item::getSlug() . "_$field"];
+                    $billClient->$field = $client[$item::getSlug() . "_$field"] != null ? $client[$item::getSlug() . "_$field"] : match ((new ReflectionClass($this))->getProperty($field)->getType()->getName()) {
+                        'string' => '',
+                        'int' => 0,
+                        'boolean' => false,
+                        default => null
+                    };
                     unset($client[$item::getSlug() . "_$field"]);
                 }
 
