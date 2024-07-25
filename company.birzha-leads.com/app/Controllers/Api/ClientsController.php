@@ -28,7 +28,11 @@ class ClientsController extends Controller
 
     public function index()
     {
-        $clients = $this->clientsRepository->getAllClients();
+        $request = ValidationUtil::validate($_POST,[
+            "inns" => 'max:255'
+        ]);
+
+        $clients = $this->clientsRepository->getAllClients($request['inns']);
 
         $res = [];
         foreach ($clients as $client) {

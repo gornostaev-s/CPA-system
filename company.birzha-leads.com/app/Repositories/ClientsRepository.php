@@ -45,9 +45,13 @@ class ClientsRepository
      * @return Client[]
      * @throws ReflectionException
      */
-    public function getAllClients(): array
+    public function getAllClients($phones): array
     {
-        $queryRes = $this->mapper->db->query('SELECT * FROM clients')->fetchAll();
+        $phones = array_map(function ($item) {
+            return "'$item'";
+        }, $phones);
+        $phonesQuery = !empty($phones) ? " WHERE inn in (".implode(',', $phones).")" : "";
+        $queryRes = $this->mapper->db->query('SELECT * FROM clients' . $phonesQuery)->fetchAll();
 
         return $this->prepareRes($queryRes);
     }
