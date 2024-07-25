@@ -7,6 +7,7 @@ class AlfabankClient
     private static string $slug = 'alfabank';
 
     public int $status;
+    public int $bank_status;
     public int $partner;
     public string $comment;
     public ?string $date;
@@ -15,6 +16,7 @@ class AlfabankClient
     {
         return [
             'status',
+            'bank_status',
             'partner',
             'comment',
             'date'
