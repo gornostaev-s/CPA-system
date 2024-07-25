@@ -28,9 +28,13 @@ class ClientsController extends Controller
 
     public function index()
     {
-        $request = ValidationUtil::validate($_POST,[
-            "phones" => 'max:255'
-        ]);
+        $input = file_get_contents('php://input');
+
+        if (!empty($input)) {
+            $request = json_decode($input, true);
+        } else {
+            $request = ['phones' => []];
+        }
 
         $clients = $this->clientsRepository->getAllClients($request['phones']);
 

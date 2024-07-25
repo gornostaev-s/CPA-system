@@ -52,7 +52,7 @@ class ClientsRepository
                 return "'$item'";
             }, $phones);
         }
-        $phonesQuery = !empty($phones) ? " WHERE inn in (".implode(',', $phones).")" : "";
+        $phonesQuery = !empty($phones) ? " WHERE phone in (".implode(',', $phones).")" : "";
         $queryRes = $this->mapper->db->query('SELECT * FROM clients' . $phonesQuery)->fetchAll();
 
         return $this->prepareRes($queryRes);
