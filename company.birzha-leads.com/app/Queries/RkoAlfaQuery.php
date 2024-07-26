@@ -46,6 +46,8 @@ class RkoAlfaQuery extends QueryBuilder
         $this->addSelect(['coalesce(ab.bank_status, 0) as alfabank_bank_status']);
         $this->addSelect(['coalesce(ab.partner, 0) as alfabank_partner']);
         $this->addSelect(['coalesce(ab.comment, \'\') as alfabank_comment']);
+        $this->addSelect(['coalesce(ab.bank_comment, \'\') as alfabank_bank_comment']);
+        $this->addSelect(['coalesce(ab.comment, \'\') as alfabank_bank_comment']);
         $this->addSelect(['ab.date as alfabank_date']);
 
         if (!empty($this->request['phone'])) {

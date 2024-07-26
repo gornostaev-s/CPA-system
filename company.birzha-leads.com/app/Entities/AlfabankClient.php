@@ -10,6 +10,7 @@ class AlfabankClient
     public int $bank_status;
     public int $partner;
     public string $comment;
+    public string $bank_comment;
     public ?string $date;
 
     public static function getFields(): array
@@ -19,6 +20,7 @@ class AlfabankClient
             'bank_status',
             'partner',
             'comment',
+            'bank_comment',
             'date'
         ];
     }

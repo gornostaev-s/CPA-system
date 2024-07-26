@@ -133,7 +133,6 @@ $showFields = $_GET['fields'] ?? [];
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Партнерка</span></th>
                                                     <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
-                                                    <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус ИП</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус Альфа</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий альфа</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
@@ -214,17 +213,6 @@ $showFields = $_GET['fields'] ?? [];
                                                                 <?= PartnerType::getLabel($company->alfabank->partner) ?>
                                                             <?php } ?>
                                                         </td>
-                                                        <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>"<?php } ?>>
-                                                            <?php if ($isAdmin) { ?>
-                                                                <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
-                                                                    <?php foreach (BillStatus::cases() as $item) { ?>
-                                                                        <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            <?php } else { ?>
-                                                                <?= BillStatus::getLabel($company->alfabank->status) ?>
-                                                            <?php } ?>
-                                                        </td>
                                                         <td class="modal-table-primary__col text-left">
                                                             <?php if ($isAdmin) { ?>
                                                                 <select name="alfabank[bank_status]" class="table-form__select">
@@ -241,6 +229,13 @@ $showFields = $_GET['fields'] ?? [];
                                                                 <input type="text" name="comment" value="<?= $company->comment ?>" class="table-form__text">
                                                             <?php } else { ?>
                                                                 <?= $company->comment ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <input type="text" name="alfabank[bank_comment]" value="<?= $company->alfabank->bank_comment ?>" class="table-form__text">
+                                                            <?php } else { ?>
+                                                                <?= $company->alfabank->bank_comment ?>
                                                             <?php } ?>
                                                         </td>
                                                         <?= TableColumnHelper::make()

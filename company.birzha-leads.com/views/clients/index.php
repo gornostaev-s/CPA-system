@@ -167,7 +167,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     ->build()
                                                 ?>
                                                 <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
-                                                <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
+                                                <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус ИП</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>НПД</span></th>
                                                 <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Отправили <br> Самозан</span></th>
                                                 <?= TableColumnHelper::make()
