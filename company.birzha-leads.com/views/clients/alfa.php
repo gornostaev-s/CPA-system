@@ -226,13 +226,6 @@ $showFields = $_GET['fields'] ?? [];
                                                         </td>
                                                         <td class="modal-table-primary__col text-left">
                                                             <?php if ($isAdmin) { ?>
-                                                                <input type="text" name="comment" value="<?= $company->comment ?>" class="table-form__text">
-                                                            <?php } else { ?>
-                                                                <?= $company->comment ?>
-                                                            <?php } ?>
-                                                        </td>
-                                                        <td class="modal-table-primary__col text-left">
-                                                            <?php if ($isAdmin) { ?>
                                                                 <input type="text" name="alfabank[bank_comment]" value="<?= $company->alfabank->bank_comment ?>" class="table-form__text">
                                                             <?php } else { ?>
                                                                 <?= $company->alfabank->bank_comment ?>
