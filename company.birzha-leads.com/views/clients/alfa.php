@@ -23,6 +23,7 @@ use App\RBAC\Managers\PermissionManager;
 include __DIR__ . '/../header.php';
 
 $isAdmin = PermissionManager::getInstance()->has(PermissionsEnum::editClients->value);
+$isAlfa = PermissionManager::getInstance()->has(PermissionsEnum::DemoAlfa->value);
 
 $showFields = $_GET['fields'] ?? [];
 ?>
@@ -133,6 +134,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Партнерка</span></th>
                                                     <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
+                                                    <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус Альфа</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий альфа</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
@@ -215,6 +217,17 @@ $showFields = $_GET['fields'] ?? [];
                                                         </td>
                                                         <td class="modal-table-primary__col text-left">
                                                             <?php if ($isAdmin) { ?>
+                                                                <select name="alfabank[status]" class="table-form__select">
+                                                                    <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                        <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            <?php } else { ?>
+                                                                <?= BillStatus::getLabel($company->alfabank->status) ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin || $isAlfa) { ?>
                                                                 <select name="alfabank[bank_status]" class="table-form__select">
                                                                     <?php foreach (BillStatus::cases() as $item) { ?>
                                                                         <option value="<?= $item->value ?>" <?= ($company->alfabank->bank_status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
@@ -225,7 +238,7 @@ $showFields = $_GET['fields'] ?? [];
                                                             <?php } ?>
                                                         </td>
                                                         <td class="modal-table-primary__col text-left">
-                                                            <?php if ($isAdmin) { ?>
+                                                            <?php if ($isAdmin || $isAlfa) { ?>
                                                                 <input type="text" name="alfabank[bank_comment]" value="<?= $company->alfabank->bank_comment ?>" class="table-form__text">
                                                             <?php } else { ?>
                                                                 <?= $company->alfabank->bank_comment ?>
@@ -241,7 +254,11 @@ $showFields = $_GET['fields'] ?? [];
                                                             ->build()
                                                         ?>
                                                         <td class="modal-table-primary__col text-left">
-                                                            <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
+                                                            <?php } else { ?>
+                                                                <?= $company->comment_mp ?>
+                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
