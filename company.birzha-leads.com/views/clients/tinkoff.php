@@ -203,7 +203,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         </td>
                                                         <td class="modal-table-primary__col text-left">
                                                             <?php if ($isAdmin) { ?>
-                                                                <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->tinkoff->scoring_date)) { ?>value="<?= (new DateTime($company->tinkoff->scoring_date))->format('Y-m-d') ?>"<?php } ?>>
+                                                                <input style="width: 49px;" type="date" name="tinkoff[scoring_date]" class="table-form__text" <?php if (!empty($company->tinkoff->scoring_date)) { ?>value="<?= (new DateTime($company->tinkoff->scoring_date))->format('Y-m-d') ?>"<?php } ?>>
                                                             <?php } else { ?>
                                                                 <?= $company->tinkoff->scoring_date ?(new DateTime($company->tinkoff->scoring_date))->format('Y-m-d') : '' ?>
                                                             <?php } ?>
