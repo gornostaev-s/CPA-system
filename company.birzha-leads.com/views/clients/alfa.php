@@ -215,9 +215,9 @@ $showFields = $_GET['fields'] ?? [];
                                                                 <?= PartnerType::getLabel($company->alfabank->partner) ?>
                                                             <?php } ?>
                                                         </td>
-                                                        <td class="modal-table-primary__col text-left">
+                                                        <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>"<?php } ?>>
                                                             <?php if ($isAdmin) { ?>
-                                                                <select name="alfabank[status]" class="table-form__select">
+                                                                <select name="alfabank[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>">
                                                                     <?php foreach (BillStatus::cases() as $item) { ?>
                                                                         <option value="<?= $item->value ?>" <?= ($company->alfabank->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                                     <?php } ?>
@@ -226,9 +226,9 @@ $showFields = $_GET['fields'] ?? [];
                                                                 <?= BillStatus::getLabel($company->alfabank->status) ?>
                                                             <?php } ?>
                                                         </td>
-                                                        <td class="modal-table-primary__col text-left">
+                                                        <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->status) ?>"<?php } ?>>
                                                             <?php if ($isAdmin || $isAlfa) { ?>
-                                                                <select name="alfabank[bank_status]" class="table-form__select">
+                                                                <select name="alfabank[bank_status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->alfabank->bank_status) ?>">
                                                                     <?php foreach (BillStatus::cases() as $item) { ?>
                                                                         <option value="<?= $item->value ?>" <?= ($company->alfabank->bank_status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                                     <?php } ?>
@@ -625,6 +625,7 @@ $fields = $_GET['fields'] ?? [];
                 switch ($input.attr('name')) {
                     case 'status':
                     case 'alfabank[status]':
+                    case 'alfabank[bank_status]':
                     case 'tinkoff[status]':
                     case 'sberbank[status]':
                     case 'psb[status]':

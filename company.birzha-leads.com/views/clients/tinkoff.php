@@ -129,14 +129,14 @@ $showFields = $_GET['fields'] ?? [];
                                                             ->build()
                                                         ?>
                                                     <?php } ?>
-                                                    <!--                                                <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>-->
+                                                    <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
+                                                    <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
+                                                    <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата ЗБ</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 75px;"><span>Статус</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 80px;"><span>Комментарий</span></th>
                                                     <th rowspan="2" class="border-0" style="min-width: 100px;"><span>Комментарий (адм)</span></th>
                                                     <!--                                                <th rowspan="2" class="border-0" style="min-width: 90px;">Дата пер</th>-->
                                                     <th rowspan="2" class="border-0" style="min-width: 150px;"><span>Комм (МП)</span></th>
-                                                    <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата с.</span></th>
-                                                    <th rowspan="2" class="border-0" style="min-width: min-content;"><span>Дата вых</span></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="js-orders">
@@ -187,6 +187,27 @@ $showFields = $_GET['fields'] ?? [];
                                                                 </td>
                                                             <?php } ?>
                                                         <?php } ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <input style="width: 49px;" type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
+                                                            <?php } else { ?>
+                                                                <?= $company->tinkoff->date ? (new DateTime($company->tinkoff->date))->format('m-d') : '' ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->registration_exit_date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
+                                                            <?php } else { ?>
+                                                                <?= $company->registration_exit_date ?(new DateTime($company->registration_exit_date))->format('Y-m-d') : '' ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?php if ($isAdmin) { ?>
+                                                                <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->registration_exit_date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
+                                                            <?php } else { ?>
+                                                                <?= $company->registration_exit_date ?(new DateTime($company->registration_exit_date))->format('Y-m-d') : '' ?>
+                                                            <?php } ?>
+                                                        </td>
                                                         <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->status) ?>"<?php } ?>>
                                                             <?php if ($isAdmin) { ?>
                                                                 <select name="tinkoff[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->tinkoff->status) ?>">
@@ -216,20 +237,6 @@ $showFields = $_GET['fields'] ?? [];
                                                         ?>
                                                         <td class="modal-table-primary__col text-left">
                                                             <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
-                                                        </td>
-                                                        <td class="modal-table-primary__col text-left">
-                                                            <?php if ($isAdmin) { ?>
-                                                                <input style="width: 49px;" type="date" name="tinkoff[date]" class="table-form__text" <?php if (!empty($company->tinkoff->date)) { ?>value="<?= (new DateTime($company->tinkoff->date))->format('Y-m-d') ?>"<?php } ?>>
-                                                            <?php } else { ?>
-                                                                <?= $company->tinkoff->date ? (new DateTime($company->tinkoff->date))->format('m-d') : '' ?>
-                                                            <?php } ?>
-                                                        </td>
-                                                        <td class="modal-table-primary__col text-left">
-                                                            <?php if ($isAdmin) { ?>
-                                                                <input style="width: 49px;" type="date" name="registration_exit_date" class="table-form__text" <?php if (!empty($company->registration_exit_date)) { ?>value="<?= (new DateTime($company->registration_exit_date))->format('Y-m-d') ?>"<?php } ?>>
-                                                            <?php } else { ?>
-                                                                <?= $company->registration_exit_date ?(new DateTime($company->registration_exit_date))->format('Y-m-d') : '' ?>
-                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
