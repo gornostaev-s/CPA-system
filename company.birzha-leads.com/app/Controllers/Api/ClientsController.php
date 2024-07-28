@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Core\Controller;
+use App\Entities\Enums\StatusApiEnum;
 use App\Entities\Forms\ChallengerCreateForm;
 use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
@@ -45,7 +46,7 @@ class ClientsController extends Controller
                 'phone' => $client->phone,
                 'inn' => $client->inn,
                 'status_api' => (int)$client->status_api,
-                'status_api_label' => (int)$client->status_api,
+                'status_api_label' => StatusApiEnum::getLabel((int)$client->status_api),
             ];
         }
 
