@@ -14,6 +14,7 @@ class Bill extends BaseEntity
     public ?int $partner;
     public ?string $comment;
     public ?string $bank_comment;
+    public ?string $scoring_date;
     public ?string $date;
 
     public static function make(int $type, int $clientId): Bill
