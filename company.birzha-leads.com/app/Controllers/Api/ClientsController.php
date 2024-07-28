@@ -43,7 +43,9 @@ class ClientsController extends Controller
             $res[] = [
                 'mode' => $client->mode,
                 'phone' => $client->phone,
-                'inn' => $client->inn
+                'inn' => $client->inn,
+                'status_api' => (int)$client->status_api,
+                'status_api_label' => (int)$client->status_api,
             ];
         }
 

@@ -39,7 +39,7 @@ class Client extends BaseEntity
     public ?string $scoring_date;
     public ?string $fns_date;
     public int $status;
-    public int $status_api;
+    public ?int $status_api;
     public int $npd;
     public int $empl;
     public int $mode;
