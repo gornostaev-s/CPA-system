@@ -145,8 +145,9 @@ class ClientsService
     public function updateFromFile(string $path, array $request): void
     {
         $data = $this->getTableData($path);
-        foreach ($data as $client) {
-            $inn = (string)$client['A'];
+        foreach ($data as $i => $inn) {
+            $index = $i + 1;
+//            $inn = (string)$client['A'];
 
             if (empty($inn)) {
                 continue;
@@ -158,7 +159,7 @@ class ClientsService
             $clients = $this->clientsRepository->getClientsByInn($inn ?: '');
 
             if (empty($clients)) {
-                $this->pushInnToCache($inn, $path);
+                $this->pushInnToCache("$index:$inn", $path);
             }
 
             foreach ($clients as $c) {
