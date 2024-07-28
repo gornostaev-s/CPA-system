@@ -101,10 +101,12 @@ $inns = !empty($data['inns']) ? $data['inns'] : [];
                                             <?php } ?>
                                         </div>
                                     <?php } else { ?>
-                                        <div>
-                                            <br> <br>
-                                            <h4>Успешно обновлено!</h4>
-                                        </div>
+                                        <?php if (!empty($data['key'])) { ?>
+                                            <div>
+                                                <br> <br>
+                                                <h4>Успешно обновлено!</h4>
+                                            </div>
+                                        <?php } ?>
                                     <?php }
                                     ?>
                                 </form>

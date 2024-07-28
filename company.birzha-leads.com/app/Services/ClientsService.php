@@ -145,9 +145,9 @@ class ClientsService
     public function updateFromFile(string $path, array $request): void
     {
         $data = $this->getTableData($path);
-        foreach ($data as $i => $inn) {
+        foreach ($data as $i => $innArray) {
+            $inn = $innArray['A'];
             $index = $i + 1;
-//            $inn = (string)$client['A'];
 
             if (empty($inn)) {
                 continue;

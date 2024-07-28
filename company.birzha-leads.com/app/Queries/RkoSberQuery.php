@@ -35,29 +35,6 @@ class RkoSberQuery extends QueryBuilder
      */
     public function build(): string
     {
-        $this->addWith(['ab' => Query::make()
-            ->addSelect(['*'])
-            ->addWhere(['type' => 1])
-            ->addFrom('bills')
-            ->getQuery()
-        ]);
-        $this->addJoin('LEFT OUTER JOIN ab ON c.id = ab.client_id');
-        $this->addSelect(['coalesce(ab.status, 0) as alfabank_status']);
-        $this->addSelect(['coalesce(ab.partner, 0) as alfabank_partner']);
-        $this->addSelect(['coalesce(ab.comment, \'\') as alfabank_comment']);
-        $this->addSelect(['ab.date as alfabank_date']);
-
-        $this->addWith(['tb' => Query::make()
-            ->addSelect(['*'])
-            ->addWhere(['type' => 2])
-            ->addFrom('bills')
-            ->getQuery()
-        ]);
-        $this->addJoin('LEFT OUTER JOIN tb ON c.id = tb.client_id');
-        $this->addSelect(['coalesce(tb.status, 0) as tinkoff_status']);
-        $this->addSelect(['coalesce(tb.comment, \'\') as tinkoff_comment']);
-        $this->addSelect(['tb.date as tinkoff_date']);
-
         $this->addWith(['sb' => Query::make()
             ->addSelect(['*'])
             ->addWhere(['type' => 3])
@@ -78,17 +55,6 @@ class RkoSberQuery extends QueryBuilder
         if (!empty($this->request['inn'])) {
             $this->addWhere(["inn LIKE '%{$this->request['inn']}%'"]);
         }
-
-        $this->addWith(['pb' => Query::make()
-            ->addSelect(['*'])
-            ->addWhere(['type' => 4])
-            ->addFrom('bills')
-            ->getQuery()
-        ]);
-        $this->addJoin('LEFT OUTER JOIN pb ON c.id = pb.client_id');
-        $this->addSelect(['coalesce(pb.status, 0) as psb_status']);
-        $this->addSelect(['coalesce(pb.comment, \'\') as psb_comment']);
-        $this->addSelect(['pb.date as psb_date']);
 
         $this->addJoin('LEFT JOIN users owner ON c.owner_id = owner.id');
         $this->addSelect(['owner.name as owner_name']);
@@ -122,8 +88,7 @@ class RkoSberQuery extends QueryBuilder
         $this->addFrom($this->table . ' c');
 
         $this->addWhere(['c.status = ' . BillStatus::Open->value]);
-//        $this->addWhere(['ab.status <> ' . BillStatus::Indent->value]);
-        $this->addWhere(['(ab.status <> '.BillStatus::Indent->value.' OR ab.status is null)']);
+        $this->addWhere(['(sb.status <> '.BillStatus::Indent->value.' OR sb.status is null)']);
 
         $dateInterval = !empty($this->request['datetime']) ? DateTimeInputHelper::getIntervalFromString($this->request['datetime'], 'Y-m-d') : DateTimeInputHelper::getDefaultInterval('Y-m-d');
         $this->addWhere(["c.created_at >= '{$dateInterval['startDate']} 00:00:00'"]);

@@ -74,7 +74,7 @@ $showFields = $_GET['fields'] ?? [];
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <div class="table-responsive js-tableScroll">
-                                        <form action="/" class="table-form">
+                                        <form action="/sber" class="table-form">
                                             <table class="table js-table">
                                                 <thead class="bg-light js-tableHead">
                                                 <tr class="border-0">
