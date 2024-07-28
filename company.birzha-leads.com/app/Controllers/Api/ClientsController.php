@@ -119,6 +119,7 @@ class ClientsController extends Controller
             "alfabank.partner" => 'integer|max:255',
             "tinkoff.status" => 'integer|max:255',
             "tinkoff.date" => 'max:255',
+            "tinkoff.scoring_date" => 'max:255',
             "tinkoff.comment" => 'max:255',
             "sberbank.status" => 'integer|max:255',
             "sberbank.date" => 'max:255',

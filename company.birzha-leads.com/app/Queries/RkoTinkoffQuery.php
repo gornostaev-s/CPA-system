@@ -57,6 +57,7 @@ class RkoTinkoffQuery extends QueryBuilder
         $this->addSelect(['coalesce(tb.status, 0) as tinkoff_status']);
         $this->addSelect(['coalesce(tb.comment, \'\') as tinkoff_comment']);
         $this->addSelect(['tb.date as tinkoff_date']);
+        $this->addSelect(['tb.scoring_date as tinkoff_scoring_date']);
 
         $this->addWith(['sb' => Query::make()
             ->addSelect(['*'])

@@ -9,13 +9,15 @@ class TinkoffClient
     public int $status;
     public string $comment;
     public ?string $date;
+    public ?string $scoring_date;
 
     public static function getFields(): array
     {
         return [
             'status',
             'comment',
-            'date'
+            'date',
+            'scoring_date',
         ];
     }
 
