@@ -33,6 +33,8 @@ class ChangeApiStatusController extends Controller
             } else {
                 $company->status_api = StatusApiEnum::Accepted->value;
             }
+
+            $this->clientsRepository->save($company);
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Controllers\ChangeApiStatusController;
 use App\Console\Controllers\CheckCompaniesController;
 use App\Console\Controllers\ClientsRegistrationController;
 use App\Console\Controllers\HeadHunterController;
@@ -14,6 +15,7 @@ use App\Core\Router;
 $request = $argv[1];
 
 Router::route('check-companies', [CheckCompaniesController::class, 'index']);
+Router::route('status-api-clients', [ChangeApiStatusController::class, 'index']);
 Router::route('clients', [MigrateClientsController::class, 'index']);
 Router::route('clients-registration-yesterday', [ClientsRegistrationController::class, 'yesterday']);
 Router::route('clients-registration-today', [ClientsRegistrationController::class, 'today']);
