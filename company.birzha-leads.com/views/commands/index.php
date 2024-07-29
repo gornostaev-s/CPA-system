@@ -133,7 +133,7 @@ include __DIR__ . '/../header.php';
             let lastTime = performance.now();
             let values = {};
 
-            values['user_id'] = $row.data('id');
+            values['id'] = $row.data('id');
             values[$input.attr('name')] = inputValue;
 
             if (timerId) {
