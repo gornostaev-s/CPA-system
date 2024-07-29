@@ -63,8 +63,8 @@ Router::route('/v1/clients/', [ClientsController::class, 'index']);
  * api commands
  */
 
-Router::route('/v1/commands/add', [ClientsController::class, 'add']);
-Router::route('/v1/commands/update', [ClientsController::class, 'update']);
+Router::route('/v1/commands/add', [\App\Controllers\Api\CommandsController::class, 'add']);
+Router::route('/v1/commands/update', [\App\Controllers\Api\CommandsController::class, 'update']);
 
 /**
  * api employers
