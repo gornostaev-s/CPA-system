@@ -25,19 +25,24 @@ include __DIR__ . '/../header.php';
                         <h2 class="pageheader-title">Команды</h2>
                     </div>
                 </div>
-                <!--                <div class="col-md-12">-->
-                <!--                    <div class="card button-container">-->
-                <!--                        123-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <div class="col-md-10"></div>
+                <div class="col-md-12">
+                    <div class="card button-container">
+                        <div class="button-container__item">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommand">
+                                Добавить команду
+                            </button>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="col-md-10"></div>-->
                 <div class="col-12">
                     <div class="card">
                         <h5 class="card-header">Команды</h5>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <div class="table-responsive">
-                                    <form action="/v1/rbac/users/update" class="table-form">
+                                    <form action="/v1/commands/update" class="table-form">
                                         <table class="table js-table">
                                             <thead class="bg-light js-tableHead">
                                             <tr class="border-0">
@@ -55,10 +60,10 @@ include __DIR__ . '/../header.php';
                                                         <?= $command->id ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $command->title ?>
+                                                        <input type="text" name="title" value="<?= $command->title ?>" class="table-form__text">
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $command->telegram_id ?>
+                                                        <input type="text" name="telegram_id" value="<?= $command->telegram_id ?>" class="table-form__text">
                                                     </td>
                                                 </tr>
                                             <?php } ?>
@@ -71,6 +76,41 @@ include __DIR__ . '/../header.php';
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCommand" tabindex="-1" role="dialog" aria-labelledby="Добавить команду" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="js-authForm" action="/v1/commands/add" data-redirect="/commands">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавить команду</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <input required class="input-group__text" type="text" name="title" placeholder="Название команды">
+                    </div>
+                    <div class="input-group">
+                        <input required class="input-group__text" type="text" name="telegram_id" placeholder="Идентификатор группы телеграм">
+                    </div>
+                    <div class="input-group">
+                        <div class="response-errors">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="notAuth" value="1">
+
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -103,7 +143,7 @@ include __DIR__ . '/../header.php';
             timerId = setTimeout(function() {
                 if (performance.now() - lastTime > 1500 && inputValue) {
                     jQuery.ajax({
-                        url: '/v1/rbac/users/update',
+                        url: '/v1/commands/update',
                         method: 'POST',
                         data: values,
                         success: function (data) {

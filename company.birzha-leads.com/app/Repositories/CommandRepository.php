@@ -71,4 +71,13 @@ class CommandRepository
 
         return $res;
     }
+
+    /**
+     * @param Command $command
+     * @return int
+     */
+    public function save(Command $command): int
+    {
+        return $this->mapper->save($command);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Core\BaseEntity;
+use App\Entities\Forms\CommandCreateForm;
 
 class Command extends BaseEntity
 {
@@ -23,5 +24,10 @@ class Command extends BaseEntity
         $e->title = $title;
 
         return $e;
+    }
+
+    public static function makeFromForm(CommandCreateForm $form): Command
+    {
+        return self::make($form->telegram_id, $form->title);
     }
 }

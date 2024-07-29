@@ -60,6 +60,13 @@ Router::route('/v1/clients/delete', [ClientsController::class, 'delete']);
 Router::route('/v1/clients/', [ClientsController::class, 'index']);
 
 /**
+ * api commands
+ */
+
+Router::route('/v1/commands/add', [ClientsController::class, 'add']);
+Router::route('/v1/commands/update', [ClientsController::class, 'update']);
+
+/**
  * api employers
  */
 
