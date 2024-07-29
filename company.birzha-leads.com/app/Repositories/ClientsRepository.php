@@ -8,6 +8,7 @@ use App\Entities\Client;
 use App\Entities\Company;
 use App\Entities\DateTimePeriod;
 use App\Entities\Enums\BillStatus;
+use App\Entities\Enums\StatusApiEnum;
 use App\Entities\User;
 use App\Helpers\BillsMapHelper;
 use Exception;
@@ -79,9 +80,12 @@ class ClientsRepository
     {
         $queryRes = $this->mapper->db->query('SELECT * FROM clients WHERE status = ' . BillStatus::FNS->value . ' AND fns_date < CURRENT_TIMESTAMP()')->fetchAll();
 
-        if (empty($queryRes)) {
-            throw new Exception('Clients not found', 404);
-        }
+        return $this->prepareRes($queryRes);
+    }
+
+    public function getClientsApiStatus(int $apiStatus, string $dateEnd)
+    {
+        $queryRes = $this->mapper->db->query("SELECT * FROM clients WHERE status_api = $apiStatus AND created_at <= '$dateEnd'")->fetchAll();
 
         return $this->prepareRes($queryRes);
     }
