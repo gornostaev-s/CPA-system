@@ -99,7 +99,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'rowspan' => 2,
                                                             'class' => 'border-0',
-                                                            'style' => 'min-width: 85px;'
+                                                            'style' => 'width: 85px; min-width: 85px;'
                                                         ])
                                                         ->setData('ИНН')
                                                         ->isHide((!empty($showFields) && !in_array('inn', $showFields)))
@@ -110,7 +110,7 @@ $showFields = $_GET['fields'] ?? [];
                                                         ->setAttributes([
                                                             'rowspan' => 2,
                                                             'class' => 'border-0',
-                                                            'style' => 'min-width: 100px;'
+                                                            'style' => 'width: 85px; min-width: 85px;'
                                                         ])
                                                         ->setData('Телефон')
                                                         ->isHide((!empty($showFields) && !in_array('phone', $showFields)))
