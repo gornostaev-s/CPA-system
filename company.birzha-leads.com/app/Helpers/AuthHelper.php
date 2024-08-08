@@ -24,7 +24,7 @@ class AuthHelper
      */
     public function isAuth(): bool
     {
-        return !empty($_COOKIE['token']) && $this->tokenHelper->validateToken($_COOKIE['token']);
+        return !empty($_COOKIE['token']) && $this->tokenHelper->validateToken();
     }
 
     /**
@@ -32,6 +32,10 @@ class AuthHelper
      */
     public static function getAuthUser(): ?User
     {
+        if (empty($_COOKIE['token'])) {
+            return null;
+        }
+
         if (!empty(self::$user)) {
             return self::$user;
         }
