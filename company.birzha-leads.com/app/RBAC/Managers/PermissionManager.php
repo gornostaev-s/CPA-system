@@ -14,7 +14,7 @@ use ReflectionException;
 
 class PermissionManager
 {
-    private int $userId;
+    private ?int $userId;
 
     /**
      * Синглтон

@@ -31,7 +31,6 @@ class Router
            if (preg_match($pattern, strtok($url, '?'), $params))
            {
                array_shift($params);
-               $callback[0] = Dispatcher::dispatch($callback[0]);
 
 
                if (!empty(self::$middlewares[$pattern])) {
@@ -48,6 +47,8 @@ class Router
                        ], [$notAuthorizedException->getMessage()]);
                    }
                }
+
+               $callback[0] = Dispatcher::dispatch($callback[0]);
 
                return call_user_func_array($callback, $params);
            }
