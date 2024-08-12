@@ -1,3 +1,9 @@
+body, .table thead th, .table th, .pageheader-title, .nav-link {
+  color: #000;
+}
+
+
+
 .t-small {
   font-size: 10px;
 }

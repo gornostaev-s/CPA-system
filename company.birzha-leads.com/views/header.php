@@ -17,7 +17,7 @@ use App\RBAC\Managers\PermissionManager;
     <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css?v=1">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/assets/libs/css/style.css">
-    <link rel="stylesheet" href="/assets/libs/css/main.css?v=6">
+    <link rel="stylesheet" href="/assets/libs/css/main.css?v=9">
     <title>Панель администратора</title>
 </head>
 <body>

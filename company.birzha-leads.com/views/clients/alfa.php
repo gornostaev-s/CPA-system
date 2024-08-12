@@ -254,7 +254,7 @@ $showFields = $_GET['fields'] ?? [];
                                                             ->build()
                                                         ?>
                                                         <td class="modal-table-primary__col text-left">
-                                                            <?php if ($isAdmin) { ?>
+                                                            <?php if (!$isAlfa) { ?>
                                                                 <input type="text" name="comment_mp" value="<?= $company->comment_mp ?>" class="table-form__text">
                                                             <?php } else { ?>
                                                                 <?= $company->comment_mp ?>
