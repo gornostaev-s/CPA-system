@@ -27,13 +27,24 @@ include __DIR__ . '/../header.php';
                             <div class="button-container__item button-container_search">
                                 <form class="search-panel" method="GET" action="/skorozvon-integration">
                                     <div class="search-panel__group">
-                                        <input type="text" class="js-date search-panel__text" value="<?= !empty($_GET['datetime']) ? $_GET['datetime'] : DateTimeInputHelper::getDefaultIntervalString() ?>" name="datetime" />
+                                        <input type="text" class="js-date search-panel__text" name="datetime" />
                                     </div>
                                     <div class="search-panel__group">
                                         <button type="submit" class="btn btn-primary js-downloadXlsx">
                                             XLSX
                                         </button>
                                     </div>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            jQuery('.js-downloadXlsx').on('click', function (e) {
+                                                e.preventDefault();
+                                                let dateTime = jQuery(this).parents('form').eq(0).find('.js-date').val();
+                                                let queryString = dateTime ? '?datetime=' + dateTime : '';
+                                                window.location.href = '/skorozvon-integration/download' + queryString
+                                            })
+
+                                        })
+                                    </script>
                                     <div class="search-panel__group">
                                         <button type="submit" class="btn btn-primary">
                                             Показать
@@ -94,10 +105,18 @@ include __DIR__ . '/../header.php';
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        jQuery('.js-date').daterangepicker({
+        const $dateInput = jQuery('.js-date')
+
+        $dateInput.daterangepicker({
+            autoUpdateInput: false,
             locale: {
-                format: 'DD.MM.YYYY'
+                format: 'DD.MM.YYYY',
+                cancelLabel: 'Очистить'
             }
+        });
+
+        $dateInput.on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
         });
     })
 </script>

@@ -55,7 +55,7 @@ class ZvonokService
             $phones[] = [$client->phone];
         }
 
-        $content = $this
+        return $this
             ->exporterUtil
             ->setData($phones)
             ->export('zvonok.xlsx')
