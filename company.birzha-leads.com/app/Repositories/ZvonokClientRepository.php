@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Core\BaseMapper;
 use App\Entities\User;
 use App\Entities\ZvonokClient;
+use App\Queries\ZvonokQuery;
 use Generator;
 use ReflectionException;
 
@@ -20,9 +21,9 @@ class ZvonokClientRepository
      * @return ZvonokClient[]
      * @throws ReflectionException
      */
-    public function getAllClients(): Generator|array
+    public function getAllClients(ZvonokQuery $query): Generator|array
     {
-        $queryRes = $this->mapper->db->query("SELECT * FROM zvonok_clients ORDER BY created_at DESC")->fetchAll();
+        $queryRes = $this->mapper->db->query($query->build() . "ORDER BY created_at DESC")->fetchAll();
 
         return $this->prepareRes($queryRes ?: []);
     }

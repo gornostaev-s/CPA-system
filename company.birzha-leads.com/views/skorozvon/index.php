@@ -4,6 +4,7 @@
  */
 
 use App\Entities\ZvonokClient;
+use App\Helpers\DateTimeInputHelper;
 
 include __DIR__ . '/../header.php';
 ?>
@@ -19,6 +20,31 @@ include __DIR__ . '/../header.php';
                 </div>
                 <div class="col-md-10"></div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header-container">
+                        <div class="card button-container">
+                            <div class="button-container__item button-container_search">
+                                <form class="search-panel" method="GET" action="/skorozvon-integration">
+                                    <div class="search-panel__group">
+                                        <input type="text" class="js-date search-panel__text" value="<?= !empty($_GET['datetime']) ? $_GET['datetime'] : DateTimeInputHelper::getDefaultIntervalString() ?>" name="datetime" />
+                                    </div>
+                                    <div class="search-panel__group">
+                                        <button type="submit" class="btn btn-primary js-downloadXlsx">
+                                            XLSX
+                                        </button>
+                                    </div>
+                                    <div class="search-panel__group">
+                                        <button type="submit" class="btn btn-primary">
+                                            Показать
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="">
                 <div class="card">
                     <div class="card-header">
@@ -31,7 +57,7 @@ include __DIR__ . '/../header.php';
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="table-responsive">
-                                <form action="/funnel" class="table-form">
+                                <form action="/" class="table-form">
                                     <table class="table js-table">
                                         <thead class="bg-light js-tableHead">
                                         <tr class="border-0">
@@ -65,6 +91,16 @@ include __DIR__ . '/../header.php';
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        jQuery('.js-date').daterangepicker({
+            locale: {
+                format: 'DD.MM.YYYY'
+            }
+        });
+    })
+</script>
 
 <?php
 include __DIR__ . '/../footer.php';

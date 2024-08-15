@@ -28,6 +28,7 @@ Router::route('/employers', [EmployersController::class, 'index'], PermissionMid
 Router::route('/import-process', [IndexController::class, 'importFull'], PermissionMiddleware::class);
 Router::route('/update-bills-process', [IndexController::class, 'updateFull'], PermissionMiddleware::class);
 Router::route('/skorozvon-integration', [ZvonokController::class, 'index'], PermissionMiddleware::class);
+Router::route('skorozvon-integration/download', [ZvonokController::class, 'download'], PermissionMiddleware::class);
 Router::route('/stat', [StatController::class, 'index'], PermissionMiddleware::class);
 //Router::route('/test', [IndexController::class, 'test'], AuthMiddleware::class);
 Router::route('/login', [AuthController::class, 'login']);
