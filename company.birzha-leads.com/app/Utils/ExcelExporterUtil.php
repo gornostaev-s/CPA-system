@@ -77,11 +77,17 @@ class ExcelExporterUtil
         $sheet = $spreadsheet->getActiveSheet();
         $res = [];
 
-        if (!empty($this->header)) {
+        if (!empty($this->headers)) {
             $res[] = $this->headers;
         }
 
-        $this->prepareData($sheet, array_merge($res, $this->data));
+        $res = array_merge($res, $this->data);
+
+//        echo '<pre>';
+//        var_dump($res);
+//        die;
+
+        $this->prepareData($sheet, $res);
 
 
         $writer = new Xlsx($spreadsheet);

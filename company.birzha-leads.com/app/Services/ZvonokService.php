@@ -4,6 +4,9 @@ namespace App\Services;
 
 use App\Clients\SkorozvonClient;
 use App\Entities\Forms\ZvonokLeadForm;
+use App\Queries\ZvonokQuery;
+use App\Repositories\ZvonokClientRepository;
+use App\Utils\ExcelExporterUtil;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -12,7 +15,9 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class ZvonokService
 {
     public function __construct(
-        private readonly SkorozvonClient $skorozvonClient
+        private readonly SkorozvonClient $skorozvonClient,
+        private readonly ZvonokClientRepository $zvonokClientRepository,
+        private readonly ExcelExporterUtil $exporterUtil
     )
     {
         $this->skorozvonClient->setAuthData(
@@ -39,5 +44,21 @@ class ZvonokService
             $zvonokLeadForm->name,
             $zvonokLeadForm->tag
         );
+    }
+
+    public function queryToXlsx(ZvonokQuery $query): string
+    {
+        $clients = $this->zvonokClientRepository->getAllClients($query);
+        $phones = [];
+
+        foreach ($clients as $client) {
+            $phones[] = [$client->phone];
+        }
+
+        $content = $this
+            ->exporterUtil
+            ->setData($phones)
+            ->export('zvonok.xlsx')
+        ;
     }
 }

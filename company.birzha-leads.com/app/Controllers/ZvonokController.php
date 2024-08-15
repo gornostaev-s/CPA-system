@@ -67,29 +67,12 @@ class ZvonokController extends Controller
         ]);
     }
 
-    public function download()
+    public function download(): string
     {
         $request = ValidationUtil::validate($_GET,[
             "datetime" => 'max:255',
         ]);
 
-        $clients = $this->zvonokClientRepository->getAllClients($this->query->setRequest($request));
-        $phones = [];
-
-        foreach ($clients as $client) {
-            $phones[] = $client->phone;
-        }
-
-        $content = $this
-            ->exporterUtil
-            ->setData($phones)
-            ->setHeaders(['Номер'])
-            ->export('zvonok.xslx')
-        ;
-
-        echo '<pre>';
-        var_dump($content);
-        die;
-
+        return $this->zvonokService->queryToXlsx($this->query->setRequest($request));
     }
 }
