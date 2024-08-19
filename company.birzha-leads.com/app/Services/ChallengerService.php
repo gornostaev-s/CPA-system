@@ -28,9 +28,17 @@ class ChallengerService
     /**
      * @param ChallengerCreateForm $form
      * @return Challenger
+     * @throws ReflectionException
+     * @throws ValidationException
      */
     public function create(ChallengerCreateForm $form): Challenger
     {
+        $matchClient = $this->clientsRepository->findOneByInn($form->inn);
+
+        if ($matchClient) {
+            throw new ValidationException("Данный ИНН есть в системе обратитесь к Администратору");
+        }
+
         $challenger = Challenger::makeFromForm($form);
         $this->challengerRepository->save($challenger);
 
@@ -68,7 +76,13 @@ class ChallengerService
         $challenger = $this->challengerRepository->getById($challengerId);
 
         if (empty($challenger)) {
-            throw new Exception('Клиент в воронке не найден!');
+            throw new ValidationException('Клиент в воронке не найден!');
+        }
+
+        $matchClient = $this->clientsRepository->findOneByInn($challenger->inn);
+
+        if ($matchClient) {
+            throw new ValidationException("Данный ИНН есть в системе обратитесь к Администратору");
         }
 
         $this->clientsRepository->save(Client::makeByChallenger($challenger));

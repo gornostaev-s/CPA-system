@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use App\Core\Controller;
 use App\Entities\Forms\ChallengerCreateForm;
 use App\Entities\Forms\ChallengerUpdateForm;
+use App\Entities\Forms\ClientCreateForm;
 use App\Helpers\ApiHelper;
 use App\Services\ChallengerService;
 use App\Utils\Exceptions\ValidationException;
@@ -46,6 +47,7 @@ class ChallengersController extends Controller
 
     /**
      * @return bool|string
+     * @throws ReflectionException
      * @throws ValidationException
      */
     public function add(): bool|string
@@ -59,13 +61,19 @@ class ChallengersController extends Controller
             "owner_id" => 'integer',
         ]);
 
-        $challenger = $this->challengerService->create(ChallengerCreateForm::makeFromRequest($request));
+        try {
+            $challenger = $this->challengerService->create(ChallengerCreateForm::makeFromRequest($request));
+        } catch (ValidationException $exception) {
+
+            return ApiHelper::sendError(['message' => $exception->getMessage()]);
+        }
 
         return ApiHelper::sendSuccess(['inn' => $challenger->inn]);
     }
 
     /**
      * @return bool|string
+     * @throws ReflectionException
      */
     public function move(): bool|string
     {
@@ -75,7 +83,7 @@ class ChallengersController extends Controller
             ]);
 
             $this->challengerService->move($request['id']);
-        } catch (Throwable $e) {
+        } catch (ValidationException $e) {
 
             return ApiHelper::sendError(['message' => $e->getMessage()]);
         }
