@@ -17,6 +17,8 @@ use App\Entities\Forms\ClientUpdateForm;
 use App\Events\BeforeUpdateClient;
 use App\Helpers\AuthHelper;
 use App\Helpers\PhoneHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 use App\Repositories\BillRepository;
 use App\Repositories\ClientsRepository;
 use App\Repositories\CompanyRepository;
@@ -33,7 +35,8 @@ class ClientsService
         private readonly ClientsRepository $clientsRepository,
         private readonly BillRepository $billRepository,
         private readonly UserRepository $userRepository,
-        private readonly Redis $redis
+        private readonly Redis $redis,
+        private readonly PermissionManager $permissionManager
     )
     {
     }
@@ -48,7 +51,7 @@ class ClientsService
     {
         $matchClient = $this->clientsRepository->findOneByInn($form->inn);
 
-        if ($matchClient) {
+        if ($matchClient && !$this->permissionManager->has(PermissionsEnum::editClients->value)) {
             throw new ValidationException("Данный ИНН есть в системе обратитесь к Администратору");
         }
 

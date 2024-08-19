@@ -9,6 +9,8 @@ use App\Entities\Forms\ClientCreateForm;
 use App\Entities\Forms\ClientUpdateForm;
 use App\Helpers\ApiHelper;
 use App\Helpers\AuthHelper;
+use App\RBAC\Enums\PermissionsEnum;
+use App\RBAC\Managers\PermissionManager;
 use App\Repositories\ClientsRepository;
 use App\Services\ClientsService;
 use App\Services\CompanyService;
@@ -21,7 +23,8 @@ class ClientsController extends Controller
 {
     public function __construct(
         private readonly ClientsService $clientsService,
-        private readonly ClientsRepository $clientsRepository
+        private readonly ClientsRepository $clientsRepository,
+        private readonly PermissionManager $permissionManager
     )
     {
         parent::__construct();
@@ -64,7 +67,8 @@ class ClientsController extends Controller
             "owner_id" => 'integer',
         ]);
 
-        if (!AuthHelper::getAuthUser()->isAdmin()) {
+        if (!$this->permissionManager->has(PermissionsEnum::editClients->value)) {
+
             return ApiHelper::sendError(['message' => 'Добавить клиента может только администратор']);
         }
 
