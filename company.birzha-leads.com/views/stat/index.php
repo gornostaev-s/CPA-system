@@ -7,6 +7,7 @@ use App\Entities\Company;
 use App\Entities\Enums\BillType;
 use App\Entities\Enums\EmployersStatus;
 use App\Entities\Enums\OperationType;
+use App\Entities\Enums\SourceEnum;
 use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\BillHelper;
@@ -106,22 +107,22 @@ include __DIR__ . '/../header.php';
                                                         <?= $billHelper->getOpenBillsCountByUserId($employer->id) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value) ?>
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value, [SourceEnum::Reg->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value) ?>
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value) ?>
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value, [SourceEnum::Reg->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value) ?>
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value) ?>
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value, [SourceEnum::Reg->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value) ?>
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= empty($data['period'])

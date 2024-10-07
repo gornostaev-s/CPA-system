@@ -17,8 +17,8 @@ class BillHelper
         return $this->billRepository->getOpenBillsCountByUserId($userId);
     }
 
-    public function getBillsCountByUserId(int $userId, int $type = null)
+    public function getBillsCountByUserId(int $userId, int $type = null, array $source)
     {
-        return $this->billRepository->getBillsCountByUserId($userId, $type);
+        return $this->billRepository->getBillsCountByUserId($userId, $type, $source);
     }
 }
