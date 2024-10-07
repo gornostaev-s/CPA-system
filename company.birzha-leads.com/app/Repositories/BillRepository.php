@@ -55,6 +55,16 @@ class BillRepository
         return $queryRes['count'];
     }
 
+    public function getBillsCountByUserIdNotInSource(int $userId, int $type = null, array $source = [])
+    {
+        $typeQuery = $type ? " AND b.type=$type" : '';
+        $sources = !empty($source) ? " AND c.source NOT IN (".implode(',', $source).")" : '';
+
+        $queryRes = $this->mapper->db->query("SELECT count(c.id) as count FROM clients c JOIN bills b ON client_id = c.id WHERE c.owner_id = $userId AND b.status = " . BillStatus::Open->value . $typeQuery . $sources)->fetch();
+
+        return $queryRes['count'];
+    }
+
     /**
      * @param array $queryRes
      * @return Bill|null

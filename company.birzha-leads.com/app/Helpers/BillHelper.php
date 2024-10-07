@@ -21,4 +21,9 @@ class BillHelper
     {
         return $this->billRepository->getBillsCountByUserId($userId, $type, $source);
     }
+
+    public function getBillsCountByUserIdNotInSource(int $userId, int $type = null, array $source = [])
+    {
+        return $this->billRepository->getBillsCountByUserIdNotInSource($userId, $type, $source);
+    }
 }

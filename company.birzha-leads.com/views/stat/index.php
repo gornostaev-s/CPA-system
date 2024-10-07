@@ -109,25 +109,25 @@ include __DIR__ . '/../header.php';
                                                         <?= $billHelper->getOpenBillsCountByUserId($employer->id) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value, [SourceEnum::Reg->value]) ?>
+                                                        <?= $billHelper->getBillsCountByUserIdNotInSource($employer->id, BillType::alfabank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value, [SourceEnum::Reg->value]) ?>
+                                                        <?= $billHelper->getBillsCountByUserIdNotInSource($employer->id, BillType::tinkoff->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value, [SourceEnum::Reg->value]) ?>
+                                                        <?= $billHelper->getBillsCountByUserIdNotInSource($employer->id, BillType::sberbank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
-                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::psb->value, [SourceEnum::Reg->value]) ?>
+                                                        <?= $billHelper->getBillsCountByUserIdNotInSource($employer->id, BillType::psb->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::psb->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
