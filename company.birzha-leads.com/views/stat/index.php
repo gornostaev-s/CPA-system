@@ -78,8 +78,11 @@ include __DIR__ . '/../header.php';
                                                 <th class="border-0">Количество клиентов</th>
                                                 <th class="border-0">Количество открытых счетов</th>
                                                 <th class="border-0">Альфа</th>
+                                                <th class="border-0">Альфа ИП</th>
                                                 <th class="border-0">Тин</th>
+                                                <th class="border-0">Тин ИП</th>
                                                 <th class="border-0">Сбер</th>
+                                                <th class="border-0">Сбер ИП</th>
                                                 <th class="border-0">А+Т+С</th>
                                                 <th class="border-0">День(А+Т+С)</th>
                                                 <th class="border-0">Неделя(А+Т+С)</th>
@@ -106,7 +109,16 @@ include __DIR__ . '/../header.php';
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::alfabank->value) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::tinkoff->value) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value) ?>

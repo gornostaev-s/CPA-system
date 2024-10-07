@@ -41,6 +41,7 @@ class Company extends BaseEntity
     public int $npd;
     public int $empl;
     public int $mode;
+    public ?int $source;
     public int $operation_type;
     public int $owner_id;
     public string $created_at;

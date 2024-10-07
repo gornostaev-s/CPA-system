@@ -15,7 +15,7 @@ enum BillType: int
             self::alfabank->value => 'Альфа-банк',
             self::tinkoff->value => 'Т-банк',
             self::sberbank->value => 'Сбербанк',
-            self::psb->value => 'ПСБ',
+            self::psb->value => 'ВТБ',
             default => ''
         };
     }

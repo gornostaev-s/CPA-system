@@ -11,6 +11,7 @@ use App\Entities\Enums\EmplStatus;
 use App\Entities\Enums\NpdStatus;
 use App\Entities\Enums\OperationType;
 use App\Entities\Enums\PartnerType;
+use App\Entities\Enums\SourceEnum;
 use App\Entities\User;
 use App\Helpers\AttributeCheckHelper;
 use App\Helpers\AuthHelper;
@@ -202,7 +203,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th colspan="4" class="border-0"><span>Альфа банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Тинькофф банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Сбербанк</span></th>
-                                                <th colspan="3" class="border-0"><span>ПСБ</span></th>
+                                                <th colspan="3" class="border-0"><span>ВТБ</span></th>
                                             </tr>
                                             <tr>
                                                 <!-- Альфа банк -->
@@ -218,7 +219,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
-                                                <!-- ПСБ -->
+                                                <!-- ВТБ -->
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
@@ -229,6 +230,21 @@ $showFields = $_GET['fields'] ?? [];
                                                 /** @var $company Company */
                                                 ?>
                                                 <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByMode($company->mode) ?>">
+                                                    <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
+                                                        <?php if (!(!empty($showFields) && !in_array('source', $showFields))) { ?>
+                                                            <td class="modal-table-primary__col text-left">
+                                                                <select name="source" class="table-form__select" style="width: 60px;">
+                                                                    <?php foreach (SourceEnum::cases() as $case) { ?>
+                                                                        <option value="<?= $case->value ?>" <?= AttributeCheckHelper::checkEqual($company->source, $case->value, 'selected') ?>><?= SourceEnum::getLabel($case->value) ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </td>
+                                                        <?php } ?>
+                                                    <?php } else { ?>
+                                                        <td class="modal-table-primary__col text-left">
+                                                            <?= SourceEnum::getLabel($company->source) ?>
+                                                        </td>
+                                                    <?php } ?>
                                                     <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
                                                         <?php if (!(!empty($showFields) && !in_array('mode', $showFields))) { ?>
                                                             <td class="modal-table-primary__col text-left">
@@ -501,7 +517,7 @@ $showFields = $_GET['fields'] ?? [];
                                                             <?= $company->sberbank->comment ?>
                                                         <?php } ?>
                                                     </td>
-                                                    <!-- ПСБ -->
+                                                    <!-- ВТБ -->
                                                     <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>"<?php } ?>>
                                                         <?php if ($isAdmin) { ?>
                                                             <select name="psb[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">

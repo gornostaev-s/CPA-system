@@ -44,7 +44,7 @@ enum OperationType: int
             self::TYPE12->value => 'Рега А+С',
             self::TYPE13->value => 'Рега А+Т',
             self::TYPE14->value => 'Рега Т+С',
-            self::TYPE15->value => 'РКО ПСБ',
+            self::TYPE15->value => 'РКО ВТБ',
             self::TYPE16->value => 'РКО А+П',
             self::TYPE17->value => 'РКО С+П',
             self::TYPE18->value => 'РКО Т+П',

@@ -196,7 +196,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th colspan="4" class="border-0"><span>Альфа банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Тинькофф банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Сбербанк</span></th>
-                                                <th colspan="3" class="border-0"><span>ПСБ</span></th>
+                                                <th colspan="3" class="border-0"><span>ВТБ</span></th>
                                             </tr>
                                             <tr>
                                                 <!-- Альфа банк -->
@@ -212,7 +212,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
-                                                <!-- ПСБ -->
+                                                <!-- ВТБ -->
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
@@ -400,7 +400,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     <td class="modal-table-primary__col text-left">
                                                         <input type="text" name="sberbank[comment]" value="<?= $company->sberbank->comment ?>" class="table-form__text">
                                                     </td>
-                                                    <!-- ПСБ -->
+                                                    <!-- ВТБ -->
                                                     <td class="modal-table-primary__col text-left">
                                                         <select name="psb[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">
                                                             <?php foreach (BillStatus::cases() as $item) { ?>
