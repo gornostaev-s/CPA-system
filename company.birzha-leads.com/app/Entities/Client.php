@@ -113,7 +113,7 @@ class Client extends BaseEntity
         $e->phone = $challenger->phone;
         $e->owner_id = $challenger->owner_id;
         $e->operation_type = $challenger->operation_type;
-        $e->comment = $challenger->comment;
+        $e->comment_mp = $challenger->comment;
         $e->comment_adm = $challenger->comment_adm;
 
         return $e;
