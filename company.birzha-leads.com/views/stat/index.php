@@ -84,6 +84,8 @@ include __DIR__ . '/../header.php';
                                                 <th class="border-0">Тин ИП</th>
                                                 <th class="border-0">Сбер</th>
                                                 <th class="border-0">Сбер ИП</th>
+                                                <th class="border-0">ВТБ</th>
+                                                <th class="border-0">ВТБ ИП</th>
                                                 <th class="border-0">А+Т+С</th>
                                                 <th class="border-0">День(А+Т+С)</th>
                                                 <th class="border-0">Неделя(А+Т+С)</th>
@@ -123,6 +125,12 @@ include __DIR__ . '/../header.php';
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= $billHelper->getBillsCountByUserId($employer->id, BillType::sberbank->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::psb->value, [SourceEnum::Reg->value]) ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?= $billHelper->getBillsCountByUserId($employer->id, BillType::psb->value, [SourceEnum::Bot->value, SourceEnum::Ip->value]) ?>
                                                     </td>
                                                     <td class="modal-table-primary__col text-left">
                                                         <?= empty($data['period'])
