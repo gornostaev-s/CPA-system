@@ -101,6 +101,17 @@ $showFields = $_GET['fields'] ?? [];
                                                         'class' => 'border-0',
                                                         'style' => 'min-width: 67px;'
                                                     ])
+                                                    ->setData('Ист')
+                                                    ->isHide((!empty($showFields) && !in_array('source', $showFields)))
+                                                    ->build()
+                                                ?>
+                                                <?= TableColumnHelper::make()
+                                                    ->setTag('th')
+                                                    ->setAttributes([
+                                                        'rowspan' => 2,
+                                                        'class' => 'border-0',
+                                                        'style' => 'min-width: 67px;'
+                                                    ])
                                                     ->setData('Режим')
                                                     ->isHide((!empty($showFields) && !in_array('mode', $showFields)))
                                                     ->build()
