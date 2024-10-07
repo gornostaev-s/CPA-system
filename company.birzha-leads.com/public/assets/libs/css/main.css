@@ -269,4 +269,35 @@ thead {
   flex-direction: row;
 }
 
+.burger-menu {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.burger-menu__open, .burger-menu__close {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .burger-menu__open {
+    display: inline-block;
+  }
+  .top-menu {
+    display: none;
+  }
+  .top-menu.active {
+    display: block;
+  }
+  .nav-item {
+    padding-left: 20px;
+  }
+  .burger-menu__handle.active .burger-menu__open {
+    display: none;
+  }
+  .burger-menu__handle.active .burger-menu__close {
+    display: inline-block;
+  }
+}
+
 /*#b84480*/

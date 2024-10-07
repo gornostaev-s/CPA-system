@@ -17,7 +17,7 @@ use App\RBAC\Managers\PermissionManager;
     <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css?v=1">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/assets/libs/css/style.css">
-    <link rel="stylesheet" href="/assets/libs/css/main.css?v=9">
+    <link rel="stylesheet" href="/assets/libs/css/main.css?v=<?= time() ?>">
     <title>Панель администратора</title>
 </head>
 <body>
@@ -28,18 +28,26 @@ use App\RBAC\Managers\PermissionManager;
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
+            <div class="burger-menu">
+                <a class="js-toggleMenu burger-menu__handle" href="javascript:void(0)">
+                    <img class="burger-menu__open" src="/assets/images/menu.png" alt="">
+                    <img class="burger-menu__close" src="/assets/images/close-menu.png" alt="">
+                </a>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    jQuery('.js-toggleMenu').on('click', function () {
+                        jQuery('.js-toggleMenu').toggleClass('active')
+                        jQuery('.js-menu').toggleClass('active')
+                    })
+                })
+            </script>
             <div class="dashboard-header__logoContainer">
                 <a class="navbar-brand" href="/">
                     <img class="dashboard-header__logo" src="/assets/images/logo.png" alt="">
                 </a>
             </div>
-            <div class="burger-menu">
-                <a href="javascript:void(0)">
-                    <img class="burger-menu__open" src="/assets/images/menu.png" alt="">
-                    <img class="burger-menu__close" src="/assets/images/close-menu.png" alt="">
-                </a>
-            </div>
-            <div class="top-menu">
+            <div class="top-menu js-menu">
                 <ul class="navbar-nav">
                     <?php if (PermissionManager::getInstance()->hasPermissions([
                         PermissionsEnum::viewClients->value, PermissionsEnum::editClients->value, PermissionsEnum::clients->value
@@ -85,7 +93,7 @@ use App\RBAC\Managers\PermissionManager;
                         </li>
                     <?php }?>
                     <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editUserPermissions->value)) { ?>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link <?= ActivePageHelper::check('/user-roles', 'active') ?>" href="/user-roles">
                                 Доступы
                             </a>
