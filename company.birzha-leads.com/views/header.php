@@ -33,6 +33,12 @@ use App\RBAC\Managers\PermissionManager;
                     <img class="dashboard-header__logo" src="/assets/images/logo.png" alt="">
                 </a>
             </div>
+            <div class="burger-menu">
+                <a href="javascript:void(0)">
+                    <img class="burger-menu__open" src="/assets/images/menu.png" alt="">
+                    <img class="burger-menu__close" src="/assets/images/close-menu.png" alt="">
+                </a>
+            </div>
             <div class="top-menu">
                 <ul class="navbar-nav">
                     <?php if (PermissionManager::getInstance()->hasPermissions([
