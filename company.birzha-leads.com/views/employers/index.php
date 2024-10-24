@@ -186,7 +186,7 @@ include __DIR__ . '/../header.php';
                         <input required class="input-group__text" type="password" name="passwordConfirm" placeholder="Повторите пароль">
                     </div>
                     <div class="input-group">
-                        <input class="input-group__checkbox admin_checkbox" id="isAdmin" type="checkbox" name="isAdmin">
+                        <input class="input-group__checkbox admin_checkbox" id="isAdmin" type="checkbox" name="isAdmin" value="1">
                         <label for="isAdmin">
                             Администратор
                         </label>
