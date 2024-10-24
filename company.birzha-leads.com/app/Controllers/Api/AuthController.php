@@ -53,7 +53,8 @@ class AuthController extends Controller
                 "email" => 'required',
                 "password" => 'required',
                 "passwordConfirm" => 'required',
-                "notAuth" => 'boolean'
+                "notAuth" => 'boolean',
+                'isAdmin' => 'boolean'
             ]);
 
             $form = RegisterForm::makeFromRequest($request);

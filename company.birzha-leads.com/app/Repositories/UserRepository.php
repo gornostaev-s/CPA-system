@@ -93,7 +93,11 @@ class UserRepository
      */
     public function save(User $user): User
     {
-        $this->mapper->save($user);
+        $id = $this->mapper->save($user);
+
+        if (!$user->id) {
+            $user->id = $id;
+        }
 
         return $user;
     }

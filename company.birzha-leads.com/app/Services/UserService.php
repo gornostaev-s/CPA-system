@@ -6,8 +6,10 @@ use App\Entities\Forms\ChangePasswordForm;
 use App\Entities\Forms\EmployerUpdateForm;
 use App\Entities\Forms\LoginForm;
 use App\Entities\Forms\RegisterForm;
+use App\Entities\Forms\UserRoleUpdateForm;
 use App\Entities\User;
 use App\Helpers\TokenHelper;
+use App\RBAC\Managers\PermissionManager;
 use App\Repositories\UserRepository;
 use Exception;
 use ReflectionException;
@@ -17,6 +19,7 @@ class UserService
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly TokenHelper $tokenHelper,
+        private readonly UserRolesService $userRolesService
     )
     {
     }
@@ -67,6 +70,13 @@ class UserService
 
         if (!$form->notAuth) {
             $this->login(LoginForm::makeFromRequest(['email' => $user->email, 'password' => $form->passwordConfirm]));
+        }
+
+        if ($form->isAdmin) {
+            $this->userRolesService->update(UserRoleUpdateForm::makeFromRequest([
+                'role_id' => 1,
+                'user_id' => $user->id
+            ]));
         }
 
         return true;

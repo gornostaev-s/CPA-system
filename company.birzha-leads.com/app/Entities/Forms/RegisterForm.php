@@ -11,6 +11,7 @@ class RegisterForm extends BaseEntity
     public string $passwordConfirm;
     public string $name;
     public bool $notAuth;
+    public bool $isAdmin;
 
     public static function makeFromRequest(array $request): RegisterForm
     {
@@ -20,6 +21,7 @@ class RegisterForm extends BaseEntity
         $e->setPassword($request['password']);
         $e->passwordConfirm = $request['passwordConfirm'];
         $e->notAuth = !empty($request['notAuth']);
+        $e->isAdmin = !empty($request['isAdmin']);
 
         return $e;
     }

@@ -279,6 +279,20 @@ thead {
   display: none;
 }
 
+.input-group__checkbox {
+  margin: 0;
+  width: 20px;
+}
+
+.input-group__checkbox {
+  position: relative;
+  top: 5px;
+}
+
+label {
+  color: #000;
+}
+
 @media (max-width: 992px) {
   .burger-menu__open {
     display: inline-block;
