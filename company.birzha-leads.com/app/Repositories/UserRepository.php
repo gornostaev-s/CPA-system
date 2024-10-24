@@ -95,7 +95,7 @@ class UserRepository
     {
         $id = $this->mapper->save($user);
 
-        if (!$user->id) {
+        if (empty($user->id)) {
             $user->id = $id;
         }
 
