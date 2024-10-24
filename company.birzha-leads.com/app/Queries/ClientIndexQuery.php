@@ -92,11 +92,11 @@ class ClientIndexQuery extends QueryBuilder
 
         $this->addWith(['tc' => Query::make()
             ->addSelect(['*'])
-            ->addWhere(['type' => 4])
+            ->addWhere(['type' => 5])
             ->addFrom('bills')
             ->getQuery()
         ]);
-        $this->addJoin('LEFT OUTER JOIN pb ON c.id = tc.client_id');
+        $this->addJoin('LEFT OUTER JOIN tc ON c.id = tc.client_id');
         $this->addSelect(['coalesce(tc.status, 0) as tochka_status']);
         $this->addSelect(['coalesce(tc.comment, \'\') as tochka_comment']);
         $this->addSelect(['tc.date as tochka_date']);

@@ -6,7 +6,7 @@ use DateTimeImmutable;
 
 class DateTimeInputHelper
 {
-    const DEFAULT_INTERVAL = 30;
+    const DEFAULT_INTERVAL = 7;
 
     public static function getDefaultIntervalString(): string
     {
