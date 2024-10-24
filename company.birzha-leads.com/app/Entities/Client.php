@@ -53,6 +53,7 @@ class Client extends BaseEntity
     public ?TinkoffClient $tinkoff;
     public ?SberbankClient $sberbank;
     public ?PsbClient $psb;
+    public ?TochkaClient $tochka;
     public ?User $owner;
 
     public function __construct()

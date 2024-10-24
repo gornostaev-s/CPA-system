@@ -3,6 +3,7 @@
  * @var array $data
  */
 
+use App\Entities\Client;
 use App\Entities\Command;
 use App\Entities\Company;
 use App\Entities\Enums\BillStatus;
@@ -215,6 +216,7 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th colspan="3" class="border-0"><span>Тинькофф банк</span></th>
                                                 <th colspan="3" class="border-0"><span>Сбербанк</span></th>
                                                 <th colspan="3" class="border-0"><span>ВТБ</span></th>
+                                                <th colspan="3" class="border-0"><span>Точка</span></th>
                                             </tr>
                                             <tr>
                                                 <!-- Альфа банк -->
@@ -234,11 +236,15 @@ $showFields = $_GET['fields'] ?? [];
                                                 <th style="min-width: 75px;"><span>Статус</span></th>
                                                 <th style="min-width: min-content;"><span>Дата</span></th>
                                                 <th><span>Комментарий</span></th>
+                                                <!-- Точка -->
+                                                <th style="min-width: 75px;"><span>Статус</span></th>
+                                                <th style="min-width: min-content;"><span>Дата</span></th>
+                                                <th><span>Комментарий</span></th>
                                             </tr>
                                             </thead>
                                             <tbody class="js-orders">
                                             <?php foreach ($data['companies'] as $company) {
-                                                /** @var $company Company */
+                                                /** @var $company Client */
                                                 ?>
                                                 <tr class="js-dataRow" data-id="<?= $company->id ?>" style="background-color: <?= CompanyColorHelper::getColorByMode($company->mode) ?>">
                                                     <?php if (PermissionManager::getInstance()->has(PermissionsEnum::editClients->value)) { ?>
@@ -552,6 +558,32 @@ $showFields = $_GET['fields'] ?? [];
                                                             <input type="text" name="psb[comment]" value="<?= $company->psb->comment ?>" class="table-form__text">
                                                         <?php } else { ?>
                                                             <?= $company->psb->comment ?>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <!-- Точка -->
+                                                    <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>"<?php } ?>>
+                                                        <?php if ($isAdmin) { ?>
+                                                            <select name="tochka[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">
+                                                                <?php foreach (BillStatus::cases() as $item) { ?>
+                                                                    <option value="<?= $item->value ?>" <?= ($company->tochka->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <?= BillStatus::getLabel($company->tochka->status) ?>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input style="width: 49px;" type="date" name="tochka[date]" class="table-form__text" <?php if (!empty($company->tochka->date)) { ?>value="<?= (new DateTime($company->tochka->date))->format('Y-m-d') ?>" <?php } ?>>
+                                                        <?php } else { ?>
+                                                            <?= $company->tochka->date ? (new DateTime($company->tochka->date))->format('m-d') : '' ?>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="modal-table-primary__col text-left">
+                                                        <?php if ($isAdmin) { ?>
+                                                            <input type="text" name="tochka[comment]" value="<?= $company->tochka->comment ?>" class="table-form__text">
+                                                        <?php } else { ?>
+                                                            <?= $company->tochka->comment ?>
                                                         <?php } ?>
                                                     </td>
                                                 </tr>

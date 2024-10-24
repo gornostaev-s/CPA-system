@@ -32,11 +32,13 @@ class ClientUpdateForm extends BaseUpdateForm
     public ?array $tinkoff;
     public ?array $sberbank;
     public ?array $psb;
+    public ?array $tochka;
 
     const RELATED_FIELDS = [
         'alfabank',
         'tinkoff',
         'sberbank',
-        'psb'
+        'psb',
+        'tochka',
     ];
 }

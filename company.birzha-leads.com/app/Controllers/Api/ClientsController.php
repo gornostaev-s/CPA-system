@@ -135,6 +135,9 @@ class ClientsController extends Controller
             "psb.status" => 'integer|max:255',
             "psb.date" => 'max:255',
             "psb.comment" => 'max:255',
+            "tochka.status" => 'integer|max:255',
+            "tochka.date" => 'max:255',
+            "tochka.comment" => 'max:255',
         ]);
 
         $this->clientsService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
@@ -182,6 +185,9 @@ class ClientsController extends Controller
             "psb.status" => 'integer|max:255',
             "psb.date" => 'max:255',
             "psb.comment" => 'max:255',
+            "tochka.status" => 'integer|max:255',
+            "tochka.date" => 'max:255',
+            "tochka.comment" => 'max:255',
         ]);
 
         $this->clientsService->updateFromClientUpdateForm(ClientUpdateForm::makeFromRequest($request));
