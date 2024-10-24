@@ -47,7 +47,7 @@ class StatController extends Controller
         $isAdmin = $this->permissionManager->has(PermissionsEnum::allStat->value);
 
         return $this->view('stat/index', [
-            'employers' => !$isAdmin ? [$this->userRepository->getUserById($user->id)] : $this->userRepository->getEmployers(),
+            'employers' => !$isAdmin ? [$this->userRepository->getUserById($user->id)] : $this->userRepository->getNotDismissedEmployers(),
             'billHelper' => $this->billHelper,
             'clientHelper' => $this->clientHelper,
             'period' => $period,
