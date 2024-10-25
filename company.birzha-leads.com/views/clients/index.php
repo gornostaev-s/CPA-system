@@ -563,7 +563,7 @@ $showFields = $_GET['fields'] ?? [];
                                                     <!-- Точка -->
                                                     <td class="modal-table-primary__col text-left" <?php if (!$isAdmin) { ?>style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>"<?php } ?>>
                                                         <?php if ($isAdmin) { ?>
-                                                            <select name="tochka[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->psb->status) ?>">
+                                                            <select name="tochka[status]" class="table-form__select" style="background-color: <?= CompanyColorHelper::getColorByStatus($company->tochka->status) ?>">
                                                                 <?php foreach (BillStatus::cases() as $item) { ?>
                                                                     <option value="<?= $item->value ?>" <?= ($company->tochka->status == $item->value) ? 'selected' : ''?>> <?= BillStatus::getLabel($item->value) ?></option>
                                                                 <?php } ?>
@@ -954,6 +954,7 @@ $fields = $_GET['fields'] ?? [];
                 case 'tinkoff[status]':
                 case 'sberbank[status]':
                 case 'psb[status]':
+                case 'tochka[status]':
                     updateStatusColor($input, inputValue);
                     break;
                 case 'mode' :
