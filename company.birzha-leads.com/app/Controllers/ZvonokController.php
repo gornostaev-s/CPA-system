@@ -42,12 +42,13 @@ class ZvonokController extends Controller
             "tag" => 'max:255|default:\'\'' // {ct_campaign_id}
         ]);
 
-        $this->zvonokClientRepository->save(ZvonokClient::make(
+        $zvonokClient = $this->zvonokClientRepository->save(ZvonokClient::make(
             $request['phone'],
             (int)$request['projectId']
         ));
 
         $form = ZvonokLeadForm::makeFromRequest($request);
+        $form->setName("zwonok$zvonokClient->id");
         $form->setProjectId($request['projectId']);
         $this->zvonokService->addLead($form);
     }
