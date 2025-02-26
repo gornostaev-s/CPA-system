@@ -48,7 +48,8 @@ class ZvonokClientRepository
      */
     public function save(ZvonokClient $zvonokClient): ZvonokClient
     {
-        $this->mapper->save($zvonokClient);
+        $id = $this->mapper->save($zvonokClient);
+        $zvonokClient->setId($id);
 
         return $zvonokClient;
     }

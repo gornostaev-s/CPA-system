@@ -41,4 +41,12 @@ class ZvonokClient extends BaseEntity
     {
         $this->created_at = $created_at;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 }
