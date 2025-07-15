@@ -12,11 +12,25 @@ abstract class QueryBuilder
     private array $where = [];
     private array $with = [];
     private array $join = [];
+    private ?int $limit;
+    private ?int $offset;
 
     public function __construct(
         private readonly PDO $db
     )
     {
+    }
+
+    protected function reset(): void
+    {
+        $this->from = [];
+        $this->group = [];
+        $this->select = [];
+        $this->where = [];
+        $this->with = [];
+        $this->join = [];
+        $this->limit = null;
+        $this->offset = null;
     }
 
     /**
@@ -63,6 +77,41 @@ abstract class QueryBuilder
         return $this;
     }
 
+    public function setSelect(array $select): self
+    {
+        $this->select = $select;
+
+        return $this;
+    }
+
+    /**
+     * @param int $limit
+     * @return $this
+     */
+    public function addLimit(int $limit): static
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
+    public function addOffset(int $offset): static
+    {
+        $this->offset = $offset;
+
+        return $this;
+    }
+
+    public function setPage(int $page): void
+    {
+        $this->calculateOffsetByPage($page);
+    }
+
+    private function calculateOffsetByPage(int $page): void
+    {
+        $this->addOffset($this->limit * ($page - 1));
+    }
+
     /**
      * @param array $where
      * @return $this
@@ -90,19 +139,31 @@ abstract class QueryBuilder
      */
     public function getQuery(): string
     {
-        return strtr('{with}SELECT {select} FROM {from} {join} {where} {group}', [
+        return strtr('{with}SELECT {select} FROM {from} {join} {where} {group} {limit} {offset}', [
             '{with}' => $this->prepareWith(),
             '{select}' => $this->prepareSelect(),
             '{from}' => $this->prepareFrom(),
             '{join}' => $this->preapareJoin(),
             '{where}' => $this->prepareWhere(),
             '{group}' => $this->prepareGroup(),
+            '{limit}' => $this->prepareLimit(),
+            '{offset}' => $this->prepareOffset(),
         ]);
     }
 
     public function prepare($value): string
     {
         return $this->db->quote($value);
+    }
+
+    private function prepareLimit(): string
+    {
+        return !empty($this->limit) ? "LIMIT " . $this->limit : '';
+    }
+
+    private function prepareOffset(): string
+    {
+        return !empty($this->offset) ? "OFFSET " . $this->offset : '';
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Clients\SkorozvonClient;
 use App\Entities\Forms\ZvonokLeadForm;
 use App\Queries\ZvonokQuery;
 use App\Repositories\ZvonokClientRepository;
+use App\Utils\CsvPhoneExporterUtil;
 use App\Utils\ExcelExporterUtil;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -14,10 +15,15 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ZvonokService
 {
+    const FILENAME = 'zvonok.csv';
+    const PATH = '/var/www/company.birzha-leads.com/runtime/';
+
     public function __construct(
         private readonly SkorozvonClient $skorozvonClient,
         private readonly ZvonokClientRepository $zvonokClientRepository,
-        private readonly ExcelExporterUtil $exporterUtil
+        private readonly ExcelExporterUtil $exporterUtil,
+        private readonly CsvPhoneExporterUtil $csvPhoneExporterUtil,
+        private readonly ZvonokQuery $query,
     )
     {
         $this->skorozvonClient->setAuthData(
@@ -46,19 +52,26 @@ class ZvonokService
         );
     }
 
-    public function queryToXlsx(ZvonokQuery $query): string
+    public function queryToXlsx(array $request): string
     {
-        $clients = $this->zvonokClientRepository->getAllClients($query);
-        $phones = [];
+        $count = $this->zvonokClientRepository->getClientsCount($this->query->setRequest($request));
+        $pagesCount = ceil($count / ZvonokQuery::PAGE_SIZE);
+        $fullName = self::PATH . self::FILENAME;
 
-        foreach ($clients as $client) {
-            $phones[] = [$client->phone];
+        for ($i = 1; $i <= $pagesCount; $i++) {
+            $clients = $this->zvonokClientRepository->getClientsByPage($this->query->setRequest($request), $i);
+            $phones = [];
+            foreach ($clients as $client) {
+                $phones[] = $client->phone;
+            }
+
+            $this
+                ->csvPhoneExporterUtil
+                ->appendPhonesToFile($phones, $fullName)
+            ;
         }
+        $this->csvPhoneExporterUtil->enableHeaders($fullName);
 
-        return $this
-            ->exporterUtil
-            ->setData($phones)
-            ->export('zvonok.xlsx')
-        ;
+        return $this->csvPhoneExporterUtil->getFileContent($fullName);
     }
 }

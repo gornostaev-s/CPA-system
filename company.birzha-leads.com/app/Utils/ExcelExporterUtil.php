@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -10,6 +12,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExcelExporterUtil
 {
+    const FILENAME = 'zvonok_phones.xlsx';
+    const PATH = '/var/www/company.birzha-leads.com/runtime/';
     private array $data;
     private ?array $headers = null;
     private const COLUMN_MAP = [
@@ -35,7 +39,7 @@ class ExcelExporterUtil
      * @param $type
      * @return void
      */
-    private function enableHeaders(string $filename, $type = 'xlsx'): void
+    public function enableHeaders(string $filename, $type = 'xlsx'): void
     {
         if ($type === 'xlsx') {
             header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -82,10 +86,6 @@ class ExcelExporterUtil
         }
 
         $res = array_merge($res, $this->data);
-
-//        echo '<pre>';
-//        var_dump($res);
-//        die;
 
         $this->prepareData($sheet, $res);
 

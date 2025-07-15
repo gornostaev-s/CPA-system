@@ -28,6 +28,22 @@ class ZvonokClientRepository
         return $this->prepareRes($queryRes ?: []);
     }
 
+    public function getClientsCount(ZvonokQuery $query)
+    {
+        $queryRes = $this->mapper->db->query($query->getCount())->fetchAll();
+
+        return $queryRes[0]['count'] ?? 0;
+    }
+
+    public function getClientsByPage(ZvonokQuery $query, int $page): bool|Generator
+    {
+        $query->addLimit(ZvonokQuery::PAGE_SIZE);
+        $query->setPage($page);
+        $queryRes = $this->mapper->db->query($query->build())->fetchAll();
+
+        return $this->prepareRes($queryRes ?: []);
+    }
+
     /**
      * @param array $queryRes
      * @return Generator
