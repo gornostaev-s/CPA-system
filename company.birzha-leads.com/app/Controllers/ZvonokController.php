@@ -74,6 +74,14 @@ class ZvonokController extends Controller
             "datetime" => 'max:255',
         ]);
 
-        return $this->zvonokService->queryToXlsx($request);
+        try {
+            $data = $this->zvonokService->queryToXlsx($request);
+        } catch (\Throwable $e) {
+            echo '<pre>';
+            var_dump($e->getTraceAsString());
+            die;
+        }
+
+        return $data ?? '';
     }
 }

@@ -57,6 +57,9 @@ class ZvonokService
         $count = $this->zvonokClientRepository->getClientsCount($this->query->setRequest($request));
         $pagesCount = ceil($count / ZvonokQuery::PAGE_SIZE);
         $fullName = self::PATH . self::FILENAME;
+        if (file_exists($fullName)) {
+            unlink($fullName);
+        }
 
         for ($i = 1; $i <= $pagesCount; $i++) {
             $clients = $this->zvonokClientRepository->getClientsByPage($this->query->setRequest($request), $i);
@@ -70,7 +73,7 @@ class ZvonokService
                 ->appendPhonesToFile($phones, $fullName)
             ;
         }
-        $this->csvPhoneExporterUtil->enableHeaders($fullName);
+        $this->csvPhoneExporterUtil->enableHeaders(self::FILENAME);
 
         return $this->csvPhoneExporterUtil->getFileContent($fullName);
     }
